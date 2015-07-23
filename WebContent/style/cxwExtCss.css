@@ -1,0 +1,125 @@
+.table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.table th, .table td {
+	border: 1px solid #8CACBB;
+	padding: 0.3em 0.7em;
+	text-align: left;
+}
+
+.table th {
+	background: #F8F8F8;
+	text-align: center;
+}
+
+.table thead th {
+	text-align: center;
+}
+
+.table tbody th {
+	text-align: right;
+}
+
+.table tr:hover {
+	background-color: #f6fafd;
+}
+
+.table td:hover {
+	background-color: #f9feff;
+}
+
+.form th {
+	text-align: right;
+}
+
+.form th, .form td {
+	padding: 0.1em 0.3em;
+	border: 1px solid #D1D7DC;
+}
+
+.form input, .form select, .form textarea {
+	width: 150px;
+}
+
+.form input[type='checkbox'], .form input[type='radio'] {
+	width: 20px;
+}
+
+fieldset {
+	border: 1px dotted #D1D7DC;
+}
+
+legend {
+	border: 1px dotted #D1D7DC;
+	font-size: small;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+li {
+	float: left;
+	font-family: Microsoft YaHei, Hiragino Sans GB, HiraginoSansGB-W3,
+		STHeiti Light, Heiti SC Light, Century Gothic, Verdana, Geneva,
+		sans-serif;
+	font-size: 12pt;
+}
+
+a {
+	width: 80px;
+	height: auto;
+	margin-left: 30px;
+	text-decoration: none;
+	color: #000;
+}
+
+a:link, a:visited {
+	display: block;
+}
+
+a:hover, a:active {
+	background-color: #FFC954;
+}
+
+.menu {
+	background: url("image/blurbg.jpg");
+	width: 100%;
+	height: 110px;
+}
+
+.main_Menu {
+	margin-top: 10px;
+}
+
+.subMenu {
+	margin-top: 10px;
+}
+
+.menuSpan {
+	width: 80px;
+	height: auto;
+	margin-left: 30px;
+}
+
+.clicked {
+	font-size: 120%;
+}
+
+.
+
+.td {
+	display: inline;
+	margin: 2px;
+	width: 19%;
+}
+
+.BlueFont {
+	color: #555;
+	font-size: 10pt;
+}

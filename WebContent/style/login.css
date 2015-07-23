@@ -1,0 +1,187 @@
+@CHARSET "UTF-8";
+
+html body {
+	background: #F1F4F5;
+	margin: 0;
+}
+
+a {
+	color: #AAAAAA;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:active {
+	text-decoration: none;
+}
+
+.total {
+	width: 80%;
+	padding: 1em;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.header {
+	position: static;
+	float: none;
+	clear: both;
+}
+
+.menu {
+	display: inline;
+	margin: 5px;
+}
+
+.logo {
+	float: left;
+}
+
+.navBar {
+	float: right;
+	padding: 10px;
+}
+
+.st-btn {
+	color: #48B770;
+}
+
+.mm {
+	margin-top: 3em;
+	height: 700px;
+	clear: both;
+	margin: 0 auto;
+}
+
+.mm-left {
+	background: #FFFFFF;
+	width: 40%;
+	height: 530px;
+	float: left;
+	border: 2px solid #F1F4F5;
+}
+
+.mm-right {
+	float: right;
+	height: 530px;
+	width: 57%;
+}
+
+.mm-right-up {
+	height: 450px;
+}
+
+.mm-right-down {
+	height: 70px;
+}
+
+.login {
+	margin: 20px;
+}
+
+dl {
+	margin-bottom: 5px;
+}
+
+.input-text {
+	background: url(about:blank) no-repeat\9;
+	border: 2px solid #F1F4F5;
+	font-size: 16px;
+	height: 44px;
+	padding: 0 0 0 15px;
+	width: 281px;
+}
+
+.labelCheckbox {
+	color: #666;
+	width: 130px;
+	font-size: 15px;
+	display: inline;
+	float: left;
+}
+
+.getpassword {
+	color: #666;
+	font-size: 15px;
+	float: right;
+	width: 120px;
+	display: inline;
+}
+
+
+.login-btn {
+	background-color: #3E94D7;
+	width: 300px;
+	margin-top: 10px;
+	font-size: 16px;
+	height: 44px;
+	color: #fff;
+	font-size: 20px;
+	font-family: arial, STHeiti, 'Microsoft YaHei', \5b8b\4f53;
+	letter-spacing: 10px;
+}
+
+.regbutton {
+	background-color: #7FB764;
+	width: 300px;
+	margin-top: 10px;
+	font-size: 16px;
+	height: 44px;
+	color: #fff;
+	font-size: 20px;
+	font-family: arial, STHeiti, 'Microsoft YaHei', \5b8b\4f53;
+	letter-spacing: 10px;
+}
+
+.login-corp {
+	background-color: #F8F8F8;
+	height: 70px;
+	margin-top: 40px;
+	margin-bottom: 0px;
+}
+
+.login-word {
+	text-align: center;
+	vertical-align: middle;
+	display: block;
+	padding: 20px;
+}
+
+.login-word-left {
+	display: inline;
+	margin: auto;
+}
+
+.login-word-right {
+	display: inline;
+	margin: auto;
+}
+
+.item {
+	display: inline;
+}
+
+.item-image {
+	display: inline;
+	margin-left: 50px;
+}
+
+.pic {
+	width: 100px;
+	height: 100px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
