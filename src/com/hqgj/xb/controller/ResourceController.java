@@ -36,7 +36,6 @@ public class ResourceController {
 	public @ResponseBody List<Resource> getSubResource(
 			HttpServletRequest request) {
 		String pid = request.getParameter("pid");
-		logger.info(pid);
 		return resourceService.getSubResource(pid);
 	}
 }

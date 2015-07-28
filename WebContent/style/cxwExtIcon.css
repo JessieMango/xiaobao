@@ -7,7 +7,23 @@ img {	cursor: pointer; }
 	height: 16px;
 	cursor: pointer;
 }
+.icon67_32 {
+	width: 67px;
+	height: 32px;
+	cursor: pointer;
+}
 
+.icon32 {
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+
+.icon16 {
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
 .ext-icon-anchor {	background: url('images/ext_icons/anchor.png') no-repeat ; }
 
 .ext-icon-arrow_green {	background: url('images/ext_icons/arrow_green.png') no-repeat ; }
@@ -2013,3 +2029,101 @@ img {	cursor: pointer; }
 .ext-icon-zoom_in {	background: url('images/ext_icons/zoom/zoom_in.png') no-repeat ; }
 
 .ext-icon-zoom_out {	background: url('images/ext_icons/zoom/zoom_out.png') no-repeat ; }
+
+.ext-icon-xb_desk { background: url("image/xb/ExchangeFolder.png") no-repeat;}
+
+.ext-icon-xb_weixin { background: url("image/xb/weixin.png") no-repeat;}
+
+.ext-icon-xb_xueyuan { background: url("image/xb/icon_paint.png") no-repeat;}
+
+.ext-icon-xb_shengqian { background: url("image/xb/GroupMessageOptions.png") no-repeat;}
+
+.ext-icon-xb_wendang { background: url("image/xb/QuickParts32.png") no-repeat;}
+
+.ext-icon-xb_tongxunlu { background: url("image/xb/DistributionListSelectMembers.png") no-repeat;}
+
+.ext-icon-xb_xiexinxi { background: url("image/xb/ReviewInkCommentNew.png") no-repeat;}
+
+.ext-icon-xb_shouxinxiang { background: url("image/xb/ShowMessagePage.png") no-repeat;}
+
+.ext-icon-xb_faxinxiang { background: url("image/xb/ConvertToSmartArt.png") no-repeat;}
+
+.ext-icon-xb_gaimima { background: url("image/xb/AdpPrimaryKey.png") no-repeat;}
+
+.ext-icon-xb_denglurizhi { background: url("image/xb/HeaderFooterCurrentTimeInsert.png") no-repeat;}
+
+.ext-icon-xb_ketang { background: url("image/xb/ViewSlideShowView.png") no-repeat;}
+
+.ext-icon-xb_help { background: url("image/xb/TentativeAcceptInvitation.png") no-repeat;}
+
+.ext-icon-xb_exit { background: url("image/xb/GroupColorModeClose.png") no-repeat;}
+
+.ext-icon-xb_xinzixun { background: url("image/xb/comments.png") no-repeat;}
+
+.ext-icon-xb_zixunjilu { background: url("image/xb/Thesaurus.png") no-repeat;}
+
+.ext-icon-xb_goutongjilu { background: url("image/xb/DateAndTimeInsert.png") no-repeat;}
+
+.ext-icon-xb_xinshengbaoming { background: url("image/xb/add.png") no-repeat;}
+
+.ext-icon-xb_laoshengxubao { background: url("image/xb/chart_up.png") no-repeat;}
+
+.ext-icon-xb_bufeixufei { background: url("image/xb/ChartTypeOtherInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_banlizhuanban { background: url("image/xb/CellsInsertSmart.png") no-repeat;}
+
+.ext-icon-xb_jiaocaizafei { background: url("image/xb/QuickPartsInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_jifenduihuan { background: url("image/xb/BlogCategoryInsert.png") no-repeat;}
+
+.ext-icon-xb_banlituifei { background: url("image/xb/CellsInsertSmart.png") no-repeat;}
+
+.ext-icon-xb_banlitingke { background: url("image/xb/PauseTimer.png") no-repeat;}
+
+.ext-icon-xb_chaxueyuan { background: url("image/xb/ZoomClassic.png") no-repeat;}
+
+.ext-icon-xb_chakucun { background: url("image/xb/Calculator.png") no-repeat;}
+
+.ext-icon-xb_wodejinri { background: url("image/xb/PrintDialogAccess.png") no-repeat;}
+
+.ext-icon-xb_xinjianbanji { background: url("image/xb/GroupMasterEdit.png") no-repeat;}
+
+.ext-icon-xb_banjichaxun { background: url("image/xb/PrintDialogAccess.png") no-repeat;}
+
+.ext-icon-xb_xiaoquzongji { background: url("image/xb/AdpDiagramRelationships.png") no-repeat;}
+
+.ext-icon-xb_banjichaxun { background: url("image/xb/ImportSavedImports.png") no-repeat;}
+
+.ext-icon-xb_jishangke { background: url("image/xb/FilePrepareMenu.png") no-repeat;}
+
+.ext-icon-xb_shangkejilu { background: url("image/xb/_teachinglog.png") no-repeat;}
+
+.ext-icon-xb_jiaoshikeshi { background: url("image/xb/VoteMenu.png") no-repeat;}
+
+.ext-icon-xb_shouhougoutong { background: url("image/xb/Call.png") no-repeat;}
+
+.ext-icon-xb_teachertime { background: url("image/xb/ContactPictureMenu.png") no-repeat;}
+
+.ext-icon-xb_classroomtime { background: url("image/xb/GroupTransitionToThisSlide.png") no-repeat;}
+
+.ext-icon-xb_chaxueyuan1 { background: url("image/xb/ZoomClassic(1).png") no-repeat;}
+
+.ext-icon-xb_qianfeixueyuan { background: url("image/xb/FilePermissionView.png") no-repeat;}
+
+.ext-icon-xb_daoqixueyuan { background: url("image/xb/CancelMeeting.png") no-repeat;}
+
+.ext-icon-xb_shengrixueyuan { background: url("image/xb/ShowCustomActionsPage.png") no-repeat;}
+
+.ext-icon-xb_xitongrizhi { background: url("image/xb/icon_datetime.png") no-repeat;}
+
+.ext-icon-xb_zhanghaoguanli { background: url("image/xb/AddOrRemoveAttendees.png") no-repeat;}
+
+.ext-icon-xb_xitongcanshu { background: url("image/xb/BusinessFormWizard.png") no-repeat;}
+
+.ext-icon-xb_zhichuxiangmu { background: url("image/xb/XmlSource.png") no-repeat;}
+
+.ext-icon-xb_jiaocaizaxiang { background: url("image/xb/ViewsReportViewBig.png") no-repeat;}
+
+.ext-icon-xb_kechengshezhi { background: url("image/xb/ViewsSwitchToDefaultView.png") no-repeat;}
+
+.ext-icon-xb_xiaoqushezhi { background: url("image/xb/OrganizationChartSelectLevel.png") no-repeat;}

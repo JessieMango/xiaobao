@@ -87,6 +87,10 @@ a:hover, a:active {
 	background-color: #FFC954;
 }
 
+.mouse {
+	background-color: #FFC954;
+}
+
 .menu {
 	background: url("image/blurbg.jpg");
 	width: 100%;
@@ -98,7 +102,8 @@ a:hover, a:active {
 }
 
 .subMenu {
-	margin-top: 10px;
+	margin-top: 5px;
+	margin-left: 10px;
 }
 
 .menuSpan {
@@ -107,19 +112,52 @@ a:hover, a:active {
 	margin-left: 30px;
 }
 
+.menudiv {
+	height: auto;
+	margin-left: 10px;
+	text-align: center;
+}
+
 .clicked {
 	font-size: 120%;
 }
 
-.
+.footer {
+	background-color: #eeeeee;
+	text-align: center;
+	height: 27px;
+	line-height: 27px;
+}
+
+.img {
+	vertical-align: middle;
+	margin-right: 3px;
+}
 
 .td {
 	display: inline;
-	margin: 2px;
-	width: 19%;
+	width: 200px;
+	text-align: center;
+	height: 27px;
+	vertical-align: middle;
+	padding-right: 50px;
+	clear: both;
 }
 
 .BlueFont {
 	color: #555;
+	vertical-align: middle;
 	font-size: 10pt;
+	font-family: Microsoft YaHei, Hiragino Sans GB, HiraginoSansGB-W3,
+		STHeiti Light, Heiti SC Light, Century Gothic, Verdana, Geneva,
+		sans-serif;
 }
+
+#chart {
+	text-align: center;
+}
+
+.addpermission {
+	display: inline;
+}
+

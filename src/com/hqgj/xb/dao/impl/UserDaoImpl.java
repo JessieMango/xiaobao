@@ -67,6 +67,34 @@ public class UserDaoImpl implements UserDao {
 						results.add(user);
 					}
 				});
+		return results;
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		String sql = "SELECT u.gender,u.username,ur.scope,r.nameM,u.isEnabled,u.tel,u.loginDate,u.loginStartTime,	"
+				+ "u.loginEndTime,u.carCode,u.permission,u.userId	FROM `user` u LEFT OUTER JOIN user_role ur on ur.user_id=u.userId	LEFT OUTER JOIN role r on r.id=ur.role_id	LEFT OUTER JOIN role_permission rp on rp.role_id=r.id ";
+		final List<User> results = new ArrayList<User>();
+		this.npJdbcTemplate.query(sql, new RowCallbackHandler() {
+
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				User user = new User();
+				user.setCarCode(rs.getString("carCode"));
+				user.setGender(rs.getString("gender"));
+				user.setIsEnabled(rs.getString("isEnabled"));
+				user.setLoginDate(rs.getString("loginDate"));
+				user.setLoginEndTime(rs.getString("loginEndTime"));
+				user.setLoginStartTime(rs.getString("loginStartTime"));
+				user.setTel(rs.getString("tel"));
+				user.setUsername(rs.getString("username"));
+				user.setPower(rs.getString("nameM"));
+				user.setScope(rs.getString("scope"));
+				user.setPermission(rs.getString("permission"));
+				user.setUserId(rs.getString("userId"));
+				results.add(user);
+			}
+		});
 		logger.info(results.size());
 		return results;
 	}

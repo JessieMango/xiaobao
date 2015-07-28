@@ -18,6 +18,7 @@ public class User {
 	private String updatetime;
 	private String power;
 	private String scope;
+	private String permission;
 
 	public String getUserId() {
 		return userId;
@@ -153,6 +154,14 @@ public class User {
 
 	public void setScope(String scope) {
 		this.scope = scope;
+	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
 	}
 
 	/**

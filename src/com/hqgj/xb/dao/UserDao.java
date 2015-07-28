@@ -18,4 +18,13 @@ public interface UserDao {
 	 * @return
 	 */
 	public List<User> login(User user);
+
+	/**
+	 * 获取所有的用户信息
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年7月28日 上午9:19:13
+	 * @return
+	 */
+	public List<User> getAllUsers();
 }

@@ -29,21 +29,22 @@
 	<div class="footer">
 		<div class="td">
 			<a href="#" target="_blank" style="display: inline;"><img
-				alt="版本" src="../style/image/v_pro.gif" /> </a>
+				class="img" alt="版本" src="../style/image/v_pro.gif" /> </a>
 		</div>
 		<div class="td">
-			<img alt="用户" src="../style/image/User.gif" /><span class="BlueFont"><%=username%></span>
+			<img alt="用户" src="../style/image/User.gif" class="img" /><span
+				class="BlueFont"><%=username%></span>
 		</div>
 		<div class="td">
-			<img alt="权限范围" src="../style/image/School.gif" /><span
+			<img alt="权限范围" src="../style/image/School.gif" class="img" /><span
 				class="BlueFont"><%=scope%></span>
 		</div>
 		<div class="td">
-			<img alt="权限类型" src="../style/image/key.gif"><span
+			<img alt="权限类型" src="../style/image/key.gif" class="img" /><span
 				class="BlueFont"><%=power%></span>
 		</div>
 		<div class="td">
-			<img alt="登陆时限" src="../style/image/time.gif"><span
+			<img alt="登陆时限" src="../style/image/time.gif" class="img" /><span
 				class="BlueFont"><%=time%></span>
 		</div>
 	</div>
