@@ -20,7 +20,11 @@ var mainMenu;
 var mainTabs;
 function toggleSrc(target){
 	if($(target).attr("name") == "exit"){
-		alert("退出")
+		$.get("loginOut",function(result){
+			if(result.success == true){
+				window.location.replace("../index.jsp");
+			}
+		});
 		
 	}else{
 		var tabs = $('#mainTabs');
@@ -60,9 +64,10 @@ function taggleClass(target){
 	$("#subMenu").empty();
 	$.get("getSubResource",{pid:$(target).attr("name")},function(data){
 		$(data).each(function(index,menu){
-			$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span style='display:block;'>"+menu.name+"</span></div></li>");
+			$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanBig'>"+menu.name+"</span></div></li>");
 		});
 	});
+	
 	
 }
 $(function() {
@@ -159,12 +164,13 @@ $(function() {
 			if(index == 0){
 				$.get("getSubResource",{pid:menu.id},function(data){
 					$(data).each(function(index,menu){
-						$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span style='display:block;'>"+menu.name+"</span></div></li>");
+						$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanBig'>"+menu.name+"</span></div></li>");
 					});
 				});
 			}
 		});
 	});
+	
 	
 });
 </script>

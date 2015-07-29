@@ -112,6 +112,14 @@ a:hover, a:active {
 	margin-left: 30px;
 }
 
+.subMenuSpanBig {
+	display: block;
+}
+
+.subMenuSpanSmall {
+	
+}
+
 .menudiv {
 	height: auto;
 	margin-left: 10px;
@@ -160,4 +168,3 @@ a:hover, a:active {
 .addpermission {
 	display: inline;
 }
-

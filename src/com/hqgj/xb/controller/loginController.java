@@ -14,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hqgj.xb.bean.User;
+import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.service.UserService;
 import com.hqgj.xb.util.MD5Util;
@@ -66,6 +68,17 @@ public class loginController implements
 		}
 		model.put("msg", message);
 		return new ModelAndView(view, model);
+	}
+
+	@RequestMapping(value = "/loginOut", method = RequestMethod.GET)
+	public @ResponseBody Json loginOut(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if (session != null) {
+			session.invalidate();
+		}
+		Json json = new Json();
+		json.setSuccess(true);
+		return json;
 	}
 
 }

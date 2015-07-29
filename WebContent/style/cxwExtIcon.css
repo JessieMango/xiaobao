@@ -2127,3 +2127,123 @@ img {	cursor: pointer; }
 .ext-icon-xb_kechengshezhi { background: url("image/xb/ViewsSwitchToDefaultView.png") no-repeat;}
 
 .ext-icon-xb_xiaoqushezhi { background: url("image/xb/OrganizationChartSelectLevel.png") no-repeat;}
+
+.ext-icon-xb_xiaoquzixunliang { background: url("image/xb/ChartChangeType.png") no-repeat;}
+
+.ext-icon-xb_zixunlaiyuan { background: url("image/xb/PropertySheet.png") no-repeat;}
+
+.ext-icon-xb_zixunxiaoshouyuan { background: url("image/xb/CreateTableTemplatesGallerySmall.png") no-repeat;}
+
+.ext-icon-xb_zixunlaiyuanqunshi { background: url("image/xb/ChartTypeLineInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_meiyuexinsheng { background: url("image/xb/CustomEquationsGallery.png") no-repeat;}
+
+.ext-icon-xb_shouqiangoutong { background: url("image/xb/Call.png") no-repeat;}
+
+.ext-icon-xb_baominglaiyuan { background: url("image/xb/EditBusinessCard.png") no-repeat;}
+
+.ext-icon-xb_baomingxiaoshouyuan { background: url("image/xb/MailMergeRecipientsEditList.png") no-repeat;}
+
+.ext-icon-xb_baominglaiyuanqushi { background: url("image/xb/ChartTypeAreaInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_gonglixuexiao { background: url("image/xb/ViewVisualBasicCodeAccess.png") no-repeat;}
+
+.ext-icon-xb_juzhuquyu { background: url("image/xb/BlogHomePage.png") no-repeat;}
+
+.ext-icon-xb_xueshengnianling { background: url("image/xb/PivotTableGroupField.png") no-repeat;}
+
+.ext-icon-xb_qiantaibaomingliang { background: url("image/xb/ControlProperties.png") no-repeat;}
+
+.ext-icon-xb_kexuexuanzhi { background: url("image/xb/GroupInk.png") no-repeat;}
+
+.ext-icon-xb_liushuizhang { background: url("image/xb/AdpDiagramAddTable.png") no-repeat;}
+
+.ext-icon-xb_liushuiribao { background: url("image/xb/AdpDiagramRelationshipsbig.png") no-repeat;}
+
+.ext-icon-xb_liushuianxiaoqu { background: url("image/xb/ChartTypePieInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_liushuiyueduibi { background: url("image/xb/ChartChangeType.png") no-repeat;}
+
+.ext-icon-xb_liushuianrenyuan { background: url("image/xb/FunctionsFinancialInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_tuifeianxiaoqu { background: url("image/xb/ChartTypePieInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_xuefeiankecheng { background: url("image/xb/ChartTypeOtherInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_tuifeiankecheng { background: url("image/xb/ChartTypePieInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_zhichuzhang { background: url("image/xb/AdpDiagramHideTable.png") no-repeat;}
+
+.ext-icon-xb_zhichuandalei { background: url("image/xb/ChartTypePieInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_zhichuanzixiang { background: url("image/xb/ChartTypeOtherInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_zhichuyueduibi { background: url("image/xb/ChartChangeType.png") no-repeat;}
+
+.ext-icon-xb_zhichuanxiaoqu { background: url("image/xb/ChartTypePieInsertGallery.png") no-repeat;}
+
+.ext-icon-xb_kucunguanli { background: url("image/xb/CalculatorSmall.png") no-repeat;}
+
+.ext-icon-xb_jiaocaishezhi { background: url("image/xb/ViewsReportViewSmall.png") no-repeat;}
+
+.ext-icon-xb_duihuanjilu { background: url("image/xb/ClipArtInsert.png") no-repeat;}
+
+.ext-icon-xb_jiaoyihuishouzhan { background: url("image/xb/CellsDelete.png") no-repeat;}
+
+.ext-icon-xb_danganhuishouzhan { background: url("image/xb/GroupChanges.png") no-repeat;}
+
+.ext-icon-xb_xindangan { background: url("image/xb/DistributionListAddNewMember.png") no-repeat;}
+
+.ext-icon-xb_mianshiqi { background: url("image/xb/AccountMenu.png") no-repeat;}
+
+.ext-icon-xb_peixun { background: url("image/xb/ViewSlideShowView.png") no-repeat;}
+
+.ext-icon-xb_zhuanzhengshibai { background: url("image/xb/DirectRepliesTo.png") no-repeat;}
+
+.ext-icon-xb_zhengshitingzhi { background: url("image/xb/CreateTableTemplatesGalleryBig.png") no-repeat;}
+
+.ext-icon-xb_lizhijiepin { background: url("image/xb/DistributionListRemoveMember.png") no-repeat;}
+
+.ext-icon-xb_jiaoshikeshitongji { background: url("image/xb/VoteMenu.png") no-repeat;}
+
+.ext-icon-xb_renshibiandongtiaozheng { background: url("image/xb/CrossReferenceInsert.png") no-repeat;}
+
+.ext-icon-xb_yuangongshengri { background: url("image/xb/ShowCustomActionsPageBig.png") no-repeat;}
+
+.ext-icon-xb_yuangongkaoqinjilu { background: url("image/xb/NewMeetingWithContact.png") no-repeat;}
+
+.ext-icon-xb_yuangongshuanka { background: url("image/xb/NewDistributionList.png") no-repeat;}
+
+.ext-icon-xb_xuanyuanshuaka { background: url("image/xb/ShowTrackingPage.png") no-repeat;}
+
+.ext-icon-xb_shuakazhaoxueyuan { background: url("image/xb/ZoomClassic.png") no-repeat;}
+
+.ext-icon-xb_wangdaicika { background: url("image/xb/WordArtEditTextClassic.png") no-repeat;}
+
+.ext-icon-xb_xueyuanshuaka { background: url("image/xb/AcceptChanges.png") no-repeat;}
+
+.ext-icon-xb_cikajianzhuang { background: url("image/xb/icon_about.png") no-repeat;}
+
+.ext-icon-xb_shuruhaoma { background: url("image/xb/GroupChangesTracking.png") no-repeat;}
+
+.ext-icon-xb_benxiaoyuangong { background: url("image/xb/MeetingsWorkspace.png") no-repeat;}
+
+.ext-icon-xb_mianshitongzhi { background: url("image/xb/AccountMenu.png") no-repeat;}
+
+.ext-icon-xb_yuangongshengri { background: url("image/xb/ShowCustomActionsPageBig.png") no-repeat;}
+
+.ext-icon-xb_banjiqunfa { background: url("image/xb/HeaderFooterFilePathInsert.png") no-repeat;}
+
+.ext-icon-xb_zixunweibaoming { background: url("image/xb/GroupChangesBig.png") no-repeat;}
+
+.ext-icon-xb_qianfeicuifei { background: url("image/xb/FilePermissionViewBig.png") no-repeat;}
+
+.ext-icon-xb_daoqicuifei { background: url("image/xb/CancelMeetingBig.png") no-repeat;}
+
+.ext-icon-xb_xueyuanshengri { background: url("image/xb/ShowCustomActionsPageBig.png") no-repeat;}
+
+.ext-icon-xb_fasongjilu { background: url("image/xb/DelayDeliveryOutlook.png") no-repeat;}
+
+.ext-icon-xb_duanxinchongzhi { background: url("image/xb/EncodingMenu.png") no-repeat;}
+
+
