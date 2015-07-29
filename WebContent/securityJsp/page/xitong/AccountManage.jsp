@@ -12,15 +12,18 @@
 <script type="text/javascript">
 	var grid;
 	var resetPassword = function(userId, username) {
-		$('#dd').dialog({
-			title : '重置密码',
-			width : 400,
-			height : 200,
-			closed : false,
-			cache : false,
-			href : cxw.contextPath + '/securityJsp/form/resetPassword.jsp?username=' + username,
-			modal : true
-		});
+		$('#dd').dialog(
+				{
+					title : '重置密码',
+					width : 400,
+					height : 200,
+					closed : false,
+					cache : false,
+					href : cxw.contextPath
+							+ '/securityJsp/form/resetPassword.jsp?username='
+							+ username + '&userId=' + userId,
+					modal : true
+				});
 	}
 	var editFun = function(userId, username) {
 		var dialog = parent.cxw.modalDialog({

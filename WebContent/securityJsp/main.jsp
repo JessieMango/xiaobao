@@ -64,7 +64,12 @@ function taggleClass(target){
 	$("#subMenu").empty();
 	$.get("getSubResource",{pid:$(target).attr("name")},function(data){
 		$(data).each(function(index,menu){
-			$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanBig'>"+menu.name+"</span></div></li>");
+			var icon = menu.iconCls;
+			if(icon.indexOf("icon16")>0){
+				$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanSmall'>"+menu.name+"</span></div></li>");			
+			}else{
+				$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanBig'>"+menu.name+"</span></div></li>");
+			}
 		});
 	});
 	

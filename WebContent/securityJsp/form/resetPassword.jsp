@@ -2,21 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%
 	String username = request.getParameter("username");
+	String userId = request.getParameter("userId");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>重置密码</title>
-<style type="text/css">
-span {
-	font-family: Microsoft YaHei, Hiragino Sans GB, HiraginoSansGB-W3,
-		STHeiti Light, Heiti SC Light, Century Gothic, Verdana, Geneva,
-		sans-serif;
-	font-size: 20pt;
-	width: 50px;
-}
-</style>
+<jsp:include page="../../inc.jsp"></jsp:include>
+<script type="text/javascript">
+	var resetPwd = function(userId) {
+		alert(userId);
+	}
+</script>
 </head>
 <body>
 	<div
@@ -28,7 +26,7 @@ span {
 			<span>新密码:</span>&nbsp;&nbsp;&nbsp;<span>123456</span>
 		</div>
 		<div>
-			<button>确认重置</button>
+			<button id="resetButton">确认重置</button>
 		</div>
 	</div>
 </body>
