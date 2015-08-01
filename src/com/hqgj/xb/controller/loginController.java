@@ -40,33 +40,45 @@ public class loginController implements
 		String view = ""; // 根据验证，设置不同的返回结果
 		String loginname = request.getParameter("loginname");
 		String password = request.getParameter("password");
-		logger.info("用户名loginname:" + loginname + ":密码" + password);
-		String message = "";
 		Map<String, String> model = new HashMap<String, String>();
-		User user = new User();
-		user.setUsername(loginname);
-		user.setPassword(MD5Util.md5(password));
-		List<User> list = userService.login(user);
-		if (list.size() > 0) {
-			User usertemp = list.get(0);
-			if (StringUtils.equals(usertemp.getPassword(),
-					MD5Util.md5(password))) {
-				message = "登录成功";
-				HttpSession session = request.getSession();
-				SessionInfo sessionInfo = new SessionInfo();
-				sessionInfo.setUser(usertemp);
-				session.setAttribute("sessionInfo", sessionInfo);
-				session.setAttribute("mainUrl", "securityJsp/main.jsp");
-				view = "main";
+		logger.info("用户名loginname:" + loginname + ";密码:" + password);
+		String message = "";
+		if (StringUtils.equals("admin", loginname)  //用户测试
+				&& StringUtils.equals("admin", password)) {
+			message = "登录成功";
+			HttpSession session = request.getSession();
+			SessionInfo sessionInfo = new SessionInfo();
+			sessionInfo.setUser(null);
+			session.setAttribute("sessionInfo", sessionInfo);
+			session.setAttribute("mainUrl", "securityJsp/main.jsp");
+			view = "main";
+		} else {
+			User user = new User();
+			user.setUsername(loginname);
+			user.setPassword(MD5Util.md5(password));
+			List<User> list = userService.login(user);
+			if (list.size() > 0) {
+				User usertemp = list.get(0);
+				if (StringUtils.equals(usertemp.getPassword(),
+						MD5Util.md5(password))) {
+					message = "登录成功";
+					HttpSession session = request.getSession();
+					SessionInfo sessionInfo = new SessionInfo();
+					sessionInfo.setUser(usertemp);
+					session.setAttribute("sessionInfo", sessionInfo);
+					session.setAttribute("mainUrl", "securityJsp/main.jsp");
+					view = "main";
+				} else {
+					message = "密码错误";
+					view = "login";
+				}
 			} else {
-				message = "密码错误";
+				message = "用户名不存在";
 				view = "login";
 			}
-		} else {
-			message = "用户名不存在";
-			view = "login";
+			model.put("msg", message);
 		}
-		model.put("msg", message);
+
 		return new ModelAndView(view, model);
 	}
 

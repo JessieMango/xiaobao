@@ -1,7 +1,7 @@
 /**
- * jQuery EasyUI 1.4.2
+ * jQuery EasyUI 1.4.1
  * 
- * Copyright (c) 2009-2015 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2014 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the GPL license: http://www.gnu.org/licenses/gpl.txt
  * To use it on other terms please contact us at info@jeasyui.com
@@ -119,12 +119,23 @@ $(this).panel("options").collapsible?t.show():t.hide();
 }},_19);
 pp.panel(_1b);
 _1a[dir]=pp;
-var _1f={north:"s",south:"n",east:"w",west:"e"};
-var _20=pp.panel("panel");
 if(pp.panel("options").split){
-_20.addClass("layout-split-"+dir);
+var _1f=pp.panel("panel");
+_1f.addClass("layout-split-"+dir);
+var _20="";
+if(dir=="north"){
+_20="s";
 }
-_20.resizable($.extend({},{handles:(_1f[dir]||""),disabled:(!pp.panel("options").split),onStartResize:function(e){
+if(dir=="south"){
+_20="n";
+}
+if(dir=="east"){
+_20="w";
+}
+if(dir=="west"){
+_20="e";
+}
+_1f.resizable($.extend({},{handles:_20,onStartResize:function(e){
 _1=true;
 if(dir=="north"||dir=="south"){
 var _21=$(">div.layout-split-proxy-v",_18);
@@ -134,28 +145,28 @@ var _21=$(">div.layout-split-proxy-h",_18);
 var top=0,_22=0,_23=0,_24=0;
 var pos={display:"block"};
 if(dir=="north"){
-pos.top=parseInt(_20.css("top"))+_20.outerHeight()-_21.height();
-pos.left=parseInt(_20.css("left"));
-pos.width=_20.outerWidth();
+pos.top=parseInt(_1f.css("top"))+_1f.outerHeight()-_21.height();
+pos.left=parseInt(_1f.css("left"));
+pos.width=_1f.outerWidth();
 pos.height=_21.height();
 }else{
 if(dir=="south"){
-pos.top=parseInt(_20.css("top"));
-pos.left=parseInt(_20.css("left"));
-pos.width=_20.outerWidth();
+pos.top=parseInt(_1f.css("top"));
+pos.left=parseInt(_1f.css("left"));
+pos.width=_1f.outerWidth();
 pos.height=_21.height();
 }else{
 if(dir=="east"){
-pos.top=parseInt(_20.css("top"))||0;
-pos.left=parseInt(_20.css("left"))||0;
+pos.top=parseInt(_1f.css("top"))||0;
+pos.left=parseInt(_1f.css("left"))||0;
 pos.width=_21.width();
-pos.height=_20.outerHeight();
+pos.height=_1f.outerHeight();
 }else{
 if(dir=="west"){
-pos.top=parseInt(_20.css("top"))||0;
-pos.left=_20.outerWidth()-_21.width();
+pos.top=parseInt(_1f.css("top"))||0;
+pos.left=_1f.outerWidth()-_21.width();
 pos.width=_21.width();
-pos.height=_20.outerHeight();
+pos.height=_1f.outerHeight();
 }
 }
 }
@@ -178,6 +189,7 @@ _2(_18);
 _1=false;
 cc.find(">div.layout-mask").remove();
 }},_19));
+}
 };
 function _26(_27,_28){
 var _29=$.data(_27,"layout").panels;
@@ -353,40 +365,31 @@ return false;
 };
 function _45(_46){
 var _47=$.data(_46,"layout").panels;
-_48("east");
-_48("west");
-_48("north");
-_48("south");
-function _48(_49){
-var p=_47[_49];
-if(p.length&&p.panel("options").collapsed){
-_2b(_46,_49,0);
+if(_47.east.length&&_47.east.panel("options").collapsed){
+_2b(_46,"east",0);
+}
+if(_47.west.length&&_47.west.panel("options").collapsed){
+_2b(_46,"west",0);
+}
+if(_47.north.length&&_47.north.panel("options").collapsed){
+_2b(_46,"north",0);
+}
+if(_47.south.length&&_47.south.panel("options").collapsed){
+_2b(_46,"south",0);
 }
 };
-};
-function _4a(_4b,_4c,_4d){
-var p=$(_4b).layout("panel",_4c);
-p.panel("options").split=_4d;
-var cls="layout-split-"+_4c;
-var _4e=p.panel("panel").removeClass(cls);
-if(_4d){
-_4e.addClass(cls);
+$.fn.layout=function(_48,_49){
+if(typeof _48=="string"){
+return $.fn.layout.methods[_48](this,_49);
 }
-_4e.resizable({disabled:(!_4d)});
-_2(_4b);
-};
-$.fn.layout=function(_4f,_50){
-if(typeof _4f=="string"){
-return $.fn.layout.methods[_4f](this,_50);
-}
-_4f=_4f||{};
+_48=_48||{};
 return this.each(function(){
-var _51=$.data(this,"layout");
-if(_51){
-$.extend(_51.options,_4f);
+var _4a=$.data(this,"layout");
+if(_4a){
+$.extend(_4a.options,_48);
 }else{
-var _52=$.extend({},$.fn.layout.defaults,$.fn.layout.parseOptions(this),_4f);
-$.data(this,"layout",{options:_52,panels:{center:$(),north:$(),south:$(),east:$(),west:$()}});
+var _4b=$.extend({},$.fn.layout.defaults,$.fn.layout.parseOptions(this),_48);
+$.data(this,"layout",{options:_4b,panels:{center:$(),north:$(),south:$(),east:$(),west:$()}});
 _12(this);
 }
 _2(this);
@@ -395,49 +398,41 @@ _45(this);
 };
 $.fn.layout.methods={options:function(jq){
 return $.data(jq[0],"layout").options;
-},resize:function(jq,_53){
+},resize:function(jq,_4c){
 return jq.each(function(){
-_2(this,_53);
+_2(this,_4c);
 });
-},panel:function(jq,_54){
-return $.data(jq[0],"layout").panels[_54];
-},collapse:function(jq,_55){
+},panel:function(jq,_4d){
+return $.data(jq[0],"layout").panels[_4d];
+},collapse:function(jq,_4e){
 return jq.each(function(){
-_2b(this,_55);
+_2b(this,_4e);
 });
-},expand:function(jq,_56){
+},expand:function(jq,_4f){
 return jq.each(function(){
-_3c(this,_56);
+_3c(this,_4f);
 });
-},add:function(jq,_57){
+},add:function(jq,_50){
 return jq.each(function(){
-_17(this,_57);
+_17(this,_50);
 _2(this);
-if($(this).layout("panel",_57.region).panel("options").collapsed){
-_2b(this,_57.region,0);
+if($(this).layout("panel",_50.region).panel("options").collapsed){
+_2b(this,_50.region,0);
 }
 });
-},remove:function(jq,_58){
+},remove:function(jq,_51){
 return jq.each(function(){
-_26(this,_58);
+_26(this,_51);
 _2(this);
 });
-},split:function(jq,_59){
-return jq.each(function(){
-_4a(this,_59,true);
-});
-},unsplit:function(jq,_5a){
-return jq.each(function(){
-_4a(this,_5a,false);
-});
 }};
-$.fn.layout.parseOptions=function(_5b){
-return $.extend({},$.parser.parseOptions(_5b,[{fit:"boolean"}]));
+$.fn.layout.parseOptions=function(_52){
+return $.extend({},$.parser.parseOptions(_52,[{fit:"boolean"}]));
 };
 $.fn.layout.defaults={fit:false};
-$.fn.layout.parsePanelOptions=function(_5c){
-var t=$(_5c);
-return $.extend({},$.fn.panel.parseOptions(_5c),$.parser.parseOptions(_5c,["region",{split:"boolean",collpasedSize:"number",minWidth:"number",minHeight:"number",maxWidth:"number",maxHeight:"number"}]));
+$.fn.layout.parsePanelOptions=function(_53){
+var t=$(_53);
+return $.extend({},$.fn.panel.parseOptions(_53),$.parser.parseOptions(_53,["region",{split:"boolean",collpasedSize:"number",minWidth:"number",minHeight:"number",maxWidth:"number",maxHeight:"number"}]));
 };
 $.fn.layout.paneldefaults=$.extend({},$.fn.panel.defaults,{region:null,split:false,collapsedSize:28,minWidth:10,minHeight:10,maxWidth:10000,maxHeight:10000});
 })(jQuery);

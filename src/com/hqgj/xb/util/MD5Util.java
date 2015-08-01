@@ -3,6 +3,8 @@ package com.hqgj.xb.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.hqgj.xb.bean.User;
+
 /**
  * MD5加密工具类
  * 
@@ -12,6 +14,9 @@ import java.security.NoSuchAlgorithmException;
 public class MD5Util {
 
 	public static void main(String[] args) {
+		User user = new User();
+		System.out.println(user.getUserId());
+		System.out.println(user.getUserId());
 		String s = "123456";
 		System.out.println(md5(s));
 	}

@@ -1,5 +1,11 @@
 package com.hqgj.xb.bean;
 
+import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.hqgj.xb.util.DateUtil;
+
 public class User {
 	private String userId;
 	private String password;
@@ -14,11 +20,20 @@ public class User {
 	private String isEnabled;
 	private String loginDate;
 	private String photo;
-	private String createtime;
-	private String updatetime;
+	private String createTime;
+	private String updateTime;
 	private String power;
 	private String scope;
 	private String permission;
+	private String roleId;
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
 
 	public String getUserId() {
 		return userId;
@@ -101,7 +116,10 @@ public class User {
 	}
 
 	public String getIsEnabled() {
-		return isEnabled;
+		if (!StringUtils.isBlank(this.isEnabled)) {
+			return this.isEnabled;
+		}
+		return "1";
 	}
 
 	public void setIsEnabled(String isEnabled) {
@@ -124,20 +142,22 @@ public class User {
 		this.photo = photo;
 	}
 
-	public String getCreatetime() {
-		return createtime;
+	public String getCreateTime() {
+		if (this.createTime != null)
+			return this.createTime;
+		return DateUtil.dateToString(new Date());
 	}
 
-	public void setCreatetime(String createtime) {
-		this.createtime = createtime;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 
-	public String getUpdatetime() {
-		return updatetime;
+	public String getUpdateTime() {
+		return updateTime;
 	}
 
-	public void setUpdatetime(String updatetime) {
-		this.updatetime = updatetime;
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	public String getPower() {
@@ -163,6 +183,7 @@ public class User {
 	public void setPermission(String permission) {
 		this.permission = permission;
 	}
+
 
 	/**
 	 * 

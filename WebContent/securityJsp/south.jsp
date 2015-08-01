@@ -15,7 +15,7 @@
 				+ "&lt; 未绑定磁卡 &gt;";
 	}
 	scope = "权限范围:" + sessionInfo.getUser().getScope();
-	power = "权限类型" + sessionInfo.getUser().getPower();
+	power = "权限类型:" + sessionInfo.getUser().getPower();
 	time = "登录时限:" + sessionInfo.getUser().getLoginStartTime() + "-"
 			+ sessionInfo.getUser().getLoginEndTime();
 %>

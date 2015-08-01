@@ -1,7 +1,7 @@
 /**
- * jQuery EasyUI 1.4.2
+ * jQuery EasyUI 1.4.1
  * 
- * Copyright (c) 2009-2015 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2014 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the GPL license: http://www.gnu.org/licenses/gpl.txt
  * To use it on other terms please contact us at info@jeasyui.com
@@ -17,30 +17,25 @@ var p=$(this).combogrid("panel");
 var _6=p.outerHeight()-p.height();
 var _7=p._size("minHeight");
 var _8=p._size("maxHeight");
-var dg=$(this).combogrid("grid");
-dg.datagrid("resize",{width:"100%",height:(isNaN(parseInt(_4.panelHeight))?"auto":"100%"),minHeight:(_7?_7-_6:""),maxHeight:(_8?_8-_6:"")});
-var _9=dg.datagrid("getSelected");
-if(_9){
-dg.datagrid("scrollTo",dg.datagrid("getRowIndex",_9));
-}
+$(this).combogrid("grid").datagrid("resize",{width:"100%",height:(isNaN(parseInt(_4.panelHeight))?"auto":"100%"),minHeight:(_7?_7-_6:""),maxHeight:(_8?_8-_6:"")});
 _4.onShowPanel.call(this);
 }}));
-var _a=$(_2).combo("panel");
+var _9=$(_2).combo("panel");
 if(!_5){
-_5=$("<table></table>").appendTo(_a);
+_5=$("<table></table>").appendTo(_9);
 _3.grid=_5;
 }
-_5.datagrid($.extend({},_4,{border:false,singleSelect:(!_4.multiple),onLoadSuccess:function(_b){
-var _c=$(_2).combo("getValues");
-var _d=_4.onSelect;
+_5.datagrid($.extend({},_4,{border:false,singleSelect:(!_4.multiple),onLoadSuccess:function(_a){
+var _b=$(_2).combo("getValues");
+var _c=_4.onSelect;
 _4.onSelect=function(){
 };
-_1c(_2,_c,_3.remainText);
-_4.onSelect=_d;
+_1c(_2,_b,_3.remainText);
+_4.onSelect=_c;
 _4.onLoadSuccess.apply(_2,arguments);
-},onClickRow:_e,onSelect:function(_f,row){
+},onClickRow:_d,onSelect:function(_e,_f){
 _10();
-_4.onSelect.call(this,_f,row);
+_4.onSelect.call(this,_e,_f);
 },onUnselect:function(_11,row){
 _10();
 _4.onUnselect.call(this,_11,row);
@@ -53,7 +48,7 @@ _10();
 }
 _4.onUnselectAll.call(this,_13);
 }}));
-function _e(_14,row){
+function _d(_14,row){
 _3.remainText=false;
 _10();
 if(!_4.multiple){
@@ -135,13 +130,13 @@ ss.push(_1e[i]);
 }
 $(_1d).combo("setValues",_24);
 _25.onChange=_26;
+$(_1d).combo("setValues",_1e);
 if(!_1f){
 var s=ss.join(_21.separator);
 if($(_1d).combo("getText")!=s){
 $(_1d).combo("setText",s);
 }
 }
-$(_1d).combo("setValues",_1e);
 };
 function _28(_29,q){
 var _2a=$.data(_29,"combogrid");

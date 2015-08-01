@@ -1,7 +1,7 @@
 /**
- * jQuery EasyUI 1.4.2
+ * jQuery EasyUI 1.4.1
  * 
- * Copyright (c) 2009-2015 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2014 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the GPL license: http://www.gnu.org/licenses/gpl.txt
  * To use it on other terms please contact us at info@jeasyui.com
@@ -12,6 +12,7 @@
  * 
  */
 (function($){
+//	var isDragging = false;
 	function drag(e){
 		var state = $.data(e.data.target, 'draggable');
 		var opts = state.options;
@@ -43,6 +44,13 @@
 			}
 		}
 		
+//		if (opts.deltaX != null && opts.deltaX != undefined){
+//			left = e.pageX + opts.deltaX;
+//		}
+//		if (opts.deltaY != null && opts.deltaY != undefined){
+//			top = e.pageY + opts.deltaY;
+//		}
+		
 		if (e.data.parent != document.body) {
 			left += $(e.data.parent).scrollLeft();
 			top += $(e.data.parent).scrollTop();
@@ -65,6 +73,12 @@
 		if (!proxy){
 			proxy = $(e.data.target);
 		}
+//		if (proxy){
+//			proxy.css('cursor', opts.cursor);
+//		} else {
+//			proxy = $(e.data.target);
+//			$.data(e.data.target, 'draggable').handle.css('cursor', opts.cursor);
+//		}
 		proxy.css({
 			left:e.data.left,
 			top:e.data.top
@@ -73,8 +87,8 @@
 	}
 	
 	function doDown(e){
-		if (!$.fn.draggable.isDragging){return false;}
-		
+//		isDragging = true;
+		$.fn.draggable.isDragging = true;
 		var state = $.data(e.data.target, 'draggable');
 		var opts = state.options;
 		
@@ -115,8 +129,6 @@
 	}
 	
 	function doMove(e){
-		if (!$.fn.draggable.isDragging){return false;}
-		
 		var state = $.data(e.data.target, 'draggable');
 		drag(e);
 		if (state.options.onDrag.call(e.data.target, e) != false){
@@ -148,11 +160,9 @@
 	}
 	
 	function doUp(e){
-		if (!$.fn.draggable.isDragging){
-			clearDragging();
-			return false;
-		}
-		
+//		isDragging = false;
+		$.fn.draggable.isDragging = false;
+//		drag(e);
 		doMove(e);
 		
 		var state = $.data(e.data.target, 'draggable');
@@ -201,7 +211,10 @@
 		
 		opts.onStopDrag.call(e.data.target, e);
 		
-		clearDragging();
+		$(document).unbind('.draggable');
+		setTimeout(function(){
+			$('body').css('cursor','');
+		},100);
 		
 		function removeProxy(){
 			if (proxy){
@@ -242,18 +255,6 @@
 		return false;
 	}
 	
-	function clearDragging(){
-		if ($.fn.draggable.timer){
-			clearTimeout($.fn.draggable.timer);
-			$.fn.draggable.timer = undefined;
-		}
-		$(document).unbind('.draggable');
-		$.fn.draggable.isDragging = false;
-		setTimeout(function(){
-			$('body').css('cursor','');
-		},100);
-	}
-	
 	$.fn.draggable = function(options, param){
 		if (typeof options == 'string'){
 			return $.fn.draggable.methods[options](this, param);
@@ -281,6 +282,7 @@
 			}
 			
 			handle.unbind('.draggable').bind('mousemove.draggable', {target:this}, function(e){
+//				if (isDragging) return;
 				if ($.fn.draggable.isDragging){return}
 				var opts = $.data(e.data.target, 'draggable').options;
 				if (checkArea(e)){
@@ -317,12 +319,7 @@
 				$(document).bind('mousedown.draggable', e.data, doDown);
 				$(document).bind('mousemove.draggable', e.data, doMove);
 				$(document).bind('mouseup.draggable', e.data, doUp);
-				
-				$.fn.draggable.timer = setTimeout(function(){
-					$.fn.draggable.isDragging = true;
-					doDown(e);
-				}, opts.delay);
-				return false;
+//				$('body').css('cursor', opts.cursor);
 			});
 			
 			// check if the handle can be dragged
@@ -366,7 +363,7 @@
 		var t = $(target);
 		return $.extend({}, 
 				$.parser.parseOptions(target, ['cursor','handle','axis',
-				       {'revert':'boolean','deltaX':'number','deltaY':'number','edge':'number','delay':'number'}]), {
+				       {'revert':'boolean','deltaX':'number','deltaY':'number','edge':'number'}]), {
 			disabled: (t.attr('disabled') ? true : undefined)
 		});
 	};
@@ -382,7 +379,6 @@
 		disabled: false,
 		edge:0,
 		axis:null,	// v or h
-		delay:100,
 		
 		onBeforeDrag: function(e){},
 		onStartDrag: function(e){},
@@ -392,4 +388,33 @@
 	
 	$.fn.draggable.isDragging = false;
 	
+//	$(function(){
+//		function touchHandler(e) {
+//			var touches = e.changedTouches, first = touches[0], type = "";
+//
+//			switch(e.type) {
+//				case "touchstart": type = "mousedown"; break;
+//				case "touchmove":  type = "mousemove"; break;        
+//				case "touchend":   type = "mouseup";   break;
+//				default: return;
+//			}
+//			var simulatedEvent = document.createEvent("MouseEvent");
+//			simulatedEvent.initMouseEvent(type, true, true, window, 1,
+//									  first.screenX, first.screenY,
+//									  first.clientX, first.clientY, false,
+//									  false, false, false, 0/*left*/, null);
+//
+//			first.target.dispatchEvent(simulatedEvent);
+//			if (isDragging){
+//				e.preventDefault();
+//			}
+//		}
+//		
+//		if (document.addEventListener){
+//			document.addEventListener("touchstart", touchHandler, true);
+//			document.addEventListener("touchmove", touchHandler, true);
+//			document.addEventListener("touchend", touchHandler, true);
+//			document.addEventListener("touchcancel", touchHandler, true); 
+//		}
+//	});
 })(jQuery);

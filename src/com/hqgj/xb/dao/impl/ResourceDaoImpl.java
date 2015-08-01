@@ -35,7 +35,7 @@ public class ResourceDaoImpl implements ResourceDao {
 
 	@Override
 	public List<Resource> getResource() {
-		String sql = "SELECT r.id,r.iconCls,r.createTime,r.nameM,r.resourceType_id,r.resoure_id,r.target,r.updateTime,r.url from resource r LEFT OUTER JOIN resourcetype rt on rt.id=r.resourceType_id "
+		String sql = "SELECT r.id,r.iconCls,r.createTime,r.nameM,r.resourceType_id,r.resoure_id,r.target,r.updateTime,r.url from Resource r LEFT OUTER JOIN ResourceType rt on rt.id=r.resourceType_id "
 				+ "WHERE r.resourceType_id=0 and r.resoure_id is NULL and r.flag=1 ORDER BY r.seq ";
 		List<Resource> results = this.npJdbcTemplate.query(sql,
 				new RowMapper<Resource>() {
@@ -62,7 +62,7 @@ public class ResourceDaoImpl implements ResourceDao {
 
 	@Override
 	public List<Resource> getSubResource(String pid) {
-		String sql = "SELECT r.id,r.iconCls,r.createTime,r.nameM,r.resourceType_id,r.resoure_id,r.target,r.updateTime,r.url from resource r LEFT OUTER JOIN resourcetype rt on rt.id=r.resourceType_id "
+		String sql = "SELECT r.id,r.iconCls,r.createTime,r.nameM,r.resourceType_id,r.resoure_id,r.target,r.updateTime,r.url from Resource r LEFT OUTER JOIN ResourceType rt on rt.id=r.resourceType_id "
 				+ "WHERE r.resourceType_id=0 and r.resoure_id like :pid and r.flag=1  ORDER BY r.seq ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("pid", "%" + pid + "%");

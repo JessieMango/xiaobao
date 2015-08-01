@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>校宝</title>
+<title>教育家</title>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript">
 var mainMenu;
@@ -65,7 +65,7 @@ function taggleClass(target){
 	$.get("getSubResource",{pid:$(target).attr("name")},function(data){
 		$(data).each(function(index,menu){
 			var icon = menu.iconCls;
-			if(icon.indexOf("icon16")>0){
+			if(icon.indexOf("16")>0){
 				$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanSmall'>"+menu.name+"</span></div></li>");			
 			}else{
 				$('#subMenu').append("<li><div onmouseover='mouseover(this);' name='"+menu.url+"' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanBig'>"+menu.name+"</span></div></li>");
@@ -198,7 +198,7 @@ $(function() {
 
 	<div
 		data-options="region:'south',href:'<%=contextPath%>/securityJsp/south.jsp',border:false"
-		style="height: 27px; overflow: hidden; border: 0;"></div>
+		style="height: 27px; overflow:hidden; border: 0;"></div>
 
 	<script type="text/javascript">
 		var stateObject = {

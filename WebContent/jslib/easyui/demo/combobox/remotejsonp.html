@@ -22,18 +22,21 @@
 	<script>
 		var myloader = function(param,success,error){
 			var q = param.q || '';
-			if (q.length <= 2){return false}
+			if (q.length <= 1){return false}
 			$.ajax({
-				url: 'http://gd.geobytes.com/AutoCompleteCity',
+				url: 'http://ws.geonames.org/searchJSON',
 				dataType: 'jsonp',
                 data: {
-                    q: q
+                    featureClass: "P",
+                    style: "full",
+                    maxRows: 20,
+                    name_startsWith: q
                 },
 				success: function(data){
-					var items = $.map(data, function(item,index){
+					var items = $.map(data.geonames, function(item){
 						return {
-							id: index,
-							name: item
+							id: item.geonameId,
+							name: item.name + (item.adminName1 ? ', ' + item.adminName1 : '') + ', ' + item.countryName
 						};
 					});
 					success(items);

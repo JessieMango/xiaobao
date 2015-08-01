@@ -12,26 +12,37 @@
 <script type="text/javascript">
 	var grid;
 	var resetPassword = function(userId, username) {
-		$('#dd').dialog(
-				{
-					title : '重置密码',
-					width : 400,
-					height : 200,
-					closed : false,
-					cache : false,
-					href : cxw.contextPath
-							+ '/securityJsp/form/resetPassword.jsp?username='
-							+ username + '&userId=' + userId,
-					modal : true
-				});
+		$.messager.alert('重置密码', '新密码:123456', 'info', function(r) {
+			$.post("resetPwd", {
+				id : userId
+			}, function(data) {
+				if (data.success == true) {
+					$.messager.show({
+						title : '重置密码',
+						msg : '重置密码成功',
+						timeout : 3000,
+						showType : 'slide'
+					});
+				} else {
+					$.messager.show({
+						title : '重置密码',
+						msg : '重置密码失败',
+						timeout : 3000,
+						showType : 'slide'
+					});
+				}
+			});
+		});
 	}
-	var editFun = function(userId, username) {
+	var editFun = function(userId, username,roleId) {
 		var dialog = parent.cxw.modalDialog({
 			title : username,
-			url : cxw.contextPath + '/securityJsp/form/userForm.jsp?userId='
-					+ userId + '&username=' + username,
+			width : 660,
+			height : 400,
+			url : cxw.contextPath
+					+ '/securityJsp/page/form/editUserForm.jsp?userId='	+ userId+'&roleId=' + roleId,
 			buttons : [ {
-				text : '编辑',
+				text : '保存',
 				handler : function() {
 					dialog.find('iframe').get(0).contentWindow.submitForm(
 							dialog, grid, parent.$);
@@ -39,8 +50,75 @@
 			} ]
 		});
 	}
+
 	var deleteFun = function(userId) {
-		alert(userId);
+		$.messager.confirm('确认','你确定要删除这个账号吗?',function(r){
+		    if (r){
+		    	$.post("deleteUser", {
+					id : userId
+				}, function(data) {
+					if (!data.success) {
+						parent.$.messager.alert('提示', data.msg, 'error');
+						grid.datagrid('load');
+					} else {
+						grid.datagrid('load');
+					}
+				});
+		    }
+		});
+		
+	}
+
+	var addFun = function(target) {
+		var level, levelName;
+		var id = $(target).attr('id');
+		if (id == 'permission1') {
+			level = 0;
+			levelName = '最高';
+		} else if (id == 'permission2') {
+			level = 1;
+			levelName = '财务';
+		} else if (id == 'permission3') {
+			level = 2;
+			levelName = '人事';
+		} else if (id == 'permission4') {
+			level = 3;
+			levelName = '财务';
+		} else if (id == 'permission5') {
+			level = 4;
+			levelName = '教师';
+		} else if (id == 'permission6') {
+			level = 5;
+			levelName = '多校主管';
+		} else if (id == 'permission7') {
+			level = 6;
+			levelName = '主管';
+		} else if (id == 'permission8') {
+			level = 7;
+			levelName = '前台';
+		} else if (id == 'permission9') {
+			level = 8;
+			levelName = '市场';
+		} else if (id == 'permission10') {
+			level = 9;
+			levelName = '销售';
+		}
+		var dialog = parent.cxw.modalDialog({
+			title : '账号权限',
+			width : 660,
+			height : 400,
+			url : cxw.contextPath
+					+ '/securityJsp/page/form/addUserForm.jsp?level=' + level
+					+ '&levelName=' + levelName,
+			buttons : [ {
+				text : '添加',
+				left : true,
+				handler : function() {
+					dialog.find('iframe').get(0).contentWindow.submitForm(
+							dialog, grid, parent.$);
+				}
+			} ]
+		});
 	}
 	$(document)
 			.ready(
@@ -53,6 +131,8 @@
 											pagination : true,
 											striped : true,
 											rownumbers : true,
+											autoRowHeight : true,
+											nowrap : false,
 											idField : 'userId',
 											pageSize : 20,
 											pageList : [ 10, 20, 30, 40, 50,
@@ -197,9 +277,9 @@
 																		row) {
 																	return cxw
 																			.formatString(
-																					'<span onclick="editFun(\'{0}\',\'{1}\')">{2}</span>',
+																					'<span onclick="editFun(\'{0}\',\'{1}\',\'{2}\')">{3}</span>',
 																					row.userId,
-																					row.username,
+																					row.username,row.roleId,
 																					'编辑');
 																}
 															},
@@ -236,52 +316,52 @@
 	<div data-options="region:'center',fit:true,border:false">
 		<div id="chart"></div>
 		<div style="padding: 20px; padding: 10px; text-align: center;">
-			<div id="permission1" class="addpermission">
+			<div id="permission1" onclick="addFun(this);" class="addpermission">
 				<img alt="最高权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">最高权限</span>
 			</div>
-			<div id="permission2" class="addpermission">
+			<div id="permission2" onclick="addFun(this);" class="addpermission">
 				<img alt="财务权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">财务权限</span>
 			</div>
-			<div id="permission3" class="addpermission">
+			<div id="permission3" onclick="addFun(this);" class="addpermission">
 				<img alt="人事权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">人事权限</span>
 			</div>
-			<div id="permission4" class="addpermission">
+			<div id="permission4" onclick="addFun(this);" class="addpermission">
 				<img alt="教务权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">教务权限</span>
 			</div>
-			<div id="permission5" class="addpermission">
+			<div id="permission5" onclick="addFun(this);" class="addpermission">
 				<img alt="教师权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">教师权限</span>
 			</div>
-			<div id="permission6" class="addpermission">
+			<div id="permission6" onclick="addFun(this);" class="addpermission">
 				<img alt="多校主管" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">多校主管</span>
 			</div>
-			<div id="permission7" class="addpermission">
+			<div id="permission7" onclick="addFun(this);" class="addpermission">
 				<img alt="单校主管" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">单管主管</span>
+					style="vertical-align: middle;">单校主管</span>
 			</div>
-			<div id="permission8" class="addpermission">
+			<div id="permission8" onclick="addFun(this);" class="addpermission">
 				<img alt="校区前台" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">校区前台</span>
 			</div>
-			<div id="permission9" class="addpermission">
+			<div id="permission9" onclick="addFun(this);" class="addpermission">
 				<img alt="市场主管" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">市场主管</span>
 			</div>
-			<div id="permission10" class="addpermission">
+			<div id="permission10" onclick="addFun(this);" class="addpermission">
 				<img alt="销售员" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">销售员</span>
@@ -290,7 +370,6 @@
 
 		<table id="grid" style="margin-top: 10px;" data-options="border:false"></table>
 
-		<div id="dd"></div>
 	</div>
 </body>
 </html>

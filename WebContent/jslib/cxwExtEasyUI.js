@@ -10,6 +10,15 @@ $.extend($.fn.panel.defaults, {
 	loadingMessage : '加载中....'
 });
 
+$.extend($.fn.validatebox.defaults.rules, {
+	fixLength : {
+		validator : function(value, param) {
+			return value.length == param[0];
+		},
+		message : '手机号长度为11位'
+	}
+});
+
 /**
  * 更改easyui加载grid时的提示文字
  * 
@@ -228,7 +237,8 @@ cxw.loadFilter = {
 				tmpMap[data[i][idField]] = data[i];
 			}
 			for (i = 0, l = data.length; i < l; i++) {
-				if (tmpMap[data[i][parentField]] && data[i][idField] != data[i][parentField]) {
+				if (tmpMap[data[i][parentField]]
+						&& data[i][idField] != data[i][parentField]) {
 					if (!tmpMap[data[i][parentField]]['children'])
 						tmpMap[data[i][parentField]]['children'] = [];
 					data[i]['text'] = data[i][textField];
@@ -266,7 +276,8 @@ $.extend($.fn.treegrid.defaults, {
 				tmpMap[data[i][idField]] = data[i];
 			}
 			for (i = 0, l = data.length; i < l; i++) {
-				if (tmpMap[data[i][parentField]] && data[i][idField] != data[i][parentField]) {
+				if (tmpMap[data[i][parentField]]
+						&& data[i][idField] != data[i][parentField]) {
 					if (!tmpMap[data[i][parentField]]['children'])
 						tmpMap[data[i][parentField]]['children'] = [];
 					data[i]['text'] = data[i][treeField];
@@ -292,8 +303,6 @@ $.extend($.fn.treegrid.defaults, {
 cxw.modalDialog = function(options) {
 	var opts = $.extend({
 		title : '&nbsp;',
-		width : 640,
-		height : 480,
 		modal : true,
 		onClose : function() {
 			$(this).dialog('destroy');
@@ -301,9 +310,11 @@ cxw.modalDialog = function(options) {
 	}, options);
 	opts.modal = true;// 强制此dialog为模式化，无视传递过来的modal参数
 	if (options.url) {
-		opts.content = '<iframe id="" src="' + options.url + '" allowTransparency="true" scrolling="auto" width="100%" height="98%" frameBorder="0" name=""></iframe>';
+		opts.content = '<iframe id="" src="'
+				+ options.url
+				+ '" allowTransparency="true" scrolling="auto" width="100%" height="98%" frameBorder="0" name=""></iframe>';
 	}
-	return $('<div/>').dialog(opts);
+	return $('<div id="dialog"/>').dialog(opts);
 };
 
 /**
@@ -315,7 +326,8 @@ cxw.modalDialog = function(options) {
 cxw.changeTheme = function(themeName) {
 	var $easyuiTheme = $('#easyuiTheme');
 	var url = $easyuiTheme.attr('href');
-	var href = url.substring(0, url.indexOf('themes')) + 'themes/' + themeName + '/easyui.css';
+	var href = url.substring(0, url.indexOf('themes')) + 'themes/' + themeName
+			+ '/easyui.css';
 	$easyuiTheme.attr('href', href);
 
 	var $iframe = $('iframe');
@@ -350,14 +362,16 @@ cxw.progressBar = function(options) {
 		}
 	} else {
 		if ($('#cxwProgressBarDiv').length < 1) {
-			var opts = $.extend({
-				title : '&nbsp;',
-				closable : false,
-				width : 300,
-				height : 60,
-				modal : true,
-				content : '<div id="cxwProgressBar" class="easyui-progressbar" data-options="value:0"></div>'
-			}, options);
+			var opts = $
+					.extend(
+							{
+								title : '&nbsp;',
+								closable : false,
+								width : 300,
+								height : 60,
+								modal : true,
+								content : '<div id="cxwProgressBar" class="easyui-progressbar" data-options="value:0"></div>'
+							}, options);
 			$('<div id="cxwProgressBarDiv"/>').dialog(opts);
 			$.parser.parse('#cxwProgressBarDiv');
 		} else {
@@ -368,59 +382,91 @@ cxw.progressBar = function(options) {
 		}
 	}
 };
-var cardview = $.extend({}, $.fn.datagrid.defaults.view, {   
-    renderRow: function(target, fields, frozen, rowIndex, rowData){
-        var cc = [];   
-        cc.push('<td colspan=' + fields.length + ' style="padding:5px;border:0;">');   
-        if (!frozen){   
-            cc.push('<img src="' +cxw.contextPath+ rowData.image + '" style="width:200px;height:200px;float:left">');   
-            cc.push('<div style="float:left;width:100px;">');   
-            for(var i=0; i<fields.length; i++){
-            	if(i==2){
-            		cc.push('<span style="height:80px;display:block">' + fields[i] + '</span>');  
-            	}
-            	else if(i==0){
-            		cc.push('<span style="visibility:hidden;height:20px;display:block">' + fields[i] + '</span>');  
-            	}
-            	else if(i==7){
-            		cc.push('<span style="height:40px;display:block;">' + '</span>');  
-            	}
-            	else{
-            		cc.push('<span style="height:20px;display:block">' + fields[i] + '</span>');  
-            	}
-            }   
-            cc.push('</div>');   
-            cc.push('<div style="float:left;width:500px;">');   
-            for(var i=0; i<fields.length; i++){
-            	if(i==2){
-            		cc.push('<span style="height:80px;display:block">' +  rowData[fields[i]] + '</span>'); 
-            	}
-            	else if(i==0){
-            		cc.push('<span style="visibility:hidden;height:20px;display:block">' +rowData[fields[i]] + '</span>');  
-            	}
-            	else if (i==7){
-            		cc.push('<span style="height:40px;display:block;">' +  '</span>'); 
-            	}
-            	else{
-            		cc.push('<span style="height:20px;display:block">' +  rowData[fields[i]] + '</span>'); 
-            	}
-            }   
-            cc.push('</div>'); 
-            cc.push('<div style="float:left;width:200px;">');   
-            for(var i=0; i<fields.length; i++){
-            	if(i==2)
-            		cc.push('<span style="height:80px;display:block">'  + '</span>');
-            	else if(i==7){
-            		cc.push('<span style="height:20px;display:block">' +  fields[i] + '</span>'); 
-            		cc.push('<span style="height:20px;display:block">' +'$'+  rowData[fields[i]] + '</span>'); 
-            	}
-            	else{
-            		cc.push('<span style="height:20px;display:block">' +   '</span>'); 
-            	}
-            }   
-            cc.push('</div>'); 
-        }   
-        cc.push('</td>');   
-        return cc.join('');   
-    }   
-});  
+var cardview = $
+		.extend(
+				{},
+				$.fn.datagrid.defaults.view,
+				{
+					renderRow : function(target, fields, frozen, rowIndex,
+							rowData) {
+						var cc = [];
+						cc.push('<td colspan=' + fields.length
+								+ ' style="padding:5px;border:0;">');
+						if (!frozen) {
+							cc
+									.push('<img src="'
+											+ cxw.contextPath
+											+ rowData.image
+											+ '" style="width:200px;height:200px;float:left">');
+							cc.push('<div style="float:left;width:100px;">');
+							for (var i = 0; i < fields.length; i++) {
+								if (i == 2) {
+									cc
+											.push('<span style="height:80px;display:block">'
+													+ fields[i] + '</span>');
+								} else if (i == 0) {
+									cc
+											.push('<span style="visibility:hidden;height:20px;display:block">'
+													+ fields[i] + '</span>');
+								} else if (i == 7) {
+									cc
+											.push('<span style="height:40px;display:block;">'
+													+ '</span>');
+								} else {
+									cc
+											.push('<span style="height:20px;display:block">'
+													+ fields[i] + '</span>');
+								}
+							}
+							cc.push('</div>');
+							cc.push('<div style="float:left;width:500px;">');
+							for (var i = 0; i < fields.length; i++) {
+								if (i == 2) {
+									cc
+											.push('<span style="height:80px;display:block">'
+													+ rowData[fields[i]]
+													+ '</span>');
+								} else if (i == 0) {
+									cc
+											.push('<span style="visibility:hidden;height:20px;display:block">'
+													+ rowData[fields[i]]
+													+ '</span>');
+								} else if (i == 7) {
+									cc
+											.push('<span style="height:40px;display:block;">'
+													+ '</span>');
+								} else {
+									cc
+											.push('<span style="height:20px;display:block">'
+													+ rowData[fields[i]]
+													+ '</span>');
+								}
+							}
+							cc.push('</div>');
+							cc.push('<div style="float:left;width:200px;">');
+							for (var i = 0; i < fields.length; i++) {
+								if (i == 2)
+									cc
+											.push('<span style="height:80px;display:block">'
+													+ '</span>');
+								else if (i == 7) {
+									cc
+											.push('<span style="height:20px;display:block">'
+													+ fields[i] + '</span>');
+									cc
+											.push('<span style="height:20px;display:block">'
+													+ '$'
+													+ rowData[fields[i]]
+													+ '</span>');
+								} else {
+									cc
+											.push('<span style="height:20px;display:block">'
+													+ '</span>');
+								}
+							}
+							cc.push('</div>');
+						}
+						cc.push('</td>');
+						return cc.join('');
+					}
+				});

@@ -20,6 +20,7 @@
 
 .table tbody th {
 	text-align: right;
+	width: 100px;
 }
 
 .table tr:hover {
@@ -32,6 +33,7 @@
 
 .form th {
 	text-align: right;
+	width: 100px;
 }
 
 .form th, .form td {
@@ -68,7 +70,7 @@ li {
 	font-family: Microsoft YaHei, Hiragino Sans GB, HiraginoSansGB-W3,
 		STHeiti Light, Heiti SC Light, Century Gothic, Verdana, Geneva,
 		sans-serif;
-	font-size: 12pt;
+	font-size: 10pt;
 }
 
 a {
@@ -94,11 +96,11 @@ a:hover, a:active {
 .menu {
 	background: url("image/blurbg.jpg");
 	width: 100%;
-	height: 110px;
+	height: 120px;
 }
 
 .main_Menu {
-	margin-top: 10px;
+	margin-top: 5px;
 }
 
 .subMenu {
@@ -109,7 +111,10 @@ a:hover, a:active {
 .menuSpan {
 	width: 80px;
 	height: auto;
-	margin-left: 30px;
+	margin-left: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	cursor: pointer;
 }
 
 .subMenuSpanBig {
@@ -117,7 +122,11 @@ a:hover, a:active {
 }
 
 .subMenuSpanSmall {
-	
+	margin: 0 auto;
+	width: 20px;
+	line-height: 14px;
+	display: block;
+	font-size: 8pt;
 }
 
 .menudiv {
@@ -127,7 +136,9 @@ a:hover, a:active {
 }
 
 .clicked {
-	font-size: 120%;
+	border: 1px solid #9D9D9D;
+	background-color: #E0DFDF;
+	border-bottom-style: none;
 }
 
 .footer {
