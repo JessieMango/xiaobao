@@ -20,7 +20,7 @@
 
 .table tbody th {
 	text-align: right;
-	width: 100px;
+	width: 120px;
 }
 
 .table tr:hover {
@@ -33,7 +33,7 @@
 
 .form th {
 	text-align: right;
-	width: 100px;
+	width: 120px;
 }
 
 .form th, .form td {
@@ -71,22 +71,6 @@ li {
 		STHeiti Light, Heiti SC Light, Century Gothic, Verdana, Geneva,
 		sans-serif;
 	font-size: 10pt;
-}
-
-a {
-	width: 80px;
-	height: auto;
-	margin-left: 30px;
-	text-decoration: none;
-	color: #000;
-}
-
-a:link, a:visited {
-	display: block;
-}
-
-a:hover, a:active {
-	background-color: #FFC954;
 }
 
 .mouse {
@@ -133,6 +117,7 @@ a:hover, a:active {
 	height: auto;
 	margin-left: 10px;
 	text-align: center;
+	cursor: pointer;
 }
 
 .clicked {
@@ -176,6 +161,8 @@ a:hover, a:active {
 	text-align: center;
 }
 
-.addpermission {
+.add {
 	display: inline;
+	margin: 10px;
+	cursor: pointer;
 }

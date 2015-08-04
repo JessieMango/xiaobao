@@ -49,7 +49,8 @@
 			<table class="table" style="width: 100%;">
 				<tr>
 					<th>级别:</th>
-					<td>&nbsp;<%=levelName%><input type="hidden" name="level" value="<%=level %>" /></td>
+					<td>&nbsp;<%=levelName%><input type="hidden" name="level"
+						value="<%=level %>" /></td>
 				</tr>
 				<tr>
 					<th>权限:</th>
@@ -57,7 +58,8 @@
 				</tr>
 				<tr>
 					<th>校区:</th>
-					<td><input type="radio" name="school" value="全部校区" checked="checked" />全部校区</td>
+					<td><input type="radio" name="school" value="全部校区"
+						checked="checked" />全部校区</td>
 				</tr>
 				<tr>
 					<th>用户名:</th>
@@ -83,11 +85,10 @@
 				<tr>
 					<th>登陆时限:</th>
 					<td><input name="startTime" class="easyui-timespinner"
-						style="width: 80px;" value="00:00" required="required"
+						style="width: 80px;" value="00:00"
 						data-options="showSeconds:false">&nbsp;到&nbsp;<input
 						name="endTime" class="easyui-timespinner" value="20:00"
-						style="width: 80px;" required="required"
-						data-options="showSeconds:false"></td>
+						style="width: 80px;" data-options="showSeconds:false"></td>
 				</tr>
 				<tr>
 					<th>性别:</th>

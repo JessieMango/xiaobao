@@ -236,4 +236,7 @@ $.ajaxSetup({
  */
 $(function() {
 	$('.iconImg').attr('src', cxw.pixel_0);
+	$('.icon67_32').attr('src', cxw.pixel_0);
+	$('.icon32').attr('src', cxw.pixel_0);
+	$('.icon16').attr('src', cxw.pixel_0);
 });

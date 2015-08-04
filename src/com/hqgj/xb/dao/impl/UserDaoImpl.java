@@ -56,7 +56,9 @@ public class UserDaoImpl implements UserDao {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
 						User user = new User();
-						user.setAge(Integer.parseInt(rs.getString("age")));
+						if(rs.getString("age") != null){
+							user.setAge(Integer.parseInt(rs.getString("age")));
+						}
 						user.setCarCode(rs.getString("carCode"));
 						user.setCreateTime(rs.getString("createTime"));
 						user.setGender(rs.getString("gender"));

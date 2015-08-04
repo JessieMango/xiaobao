@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>账号管理</title>
+<title></title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
 	var grid;
@@ -34,13 +34,15 @@
 			});
 		});
 	}
-	var editFun = function(userId, username,roleId) {
+	var editFun = function(userId, username, roleId) {
 		var dialog = parent.cxw.modalDialog({
+			modal : true,
 			title : username,
 			width : 660,
 			height : 400,
 			url : cxw.contextPath
-					+ '/securityJsp/page/form/editUserForm.jsp?userId='	+ userId+'&roleId=' + roleId,
+					+ '/securityJsp/page/form/editUserForm.jsp?userId='
+					+ userId + '&roleId=' + roleId,
 			buttons : [ {
 				text : '保存',
 				handler : function() {
@@ -52,9 +54,9 @@
 	}
 
 	var deleteFun = function(userId) {
-		$.messager.confirm('确认','你确定要删除这个账号吗?',function(r){
-		    if (r){
-		    	$.post("deleteUser", {
+		$.messager.confirm('确认', '你确定要删除这个账号吗?', function(r) {
+			if (r) {
+				$.post("deleteUser", {
 					id : userId
 				}, function(data) {
 					if (!data.success) {
@@ -64,9 +66,9 @@
 						grid.datagrid('load');
 					}
 				});
-		    }
+			}
 		});
-		
+
 	}
 
 	var addFun = function(target) {
@@ -127,11 +129,10 @@
 								.datagrid(
 										{
 											url : 'getAllUsers',
-											pagePosition : 'bottom',
-											pagination : true,
 											striped : true,
+											singleSelect : true,
+											pagination : true,
 											rownumbers : true,
-											autoRowHeight : true,
 											nowrap : false,
 											idField : 'userId',
 											pageSize : 20,
@@ -279,7 +280,8 @@
 																			.formatString(
 																					'<span onclick="editFun(\'{0}\',\'{1}\',\'{2}\')">{3}</span>',
 																					row.userId,
-																					row.username,row.roleId,
+																					row.username,
+																					row.roleId,
 																					'编辑');
 																}
 															},
@@ -305,6 +307,7 @@
 											onSortColumn : function(sort, order) {
 											},
 											onLoadSuccess : function(data) {
+												$('.iconImg').attr('src',cxw.pixel_0);
 												parent.$.messager
 														.progress('close');
 											}
@@ -316,59 +319,59 @@
 	<div data-options="region:'center',fit:true,border:false">
 		<div id="chart"></div>
 		<div style="padding: 20px; padding: 10px; text-align: center;">
-			<div id="permission1" onclick="addFun(this);" class="addpermission">
+			<div id="permission1" onclick="addFun(this);" class="add">
 				<img alt="最高权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">最高权限</span>
 			</div>
-			<div id="permission2" onclick="addFun(this);" class="addpermission">
+			<div id="permission2" onclick="addFun(this);" class="add">
 				<img alt="财务权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">财务权限</span>
 			</div>
-			<div id="permission3" onclick="addFun(this);" class="addpermission">
+			<div id="permission3" onclick="addFun(this);" class="add">
 				<img alt="人事权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">人事权限</span>
 			</div>
-			<div id="permission4" onclick="addFun(this);" class="addpermission">
+			<div id="permission4" onclick="addFun(this);" class="add">
 				<img alt="教务权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">教务权限</span>
 			</div>
-			<div id="permission5" onclick="addFun(this);" class="addpermission">
+			<div id="permission5" onclick="addFun(this);" class="add">
 				<img alt="教师权限" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">教师权限</span>
 			</div>
-			<div id="permission6" onclick="addFun(this);" class="addpermission">
+			<div id="permission6" onclick="addFun(this);" class="add">
 				<img alt="多校主管" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">多校主管</span>
 			</div>
-			<div id="permission7" onclick="addFun(this);" class="addpermission">
+			<div id="permission7" onclick="addFun(this);" class="add">
 				<img alt="单校主管" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">单校主管</span>
 			</div>
-			<div id="permission8" onclick="addFun(this);" class="addpermission">
+			<div id="permission8" onclick="addFun(this);" class="add">
 				<img alt="校区前台" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">校区前台</span>
 			</div>
-			<div id="permission9" onclick="addFun(this);" class="addpermission">
+			<div id="permission9" onclick="addFun(this);" class="add">
 				<img alt="市场主管" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">市场主管</span>
 			</div>
-			<div id="permission10" onclick="addFun(this);" class="addpermission">
+			<div id="permission10" onclick="addFun(this);" class="add">
 				<img alt="销售员" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">销售员</span>
 			</div>
 		</div>
 
-		<table id="grid" style="margin-top: 10px;" data-options="border:false"></table>
+		<table id="grid" data-options="border:false"></table>
 
 	</div>
 </body>

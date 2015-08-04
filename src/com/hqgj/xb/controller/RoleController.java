@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hqgj.xb.bean.Role;
 import com.hqgj.xb.service.RoleService;
-import com.hqgj.xb.service.UserService;
 
 /**
  * @author 崔兴伟
@@ -23,9 +22,6 @@ import com.hqgj.xb.service.UserService;
 public class RoleController {
 	@Autowired
 	private RoleService roleService;
-
-	@Autowired
-	private UserService userService;
 
 	@RequestMapping(value = "/form/getPermissionByRoleId", method = RequestMethod.POST)
 	public @ResponseBody List<Role> getPermissionByRoleId(

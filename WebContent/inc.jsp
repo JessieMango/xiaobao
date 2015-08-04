@@ -32,6 +32,7 @@ var cxw = cxw || {};
 cxw.contextPath = '<%=contextPath%>';
 cxw.basePath = '<%=basePath%>';
 cxw.version = '<%=version%>';
+cxw.pixel_0 = '<%=contextPath%>/style/images/pixel_0.gif';//0像素的背景，一般用于占位
 </script>
 
 <%-- 引入ueditor控件 --%>
@@ -54,7 +55,7 @@ cxw.version = '<%=version%>';
 	} else {
 		out.println("<script src='"
 				+ contextPath
-				+ "/jslib/jquery-2.1.4.min.js' type='text/javascript' charset='utf-8'></script>");
+				+ "/jslib/jquery-2.0.3.js' type='text/javascript' charset='utf-8'></script>");
 	}
 %>
 <%-- 引入jquery扩展 --%>
@@ -66,14 +67,14 @@ cxw.version = '<%=version%>';
 <script src="<%=contextPath%>/jslib/Highcharts-3.0.6/js/highcharts.js" 	type="text/javascript" charset="utf-8"></script>
 <script src="<%=contextPath%>/jslib/Highcharts-3.0.6/js/modules/exporting.js" type="text/javascript" charset="utf-8"></script>
 <%-- 引入Highcharts扩展 --%>
-<script src="<%=contextPath%>/jslib/syExtHighcharts.js?version=<%=version%>" type="text/javascript" charset="utf-8"></script>
+<script src="<%=contextPath%>/jslib/cxwExtHighcharts.js?version=<%=version%>" type="text/javascript" charset="utf-8"></script>
 
 <%-- 引入plupload --%>
 <script type="text/javascript" 	src="<%=contextPath%>/jslib/plupload-2.0.0/js/plupload.full.min.js"></script>
 <script type="text/javascript" 	src="<%=contextPath%>/jslib/plupload-2.0.0/js/i18n/zh_CN.js"></script>
 
 <%-- 引入EasyUI --%>
-<link id="easyuiTheme" rel="stylesheet" href="<%=contextPath%>/jslib/easyui/themes/<%=easyuiTheme%>/easyui.css" type="text/css">
+<link id="easyuiTheme" rel="stylesheet" href="<%=contextPath%>/jslib/easyui/themes/default/easyui.css" type="text/css">
 <script type="text/javascript" 	src="<%=contextPath%>/jslib/easyui/jquery.easyui.min.js" charset="utf-8"></script>
 <script type="text/javascript" 	src="<%=contextPath%>/jslib/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 	

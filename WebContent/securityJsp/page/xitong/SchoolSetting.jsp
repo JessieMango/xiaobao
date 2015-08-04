@@ -137,13 +137,6 @@
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
 
-		<div style="padding: 20px; padding: 10px; text-align: center;">
-			<div id="permission1" onclick="addFun(this);" class="addpermission">
-				<img alt="最高权限" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">最高权限</span>
-			</div>
-		</div>
 		<div style="margin: 30px auto; text-align: center;">
 			<table id="grid" style="margin-top: 10px;"
 				data-options="border:false"></table>

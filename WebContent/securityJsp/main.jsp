@@ -189,7 +189,7 @@ $(function() {
 		style="overflow: hidden; border: 0;">
 		<div id="mainTabs">
 			<div title="桌面"
-				data-options="iconCls:'ext-icon-world',closable:true,fit:true">
+				data-options="iconCls:'ext-icon-world',closable:true">
 				<iframe src="<%=contextPath%>/securityJsp/page/welcome.jsp"
 					style="border: 0; width: 100%; height: 99%;"></iframe>
 			</div>
