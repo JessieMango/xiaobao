@@ -1,6 +1,5 @@
 package com.hqgj.xb.controller;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -14,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hqgj.xb.bean.SystemLog;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
+import com.hqgj.xb.bean.easyui.SessionInfo;
+import com.hqgj.xb.service.SystemLogService;
 import com.hqgj.xb.service.UserService;
+import com.hqgj.xb.util.CommonUtil;
 import com.hqgj.xb.util.MD5Util;
 
 @Controller
@@ -28,6 +31,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SystemLogService systemLogService;
 
 	@RequestMapping(value = "/xitong/getAllUsers", method = RequestMethod.POST)
 	public @ResponseBody Grid getAllUsers(Parameter parameter) {
@@ -98,6 +103,14 @@ public class UserController {
 			json.setMsg("添加用户失败");
 		} else {
 			json.setSuccess(true);
+			SystemLog log = new SystemLog();
+			log.setMessage("("+user.getUsername()+")");
+			log.setOperateTime(CommonUtil.getSystemTime());
+			log.setOperateType("7");
+			SessionInfo sessionInfo = (SessionInfo) request.getSession()
+					.getAttribute("sessionInfo");
+			log.setUsername(sessionInfo.getUser().getUsername());
+			systemLogService.writeLog(log);
 		}
 		return json;
 	}

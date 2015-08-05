@@ -11,6 +11,41 @@
 <title>登录</title>
 <link href="<%=contextPath%>/style/login.css" style="text/css"
 	rel="stylesheet" />
+<script type="text/javascript"
+	src="<%=contextPath%>/jslib/jquery-1.9.1.js"></script>
+<script src="<%=contextPath%>/jslib/cxwExtJquery.js"
+	type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+	var submit = function() {
+		if ($("#loginname").val() == "" || $("#password").val() == "") {
+			alert("用户名密码不能为空");
+		} else {
+			$.post("securityJsp/login", cxw.serializeObject($('form')),
+					function(result) {
+						if (result.success) {
+							window.location.replace("securityJsp/main.jsp")
+						} else {
+							$("#msg").html(result.msg);
+						}
+					}, 'json');
+		}
+	}
+
+	$(document).ready(function() {
+		$("#login").click(function() {
+			submit();
+		});
+
+		$("html").keypress(function(e) {
+			var e = e || event;
+			keycode = e.which || e.keyCode;
+			if (keycode == 13) {
+				submit();
+			}
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="total">
@@ -36,24 +71,24 @@
 					<div class="pic">
 						<img alt="头像" src="<%=contextPath%>/style/image/person.jpg">
 					</div>
-					<form action="securityJsp/login" method="post" class="login-form">
+					<form method="post" class="login-form">
 						<dl>
 							<dd>
 								<input type="text" name="loginname" id="loginname" tabindex="1"
-									required="required" autofocus="autofocus"
-									placeholder="邮箱/手机号/用户名" class="input-text" />
+									autofocus="autofocus" placeholder="邮箱/手机号/用户名"
+									required="required" class="input-text" />
 							</dd>
 						</dl>
 						<dl>
 							<dd>
 								<input type="password" name="password" id="password"
-									tabindex="2" required="required" class="input-text"
+									required="required" tabindex="2" class="input-text"
 									placeholder="请输入密码" />
 							</dd>
 						</dl>
 						<dl>
 							<dd>
-								<label>${msg }</label>
+								<span id="msg"></span>
 							</dd>
 						</dl>
 						<dl>
@@ -69,7 +104,7 @@
 						</dl>
 						<dl>
 							<dd>
-								<input type="submit" id="login" class="login-btn" value="登录"
+								<input type="button" id="login" class="login-btn" value="登录"
 									tabindex="4" />
 							</dd>
 						</dl>

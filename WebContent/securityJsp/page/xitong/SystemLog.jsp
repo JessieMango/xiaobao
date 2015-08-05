@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>系统日志</title>
+<title></title>
 </head>
 <body>
 系统日志

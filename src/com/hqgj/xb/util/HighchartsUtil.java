@@ -24,7 +24,7 @@ import org.apache.fop.svg.PDFTranscoder;
 /**
  * 用于下载highchart图表
  * 
- * @author 孙宇
+ * @author 崔兴伟
  * 
  */
 public class HighchartsUtil extends HttpServlet {
@@ -33,11 +33,13 @@ public class HighchartsUtil extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 
 		String type = request.getParameter("type");
@@ -66,9 +68,6 @@ public class HighchartsUtil extends HttpServlet {
 			}
 		}
 
-		// System.out.println(filename);
-		// System.out.println(type);
-		// System.out.println(svg);
 
 		ServletOutputStream out = response.getOutputStream();
 		if (!StringUtils.isBlank(type) && !StringUtils.isBlank(svg)) {
@@ -87,10 +86,12 @@ public class HighchartsUtil extends HttpServlet {
 				t = (Transcoder) new PDFTranscoder();
 			} else if (type.equals("image/svg+xml"))
 				ext = "svg";
-			response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename + "." + ext, "UTF-8"));
+			response.addHeader("Content-Disposition", "attachment; filename="
+					+ URLEncoder.encode(filename + "." + ext, "UTF-8"));
 			response.addHeader("Content-Type", type);
 			if (null != t) {
-				TranscoderInput input = new TranscoderInput(new StringReader(svg));
+				TranscoderInput input = new TranscoderInput(new StringReader(
+						svg));
 				TranscoderOutput output = new TranscoderOutput(out);
 				try {
 					t.transcode(input, output);
@@ -106,7 +107,8 @@ public class HighchartsUtil extends HttpServlet {
 				out.print("Invalid type: " + type);
 		} else {
 			response.addHeader("Content-Type", "text/html");
-			out.println("Usage:\n\tParameter [svg]: The DOM Element to be converted." + "\n\tParameter [type]: The destination MIME type for the elment to be transcoded.");
+			out.println("Usage:\n\tParameter [svg]: The DOM Element to be converted."
+					+ "\n\tParameter [type]: The destination MIME type for the elment to be transcoded.");
 		}
 		out.flush();
 		out.close();

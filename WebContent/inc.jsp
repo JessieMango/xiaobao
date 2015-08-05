@@ -35,10 +35,6 @@ cxw.version = '<%=version%>';
 cxw.pixel_0 = '<%=contextPath%>/style/images/pixel_0.gif';//0像素的背景，一般用于占位
 </script>
 
-<%-- 引入ueditor控件 --%>
-<script type="text/javascript" charset="utf-8">window.UEDITOR_HOME_URL = '<%=contextPath%>/jslib/ueditor1_2_6_1-utf8-jsp/';</script>
-<script src="<%=contextPath%>/jslib/ueditor1_2_6_1-utf8-jsp/ueditor.config.js" 	type="text/javascript" charset="utf-8"></script>
-<script	src="<%=contextPath%>/jslib/ueditor1_2_6_1-utf8-jsp/ueditor.all.min.js" type="text/javascript" charset="utf-8"></script>
 
 
 <%-- 引入jQuery --%>
@@ -64,14 +60,10 @@ cxw.pixel_0 = '<%=contextPath%>/style/images/pixel_0.gif';//0像素的背景，�
 <script type="text/javascript" 	src="<%=contextPath%>/jslib/jquery.cookie.js"></script>
 
 <%-- 引入Highcharts --%>
-<script src="<%=contextPath%>/jslib/Highcharts-3.0.6/js/highcharts.js" 	type="text/javascript" charset="utf-8"></script>
-<script src="<%=contextPath%>/jslib/Highcharts-3.0.6/js/modules/exporting.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%=contextPath%>/jslib/highcharts.js" type="text/javascript" charset="utf-8"></script>
 <%-- 引入Highcharts扩展 --%>
 <script src="<%=contextPath%>/jslib/cxwExtHighcharts.js?version=<%=version%>" type="text/javascript" charset="utf-8"></script>
 
-<%-- 引入plupload --%>
-<script type="text/javascript" 	src="<%=contextPath%>/jslib/plupload-2.0.0/js/plupload.full.min.js"></script>
-<script type="text/javascript" 	src="<%=contextPath%>/jslib/plupload-2.0.0/js/i18n/zh_CN.js"></script>
 
 <%-- 引入EasyUI --%>
 <link id="easyuiTheme" rel="stylesheet" href="<%=contextPath%>/jslib/easyui/themes/default/easyui.css" type="text/css">
