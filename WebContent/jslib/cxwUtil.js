@@ -18,3 +18,12 @@ function getCurrentTime() {
 			+ ' ' + (hh < 10 ? ('0' + hh) : hh) + ':'
 			+ (mm < 10 ? ('0' + mm) : mm) + ':' + (ss < 10 ? ('0' + ss) : ss);
 }
+
+/* 当前日期 */
+function getCurrentDate() {
+	var curr_time = new Date();
+	var y = curr_time.getFullYear();
+	var m = curr_time.getMonth() + 1;
+	var d = curr_time.getDate();
+	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
+}

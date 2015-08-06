@@ -170,7 +170,6 @@ public class UserDaoImpl implements UserDao {
 		} else {
 			grid.setRows(results);
 		}
-		grid.setRows(results);
 		return grid;
 	}
 
