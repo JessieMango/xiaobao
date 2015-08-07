@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	String courseCode = request.getParameter("courseCode");
-	String type = request.getParameter("type");	
+	String type = request.getParameter("type");
 %>
 <!DOCTYPE html>
 <html>
@@ -30,8 +30,8 @@
 			}, 'json');
 		}
 	}
-
-	$(document).ready(function() {
+	/* 初始化页面 */
+	function init(){
 		$('#cc').combobox({
 			url : 'getCourseTypes',
 			valueField : 'courseTypeCode',
@@ -45,6 +45,10 @@
 				}
 			}
 		});
+	}
+
+	$(document).ready(function() {
+		init();
 		
 		if("2" == "<%=type%>" ){
 			$.post("getCourseById", {	courseCode :"<%=courseCode%>"}, function(result) {

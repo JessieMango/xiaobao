@@ -24,6 +24,7 @@ public class CommonUtil {
 		String mDateTime = formatter.format(cal.getTime());
 		return mDateTime;
 	}
+	
 
 	/**
 	 * 判断字符串是否为空
