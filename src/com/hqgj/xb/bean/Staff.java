@@ -13,18 +13,82 @@ public class Staff {
 	private String contractStatus;
 	private String socialsecurityStatus;
 	private String laborRelations;
-	private String startDate;
-	private String endtDate;
+	private String contractStartDate;
+	private String contractEndtDate;
 	private String confirmationDate;
 	private String cardCode;
-	private String createTime;
-	private String updateTime;
-	private String loginStartDate;
-	private String loginendDate;
+	private String englishName;
+	private String trainingExperience;
+	private String staffTag;
 	
-	public Staff () {
-		
+	private String wagecardName;
+	public String getWagecardName() {
+		return wagecardName;
 	}
+
+	public void setWagecardName(String wagecardName) {
+		this.wagecardName = wagecardName;
+	}
+
+	public String getWagecardID() {
+		return wagecardID;
+	}
+
+	public void setWagecardID(String wagecardID) {
+		this.wagecardID = wagecardID;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	private String wagecardID;
+	private String remarks;
+	
+	
+	public String getStaffTag() {
+		return staffTag;
+	}
+
+	public void setStaffTag(String staffTag) {
+		this.staffTag = staffTag;
+	}
+	public String getContractStartDate() {
+		return contractStartDate;
+	}
+
+
+	public void setContractStartDate(String contractStartDate) {
+		this.contractStartDate = contractStartDate;
+	}
+
+	public String getContractEndtDate() {
+		return contractEndtDate;
+	}
+
+
+	public void setContractEndtDate(String contractEndtDate) {
+		this.contractEndtDate = contractEndtDate;
+	}
+	public String getEnglishName() {
+		return englishName;
+	}
+
+	public void setEnglishName(String englishName) {
+		this.englishName = englishName;
+	}
+
+	public String getTrainingExperience() {
+		return trainingExperience;
+	}
+
+	public void setTrainingExperience(String trainingExperience) {
+		this.trainingExperience = trainingExperience;
+	}
+
 	
 	public String getId() {
 		return Id;
@@ -74,18 +138,7 @@ public class Staff {
 	public void setLaborRelations(String laborRelations) {
 		this.laborRelations = laborRelations;
 	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndtDate() {
-		return endtDate;
-	}
-	public void setEndtDate(String endtDate) {
-		this.endtDate = endtDate;
-	}
+
 	public String getConfirmationDate() {
 		return confirmationDate;
 	}
@@ -98,28 +151,10 @@ public class Staff {
 	public void setCardCode(String cardCode) {
 		this.cardCode = cardCode;
 	}
-	public String getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-	public String getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-	}
-	public String getLoginStartDate() {
-		return loginStartDate;
-	}
-	public void setLoginStartDate(String loginStartDate) {
-		this.loginStartDate = loginStartDate;
-	}
-	public String getLoginendDate() {
-		return loginendDate;
-	}
-	public void setLoginendDate(String loginendDate) {
-		this.loginendDate = loginendDate;
+	
+	
+	
+	public Staff () {
+		
 	}
 }

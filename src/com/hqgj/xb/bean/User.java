@@ -26,6 +26,15 @@ public class User {
 	private String scope;
 	private String permission;
 	private String roleId;
+	private String flag;
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
 	public String getRoleId() {
 		return roleId;
