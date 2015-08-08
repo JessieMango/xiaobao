@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
+
 import com.hqgj.xb.bean.Staff;
+import com.hqgj.xb.bean.User;
 import com.hqgj.xb.dao.StaffDAO;
 import com.hqgj.xb.service.StaffService;
 
@@ -15,11 +17,11 @@ import com.hqgj.xb.service.StaffService;
  */
 public class StaffServiceImpl implements StaffService {
 	@Autowired
-	private StaffDAO newStaffDAO;
+	private StaffDAO staffDAO;
 	
 	@Override
-	public int createStaff(Staff staff){
-		return newStaffDAO.createStaff(staff);
+	public int createStaff(Staff staff,User user){
+		return staffDAO.createStaff(staff,user);
 	}
 
 }

@@ -10,122 +10,135 @@
 <title>新建档案</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
-function init(){
-	$('#nameM').datebox({
-		required : true,
-		value : getCurrentDate()
-	});
-	
-	$('#dirthday').datebox({
-		required : true,
-		value : getCurrentDate()
-	});
-	$('#startdate').datebox({
-		required : true,
-		value : getCurrentDate()
-	});
-	$('#enddate').datebox({
-		required : true,
-		value : getCurrentDate()
-	});
-	$('#confirmationdate').datebox({
-		required : true,
-		value : getCurrentDate()
-	});
-	
-	$('#cb').combobox({
-		url : 'readOperateType',
-		valueField : 'id',
-		textField : 'operateName',
-		editable : false,
-		panelHeight : "auto",
-		required : true,
-		onLoadSuccess : function(data) {
-			if (data) {
-				$('#cb').combobox('setValue', data[0].id);
-			}
-		}
-	});
-	
+var submitForm = function() {
+	if ($('form').form('validate')) {
 		
-}
-
-$(function() {
-	init();		
-
-});
+		$.post("createStaff", cxw.serializeObject($('form')), function(
+				result) {
+			if (result.success) {
+				window.location.href = 'zhengshitingzhi.jsp';
+			} else {
+				$.messager.alert('提示', '添加失败!', 'info');
+			}
+		}, 'json');
+	}
+	else
+		{
+			$.messager.alert('提示', '请将信息填写完整!', 'info');		
+		}
+	}
+/* 初始化页面 */
+	function init() {
+	
+	$("#btn_save").click(function() {
+		submitForm();
+	});
+	}
+	
+	$(document).ready(function() {
+	init();
+	});
 </script>
 </head>
 <body>
 <form method="post" class="form">
-	<div style="width: 90%; height: auto; padding: 10px;">
-	<div>
+	<div >
+	<div style="width: 70%;margin-left:auto;margin-right:auto;">
 		
-			<label>姓名：</label><input type="text" name="username" class="easyui-validatebox" />
+			<label>姓  名：</label> &nbsp;<input type="text" name="username" class="easyui-validatebox" /><br/>
 			
-			<label>性别：</label><input type="radio" name="gender" value="0" />男 <input type="radio" name="gender" value="1" />女
+			<label>性  别：</label><input type="radio" checked="checked" name="gender" value="0" />男 <input type="radio" name="gender" value="1" />女<br/>
 							
-			<label>英文名：</label><input type="text" name="englishName" class="easyui-validatebox" ></input>
+			<label>英文名 ：</label><input type="text" name="englishName" class="easyui-validatebox" ></input><br/>
 			
-			<label>身份证号：</label><input name="IDnumber" type="text" class="easyui-validatebox" ></input>
+			<label>身份证号：</label><input name="IDnumber" type="text" class="easyui-validatebox" ></input><br/>
 			
-			<label>生日：</label><input name="birthday" type="text" name="dirthday" class="easyui-datebox" style="width: 200px;" required="required"><label>（用于年龄计算和员工生日提醒）</label>	
+			<label>生  日：</label><input name="birthday" type="text" name="dirthday" class="easyui-datebox"  data-options="required:true,value:'getCurrentDate();'"><label>（用于年龄计算和员工生日提醒）</label><br/>	
 			
-			<label>手机：</label><input name="tel" type="text" class="easyui-validatebox" ></input>
+			<label>手  机：</label><input name="tel" type="text" class="easyui-validatebox" ></input><br/>
 			
-			<label>邮箱：</label><input name="email" type="text" class="easyui-validatebox" ></input>
+			<label>邮  箱：</label><input name="email" type="text" class="easyui-validatebox" ></input><br/>
 			
-			<label>籍贯：</label><input name="birthPlace" type="text" class="easyui-validatebox" ></input>
+			<label>籍  贯：</label><input name="birthPlace" type="text" class="easyui-validatebox" ></input><br/>
 			
-			<label>民族：</label><input name="nation" type="text" class="easyui-validatebox" ></input>
+			<label>民  族：</label><input name="nation" type="text" class="easyui-validatebox" ></input><br/>
 			
-			<label>政治：</label> <select name="politicalStatus" style="width: 200px;" 	class="easyui-combobox"></select>
+			<label>政  治：</label> 
+			<select name="politicalstatecode" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+						<option  value="0">群众</option>
+						<option value="1">团员</option>
+						<option value="2">预备党员</option>
+						<option value="3">党员</option>						
+					</select><br/>
 			
-			<label>婚姻：</label><select name="marriage" style="width: 200px;" class="easyui-combobox" data-options="valueField:'councilSchoolCode',textField:'councilSchool',url:''"></select>
-			//在文档中的user表
+			<label>婚  姻：</label><select name="marriage" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+						<option value="0">未婚</option>
+						<option value="1">已婚未育</option>	
+						<option value="1">已婚已育</option>		
+					</select>	<br/>		
 			
-			//在文档中的DStaffEducation表
-			<label>院校：</label><input name="school" type="text" class="easyui-validatebox" ></input>
+			<label>院  校：</label><input name="school" type="text" class="easyui-validatebox" ></input><br/>
 			
-			<label>专业：</label><input name="major" type="text" class="easyui-validatebox" ></input>
+			<label>专  业：</label><input name="major" type="text" class="easyui-validatebox" ></input><br/>
 			
-			<label>学历：</label><input name="education" type="text" class="easyui-validatebox" ></input>
+			<label>学  历：</label><input name="education" type="text" class="easyui-validatebox" ></input><br/>
 		
-			<label>培训经历：</label><input name="trainingExperience"type="text" class="easyui-validatebox" ></input>
+			<label>培训经历：</label><input name="trainingExperience"type="text" class="easyui-validatebox" ></input><br/>
 			
-			<label>其他：</label><input name="other" type="text" class="easyui-validatebox" ></input>	
+			<label>其  他：</label><input name="other" type="text" class="easyui-validatebox" ></input>	<br/>
 			
 			
 	</div>
-	
-	<div  style="text-align: center;" class="rowdiv">
-			//在文档中的Staff 表
-			<label>人事状态：</label><select name="state" style="width: 200px;" class="easyui-combobox"></select>
+	<br/><br/><br/><br/><br/>
+	<div  style="width: 70%;margin-left:auto;margin-right:auto;"><br/><label>人事状态：</label><select name="personnelstatus" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+						<option value="0">面试期</option>
+						<option value="1">培训期</option>	
+						<option value="1">试用期</option>		
+						<option value="1">正式员工</option>		
+						<option value="1">转正失败</option>		
+						<option value="1">停薪留职</option>		
+						<option value="1">主动离职</option>		
+						<option value="1">被解聘</option>		
+					</select>
+			<br/>
+			<label>标  记：</label><input type="text" name="staffTag" class="easyui-validatebox" ></input><br/>
 			
-			<label>标记：</label><input type="text" name="staffTag" class="easyui-validatebox" ></input>
+			<label>劳动合同：</label><select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+									<option value="0">未签</option>
+									<option value="1">已期</option>	
+							</select><br/>
+					<br/>
 			
-			<label>劳动合同：</label><select name="contractStatus" style="width: 200px;" class="easyui-combobox"></select>
+			<label>合同期 ：</label><input type="text" name="contractStartDate" class="easyui-datebox" data-options="required:true,value:'getCurrentDate();'">到
+								<input type="text" name="contractEndtDate" class="easyui-datebox" data-options="required:true,value:'getCurrentDate();'"><label>（用于合同到期提醒）</label>	
+			<br/><br/>
+			<label>转正日期：</label><input type="text" name="confirmationdate" class="easyui-datebox" data-options="required:true,value:'getCurrentDate();'"><label>（用于试用到期提醒、累计工作天数计算）</label><br/>
+			<br/>
+			<label>劳动关系：</label><select name="laborRelationsCode" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+						<option value="0">全职</option>
+						<option value="1">兼职</option>	
+						<option value="1">合作</option>		
+					</select>		<br/>	
+		
 			
-			<label>合同期：</label><input type="text" name="contractStartDate" class="easyui-datebox" style="width: 200px;" required="required">到
-								<input type="text" name="contractEndtDate" class="easyui-datebox" style="width: 200px;" required="required"><label>（用于合同到期提醒）</label>	
+			<label>社  保：</label><select name="socialsecurityStatusCode" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+						<option value="0">已办理</option>
+						<option value="1">未办理</option>		
+					</select><br/>
 			
-			<label>转正日期：</label><input type="text" name="confirmationdate" class="easyui-datebox" style="width: 200px;" required="required"><label>（用于试用到期提醒、累计工作天数计算）</label>
+			<label>工资卡 ：</label><input type="text" name="wagecardName"  class="easyui-validatebox" ></input><label>（开户行）</label>	<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="wagecardID" class="easyui-validatebox" ></input><label>（卡号）</label>	<br/>
 			
-			<label>劳动关系：</label><select name="laborRelations" style="width: 200px;" class="easyui-combobox"></select>
-			
-			<label>社保：</label><select name="socialsecurityStatus" style="width: 200px;" class="easyui-combobox"></select>
-			
-			<label>工资卡：</label><input type="text" name="wagecardName"  class="easyui-validatebox" ></input><label>（开户行）</label>	
-								<input type="text" name="wagecardID" class="easyui-validatebox" ></input><label>（卡号）</label>	
-			
-			<label>备注：</label><input type="text"  name="remarks" class="easyui-validatebox" ></input>
+			<label>备  注：</label><input type="text"  name="remarks" class="easyui-validatebox" ></input><br/><br/>
 			
 			
-			<button type="submit">
+		<div style="text-align: center; margin-top: 20px;">
+			<button type="button" id="btn_save">
 				<img alt="保存" style="vertical-align: middle;"
 					src="../../../style/image/save.gif"><span
 					style="vertical-align: middle;">保存</span>
 			</button>
+		</div>
 		</div>
 	</div>
 	</form>

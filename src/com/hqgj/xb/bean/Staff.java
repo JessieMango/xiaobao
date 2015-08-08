@@ -6,22 +6,150 @@ package com.hqgj.xb.bean;
  */
 public class Staff {
 	private String Id;
-	private String userId;
-	private String wage;
-	private String state;
-	private String position;
-	private String contractStatus;
-	private String socialsecurityStatus;
-	private String laborRelations;
-	private String contractStartDate;
-	private String contractEndtDate;
-	private String confirmationDate;
-	private String cardCode;
-	private String englishName;
-	private String trainingExperience;
-	private String staffTag;
+	private String userId;        //user 表中的id
+	private String wage;          //
+	private String position;       //职位
+	private String personnelstatusCode;	
+	private String personnelstatus;   //人事状态
+	private String socialsecurityStatusCode;
+	private String socialsecurityStatus;//社保状态
+	private String laborRelationsCode;//
+	private String laborRelations;//
+	private String contractState;
+	private String contractStartDate;//
+	private String contractEndtDate;//
+	private String confirmationDate;//
+	private String cardCode;//
+	private String englishName;//
+	private String trainingExperience;//
+	private String staffTag;	//
+	private String wagecardName;//
+	private String remark;
+	private String wagecardID;
 	
-	private String wagecardName;
+	
+	//以下字段来自数据表DStaffEducation
+	private String startDate;
+	private String endDate;
+	private String school;
+	private String unified;
+	private String major;
+	private String education;
+
+	
+	public String getContractState() {
+		return contractState;
+	}
+
+	public void setContractState(String contractState) {
+		this.contractState = contractState;
+	}
+	public String getPersonnelstatusCode() {
+		return personnelstatusCode;
+	}
+
+	public void setPersonnelstatusCode(String personnelstatusCode) {
+		this.personnelstatusCode = personnelstatusCode;
+	}
+
+	public String getPersonnelstatus() {
+		return personnelstatus;
+	}
+
+	public void setPersonnelstatus(String personnelstatus) {
+		this.personnelstatus = personnelstatus;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public String getUnified() {
+		return unified;
+	}
+
+	public void setUnified(String unified) {
+		this.unified = unified;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+	
+	
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getErsonnelstatusCode() {
+		return personnelstatusCode;
+	}
+
+	public void setErsonnelstatusCode(String personnelstatusCode) {
+		this.personnelstatusCode = personnelstatusCode;
+	}
+
+	public String getErsonnelstatus() {
+		return personnelstatus;
+	}
+
+	public void setErsonnelstatus(String personnelstatus) {
+		this.personnelstatus = personnelstatus;
+	}
+
+
+	public String getSocialsecurityStatusCode() {
+		return socialsecurityStatusCode;
+	}
+
+	public void setSocialsecurityStatusCode(String socialsecurityStatusCode) {
+		this.socialsecurityStatusCode = socialsecurityStatusCode;
+	}
+
+	public String getLaborRelationsCode() {
+		return laborRelationsCode;
+	}
+
+	public void setLaborRelationsCode(String laborRelationsCode) {
+		this.laborRelationsCode = laborRelationsCode;
+	}
+
 	public String getWagecardName() {
 		return wagecardName;
 	}
@@ -38,15 +166,7 @@ public class Staff {
 		this.wagecardID = wagecardID;
 	}
 
-	public String getRemarks() {
-		return remarks;
-	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-	private String wagecardID;
-	private String remarks;
 	
 	
 	public String getStaffTag() {
@@ -108,23 +228,12 @@ public class Staff {
 	public void setWage(String wage) {
 		this.wage = wage;
 	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
+	
 	public String getPosition() {
 		return position;
 	}
 	public void setPosition(String position) {
 		this.position = position;
-	}
-	public String getContractStatus() {
-		return contractStatus;
-	}
-	public void setContractStatus(String contractStatus) {
-		this.contractStatus = contractStatus;
 	}
 	public String getSocialsecurityStatus() {
 		return socialsecurityStatus;

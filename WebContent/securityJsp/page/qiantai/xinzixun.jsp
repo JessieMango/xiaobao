@@ -43,6 +43,7 @@ label {
 				$("#sellerCode").combobox('setValue',
 						$("#sellerCode").combobox('getText'));
 			}
+			
 			$.post("saveConsult", cxw.serializeObject($('form')), function(
 					result) {
 				if (result.success) {

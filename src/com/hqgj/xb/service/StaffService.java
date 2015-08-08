@@ -1,6 +1,7 @@
 package com.hqgj.xb.service;
 
 import com.hqgj.xb.bean.Staff;
+import com.hqgj.xb.bean.User;
 
 /**
  * @author 鲁宗豪
@@ -8,6 +9,6 @@ import com.hqgj.xb.bean.Staff;
  */
 public interface StaffService {
 	
-	public int createStaff(Staff staff);
+	public int createStaff(Staff staff,User user);
 
 }
