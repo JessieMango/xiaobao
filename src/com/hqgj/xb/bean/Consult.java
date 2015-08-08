@@ -36,6 +36,45 @@ public class Consult {
 	private String mark; // 标记
 	private String markCode; // 标记 编码 用于Combobox
 	private String state; // 0表示未报名,1表示已报名
+	/**
+	 * 用于查询
+	 */
+	private String telTail; // 电话尾号
+	private String startTime; // 查询开始日期
+	private String endTime; // 查询截止日期
+	private String order; //排序字段 1按日期排序  2方式排序 3来源排序 4课程排序 5经办排序  
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getTelTail() {
+		return telTail;
+	}
+
+	public void setTelTail(String telTail) {
+		this.telTail = telTail;
+	}
 
 	public String getCouncilSchoolCode() {
 		return councilSchoolCode;

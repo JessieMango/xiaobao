@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.Consult;
+import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.ConsultDAO;
 import com.hqgj.xb.service.ConsultService;
 
@@ -20,38 +22,48 @@ public class ConsultSeriveImpl implements ConsultService {
 	private ConsultDAO consultDAO;
 
 	@Override
-	public List<Consult> getCouncilSchools() {
-		return consultDAO.getCouncilSchools();
+	public List<Consult> getCouncilSchools(String type) {
+		return consultDAO.getCouncilSchools(type);
 	}
 
 	@Override
-	public List<Consult> getWillDegree() {
-		return consultDAO.getWillDegree();
+	public List<Consult> getWillDegree(String type) {
+		return consultDAO.getWillDegree(type);
 	}
 
 	@Override
-	public List<Consult> getMark() {
-		return consultDAO.getMark();
+	public List<Consult> getMark(String type) {
+		return consultDAO.getMark(type);
 	}
 
 	@Override
-	public List<Consult> getSellSource() {
-		return consultDAO.getSellSource();
+	public List<Consult> getSellSource(String type) {
+		return consultDAO.getSellSource(type);
 	}
 
 	@Override
-	public List<Consult> getSeller() {
-		return consultDAO.getSeller();
+	public List<Consult> getSeller(String type) {
+		return consultDAO.getSeller(type);
 	}
 
 	@Override
-	public List<Consult> getHandler() {
-		return consultDAO.getHandler();
+	public List<Consult> getHandler(String type) {
+		return consultDAO.getHandler(type);
 	}
 
 	@Override
 	public int saveConsult(Consult consult) {
 		return consultDAO.saveConsult(consult);
+	}
+
+	@Override
+	public List<Consult> getConsultWay(String type) {
+		return consultDAO.getConsultWay(type);
+	}
+
+	@Override
+	public Grid getConsult(Consult consult,Parameter parameter) {
+		return consultDAO.getConsult(consult,parameter);
 	}
 
 }

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hqgj.xb.bean.Consult;
 import com.hqgj.xb.bean.Course;
 import com.hqgj.xb.bean.School;
+import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Json;
+import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.service.ConsultService;
 import com.hqgj.xb.service.CourseService;
@@ -36,43 +38,48 @@ public class ConsultController {
 	private SchoolService schoolService;
 
 	@RequestMapping(value = "/qiantai/getAllSchools", method = RequestMethod.POST)
-	public @ResponseBody List<School> getAllSchools() {
-		return schoolService.getAllSchools();
+	public @ResponseBody List<School> getAllSchools(String type) {
+		return schoolService.getAllSchools(type);
 	}
 
 	@RequestMapping(value = "/qiantai/getCourseTypes", method = RequestMethod.POST)
-	public @ResponseBody List<Course> getCourseTypes() {
-		return courseService.getCourseTypes();
+	public @ResponseBody List<Course> getCourseTypes(String type) {
+		return courseService.getCourseTypes(type);
 	}
 
 	@RequestMapping(value = "/qiantai/getCouncilSchools", method = RequestMethod.POST)
-	public @ResponseBody List<Consult> getCouncilSchools() {
-		return consultService.getCouncilSchools();
+	public @ResponseBody List<Consult> getCouncilSchools(String type) {
+		return consultService.getCouncilSchools(type);
 	}
 
 	@RequestMapping(value = "/qiantai/getWillDegree", method = RequestMethod.POST)
-	public @ResponseBody List<Consult> getWillDegree() {
-		return consultService.getWillDegree();
+	public @ResponseBody List<Consult> getWillDegree(String type) {
+		return consultService.getWillDegree(type);
 	}
 
 	@RequestMapping(value = "/qiantai/getMark", method = RequestMethod.POST)
-	public @ResponseBody List<Consult> getMark() {
-		return consultService.getMark();
+	public @ResponseBody List<Consult> getMark(String type) {
+		return consultService.getMark(type);
 	}
 
 	@RequestMapping(value = "/qiantai/getSellSource", method = RequestMethod.POST)
-	public @ResponseBody List<Consult> getSellSource() {
-		return consultService.getSellSource();
+	public @ResponseBody List<Consult> getSellSource(String type) {
+		return consultService.getSellSource(type);
 	}
 
 	@RequestMapping(value = "/qiantai/getSeller", method = RequestMethod.POST)
-	public @ResponseBody List<Consult> getSeller() {
-		return consultService.getSeller();
+	public @ResponseBody List<Consult> getSeller(String type) {
+		return consultService.getSeller(type);
+	}
+
+	@RequestMapping(value = "/qiantai/getConsultWay", method = RequestMethod.POST)
+	public @ResponseBody List<Consult> getConsultWay(String type) {
+		return consultService.getConsultWay(type);
 	}
 
 	@RequestMapping(value = "/qiantai/getHandler", method = RequestMethod.POST)
-	public @ResponseBody List<Consult> getHandler() {
-		return consultService.getHandler();
+	public @ResponseBody List<Consult> getHandler(String type) {
+		return consultService.getHandler(type);
 	}
 
 	@RequestMapping(value = "/qiantai/saveConsult", method = RequestMethod.POST)
@@ -92,5 +99,10 @@ public class ConsultController {
 			json.setMsg("添加新咨询失败 ");
 		}
 		return json;
+	}
+
+	@RequestMapping(value = "/qiantai/getConsult", method = RequestMethod.POST)
+	public @ResponseBody Grid getConsult(Consult consult, Parameter parameter) {
+		return consultService.getConsult(consult, parameter);
 	}
 }

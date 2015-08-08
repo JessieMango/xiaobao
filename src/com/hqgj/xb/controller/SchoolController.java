@@ -29,8 +29,8 @@ public class SchoolController {
 	private SchoolService schoolService;
 
 	@RequestMapping(value = "/xitong/getAllSchools", method = RequestMethod.POST)
-	public @ResponseBody List<School> getAllSchools() {
-		return schoolService.getAllSchools();
+	public @ResponseBody List<School> getAllSchools(String type) {
+		return schoolService.getAllSchools(type);
 	}
 
 	@RequestMapping(value = "/form/getSchoolById", method = RequestMethod.POST)
