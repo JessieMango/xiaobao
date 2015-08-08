@@ -11,78 +11,78 @@
 <jsp:include page="../../../inc.jsp"></jsp:include>
 
 <script type="text/javascript">
-function init(){
-	$('#cc').datebox({
-		required : true,
-		value : getCurrentDate()
-	});
-	$('#cb').combobox({
-		url : 'readOperateType',
-		valueField : 'id',
-		textField : 'operateName',
-		editable : false,
-		panelHeight : "auto",
-		required : true,
-		onLoadSuccess : function(data) {
-			if (data) {
-				$('#cb').combobox('setValue', data[0].id);
+	function init() {
+		$('#cc').datebox({
+			required : true,
+			value : getCurrentDate()
+		});
+		$('#cb').combobox({
+			url : 'readOperateType',
+			valueField : 'id',
+			textField : 'operateName',
+			editable : false,
+			panelHeight : "auto",
+			required : true,
+			onLoadSuccess : function(data) {
+				if (data) {
+					$('#cb').combobox('setValue', data[0].id);
+				}
 			}
-		}
-	});
+		});
 
-	grid = $('#grid').datagrid({
-		url : 'readLog',
-		striped : true,
-		singleSelect : true,
-		pagination : true,
-		rownumbers : true,
-		nowrap : false,
-		idField : 'id',
-		pageSize : 20,
-		pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
-		columns : [ [
+		grid = $('#grid').datagrid({
+			url : 'readLog',
+			striped : true,
+			singleSelect : true,
+			pagination : true,
+			rownumbers : true,
+			nowrap : false,
+			idField : 'id',
+			pageSize : 20,
+			pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
+			columns : [ [
 
-		{
-			field : 'operateTime',
-			title : '时间',
-			width : "20%",
-			align : 'center'
-		}, {
-			field : 'username',
-			title : '用户',
-			width : "20%",
-			align : 'center',
-		}, {
-			field : 'operateName',
-			title : '操作名称',
-			width : "20%",
-			align : 'center'
+			{
+				field : 'operateTime',
+				title : '时间',
+				width : "20%",
+				align : 'center'
+			}, {
+				field : 'username',
+				title : '用户',
+				width : "20%",
+				align : 'center',
+			}, {
+				field : 'operateName',
+				title : '操作名称',
+				width : "20%",
+				align : 'center'
 
-		}, {
-			field : 'operateType',
-			title : '操作',
-			width : "20%",
-			align : 'center'
+			}, {
+				field : 'operateType',
+				title : '操作',
+				width : "20%",
+				align : 'center'
 
-		} ] ],
-		toolbar : '#toolbar',
-		onBeforeLoad : function(param) {
-			parent.$.messager.progress({
-				text : '数据加载中....'
-			});
-		},
-		onSortColumn : function(sort, order) {
-		},
-		onLoadSuccess : function(data) {
-			$('.iconImg').attr('src', cxw.pixel_0);
-			parent.$.messager.progress('close');
-		}
-	});
-}
+			} ] ],
+			toolbar : '#toolbar',
+			onBeforeLoad : function(param) {
+				parent.$.messager.progress({
+					text : '数据加载中....'
+				});
+			},
+			onSortColumn : function(sort, order) {
+			},
+			onLoadSuccess : function(data) {
+				$('.iconImg').attr('src', cxw.pixel_0);
+				parent.$.messager.progress('close');
+			}
+		});
+	}
+
 	$(function() {
-		init();		
+		init();
 		grid.datagrid('load', cxw.serializeObject($('#searchForm')));
-
 	});
 </script>
 </head>

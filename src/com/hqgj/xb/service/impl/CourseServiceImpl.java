@@ -28,8 +28,8 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> getCourseTypes() {
-		return courseDAO.getCourseTypes();
+	public List<Course> getCourseTypes(String type) {
+		return courseDAO.getCourseTypes(type);
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public interface CourseService {
 	 * @datetime 2015年8月3日 上午9:24:57
 	 * @return
 	 */
-	public List<Course> getCourseTypes();
+	public List<Course> getCourseTypes(String type);
 
 	/**
 	 * 获取指定课程信息

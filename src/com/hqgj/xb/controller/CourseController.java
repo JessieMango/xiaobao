@@ -33,8 +33,8 @@ public class CourseController {
 	}
 
 	@RequestMapping(value = "/form/getCourseTypes", method = RequestMethod.POST)
-	public @ResponseBody List<Course> getCourseTypes() {
-		return courseService.getCourseTypes();
+	public @ResponseBody List<Course> getCourseTypes(String type) {
+		return courseService.getCourseTypes(type);
 	}
 	
 	@RequestMapping(value = "/form/getCourseById", method = RequestMethod.POST)

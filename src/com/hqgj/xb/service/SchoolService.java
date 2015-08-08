@@ -16,7 +16,7 @@ public interface SchoolService {
 	 * @datetime 2015年8月1日 下午4:23:19
 	 * @return
 	 */
-	public List<School> getAllSchools();
+	public List<School> getAllSchools(String type);
 
 	/**
 	 * 获取指定学校信息

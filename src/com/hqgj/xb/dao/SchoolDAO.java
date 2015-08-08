@@ -14,9 +14,9 @@ public interface SchoolDAO {
 	 * 
 	 * @author 崔兴伟
 	 * @datetime 2015年8月1日 下午4:23:19
-	 * @return
+	 * @return type查询时如果传此参数 在后台封装一条全部的键值
 	 */
-	public List<School> getAllSchools();
+	public List<School> getAllSchools(String type);
 
 	/**
 	 * 获取指定学校信息

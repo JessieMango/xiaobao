@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,6 +19,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.Course;
+import com.hqgj.xb.bean.School;
 import com.hqgj.xb.dao.CourseDAO;
 
 /**
@@ -58,7 +60,7 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 
 	@Override
-	public List<Course> getCourseTypes() {
+	public List<Course> getCourseTypes(String type) {
 		String sql = "	select ct.courseTypeCode courseTypeCode,ct.nameM courseTypeName,ct.seq courseTypeSeq from  CourseType ct order by ct.seq ";
 		List<Course> results = this.nJdbcTemplate.query(sql,
 				new RowMapper<Course>() {
@@ -72,6 +74,12 @@ public class CourseDAOImpl implements CourseDAO {
 						return course;
 					}
 				});
+		if (StringUtils.equals(type, "1")) {
+			Course temp = new Course();
+			temp.setCourseTypeCode("qb");
+			temp.setCourseTypeName("全部课程类");
+			results.add(0, temp);
+		}
 		return results;
 	}
 
@@ -154,7 +162,7 @@ public class CourseDAOImpl implements CourseDAO {
 	@Override
 	public int deleteCourseType(String id) {
 		String sql = "delete from CourseType  where courseTypeCode=:code";
-		Map<String,String> paramMap = new HashMap<String, String>();
+		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("code", id);
 		return this.nJdbcTemplate.update(sql, paramMap);
 	}
@@ -162,7 +170,7 @@ public class CourseDAOImpl implements CourseDAO {
 	@Override
 	public int deleteCourse(String id) {
 		String sql = "delete from Course  where courseCode=:code";
-		Map<String,String> paramMap = new HashMap<String, String>();
+		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("code", id);
 		return this.nJdbcTemplate.update(sql, paramMap);
 	}

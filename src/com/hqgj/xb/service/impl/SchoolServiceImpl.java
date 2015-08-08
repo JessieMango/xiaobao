@@ -19,8 +19,8 @@ public class SchoolServiceImpl implements SchoolService {
 	private SchoolDAO schoolDAO;
 
 	@Override
-	public List<School> getAllSchools() {
-		return schoolDAO.getAllSchools();
+	public List<School> getAllSchools(String type) {
+		return schoolDAO.getAllSchools(type);
 	}
 
 	@Override

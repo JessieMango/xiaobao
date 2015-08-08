@@ -3,6 +3,8 @@ package com.hqgj.xb.dao;
 import java.util.List;
 
 import com.hqgj.xb.bean.Consult;
+import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 
 /**
  * @author 崔兴伟
@@ -16,7 +18,16 @@ public interface ConsultDAO {
 	 * @datetime 2015年8月6日 下午3:16:54
 	 * @return
 	 */
-	public List<Consult> getCouncilSchools();
+	public List<Consult> getCouncilSchools(String type);
+
+	/**
+	 * 获取所有咨询方式
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月7日 下午2:44:36
+	 * @return
+	 */
+	public List<Consult> getConsultWay(String type);
 
 	/**
 	 * 获取所有意向度
@@ -25,7 +36,7 @@ public interface ConsultDAO {
 	 * @datetime 2015年8月6日 下午3:55:52
 	 * @return
 	 */
-	public List<Consult> getWillDegree();
+	public List<Consult> getWillDegree(String type);
 
 	/**
 	 * 获取所有标记
@@ -34,7 +45,7 @@ public interface ConsultDAO {
 	 * @datetime 2015年8月6日 下午3:57:26
 	 * @return
 	 */
-	public List<Consult> getMark();
+	public List<Consult> getMark(String type);
 
 	/**
 	 * 获取所有销售来源
@@ -43,7 +54,7 @@ public interface ConsultDAO {
 	 * @datetime 2015年8月6日 下午3:58:06
 	 * @return
 	 */
-	public List<Consult> getSellSource();
+	public List<Consult> getSellSource(String type);
 
 	/**
 	 * 获取所有销售员信息
@@ -52,7 +63,7 @@ public interface ConsultDAO {
 	 * @datetime 2015年8月6日 下午3:59:07
 	 * @return
 	 */
-	public List<Consult> getSeller();
+	public List<Consult> getSeller(String type);
 
 	/**
 	 * 获取所有经办人
@@ -61,7 +72,7 @@ public interface ConsultDAO {
 	 * @datetime 2015年8月6日 下午3:59:42
 	 * @return
 	 */
-	public List<Consult> getHandler();
+	public List<Consult> getHandler(String type);
 
 	/**
 	 * 保存新咨询数据到数据库
@@ -71,4 +82,14 @@ public interface ConsultDAO {
 	 * @return
 	 */
 	public int saveConsult(Consult consult);
+
+	/**
+	 * 按条件查询咨询记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月7日 下午2:45:33
+	 * @param consult
+	 * @return
+	 */
+	public Grid getConsult(Consult consult,Parameter parameter);
 }
