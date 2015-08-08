@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.hqgj.xb.util.DateUtil;
 
 public class User {
+	
 	private String userId;
 	private String password;
 	private Integer age;

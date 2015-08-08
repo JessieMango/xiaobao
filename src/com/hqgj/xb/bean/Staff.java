@@ -18,7 +18,11 @@ public class Staff {
 	private String contractState;
 	private String contractStartDate;//
 	private String contractEndtDate;//
-	private String confirmationDate;//
+	private String confirmationdate;//
+	
+
+
+
 	private String cardCode;//
 	private String englishName;//
 	private String trainingExperience;//
@@ -31,10 +35,29 @@ public class Staff {
 	//以下字段来自数据表DStaffEducation
 	private String startDate;
 	private String endDate;
-	private String school;
+	private String schooll;
 	private String unified;
 	private String major;
 	private String education;
+	
+	
+	public String getConfirmationdate() {
+		return confirmationdate;
+	}
+
+	public void setConfirmationdate(String confirmationdate) {
+		this.confirmationdate = confirmationdate;
+	}
+
+	public String getSchooll() {
+		return schooll;
+	}
+
+	public void setSchooll(String schooll) {
+		this.schooll = schooll;
+	}
+
+
 
 	
 	public String getContractState() {
@@ -76,13 +99,6 @@ public class Staff {
 		this.endDate = endDate;
 	}
 
-	public String getSchool() {
-		return school;
-	}
-
-	public void setSchool(String school) {
-		this.school = school;
-	}
 
 	public String getUnified() {
 		return unified;
@@ -248,12 +264,7 @@ public class Staff {
 		this.laborRelations = laborRelations;
 	}
 
-	public String getConfirmationDate() {
-		return confirmationDate;
-	}
-	public void setConfirmationDate(String confirmationDate) {
-		this.confirmationDate = confirmationDate;
-	}
+
 	public String getCardCode() {
 		return cardCode;
 	}
