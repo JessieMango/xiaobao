@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.hqgj.xb.util.DateUtil;
 
 public class User {
+	
 	private String userId;
 	private String password;
 	private Integer age;
@@ -26,6 +27,88 @@ public class User {
 	private String scope;
 	private String permission;
 	private String roleId;
+	private String flag;
+	
+	private String IDnumber;
+	private String  birthday;
+	private String email;
+	private String birthPlace;
+	private String  nation;
+	private String  politicalStatus;
+	private String  marriage;
+	private String other;
+	
+	public String getIDnumber() {
+		return IDnumber;
+	}
+
+	public void setIDnumber(String iDnumber) {
+		IDnumber = iDnumber;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getBirthPlace() {
+		return birthPlace;
+	}
+
+	public void setBirthPlace(String birthPlace) {
+		this.birthPlace = birthPlace;
+	}
+
+	public String getNation() {
+		return nation;
+	}
+
+	public void setNation(String nation) {
+		this.nation = nation;
+	}
+
+	public String getPoliticalStatus() {
+		return politicalStatus;
+	}
+
+	public void setPoliticalStatus(String politicalStatus) {
+		this.politicalStatus = politicalStatus;
+	}
+
+	public String getMarriage() {
+		return marriage;
+	}
+
+	public void setMarriage(String marriage) {
+		this.marriage = marriage;
+	}
+
+	public String getOther() {
+		return other;
+	}
+
+	public void setOther(String other) {
+		this.other = other;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
 	public String getRoleId() {
 		return roleId;

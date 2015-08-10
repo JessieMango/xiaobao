@@ -56,7 +56,7 @@ label {
 				url = "saveConsult";
 			}
 			
-			$.post(url, cxw.serializeObject($('form')), function(
+			$.post(url, cxw.serializeObject($('form')),  function(
 					result) {
 				if (result.success) {
 					window.location.href = 'zixunjilu.jsp';

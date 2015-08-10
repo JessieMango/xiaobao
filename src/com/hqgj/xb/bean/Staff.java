@@ -6,25 +6,225 @@ package com.hqgj.xb.bean;
  */
 public class Staff {
 	private String Id;
-	private String userId;
-	private String wage;
-	private String state;
-	private String position;
-	private String contractStatus;
-	private String socialsecurityStatus;
-	private String laborRelations;
-	private String startDate;
-	private String endtDate;
-	private String confirmationDate;
-	private String cardCode;
-	private String createTime;
-	private String updateTime;
-	private String loginStartDate;
-	private String loginendDate;
+	private String userId;        //user 表中的id
+	private String wage;          //
+	private String position;       //职位
+	private String personnelstatusCode;	
+	private String personnelstatus;   //人事状态
+	private String socialsecurityStatusCode;
+	private String socialsecurityStatus;//社保状态
+	private String laborRelationsCode;//
+	private String laborRelations;//
+	private String contractState;
+	private String contractStartDate;//
+	private String contractEndtDate;//
+	private String confirmationdate;//
 	
-	public Staff () {
-		
+
+
+
+	private String cardCode;//
+	private String englishName;//
+	private String trainingExperience;//
+	private String staffTag;	//
+	private String wagecardName;//
+	private String remark;
+	private String wagecardID;
+	
+	
+	//以下字段来自数据表DStaffEducation
+	private String startDate;
+	private String endDate;
+	private String schooll;
+	private String unified;
+	private String major;
+	private String education;
+	
+	
+	public String getConfirmationdate() {
+		return confirmationdate;
 	}
+
+	public void setConfirmationdate(String confirmationdate) {
+		this.confirmationdate = confirmationdate;
+	}
+
+	public String getSchooll() {
+		return schooll;
+	}
+
+	public void setSchooll(String schooll) {
+		this.schooll = schooll;
+	}
+
+
+
+	
+	public String getContractState() {
+		return contractState;
+	}
+
+	public void setContractState(String contractState) {
+		this.contractState = contractState;
+	}
+	public String getPersonnelstatusCode() {
+		return personnelstatusCode;
+	}
+
+	public void setPersonnelstatusCode(String personnelstatusCode) {
+		this.personnelstatusCode = personnelstatusCode;
+	}
+
+	public String getPersonnelstatus() {
+		return personnelstatus;
+	}
+
+	public void setPersonnelstatus(String personnelstatus) {
+		this.personnelstatus = personnelstatus;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+
+	public String getUnified() {
+		return unified;
+	}
+
+	public void setUnified(String unified) {
+		this.unified = unified;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+	
+	
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getErsonnelstatusCode() {
+		return personnelstatusCode;
+	}
+
+	public void setErsonnelstatusCode(String personnelstatusCode) {
+		this.personnelstatusCode = personnelstatusCode;
+	}
+
+	public String getErsonnelstatus() {
+		return personnelstatus;
+	}
+
+	public void setErsonnelstatus(String personnelstatus) {
+		this.personnelstatus = personnelstatus;
+	}
+
+
+	public String getSocialsecurityStatusCode() {
+		return socialsecurityStatusCode;
+	}
+
+	public void setSocialsecurityStatusCode(String socialsecurityStatusCode) {
+		this.socialsecurityStatusCode = socialsecurityStatusCode;
+	}
+
+	public String getLaborRelationsCode() {
+		return laborRelationsCode;
+	}
+
+	public void setLaborRelationsCode(String laborRelationsCode) {
+		this.laborRelationsCode = laborRelationsCode;
+	}
+
+	public String getWagecardName() {
+		return wagecardName;
+	}
+
+	public void setWagecardName(String wagecardName) {
+		this.wagecardName = wagecardName;
+	}
+
+	public String getWagecardID() {
+		return wagecardID;
+	}
+
+	public void setWagecardID(String wagecardID) {
+		this.wagecardID = wagecardID;
+	}
+
+
+	
+	
+	public String getStaffTag() {
+		return staffTag;
+	}
+
+	public void setStaffTag(String staffTag) {
+		this.staffTag = staffTag;
+	}
+	public String getContractStartDate() {
+		return contractStartDate;
+	}
+
+
+	public void setContractStartDate(String contractStartDate) {
+		this.contractStartDate = contractStartDate;
+	}
+
+	public String getContractEndtDate() {
+		return contractEndtDate;
+	}
+
+
+	public void setContractEndtDate(String contractEndtDate) {
+		this.contractEndtDate = contractEndtDate;
+	}
+	public String getEnglishName() {
+		return englishName;
+	}
+
+	public void setEnglishName(String englishName) {
+		this.englishName = englishName;
+	}
+
+	public String getTrainingExperience() {
+		return trainingExperience;
+	}
+
+	public void setTrainingExperience(String trainingExperience) {
+		this.trainingExperience = trainingExperience;
+	}
+
 	
 	public String getId() {
 		return Id;
@@ -44,23 +244,12 @@ public class Staff {
 	public void setWage(String wage) {
 		this.wage = wage;
 	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
+	
 	public String getPosition() {
 		return position;
 	}
 	public void setPosition(String position) {
 		this.position = position;
-	}
-	public String getContractStatus() {
-		return contractStatus;
-	}
-	public void setContractStatus(String contractStatus) {
-		this.contractStatus = contractStatus;
 	}
 	public String getSocialsecurityStatus() {
 		return socialsecurityStatus;
@@ -74,52 +263,18 @@ public class Staff {
 	public void setLaborRelations(String laborRelations) {
 		this.laborRelations = laborRelations;
 	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndtDate() {
-		return endtDate;
-	}
-	public void setEndtDate(String endtDate) {
-		this.endtDate = endtDate;
-	}
-	public String getConfirmationDate() {
-		return confirmationDate;
-	}
-	public void setConfirmationDate(String confirmationDate) {
-		this.confirmationDate = confirmationDate;
-	}
+
+
 	public String getCardCode() {
 		return cardCode;
 	}
 	public void setCardCode(String cardCode) {
 		this.cardCode = cardCode;
 	}
-	public String getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-	public String getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-	}
-	public String getLoginStartDate() {
-		return loginStartDate;
-	}
-	public void setLoginStartDate(String loginStartDate) {
-		this.loginStartDate = loginStartDate;
-	}
-	public String getLoginendDate() {
-		return loginendDate;
-	}
-	public void setLoginendDate(String loginendDate) {
-		this.loginendDate = loginendDate;
+	
+	
+	
+	public Staff () {
+		
 	}
 }
