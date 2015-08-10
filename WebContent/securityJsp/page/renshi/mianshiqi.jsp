@@ -10,52 +10,218 @@
 <title>面试期员工档案</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
-function init(){
+	var grid;
+	/* 初始化页面 */
+	function init() {
+		$('#staffTag').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#staffTag').combobox('setValue',
+									data[0].id);
+						}
+					}
+				});
+		
+
 	
-}
+		grid = $('#grid')
+				.datagrid(
+						{
+							url : 'Getmianshiqi',
+							striped : true,
+							pagination : true,
+							rownumbers : true,
+							nowrap : false,
+							idField : 'id',
+							pageSize : 20,
+							pageList : [ 10, 20, 30, 40, 50, 100, 200, 300,
+									400, 500 ],
+							columns : [ [
+									{
+										field : '',
+										checkbox : true,
+										width : "5%",
+										align : 'center'
 
-$(function() {
-	init();		
+									},
+									{
+										field : 'userId',
+										title : '姓名',
+										width : "5%",
+										align : 'center'
 
-});
+									},
+									{
+										field : 'position',
+										title : '性别',
+										width : "3%",
+										formatter : function(value, row, index) {
+											switch (value) {
+											case '0':
+												return '<img alt="男" style="vertical-align: middle;" src="../../../style/image/male.png">';
+											case '1':
+												return '<img alt="女" src="../../../style/image/female.png">';
+											}
+										}
+									},
+									
+									{
+										field : 'personnelstatus',
+										title : '状态',
+										width : "5%",
+										align : 'center',
+										
+									},
+									{
+										field : 'education',
+										title : '学历',
+										width : "7%",
+										align : 'center'
+									},
+									{
+										field : 'laborRelations',
+										title : '关系',
+										width : "4%",
+										align : 'center'
+									},
+									{
+										field : 'contractState',
+										title : '合同',
+										width : "8%",
+										align : 'center',
+										formatter : function(value, row) {
+											if (value == 0) {
+												return '<img  alt="未签"  style="vertical-align: middle;" src="../../../style/image/signmakeup.gif" />';
+											} else {
+												return '<img  alt="已签"  style="vertical-align: middle;" src="../../../style/image/signin.gif" />';
+											}
+										}
+									},
+									{
+										field : 'socialsecurityStatus',
+										title : '社保',
+										width : "6%",
+										align : 'center',
+										formatter : function(value, row) {
+											if (value == 0) {
+												return '<img  alt="未签"  style="vertical-align: middle;" src="../../../style/image/signmakeup.gif" />';
+											} else {
+												return '<img  alt="已签"  style="vertical-align: middle;" src="../../../style/image/signin.gif" />';
+											}
+										}
+									},
+									{
+										field : 'contractStartDate',
+										title : '转正已过',
+										width : "8%",
+										align : 'center'
+									},
+									{
+										field : 'contractEndtDate',
+										title : '剩余',
+										width : "5%",
+										align : 'center'
+									},
+									{
+										field : 'confirmationdate',
+										title : '转正日期',
+										width : "5%",
+										align : 'center'
+									},
+									{
+										title : '编辑',
+										field : 'edit',
+										width : "6%",
+										align : 'center',
+										formatter : function(value, row) {
+											return cxw
+													.formatString(
+															'<input type="reset" value="编辑" style="color:black; font-weight:bold; width:60px; onclick="editFun(\'{0}\')" />',
+															row.id);
+										}
+									},
+									{
+										title : '删除',
+										field : 'delete',
+										width : "4%",
+										align : 'center',
+										formatter : function(value, row) {
+											return cxw
+													.formatString(
+															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
+															row.id);
+										}
+									} ] ],
+							onBeforeLoad : function(param) {
+								parent.$.messager.progress({
+									text : '数据加载中....'
+								});
+							},
+							onSortColumn : function(sort, order) {
+							},
+							onLoadSuccess : function(data) {
+								parent.$.messager.progress('close');
+							}
+						});
+	}
+
+	$(document).ready(function() {
+		init();
+	});
 </script>
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
-	<div id="toolbar" style="display: none;">
-		<table>
-			<tr>
-				<td>
-					<form id="searchFormS">
-						<table>
-							<tr>
-								<td>合同状态：</td>
-								<td><select name="contractStatus" style="width: 200px;" class="easyui-combobox"></select></td>
-
-								<td>社保状态：</td>
-								<td><select name="socialsecurityStatus" style="width: 200px;" class="easyui-combobox"></select></td>
-								
-								<td>劳动关系：</td>
-								<td><select name="laborRelations" style="width: 200px;" class="easyui-combobox"></select></td>
-								<td>标记：</td>
-								<td><select name="" style="width: 200px;" class="easyui-combobox"></select></td>
-								
-								<td>排序方式：</td>
-								<td><select name="" style="width: 200px;" class="easyui-combobox"></select></td>
-								
-								<td><a href="javascript:void(0);" class="easyui-linkbutton"
-									data-options="iconCls:'ext-icon-zoom',plain:true"
-									onclick="grid.datagrid('load',cxw.serializeObject($('#searchForm')));">查询</a>
-								</td>
-							</tr>
-						</table>
-					</form>
-				</td>
-			</tr>
-		</table>
-	</div>
-
 	<div data-options="region:'center',fit:true,border:false">
-		<table id="grid" data-options="border:false"></table>
+		<div>
+			<form id="form1">
+				<div style="margin-top: 20px;">
+					<div style="margin-left: 15%;">
+					&nbsp;合同状态：&nbsp;<select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+									<option value="qb">全部合同状态</option>
+									<option value="0">未签</option>
+									<option value="1">已期</option>	
+							</select>&nbsp;
+					社保状态：&nbsp;<select name="socialsecurityStatus" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+										<option value="qb">全部社保状态</option>
+										<option value="0">已办理</option>
+										<option value="1">未办理</option>		
+								</select>&nbsp;
+					
+					劳动关系：&nbsp;<select name="laborRelations" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+									<option value="qb">全部劳动关系</option>
+									<option value="0">全职</option>
+									<option value="1">兼职</option>	
+									<option value="1">合作</option>		
+								</select>&nbsp;
+					
+					标  记：&nbsp;<input class="easyui-combobox" name="staffTag"
+							id="staffTag" style="width: 100px;"
+							data-options="valueField:'id',textField:'cardCode',url:'getStaffTag?type=1',panelHeight:'auto',editable:false" />&nbsp;&nbsp;
+				
+					排序方式：&nbsp;<select name="remark" class="easyui-combobox"
+							data-options="required:true,editable:false,panelHeight:'auto'"
+							style="width: 100px;">
+							<option value="1" checked="checked">员工姓名排序</option>
+							<option value="2">员工工龄排序</option>
+							<option value="3">员工状态排序</option>
+							<option value="4">合同起日排序</option>
+							<option value="5">合同止日排序</option>
+							<option value="6">转正日期排序</option>
+						</select> &nbsp; 
+						
+						<a href="javascript:void(0);" class="easyui-linkbutton"
+							data-options="iconCls:'ext-icon-zoom',plain:true"
+							onclick="grid.datagrid('load',cxw.serializeObject($('#form1')));">查询</a>
+
+					</div>
+				</div>
+			</form>
+		</div>
+		<div>
+			<table id="grid" data-options="border:false"></table>
+		</div>
 	</div>
+
 </body>
 </html>

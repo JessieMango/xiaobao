@@ -326,7 +326,7 @@ public class ConsultDAOImpl implements ConsultDAO {
 				+ "left outer join DConsultWayCode dcw on dcw.id=c.consultWayCode left outer join CourseType ct on ct.courseTypeCode=c.consultCourseCode "
 				+ "left outer join DWillDegreeCode dw on dw.id=c.willDegreeCode left outer join DSellSource dss on dss.id=c.sellSource "
 				+ "left outer join DSeller ds on ds.id=c.seller left outer join School s on s.schoolCode=c.handleSchoolCode "
-				+ "left outer join DHandler dh on dh.id=c.handler left outer join DMark dm on dm.id=c.mark";
+				+ "left outer join DHandler dh on dh.id=c.handler left outer join DMark dm on dm.id=c.mark ";
 		select += "where ";
 		if (StringUtils.equals(consult.getStartTime(), consult.getEndTime())) {
 
