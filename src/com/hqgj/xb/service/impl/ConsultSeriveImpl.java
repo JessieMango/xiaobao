@@ -62,8 +62,23 @@ public class ConsultSeriveImpl implements ConsultService {
 	}
 
 	@Override
-	public Grid getConsult(Consult consult,Parameter parameter) {
-		return consultDAO.getConsult(consult,parameter);
+	public Grid getConsult(Consult consult, Parameter parameter) {
+		return consultDAO.getConsult(consult, parameter);
+	}
+
+	@Override
+	public Consult getConsultById(String id) {
+		return consultDAO.getConsultById(id);
+	}
+
+	@Override
+	public int updateConsult(Consult consult) {
+		return consultDAO.updateConsult(consult);
+	}
+
+	@Override
+	public int deleteConsult(String id) {
+		return consultDAO.deleteConsult(id);
 	}
 
 }

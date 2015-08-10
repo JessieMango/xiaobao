@@ -25,6 +25,18 @@ public class CommonUtil {
 		return mDateTime;
 	}
 	
+	/**
+	 * 获取系统当前时间
+	 * 
+	 * @return
+	 */
+	public static String getSystemDate() {
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String mDateTime = formatter.format(cal.getTime());
+		return mDateTime;
+	}
+	
 
 	/**
 	 * 判断字符串是否为空
