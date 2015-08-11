@@ -11,9 +11,7 @@
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
 var submitForm = function() {
-	if ($('form').form('validate')) {
-		
-		
+	if ($('form').form('validate')) {		
 		$.post("editStaff", cxw.serializeObject($('form')), function(
 				result) {
 			if (result.success) {
@@ -30,9 +28,49 @@ var submitForm = function() {
 	}
 /* 初始化页面 */
 	function init() {
-	$("#btn_save").click(function() {
-		submitForm();
-	});
+		$("#btn_save").click(function() {
+			submitForm();
+		});
+		
+		var permission;
+		$.post("getstaffByuserId", {userId :"<%=userId%>"}, function(rs) {
+			$('form').form('load', {
+				
+				
+				"username" : rs.username,
+				"userId" :rs.userId,
+				"gender" : rs.gender,
+				"tel" : rs.tel,
+				"IDnumber" : rs.IDnumber,
+				"nation" : rs.nation,
+				"birthPlace" : rs.birthPlace ,
+				"birthday" :rs.birthday,
+				"email" : rs.email,
+				"politicalStatus" : rs.politicalStatus,
+				"marriage" : rs.marriage,
+				"wage" : rs.wage,
+				"other" : rs.other,
+				"personnelstatus" : rs.personnelstatus,
+				"socialsecurityStatus" : rs.socialsecurityStatus,
+				"laborRelations" : rs.laborRelations,
+				"contractStartDate" : rs.contractStartDate,
+				"contractEndtDate" : rs.contractEndtDate,
+				"confirmationdate" : rs.confirmationdate,
+				"englishName" : rs.englishName,
+				"trainingExperience" : rs.trainingExperience,
+				"staffTag" : rs.staffTag,
+				"wagecardName" : rs.wagecardName,		
+				"confirmationdate" : rs.confirmationdate,	
+				"trainingExperience" : rs.trainingExperience,
+				"wagecardID" : rs.wagecardID,	
+				"remark" : rs.remark,	
+				"contractState" : rs.contractState,	
+				"education" : rs.education,	
+				"school" : rs.school,	
+				"major" : rs.major
+			});
+		});
+
 	}
 	
 	$(document).ready(function() {

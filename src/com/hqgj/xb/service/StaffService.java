@@ -29,7 +29,10 @@ public interface StaffService {
 	//面试期员工
 	public  Grid Getmianshiqi(Staff staff, Parameter parameter);
 	public int deletemianshiqi(String userid);
+	
+	
 	public int editmianshiqi(Staff staff,User user);
+	public Staff getstaffByuserId(String userid);
 	
 	//培训试用期员工
 	public Grid Getpeixunshiyong(Staff staff, Parameter parameter);

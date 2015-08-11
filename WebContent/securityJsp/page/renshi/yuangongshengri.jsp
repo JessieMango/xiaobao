@@ -41,13 +41,6 @@
 									400, 500 ],
 							columns : [ [
 									{
-										field : '',
-										checkbox : true,
-										width : "5%",
-										align : 'center'
-
-									},
-									{
 										field : 'id',
 										title : '姓名',
 										width : "5%",

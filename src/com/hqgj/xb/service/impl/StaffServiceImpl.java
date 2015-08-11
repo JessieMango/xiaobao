@@ -97,6 +97,11 @@ public class StaffServiceImpl implements StaffService {
 	public Grid Getyuangongshengri(Staff staff, Parameter parameter) {
 		return staffDAO.Getyuangongshengri(staff, parameter);
 	}
+
+	@Override
+	public Staff getstaffByuserId(String userid) {
+		return staffDAO.getstaffByuserId(userid);
+	}
 	
 
 

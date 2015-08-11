@@ -14,11 +14,11 @@
 	var editFun = function(userId) {
 		var dialog = parent.cxw.modalDialog({
 			modal : true,
-			title : username,
+			title : '编辑',
 			width : 660,
 			height : 400,
 			url : cxw.contextPath
-					+ '/securityJsp/page/form/editUserForm.jsp?userId='
+			+ '/securityJsp/page/renshi/editstaffInformation.jsp?userId='
 					+ userId,
 			buttons : [ {
 				text : '保存',
@@ -76,13 +76,7 @@
 							pageList : [ 10, 20, 30, 40, 50, 100, 200, 300,
 									400, 500 ],
 							columns : [ [
-									{
-										field : '',
-										checkbox : true,
-										width : "5%",
-										align : 'center'
-
-									},
+								
 									{
 										field : 'id',
 										title : '姓名',
@@ -175,7 +169,7 @@
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<input type="reset" value="编辑" style="color:black; font-weight:bold; width:60px; onclick="editFun(\'{0}\')" />',
+															'<input type="reset" value="编辑" style="color:black; font-weight:bold; width:60px;" onclick="editFun(\'{0}\')" />',
 															row.userId);
 										}
 									},
