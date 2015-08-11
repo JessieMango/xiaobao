@@ -115,7 +115,6 @@ public class StaffDAOImpl implements StaffDAO {
 		
 		if(StringUtils.isNotBlank(staff.getRemark()))
 		{
-		logger.info("1");
 		sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
 				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
 				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId";
@@ -168,11 +167,6 @@ public class StaffDAOImpl implements StaffDAO {
 			}
 		}
 		
-			
-				
-				
-				logger.info("2");
-				
 				
 				switch (staff.getRemark().trim()) {
 				case "1"://员工姓名排序
@@ -194,7 +188,7 @@ public class StaffDAOImpl implements StaffDAO {
 					sql+=" order by  confirmationdate ";
 					break;
 				}
-		logger.info("3");	
+
 	
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -204,7 +198,7 @@ public class StaffDAOImpl implements StaffDAO {
 		map.put("laborRelations", staff.getLaborRelations());
 		map.put("staffTag", staff.getStaffTag());
 		
-		logger.info(sql);	
+	
 		this.npJdbcTemplate.query(sql,map, new RowCallbackHandler() {
 
 		
@@ -306,23 +300,22 @@ public class StaffDAOImpl implements StaffDAO {
 	@Override
 	public int deletemianshiqi(String userid) {
 
-		logger.info("2");
+	
 		String sqlDeteStaff = "DELETE from `Staff` WHERE userId=:userId";
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("userId", userid);
 		int n1=this.npJdbcTemplate.update(sqlDeteStaff, map);
 		
 
-		logger.info("3");
-		String sqlDeteUser = "DELETE from `user` WHERE userId=:userId";
+	
+		String sqlDeteUser = "DELETE from `User` WHERE userId=:userId";
 		int n2=this.npJdbcTemplate.update(sqlDeteUser, map);
 
-		logger.info("4");
+	
 		String sqlDeteDStaffEducation = "DELETE from `DStaffEducation` WHERE userId=:userId";		
 		int n3=this.npJdbcTemplate.update(sqlDeteDStaffEducation, map);
-		logger.info("5");
 		
-		logger.info("4");
+		
 		//注意此处，可能出错。
 		return 1;
 	}

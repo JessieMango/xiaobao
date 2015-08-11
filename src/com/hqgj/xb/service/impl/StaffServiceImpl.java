@@ -42,14 +42,12 @@ public class StaffServiceImpl implements StaffService {
 
 	@Override
 	public int deletemianshiqi(String userid) {
-		// TODO Auto-generated method stub
-		return 0;
+		return staffDAO.deletemianshiqi(userid);
 	}
 
 	@Override
 	public int editmianshiqi(Staff staff, User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		return staffDAO.editmianshiqi(staff, user);
 	}
 	
 

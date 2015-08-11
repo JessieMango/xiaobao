@@ -61,8 +61,9 @@ public class StaffController {
 	
 	@RequestMapping(value = "/renshi/deletemianshiqi", method = RequestMethod.POST)
 	public @ResponseBody Json deletemianshiqi(HttpServletRequest request) {
-		logger.info("1");
+		logger.info("132");
 		String userId = request.getParameter("userId");
+		logger.info(userId);
 		Json json = new Json();
 		if (staffService.deletemianshiqi(userId) != 1) {
 			json.setSuccess(false);
