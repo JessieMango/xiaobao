@@ -37,3 +37,13 @@ function getNextDate() {
 	d = d + 1;
 	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
 }
+
+/* 前三天日期 */
+function getPreThreeDate() {
+	var curr_time = new Date();
+	var y = curr_time.getFullYear();
+	var m = curr_time.getMonth() + 1;
+	var d = curr_time.getDate();
+	d = d - 3;
+	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
+}

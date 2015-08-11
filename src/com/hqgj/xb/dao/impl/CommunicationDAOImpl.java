@@ -21,9 +21,11 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.Communication;
+import com.hqgj.xb.bean.Consult;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.CommunicationDAO;
+import com.hqgj.xb.dao.ConsultDAO;
 import com.hqgj.xb.util.StringUtil;
 
 /**
@@ -37,6 +39,9 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 	private NamedParameterJdbcTemplate nJdbcTemplate;
 
 	@Autowired
+	private ConsultDAO consultDAO;
+
+	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.nJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
@@ -45,8 +50,9 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 	public Grid getCommunications(Communication communication,
 			Parameter parameter) {
 		String select = "select c.id,c.consultId,c.communicationType,c.communicationDate,c.communicationContent,c.communicationResult,"
-				+ "c.returnVisitDate,c.isRemind,ct.nameM communicationTypeName,ct.type from Communication c "
-				+ "left outer join CommunicationType ct on c.consultId=ct.id ";
+				+ "c.returnVisitDate,c.isRemind,ct.nameM communicationTypeName,ct.type,co.nameM,co.gender,co.otherTel,c.handlerCode,dh.nameM handler,c.handleSchoolCode,s.schoolName handleSchool from Communication c "
+				+ "left outer join CommunicationType ct on c.communicationType=ct.id left outer join Consult co on co.id=c.consultId "
+				+ "left outer join School s on s.schoolCode=c.handleSchoolCode left outer join DHandler dh on dh.id=c.handlerCode ";
 
 		SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(
 				communication);
@@ -67,13 +73,22 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 								.getString("communicationType"));
 						communication.setCommunicationTypeName(rs
 								.getString("communicationTypeName"));
-						communication.setConsultId(rs.getString(rs
-								.getString("consultId")));
+						communication.setConsultId(rs.getString("consultId"));
 						communication.setId(rs.getString("id"));
 						communication.setIsRemind(rs.getString("isRemind"));
 						communication.setReturnVisitDate(rs
 								.getString("returnVisitDate"));
 						communication.setType(rs.getString("type"));
+						communication.setOtherTel(rs.getString("otherTel"));
+						communication.setGender(rs.getString("gender"));
+						communication.setNameM(rs.getString("nameM"));
+						communication.setHandler(rs.getString("handler"));
+						communication.setHandlerCode(rs
+								.getString("handlerCode"));
+						communication.setHandleSchool(rs
+								.getString("handleSchool"));
+						communication.setHandleSchoolCode(rs
+								.getString("handleSchoolCode"));
 						results.add(communication);
 					}
 				});
@@ -96,8 +111,8 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 	@Override
 	public Communication getCommunicationById(String id) {
 		String sql = "select c.id,c.consultId,c.communicationType,c.communicationDate,c.communicationContent,c.communicationResult,"
-				+ "c.returnVisitDate,c.isRemind,ct.nameM communicationTypeName,ct.type from Communication c "
-				+ "left outer join CommunicationType ct on c.consultId=ct.id where c.id=:id";
+				+ "c.returnVisitDate,c.isRemind,ct.nameM communicationTypeName,ct.type,c.handleSchoolCode from Communication c "
+				+ "left outer join CommunicationType ct on c.communicationType=ct.id where c.id=:id";
 
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
@@ -117,13 +132,14 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 								.getString("communicationType"));
 						communication.setCommunicationTypeName(rs
 								.getString("communicationTypeName"));
-						communication.setConsultId(rs.getString(rs
-								.getString("consultId")));
+						communication.setConsultId(rs.getString("consultId"));
 						communication.setId(rs.getString("id"));
 						communication.setIsRemind(rs.getString("isRemind"));
 						communication.setReturnVisitDate(rs
 								.getString("returnVisitDate"));
 						communication.setType(rs.getString("type"));
+						communication.setHandleSchoolCode(rs
+								.getString("handleSchoolCode"));
 						return communication;
 					}
 				});
@@ -132,10 +148,12 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 
 	@Override
 	public List<Communication> getCommunicationByConsultId(String id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
 		String sql = "select c.id,c.consultId,c.communicationType,c.communicationDate,c.communicationContent,c.communicationResult,"
-				+ "c.returnVisitDate,c.isRemind,ct.nameM communicationTypeName,ct.type from Communication c "
-				+ "left outer join CommunicationType ct on c.consultId=ct.id where c.consultId=:id ";
-		List<Communication> results = this.nJdbcTemplate.query(sql,
+				+ "c.returnVisitDate,c.isRemind,ct.nameM communicationTypeName,ct.type,c.handlerCode,dh.nameM handler from Communication c "
+				+ "left outer join CommunicationType ct on c.communicationType=ct.id left outer join DHandler dh on dh.id=c.handlerCode where c.consultId=:id ";
+		List<Communication> results = this.nJdbcTemplate.query(sql, map,
 				new RowMapper<Communication>() {
 					@Override
 					public Communication mapRow(ResultSet rs, int index)
@@ -151,12 +169,13 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 								.getString("communicationType"));
 						communication.setCommunicationTypeName(rs
 								.getString("communicationTypeName"));
-						communication.setConsultId(rs.getString(rs
-								.getString("consultId")));
 						communication.setId(rs.getString("id"));
 						communication.setIsRemind(rs.getString("isRemind"));
 						communication.setReturnVisitDate(rs
 								.getString("returnVisitDate"));
+						communication.setHandler(rs.getString("handler"));
+						communication.setHandlerCode(rs
+								.getString("handlerCode"));
 						communication.setType(rs.getString("type"));
 						return communication;
 					}
@@ -166,23 +185,69 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 
 	@Override
 	public int addCommunication(Communication communication) {
-		if(StringUtils.isBlank(communication.getIsRemind())){
+		if (StringUtils.isBlank(communication.getIsRemind())) {
 			communication.setIsRemind("0");
 		}
 		communication.setId(UUID.randomUUID().toString());
+
+		// 经办人处理
+		boolean result = false;
+		Consult consult = new Consult();
+		List<Consult> consults = consultDAO.getHandler(null);
+		if (StringUtils.isNotBlank(communication.getHandlerCode())) {
+			for (Consult cs : consults) {
+				if (StringUtils.equals(communication.getHandlerCode(),
+						cs.getHandlerCode())) {
+					communication.setHandlerCode(cs.getHandlerCode());
+					result = true;
+				}
+			}
+			if (!result) {
+				consult.setHandler(communication.getHandler());
+				consult.setHandlerCode(communication.getHandlerCode());
+				String sql = "insert into DHandler(id,nameM) values(:handlerCode,:handler)";
+				SqlParameterSource consultParameterSource = new BeanPropertySqlParameterSource(
+						consult);
+				this.nJdbcTemplate.update(sql, consultParameterSource);
+			}
+		}
+
 		SqlParameterSource communicationParameterSource = new BeanPropertySqlParameterSource(
 				communication);
 		String sql = "insert into Communication(id,consultId,communicationType,communicationDate,communicationContent,communicationResult,"
-				+ "returnVisitDate,isRemind,handleSchoolCode) values (:id,:consultId,:communicationType,:communicationDate,:communicationContent,:communicationResult,:returnVisitDate,:isRemind,:handleSchoolCode)";
+				+ "returnVisitDate,isRemind,handleSchoolCode,handlerCode) values (:id,:consultId,:communicationType,:communicationDate,:communicationContent,:communicationResult,:returnVisitDate,:isRemind,:handleSchoolCode,:handlerCode)";
 		return this.nJdbcTemplate.update(sql, communicationParameterSource);
 	}
 
 	@Override
 	public int updateCommunication(Communication communication) {
+
+		// 经办人处理
+		boolean result = false;
+		Consult consult = new Consult();
+		List<Consult> consults = consultDAO.getHandler(null);
+		if (StringUtils.isNotBlank(communication.getHandlerCode())) {
+			for (Consult cs : consults) {
+				if (StringUtils.equals(communication.getHandlerCode(),
+						cs.getHandlerCode())) {
+					communication.setHandlerCode(cs.getHandlerCode());
+					result = true;
+				}
+			}
+			if (!result) {
+				consult.setHandler(communication.getHandler());
+				consult.setHandlerCode(communication.getHandlerCode());
+				String sql = "insert into DHandler(id,nameM) values(:handlerCode,:handler)";
+				SqlParameterSource consultParameterSource = new BeanPropertySqlParameterSource(
+						consult);
+				this.nJdbcTemplate.update(sql, consultParameterSource);
+			}
+		}
+
 		SqlParameterSource communicationParameterSource = new BeanPropertySqlParameterSource(
 				communication);
-		String sql = "update Communication set consultId=:consultId,set communicationType=:communicationType,set communicationDate=:communicationDate,set communicationContent=:communicationContent,"
-				+ "set communicationResult=:communicationResult,set returnVisitDate=:returnVisitDate,set handleSchoolCode=:handleSchoolCode,set isRemind=:isRemind where id=:id";
+		String sql = "update Communication set communicationType=:communicationType,communicationDate=:communicationDate,communicationContent=:communicationContent,"
+				+ "communicationResult=:communicationResult,returnVisitDate=:returnVisitDate,handlerCode=:handlerCode,handleSchoolCode=:handleSchoolCode,isRemind=:isRemind where id=:id";
 		return this.nJdbcTemplate.update(sql, communicationParameterSource);
 	}
 
@@ -192,6 +257,32 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 		map.put("id", id);
 		String sql = "delete from Communication where id=:id";
 		return this.nJdbcTemplate.update(sql, map);
+	}
+
+	@Override
+	public List<Communication> getCommunicationType(String type, String flag) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("type", type);
+		String sql = "select * from CommunicationType where type=:type";
+		final List<Communication> results = this.nJdbcTemplate.query(sql, map,
+				new RowMapper<Communication>() {
+					@Override
+					public Communication mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Communication communication = new Communication();
+						communication.setCommunicationType(rs.getString("id"));
+						communication.setCommunicationTypeName(rs
+								.getString("nameM"));
+						return communication;
+					}
+				});
+		if (StringUtils.equals(flag, "select")) {
+			Communication temp = new Communication();
+			temp.setCommunicationType("qb");
+			temp.setCommunicationTypeName("全部类型");
+			results.add(0, temp);
+		}
+		return results;
 	}
 
 }

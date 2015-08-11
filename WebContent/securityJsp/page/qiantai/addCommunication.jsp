@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%
 	String id = request.getParameter("id");
+	String commuId = request.getParameter("commuId");
+	String type = request.getParameter("type");
 %>
 <!DOCTYPE html>
 <html>
@@ -27,17 +29,31 @@ input[type='text'] {
 .labelUnit {
 	margin-right: 20px;
 }
+
+.type{
+	display: none;
+}
 </style>
 <script type="text/javascript">
 	var submitForm = function() {
 		parent.$.messager.progress({
 			text : '保存中....'
 		});
-		$.post("addCommunication", cxw.serializeObject($('#form2')), function(
+		var url="";
+		if('<%=type%>' == 'edit' || '<%=type%>' == 'editg'){
+			url = "updateCommunication";
+		} else {
+			url = "addCommunication";
+		}
+		$.post(url, cxw.serializeObject($('#form2')), function(
 				result) {
 			if (result.success) {
 				parent.$.messager.progress('close');
-				window.location.href = 'showCommunication.jsp?id='+'<%=id%>';
+				if('<%=type%>' == 'edit'){
+					window.location.href = 'showCommunication.jsp?id='+'<%=id%>';
+				}else{
+					window.location.href = 'goutongjilu.jsp';
+				}
 			} else {
 				$.messager.alert('提示', '添加失败!', 'info');
 				parent.$.messager.progress('close');
@@ -62,6 +78,22 @@ input[type='text'] {
 		$("#btn_save").click(function() {
 			submitForm();
 		});
+		
+		if('<%=type%>' == 'edit' || '<%=type%>' == 'editg'){
+			if(!$("#edit").hasClass('type')){
+				$("#edit").removeClass("type");
+			}
+			if(!$("#add").hasClass('type')){
+				$("#add").addClass("type");
+			}
+		}else{
+			if(!$("#edit").hasClass('type')){
+				$("#edit").addClass("type");
+			}
+			if(!$("#add").hasClass('type')){
+				$("#add").removeClass("type");
+			}
+		}
 		
 	}
 	
@@ -89,6 +121,19 @@ input[type='text'] {
 				"availabelPoints" : result.availabelPoints
 			});
 		});
+		if('<%=type%>' == 'edit' || '<%=type%>' == 'editg'){
+			$.post("getCommunicationById", {id :"<%=commuId%>"}, function(result) {
+				$('#form2').form('load', {
+					"communicationType" : result.communicationType,
+					"communicationContent" : result.communicationContent,
+					"communicationResult" : result.communicationResult,
+					"returnVisitDate" : result.returnVisitDate,
+					"handleSchoolCode" : result.handleSchoolCode,
+					"communicationDate" : result.communicationDate,
+					"isRemind" : result.isRemind
+				});
+			});
+		}
 	});
 </script>
 </head>
@@ -170,12 +215,30 @@ input[type='text'] {
 
 	<div style="margin-left: 50px; margin-top: 20px;">
 		<form id="form2">
-			<div style="margin-top: 10px;">
+			<div style="margin-top: 10px;" id="add">
 				<label for="communicationType" class="labelUnit">沟通类型</label><input
 					type="radio" checked="checked" name="communicationType" value="8" />售前沟通
 				<input type="radio" name="communicationType" value="1" />试听邀约 <input
 					type="radio" name="communicationType" value="2" />活动通知 <input
 					type="radio" name="communicationType" value="7" />其他
+			</div>
+			<div style="margin-top: 10px;" id="edit">
+				<label for="communicationType" class="labelUnit" style="float: left;vertical-align: baseline;">沟通类型</label>
+				<div style="margin-left: 20px;">
+					<div style="width: 50%;">
+						<label for="communicationType">售前沟通:</label> <input type="radio" checked="checked"
+							name="communicationType" value="8" />售前沟通 <input type="radio"
+							name="communicationType" value="1" />试听邀约 <input type="radio"
+							name="communicationType" value="2" />活动通知
+					</div>
+					<div style="margin-left: 65px;width: 50%;"> 
+						<label for="communicationType">售后沟通:</label><input type="radio" name="communicationType"
+							value="3" />电话通知<input type="radio" name="communicationType"
+							value="5" />电话服务<input type="radio" name="communicationType"
+							value="6" />电话家访 <input type="radio" name="communicationType"
+							value="7" />其他
+					</div>
+				</div>
 			</div>
 			<div style="margin-top: 10px;">
 				<div>
@@ -191,18 +254,19 @@ input[type='text'] {
 					<label for="communicationResult" style="vertical-align: top;"
 						class="labelUnit">沟通结果</label>
 					<textarea rows="3" cols="250" style="width: 300px; height: 50px;"
-						name="communicationResult"></textarea><input type="hidden" name="consultId" value="<%=id%>"/>
+						name="communicationResult"></textarea>
+					<input type="hidden" name="consultId" value="<%=id%>" />
 				</div>
 			</div>
 			<div style="margin-top: 10px;">
 				<div>
-					<label class="labelUnit">回访提醒</label><input type="checkbox" value="1"
-						name="isRemind" />开启提醒: <input class="easyui-datebox" type="text"
-						id="returnVisitDate" name="returnVisitDate"
-						data-options="required:true" />
+					<label class="labelUnit">回访提醒</label><input type="checkbox"
+						value="1" name="isRemind" />开启提醒: <input class="easyui-datebox"
+						type="text" id="returnVisitDate" name="returnVisitDate"
+						data-options="required:true" /><input type="hidden" name="id" value="<%=commuId%>"/>
 				</div>
 			</div>
-			<div style="text-align: center;margin-top: 20px;">
+			<div style="text-align: center; margin-top: 20px;">
 				<div style="display: inline;">
 					<label for="communicationDate" class="labelUnit">沟通日期</label><input
 						class="easyui-datebox" type="text" id="communicationDate"

@@ -2,6 +2,8 @@ package com.hqgj.xb.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import com.hqgj.xb.bean.School;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
+import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.service.CommunicationService;
 
 /**
@@ -35,6 +38,11 @@ public class CommunicationController {
 	public @ResponseBody Communication getCommunicationById(String id) {
 		return communicationService.getCommunicationById(id);
 	}
+	
+	@RequestMapping(value = "/qiantai/getCommunicationType", method = RequestMethod.POST)
+	public @ResponseBody List<Communication> getCommunicationType(String type, String flag) {
+		return communicationService.getCommunicationType(type,flag);
+	}
 
 	@RequestMapping(value = "/qiantai/getCommunicationByConsultId", method = RequestMethod.POST)
 	public @ResponseBody List<Communication> getCommunicationByConsultId(
@@ -43,7 +51,13 @@ public class CommunicationController {
 	}
 
 	@RequestMapping(value = "/qiantai/addCommunication", method = RequestMethod.POST)
-	public @ResponseBody Json addCommunication(Communication communication) {
+	public @ResponseBody Json addCommunication(Communication communication,
+			HttpServletRequest request) {
+		// 经办人为当前登录人员
+		SessionInfo sessionInfo = (SessionInfo) request.getSession()
+				.getAttribute("sessionInfo");
+		communication.setHandler(sessionInfo.getUser().getUsername());
+		communication.setHandlerCode(sessionInfo.getUser().getUserId());
 		Json json = new Json();
 		if (0 != communicationService.addCommunication(communication)) {
 			json.setSuccess(true);
@@ -55,7 +69,12 @@ public class CommunicationController {
 	}
 
 	@RequestMapping(value = "/qiantai/updateCommunication", method = RequestMethod.POST)
-	public @ResponseBody Json updateCommunication(Communication communication) {
+	public @ResponseBody Json updateCommunication(Communication communication,HttpServletRequest request) {
+		// 经办人为当前登录人员
+		SessionInfo sessionInfo = (SessionInfo) request.getSession()
+				.getAttribute("sessionInfo");
+		communication.setHandler(sessionInfo.getUser().getUsername());
+		communication.setHandlerCode(sessionInfo.getUser().getUserId());
 		Json json = new Json();
 		if (0 != communicationService.updateCommunication(communication)) {
 			json.setSuccess(true);

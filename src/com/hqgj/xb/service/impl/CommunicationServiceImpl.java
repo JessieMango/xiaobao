@@ -50,4 +50,9 @@ public class CommunicationServiceImpl implements CommunicationService {
 		return communicationDAO.deleteCommunicationById(id);
 	}
 
+	@Override
+	public List<Communication> getCommunicationType(String type, String flag) {
+		return communicationDAO.getCommunicationType(type, flag);
+	}
+
 }

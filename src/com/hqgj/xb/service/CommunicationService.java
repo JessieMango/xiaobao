@@ -33,6 +33,19 @@ public interface CommunicationService {
 	public Communication getCommunicationById(String id);
 
 	/**
+	 * 获取沟通类型
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月11日 上午11:29:35
+	 * @param type
+	 *            type=1表示售前沟通类型,type=2表示获取售后沟通类型
+	 * @param flag
+	 *            flag=select 表示后台封装全部方式，用于查询条件
+	 * @return
+	 */
+	public List<Communication> getCommunicationType(String type, String flag);
+
+	/**
 	 * 按咨询记录ID查询沟通记录
 	 * 
 	 * @author 崔兴伟

@@ -16,6 +16,93 @@ public class Communication {
 	private String returnVisitDate;
 	private String isRemind; // 1表示提醒 0表示不提醒
 	private String handleSchoolCode;
+	private String handleSchool;
+	private String handler; // 沟通人
+	private String handlerCode; // 沟通人编码
+	/**
+	 * 要关联咨询表
+	 */
+	private String nameM; // 学员姓名
+	private String gender; // 学员性别
+	private String otherTel; // 一般指学员自己电话
+	/**
+	 * 查询条件
+	 */
+	private String startTime; // 沟通开始日期
+	private String endTime; // 沟通截止日期
+	private String order; // 排序字段 1 日期排序 2方式排序 3经办排序
+
+	public String getHandleSchool() {
+		return handleSchool;
+	}
+
+	public void setHandleSchool(String handleSchool) {
+		this.handleSchool = handleSchool;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public String getNameM() {
+		return nameM;
+	}
+
+	public void setNameM(String nameM) {
+		this.nameM = nameM;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getOtherTel() {
+		return otherTel;
+	}
+
+	public void setOtherTel(String otherTel) {
+		this.otherTel = otherTel;
+	}
+
+	public String getHandler() {
+		return handler;
+	}
+
+	public void setHandler(String handler) {
+		this.handler = handler;
+	}
+
+	public String getHandlerCode() {
+		return handlerCode;
+	}
+
+	public void setHandlerCode(String handlerCode) {
+		this.handlerCode = handlerCode;
+	}
 
 	public String getHandleSchoolCode() {
 		return handleSchoolCode;

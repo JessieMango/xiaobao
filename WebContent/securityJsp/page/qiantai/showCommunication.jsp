@@ -27,24 +27,123 @@ input[type='text'] {
 .labelUnit {
 	margin-right: 20px;
 }
+
+a {
+	text-decoration: none;
+	color: #000;
+}
 </style>
 <script type="text/javascript">
+	var grid;
+	
+	var deleteFun = function(id){
+		parent.$.messager.progress({
+			text : '删除中....'
+		});
+		$.post("deleteCommunicationById", {
+			id : id
+		}, function(result) {
+			if (result.success) {
+				parent.$.messager.progress('close');
+				grid.datagrid('load');
+			} else {
+				parent.$.messager.progress('close');
+				parent.$.messager.alert('提示', result.msg, 'error');
+				grid.datagrid('load');
+			}
+		});
+	}
 	/* 初始化操作 */
 	function init(){
-		$("#aa").accordion({
-			tools:[{
-			    iconCls:'icon-add',
-			    title : '添加',
-			    handler:function(){
-			    	alert('new');
-			    	}
-			}]
-		});	
+		grid = $('#grid')
+		.datagrid(
+				{
+					url : 'getCommunicationByConsultId?id='+'<%=id%>',
+					striped : true,
+					pagination : true,
+					rownumbers : true,
+					nowrap : false,
+					idField : 'id',
+					pageSize : 20,
+					pageList : [ 10, 20, 30, 40, 50, 100, 200, 300,
+							400, 500 ],
+					columns : [ [
+					             {
+								field : 'communicationDate',
+								title : '日期',
+								width : "10%",
+								align : 'center'
+							},
+							{
+								field : 'communicationTypeName',
+								title : '类型',
+								width : "10%",
+								align : 'center'
+
+							},
+							{
+								field : 'communicationContent',
+								title : '沟通内容',
+								width : "20%",
+								align : 'center'
+							},
+							{
+								field : 'communicationResult',
+								title : '沟通结果',
+								width : "15%",
+								align : 'center'
+							},
+							{
+								field : 'returnVisitDate',
+								title : '回访日期',
+								width : "10%",
+								align : 'center'
+							},
+							{
+								field : 'handler',
+								title : '沟通人',
+								width : "10%",
+								align : 'center'
+							},
+							{
+								title : '编辑',
+								field : 'edit',
+								width : "10%",
+								align : 'center',
+								formatter : function(value, row) {
+									return cxw
+											.formatString(
+													'<a href="addCommunication.jsp?commuId={0}&id={1}&type={2}">编辑</a>',
+													row.id,'<%=id%>',"edit");
+								}
+							},
+							{
+								title : '删除',
+								field : 'delete',
+								width : "10%",
+								align : 'center',
+								formatter : function(value, row) {
+									return cxw
+											.formatString(
+													'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
+													row.id);
+								}
+							} ] ],
+					onBeforeLoad : function(param) {
+						parent.$.messager.progress({
+								text : '数据加载中....'})
+					},
+					onSortColumn : function(sort, order) {
+					},
+					onLoadSuccess : function(data) {
+						parent.$.messager.progress('close');
+					}
+				});
 	}
 	
 	$(document).ready(function(){
 		init();
-		$.post("getConsultById", {id :"<%=id%>"}, function(result) {
+		$.post("getConsultById", {id :'<%=id%>'}, function(result) {
 			if (result.gender == 0) {
 				$('#gender').val("男");
 			} else {
@@ -159,9 +258,10 @@ input[type='text'] {
 	</div>
 
 	<div style="text-align: center; margin-left: 20px; margin-right: 20px;">
-		<div id="aa" class="easyui-accordion" style="text-align: center;">
-			<div title="沟通记录" data-options="fit:true"
-				style="overflow: auto; padding: 10px;"></div>
+		<div class="easyui-accordion" style="height: auto;">
+			<div title="沟通记录" style="padding: 10px;">
+				<table id="grid" data-options="border:false"></table>
+			</div>
 		</div>
 	</div>
 </body>

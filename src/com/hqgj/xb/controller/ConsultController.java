@@ -112,7 +112,13 @@ public class ConsultController {
 	}
 
 	@RequestMapping(value = "/qiantai/updateConsult", method = RequestMethod.POST)
-	public @ResponseBody Json updateConsult(Consult consult) {
+	public @ResponseBody Json updateConsult(Consult consult,
+			HttpServletRequest request) {
+		// 经办人为当前登录人员
+		SessionInfo sessionInfo = (SessionInfo) request.getSession()
+				.getAttribute("sessionInfo");
+		consult.setHandler(sessionInfo.getUser().getUsername());
+		consult.setHandlerCode(sessionInfo.getUser().getUserId());
 		Json json = new Json();
 		if (0 != consultService.updateConsult(consult)) {
 			json.setSuccess(true);

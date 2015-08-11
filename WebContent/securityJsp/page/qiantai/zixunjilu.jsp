@@ -102,6 +102,7 @@ a {
 							$('#handleSchoolCode').combobox('setValue',
 									data[0].schoolCode);
 						}
+						grid.datagrid('load',cxw.serializeObject($('#form2')));
 					}
 				});
 
@@ -286,6 +287,9 @@ a {
 								parent.$.messager.progress('close');
 							}
 						});
+		
+		var perDate = getPreThreeDate();
+		$("#startTime").datebox("setValue",perDate);
 	}
 
 	$(document).ready(function() {
