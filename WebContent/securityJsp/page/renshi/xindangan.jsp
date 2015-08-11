@@ -94,12 +94,12 @@ var submitForm = function() {
 	<div  style="width: 70%;margin-left:auto;margin-right:auto;"><br/><label>人事状态：</label><select name="personnelstatus" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 						<option value="0">面试期</option>
 						<option value="1">培训期</option>	
-						<option value="1">试用期</option>		
-						<option value="1">正式员工</option>		
-						<option value="1">转正失败</option>		
-						<option value="1">停薪留职</option>		
-						<option value="1">主动离职</option>		
-						<option value="1">被解聘</option>		
+						<option value="2">试用期</option>		
+						<option value="3">正式员工</option>		
+						<option value="4">转正失败</option>		
+						<option value="5">停薪留职</option>		
+						<option value="6">主动离职</option>		
+						<option value="7">被解聘</option>		
 					</select>
 			<br/>
 			<label>标  记：</label><input type="text" name="staffTag"  data-options="required:true" class="easyui-validatebox" ></input><br/>

@@ -76,35 +76,96 @@ public class StaffController {
 
 	
 	@RequestMapping(value = "/renshi/editmianshiqi", method = RequestMethod.POST)
-	public @ResponseBody Json editmianshiqi(HttpServletRequest request) {
-		Map<String, String[]> map = request.getParameterMap();
-		User user = new User();
-		Staff staff=new Staff();
-		for (String key : map.keySet()) {
-			if (StringUtils.equals("permission", key)) {
-				user.setPermission(request.getParameter(key));
-			} else if (StringUtils.equals("scope", key)) {
-				user.setSchool(request.getParameter(key));
-				user.setScope(request.getParameter(key));
-			} else if (StringUtils.equals("week", key)) {
-				user.setLoginDate(request.getParameter(key));
-			} else if (StringUtils.equals("loginStartTime", key)) {
-				user.setLoginStartTime(request.getParameter(key));
-			} else if (StringUtils.equals("loginEndTime", key)) {
-				user.setLoginEndTime(request.getParameter(key));
-			} else if (StringUtils.equals("gender", key)) {
-				user.setGender(request.getParameter("gender"));
-			} else if (StringUtils.equals("userId", key)) {
-				user.setUserId(request.getParameter("userId"));
-			}
-		}
+	public @ResponseBody Json editmianshiqi(HttpServletRequest request) {	
 		Json json = new Json();
-		if (staffService.editmianshiqi(staff, user) != 0) {
-			json.setSuccess(true);
-		} else {
+		return json;
+	}
+	
+	
+	
+	@RequestMapping(value = "/renshi/Getpeixunshiyong", method = RequestMethod.POST)
+	public @ResponseBody Grid Getpeixunshiyong(Staff staff, Parameter parameter) {
+		return staffService.Getpeixunshiyong(staff, parameter);
+	}
+	
+	
+	@RequestMapping(value = "/renshi/deletepeixunshiyong", method = RequestMethod.POST)
+	public @ResponseBody Json deletepeixunshiyong(HttpServletRequest request) {
+		String userId = request.getParameter("userId");
+		logger.info(userId);
+		Json json = new Json();
+		if (staffService.deletepeixunshiyong(userId) != 1) {
 			json.setSuccess(false);
-			json.setMsg("更新用户信息失败");
+			json.setMsg("删除失败");
+		} else {
+			json.setSuccess(true);
 		}
 		return json;
 	}
+
+	
+	
+	@RequestMapping(value = "/renshi/Getzhuanzhengshibai", method = RequestMethod.POST)
+	public @ResponseBody Grid Getzhuanzhengshibai(Staff staff, Parameter parameter) {
+		return staffService.Getzhuanzhengshibai(staff, parameter);
+	}
+	
+	
+	@RequestMapping(value = "/renshi/deletezhuanzhengshibai", method = RequestMethod.POST)
+	public @ResponseBody Json deletezhuanzhengshibai(HttpServletRequest request) {
+		String userId = request.getParameter("userId");
+		logger.info(userId);
+		Json json = new Json();
+		if (staffService.deletezhuanzhengshibai(userId) != 1) {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		} else {
+			json.setSuccess(true);
+		}
+		return json;
+	}
+	@RequestMapping(value = "/renshi/Getzhengshitingzhi", method = RequestMethod.POST)
+	public @ResponseBody Grid Getzhengshitingzhi(Staff staff, Parameter parameter) {
+		return staffService.Getzhengshitingzhi(staff, parameter);
+	}
+	
+	
+	@RequestMapping(value = "/renshi/deletezhengshitingzhi", method = RequestMethod.POST)
+	public @ResponseBody Json deletezhengshitingzhi(HttpServletRequest request) {
+		String userId = request.getParameter("userId");
+		logger.info(userId);
+		Json json = new Json();
+		if (staffService.deletezhengshitingzhi(userId) != 1) {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		} else {
+			json.setSuccess(true);
+		}
+		return json;
+	}
+	@RequestMapping(value = "/renshi/Getlizhijiepin", method = RequestMethod.POST)
+	public @ResponseBody Grid Getlizhijiepin(Staff staff, Parameter parameter) {
+		return staffService.Getlizhijiepin(staff, parameter);
+	}
+	
+	
+	@RequestMapping(value = "/renshi/deletelizhijiepin", method = RequestMethod.POST)
+	public @ResponseBody Json deletelizhijiepin(HttpServletRequest request) {
+		String userId = request.getParameter("userId");
+		logger.info(userId);
+		Json json = new Json();
+		if (staffService.deletelizhijiepin(userId) != 1) {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		} else {
+			json.setSuccess(true);
+		}
+		return json;
+	}
+	
+	@RequestMapping(value = "/renshi/Getyuangongshengri", method = RequestMethod.POST)
+	public @ResponseBody Grid Getyuangongshengri(Staff staff, Parameter parameter) {
+		return staffService.Getyuangongshengri(staff, parameter);
+	}
+	
 }

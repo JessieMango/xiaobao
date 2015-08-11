@@ -21,4 +21,22 @@ public interface StaffDAO {
 	public  List<Staff> getStaffTag(String type);
 	public int deletemianshiqi(String userid);
 	public int editmianshiqi(Staff staff,User user);
+	
+	
+	public Grid Getpeixunshiyong(Staff staff, Parameter parameter);
+	public int deletepeixunshiyong(String userid);
+	
+	public Grid Getzhuanzhengshibai(Staff staff, Parameter parameter);
+	public int deletezhuanzhengshibai(String userid);
+	
+	
+	public Grid Getzhengshitingzhi(Staff staff, Parameter parameter);
+	public int deletezhengshitingzhi(String userid);
+	
+	public Grid Getlizhijiepin(Staff staff, Parameter parameter);
+	public int deletelizhijiepin(String userid);
+	
+	
+	
+	public Grid Getyuangongshengri(Staff staff, Parameter parameter);
 }

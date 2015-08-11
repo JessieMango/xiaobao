@@ -1,13 +1,13 @@
 package com.hqgj.xb.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
-
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.StaffDAO;
 import com.hqgj.xb.service.StaffService;
@@ -48,6 +48,54 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public int editmianshiqi(Staff staff, User user) {
 		return staffDAO.editmianshiqi(staff, user);
+	}
+
+	@Override
+	public Grid Getpeixunshiyong(Staff staff, Parameter parameter) {
+		return staffDAO.Getpeixunshiyong(staff, parameter);
+	}
+
+	@Override
+	public int deletepeixunshiyong(String userid) {
+		return staffDAO.deletepeixunshiyong(userid);
+	}
+
+	@Override
+	public Grid Getzhuanzhengshibai(Staff staff, Parameter parameter) {
+		return staffDAO.Getzhuanzhengshibai(staff, parameter);
+				
+	}
+
+	@Override
+	public int deletezhuanzhengshibai(String userid) {
+		return staffDAO.deletezhuanzhengshibai(userid);
+	}
+
+	@Override
+	public Grid Getzhengshitingzhi(Staff staff, Parameter parameter) {
+		return staffDAO.Getzhengshitingzhi(staff, parameter);
+	}
+
+	@Override
+	public int deletezhengshitingzhi(String userid) {
+		// TODO Auto-generated method stub
+		return staffDAO.deletezhengshitingzhi(userid);
+	}
+
+	@Override
+	public Grid Getlizhijiepin(Staff staff, Parameter parameter) {
+		// TODO Auto-generated method stub
+		return staffDAO.Getlizhijiepin(staff, parameter);
+	}
+
+	@Override
+	public int deletelizhijiepin(String userid) {
+		return staffDAO.deletelizhijiepin(userid);
+	}
+
+	@Override
+	public Grid Getyuangongshengri(Staff staff, Parameter parameter) {
+		return staffDAO.Getyuangongshengri(staff, parameter);
 	}
 	
 
