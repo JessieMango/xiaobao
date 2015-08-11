@@ -3,7 +3,9 @@ package com.hqgj.xb.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.sql.DataSource;
@@ -19,11 +21,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.Consult;
-import com.hqgj.xb.bean.School;
-import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.ConsultDAO;
+import com.hqgj.xb.util.CommonUtil;
 
 /**
  * @author 崔兴伟
@@ -174,9 +175,48 @@ public class ConsultDAOImpl implements ConsultDAO {
 
 	@Override
 	public int saveConsult(Consult consult) {
-		boolean result = false;
+
+		consult = handlerDictionary(consult);
 		consult.setId(UUID.randomUUID().toString()); // 设置咨询表ID
 		consult.setState("0"); // 默认咨询时没有报名
+
+		// 插入咨询表
+		String sql = "insert into Consult(id,nameM,gender,consultDate,birthday,motherTel,fatherTel,otherTel,councilSchoolCode,"
+				+ "class_grade,liveArea,others,consultWayCode,consultCourseCode,consultContent,willDegreeCode,sellSource,seller,"
+				+ "handleSchoolCode,handler,mark,state) values(:id,:nameM,:gender,:consultDate,:birthday,:motherTel,:fatherTel,:otherTel,"
+				+ ":councilSchoolCode,:class_grade,:liveArea,:others,:consultWayCode,:consultCourseCode,:consultContent,:willDegreeCode,"
+				+ ":sellSourceCode,:sellerCode,:handleSchoolCode,:handlerCode,:markCode,:state)";
+		SqlParameterSource consultParameterSource = new BeanPropertySqlParameterSource(
+				consult);
+
+		return this.nJdbcTemplate.update(sql, consultParameterSource);
+	}
+
+	@Override
+	public List<Consult> getConsultWay(String type) {
+		String sql = "select * from DConsultWayCode";
+		List<Consult> results = this.nJdbcTemplate.query(sql,
+				new RowMapper<Consult>() {
+					@Override
+					public Consult mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Consult consult = new Consult();
+						consult.setConsultWayCode(rs.getString("id"));
+						consult.setConsultWay(rs.getString("nameM"));
+						return consult;
+					}
+				});
+		if (StringUtils.equals(type, "1")) {
+			Consult temp = new Consult();
+			temp.setConsultWayCode("qb");
+			temp.setConsultWay("全部方式");
+			results.add(0, temp);
+		}
+		return results;
+	}
+
+	public Consult handlerDictionary(Consult consult) {
+		boolean result = false;
 		// 公立学校处理
 		List<Consult> consults = getCouncilSchools(null);
 		if (StringUtils.isNotBlank(consult.getCouncilSchoolCode())) {
@@ -281,44 +321,12 @@ public class ConsultDAOImpl implements ConsultDAO {
 			}
 		}
 
-		// 插入咨询表
-		String sql = "insert into Consult(id,nameM,gender,consultDate,birthday,motherTel,fatherTel,otherTel,councilSchoolCode,"
-				+ "class_grade,liveArea,others,consultWayCode,consultCourseCode,consultContent,willDegreeCode,sellSource,seller,"
-				+ "handleSchoolCode,handler,mark,state) values(:id,:nameM,:gender,:consultDate,:birthday,:motherTel,:fatherTel,:otherTel,"
-				+ ":councilSchoolCode,:class_grade,:liveArea,:others,:consultWayCode,:consultCourseCode,:consultContent,:willDegreeCode,"
-				+ ":sellSourceCode,:sellerCode,:handleSchoolCode,:handlerCode,:markCode,:state)";
-		SqlParameterSource consultParameterSource = new BeanPropertySqlParameterSource(
-				consult);
-
-		return this.nJdbcTemplate.update(sql, consultParameterSource);
-	}
-
-	@Override
-	public List<Consult> getConsultWay(String type) {
-		String sql = "select * from DConsultWayCode";
-		List<Consult> results = this.nJdbcTemplate.query(sql,
-				new RowMapper<Consult>() {
-					@Override
-					public Consult mapRow(ResultSet rs, int index)
-							throws SQLException {
-						Consult consult = new Consult();
-						consult.setConsultWayCode(rs.getString("id"));
-						consult.setConsultWay(rs.getString("nameM"));
-						return consult;
-					}
-				});
-		if (StringUtils.equals(type, "1")) {
-			Consult temp = new Consult();
-			temp.setConsultWayCode("qb");
-			temp.setConsultWay("全部方式");
-			results.add(0, temp);
-		}
-		return results;
+		return consult;
 	}
 
 	@Override
 	public Grid getConsult(Consult consult, Parameter parameter) {
-		String select = "select c.id,c.nameM,c.gender,c.consultDate,(DATE_FORMAT(NOW(),'%Y')-DATE_FORMAT(c.birthday,'%Y')) birthday,c.motherTel,c.fatherTel,c.otherTel,dcs.id councilSchoolCode,"
+		String select = "select c.id,c.carCode,c.banlance,c.availabelPoints,c.nameM,c.gender,c.consultDate,(DATE_FORMAT(NOW(),'%Y')-DATE_FORMAT(c.birthday,'%Y')) birthday,c.motherTel,c.fatherTel,c.otherTel,dcs.id councilSchoolCode,"
 				+ "dcs.nameM councilSchool,c.class_grade,c.liveArea,c.others,c.consultContent,c.state,c.consultWayCode,"
 				+ "dcw.nameM consultWay,c.consultCourseCode,ct.nameM consultCourse,c.willDegreeCode,dw.nameM willDegree,c.sellSource sellSourceCode,dss.nameM sellSource,"
 				+ "c.seller sellerCode,ds.nameM seller,c.handleSchoolCode,s.schoolName handleSchool,c.handler handlerCode,dh.nameM handler,"
@@ -326,42 +334,74 @@ public class ConsultDAOImpl implements ConsultDAO {
 				+ "left outer join DConsultWayCode dcw on dcw.id=c.consultWayCode left outer join CourseType ct on ct.courseTypeCode=c.consultCourseCode "
 				+ "left outer join DWillDegreeCode dw on dw.id=c.willDegreeCode left outer join DSellSource dss on dss.id=c.sellSource "
 				+ "left outer join DSeller ds on ds.id=c.seller left outer join School s on s.schoolCode=c.handleSchoolCode "
-				+ "left outer join DHandler dh on dh.id=c.handler left outer join DMark dm on dm.id=c.mark ";
-		select += "where ";
-		if (StringUtils.equals(consult.getStartTime(), consult.getEndTime())) {
+				+ "left outer join DHandler dh on dh.id=c.handler left outer join DMark dm on dm.id=c.mark";
 
-		} else {
-
-		}
-		if (StringUtils.equals("qb", consult.getMarkCode())) {
-
-		}
-		if (StringUtils.equals("qb", consult.getConsultWayCode())) {
-
-		}
-		if (StringUtils.equals("qb", consult.getHandleSchoolCode())) {
-
-		}
-		if (StringUtils.equals("qb", consult.getState())) {
-
-		}
-		if (StringUtils.equals("qb", consult.getConsultCourseCode())) {
-
-		}
-		if (StringUtils.equals("qb", consult.getWillDegreeCode())) {
-
-		}
-		if (StringUtils.equals("qb", consult.getSellSourceCode())) {
-
-		}
-		if (StringUtils.equals("qb", consult.getSellerCode())) {
-
-		}
-		if (StringUtils.equals("qb", consult.getHandlerCode())) {
-
-		}
-		if (StringUtils.equals("1", consult.getOrder())) {
-
+		if (consult.getStartTime() != null) { // 如果是按照条件2查询
+			select += " where ";
+			if (StringUtils
+					.equals(consult.getStartTime(), consult.getEndTime())) {
+				select += "c.consultDate=:startTime ";
+			} else {
+				select += "c.consultDate between :startTime and :endTime ";
+			}
+			if (!StringUtils.equals("qb", consult.getMarkCode())) {
+				select += "and c.mark=:markCode ";
+			}
+			if (!StringUtils.equals("qb", consult.getConsultWayCode())) {
+				select += "and c.consultWayCode=:consultWayCode ";
+			}
+			if (!StringUtils.equals("qb", consult.getHandleSchoolCode())) {
+				select += "and c.handleSchoolCode=:handleSchoolCode ";
+			}
+			if (!StringUtils.equals("qb", consult.getState())) {
+				select += "and c.state=:state ";
+			}
+			if (!StringUtils.equals("qb", consult.getConsultCourseCode())) {
+				select += "and c.consultCourseCode=:consultCourseCode ";
+			}
+			if (!StringUtils.equals("qb", consult.getWillDegreeCode())) {
+				select += "and c.willDegreeCode=:willDegreeCode ";
+			}
+			if (!StringUtils.equals("qb", consult.getSellSourceCode())) {
+				select += "and c.sellSource=:sellSourceCode ";
+			}
+			if (!StringUtils.equals("qb", consult.getSellerCode())) {
+				select += "and c.seller=:sellerCode ";
+			}
+			if (!StringUtils.equals("qb", consult.getHandlerCode())) {
+				select += "and c.handler=:handlerCode ";
+			}
+			if (StringUtils.equals("1", consult.getOrder())) {
+				select += "order by c.consultDate";
+			} else if (StringUtils.equals("2", consult.getOrder())) {
+				select += "order by c.consultWayCode ";
+			} else if (StringUtils.equals("3", consult.getOrder())) {
+				select += "order by c.sellSource ";
+			} else if (StringUtils.equals("4", consult.getOrder())) {
+				select += "order by c.consultCourseCode ";
+			} else if (StringUtils.equals("5", consult.getOrder())) {
+				select += "order by c.handler ";
+			}
+		} else if (StringUtils.isNotBlank(consult.getNameM())
+				|| StringUtils.isNotBlank(consult.getTelTail())) { // 按照条件1
+			select += " where ";
+			if (StringUtils.isNotBlank(consult.getNameM())
+					&& StringUtils.isBlank(consult.getTelTail())) {
+				select += " c.nameM=:nameM ";
+			}
+			if (StringUtils.isNotBlank(consult.getTelTail())
+					&& StringUtils.isBlank(consult.getNameM())) {
+				consult.setTelTail("%" + StringUtils.trim(consult.getTelTail()));
+				select += " c.otherTel like :telTail ";
+			}
+			if (StringUtils.isNotBlank(consult.getTelTail())
+					&& StringUtils.isNotBlank(consult.getNameM())) {
+				consult.setTelTail("%" + StringUtils.trim(consult.getTelTail()));
+				select += " c.nameM=:nameM and c.otherTel like :telTail ";
+			}
+		} else { // 默认查询当天咨询数据
+			consult.setStartTime(CommonUtil.getSystemDate());
+			select += " where c.consultDate=:startTime ";
 		}
 		SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(
 				consult);
@@ -410,6 +450,10 @@ public class ConsultDAOImpl implements ConsultDAO {
 						consult.setWillDegree(rs.getString("willDegree"));
 						consult.setWillDegreeCode(rs
 								.getString("willDegreeCode"));
+						consult.setCarCode(rs.getString("carCode"));
+						consult.setAvailabelPoints(rs
+								.getString("availabelPoints"));
+						consult.setBanlance(rs.getString("banlance"));
 						results.add(consult);
 					}
 				});
@@ -427,6 +471,82 @@ public class ConsultDAOImpl implements ConsultDAO {
 			grid.setRows(results);
 		}
 		return grid;
+	}
+
+	@Override
+	public Consult getConsultById(String id) {
+		String sql = "select c.nameM,c.carCode,c.banlance,c.availabelPoints,c.gender,c.consultDate,c.birthday,c.motherTel,c.fatherTel,c.otherTel,c.councilSchoolCode,ds.nameM councilSchool ,"
+				+ "c.class_grade,c.liveArea,c.others,c.consultContent,c.state,c.consultWayCode,c.consultCourseCode,c.willDegreeCode,c.sellSource sellSourceCode,"
+				+ "c.seller sellerCode,c.handleSchoolCode,c.handler handlerCode,c.mark markCode from Consult c left outer join DCouncilSchool ds on ds.id=c.councilSchoolCode where c.id=:id";
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		final Consult result = this.nJdbcTemplate.queryForObject(sql, map,
+				new RowMapper<Consult>() {
+					@Override
+					public Consult mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Consult consult = new Consult();
+						consult.setBirthday(rs.getString("birthday"));
+						consult.setClass_grade(rs.getString("class_grade"));
+						consult.setConsultContent(rs
+								.getString("consultContent"));
+						consult.setConsultCourseCode(rs
+								.getString("consultCourseCode"));
+						consult.setConsultDate(rs.getString("consultDate"));
+						consult.setConsultWayCode(rs
+								.getString("consultWayCode"));
+						consult.setCouncilSchoolCode(rs
+								.getString("councilSchoolCode"));
+						consult.setCouncilSchool(rs.getString("councilSchool"));
+						consult.setFatherTel(rs.getString("fatherTel"));
+						consult.setGender(rs.getString("gender"));
+						consult.setHandlerCode(rs.getString("handlerCode"));
+						consult.setHandleSchoolCode(rs
+								.getString("handleSchoolCode"));
+						consult.setLiveArea(rs.getString("liveArea"));
+						consult.setMarkCode(rs.getString("markCode"));
+						consult.setMotherTel(rs.getString("motherTel"));
+						consult.setNameM(rs.getString("nameM"));
+						consult.setOthers(rs.getString("others"));
+						consult.setOtherTel(rs.getString("otherTel"));
+						consult.setSellerCode(rs.getString("sellerCode"));
+						consult.setSellSourceCode(rs
+								.getString("sellSourceCode"));
+						consult.setState(rs.getString("state"));
+						consult.setWillDegreeCode(rs
+								.getString("willDegreeCode"));
+						consult.setCarCode(rs.getString("carCode"));
+						consult.setAvailabelPoints(rs
+								.getString("availabelPoints"));
+						consult.setBanlance(rs.getString("banlance"));
+						return consult;
+					}
+				});
+		return result;
+	}
+
+	@Override
+	public int updateConsult(Consult consult) {
+		consult = handlerDictionary(consult);
+		// 开始更新
+		consult.setState("0"); // 默认咨询时没有报名
+		SqlParameterSource consultParameterSource = new BeanPropertySqlParameterSource(
+				consult);
+		String sql = "update Consult set nameM=:nameM,gender=:gender,consultDate=:consultDate,birthday=:birthday,motherTel=:motherTel,"
+				+ "fatherTel=:fatherTel,otherTel=:otherTel,councilSchoolCode=:councilSchoolCode,class_grade=:class_grade,liveArea=:liveArea,"
+				+ "others=:others,consultWayCode=:consultWayCode,consultCourseCode=:consultCourseCode,consultContent=:consultContent,"
+				+ "willDegreeCode=:willDegreeCode,sellSource=:sellSourceCode,seller=:sellerCode,handleSchoolCode=:handleSchoolCode,"
+				+ "handler=:handlerCode,mark=:markCode,state=:state where id=:id";
+		return this.nJdbcTemplate.update(sql, consultParameterSource);
+	}
+
+	@Override
+	public int deleteConsult(String id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		String sql = "delete from  Consult  where id=:id";
+		return this.nJdbcTemplate.update(sql, map);
 	}
 
 }

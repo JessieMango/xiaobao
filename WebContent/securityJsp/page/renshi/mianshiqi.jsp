@@ -10,9 +10,47 @@
 <title>面试期员工档案</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
+
+	var editFun = function(userId) {
+		var dialog = parent.cxw.modalDialog({
+			modal : true,
+			title : username,
+			width : 660,
+			height : 400,
+			url : cxw.contextPath
+					+ '/securityJsp/page/form/editUserForm.jsp?userId='
+					+ userId,
+			buttons : [ {
+				text : '保存',
+				handler : function() {
+					dialog.find('iframe').get(0).contentWindow.submitForm(
+							dialog, grid, parent.$);
+				}
+			} ]
+		});
+	}
+	
+	var deleteFun = function(userId) {
+		$.messager.confirm('确认', '你确定要删除这个账号吗?', function(r) {
+			if (r) {
+				$.post("deletemianshiqi", {
+					userId: userId
+				}, function(data) {
+					if (!data.success) {
+						parent.$.messager.alert('提示', data.msg, 'error');
+						grid.datagrid('load');
+					} else {
+						grid.datagrid('load');
+					}
+				});
+			}
+		});
+	
+	}
 	var grid;
 	/* 初始化页面 */
 	function init() {
+		
 		$('#staffTag').combobox(
 				{
 					onLoadSuccess : function(data) {
@@ -33,7 +71,7 @@
 							pagination : true,
 							rownumbers : true,
 							nowrap : false,
-							idField : 'id',
+							idField : 'userId',
 							pageSize : 20,
 							pageList : [ 10, 20, 30, 40, 50, 100, 200, 300,
 									400, 500 ],
@@ -47,6 +85,13 @@
 									},
 									{
 										field : 'userId',
+										title : 'ID',
+										width : "5%",
+										align : 'center'
+
+									},
+									{
+										field : 'id',
 										title : '姓名',
 										width : "5%",
 										align : 'center'
@@ -138,7 +183,7 @@
 											return cxw
 													.formatString(
 															'<input type="reset" value="编辑" style="color:black; font-weight:bold; width:60px; onclick="editFun(\'{0}\')" />',
-															row.id);
+															row.userId);
 										}
 									},
 									{
@@ -150,7 +195,7 @@
 											return cxw
 													.formatString(
 															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
-															row.id);
+															row.userId );
 										}
 									} ] ],
 							onBeforeLoad : function(param) {
@@ -177,32 +222,32 @@
 			<form id="form1">
 				<div style="margin-top: 20px;">
 					<div style="margin-left: 15%;">
-					&nbsp;合同状态：&nbsp;<select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+					&nbsp;&nbsp;<select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 									<option value="qb">全部合同状态</option>
 									<option value="0">未签</option>
-									<option value="1">已期</option>	
+									<option value="1">已签</option>	
 							</select>&nbsp;
-					社保状态：&nbsp;<select name="socialsecurityStatus" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+					&nbsp;<select name="socialsecurityStatus" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 										<option value="qb">全部社保状态</option>
 										<option value="0">已办理</option>
 										<option value="1">未办理</option>		
 								</select>&nbsp;
 					
-					劳动关系：&nbsp;<select name="laborRelations" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+					&nbsp;<select name="laborRelations" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 									<option value="qb">全部劳动关系</option>
 									<option value="0">全职</option>
 									<option value="1">兼职</option>	
 									<option value="1">合作</option>		
 								</select>&nbsp;
 					
-					标  记：&nbsp;<input class="easyui-combobox" name="staffTag"
+					&nbsp;<input class="easyui-combobox" name="staffTag"
 							id="staffTag" style="width: 100px;"
 							data-options="valueField:'id',textField:'cardCode',url:'getStaffTag?type=1',panelHeight:'auto',editable:false" />&nbsp;&nbsp;
 				
-					排序方式：&nbsp;<select name="remark" class="easyui-combobox"
+					&nbsp;<select name="remark" class="easyui-combobox"
 							data-options="required:true,editable:false,panelHeight:'auto'"
 							style="width: 100px;">
-							<option value="1" checked="checked">员工姓名排序</option>
+							<option value="1">员工姓名排序</option>
 							<option value="2">员工工龄排序</option>
 							<option value="3">员工状态排序</option>
 							<option value="4">合同起日排序</option>

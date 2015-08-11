@@ -6,8 +6,34 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
+<style type="text/css">
+a {
+	text-decoration: none;
+	color: #000;
+}
+</style>
 <script type="text/javascript">
 	var grid;
+	var deleteFun = function(id) {
+		$.post("deleteConsult", {
+			id : id
+		}, function(result) {
+			if (result.success) {
+				grid.datagrid('load');
+			} else {
+				parent.$.messager.alert('提示', result.msg, 'error');
+				grid.datagrid('load');
+			}
+		});
+	}
+	
+	var addFun = function(id){
+		window.location.href = 'addCommunication.jsp?id='+id;
+	}
+	
+	var showFun = function(id){
+		window.location.href = 'showCommunication.jsp?id='+id;
+	}
 	/* 初始化页面 */
 	function init() {
 		$('#consultCourseCode').combobox(
@@ -87,6 +113,8 @@
 							pagination : true,
 							rownumbers : true,
 							nowrap : false,
+							checkOnSelect : false,
+							selectOnCheck : false,
 							idField : 'id',
 							pageSize : 20,
 							pageList : [ 10, 20, 30, 40, 50, 100, 200, 300,
@@ -178,7 +206,7 @@
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<input value="+" type="reset" style="width:24px; margin-right:4px;" onclick="editFun(\'{0}\')" /><input type="reset" value="查看" style="color:black; font-weight:bold; width:60px; onclick="editFun(\'{1}\')" />',
+															'<input value="+" type="reset" style="width:24px; margin-right:4px;" onclick="addFun(\'{0}\')" /><input type="button" value="查看" style="color:black; font-weight:bold; width:60px;" onclick="showFun(\'{1}\')" />',
 															row.id, row.id);
 										}
 									},
@@ -191,7 +219,7 @@
 											if (value == 0) {
 												return cxw
 														.formatString(
-																'<input type="reset" value="办报名" style="color:black; font-weight:bold; width:60px; onclick="editFun(\'{0}\')" />',
+																'<input type="reset" value="办报名" style="color:black; font-weight:bold; width:60px;" onclick="editFun(\'{0}\')" />',
 																row.id);
 											} else {
 												return '<img  alt="已报名"  style="vertical-align: middle;" src="../../../style/image/YES.gif" />';
@@ -224,7 +252,7 @@
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<input type="reset" value="编辑" style="color:black; font-weight:bold; width:60px; onclick="editFun(\'{0}\')" />',
+															'<a href="xinzixun.jsp?id={0}">编辑</a>',
 															row.id);
 										}
 									},
@@ -241,9 +269,16 @@
 										}
 									} ] ],
 							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
+								var varify = cxw.checkStartTimeBeforeEndTime(
+										'#startTime', '#endTime');
+								if (varify) {
+									parent.$.messager.progress({
+										text : '数据加载中....'
+									});
+								} else {
+									$.messager.alert('警告', '结束时间要大于开始时间',
+											'warning');
+								}
 							},
 							onSortColumn : function(sort, order) {
 							},

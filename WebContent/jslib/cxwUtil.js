@@ -27,3 +27,13 @@ function getCurrentDate() {
 	var d = curr_time.getDate();
 	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
 }
+
+/* 下一天日期 */
+function getNextDate() {
+	var curr_time = new Date();
+	var y = curr_time.getFullYear();
+	var m = curr_time.getMonth() + 1;
+	var d = curr_time.getDate();
+	d = d + 1;
+	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
+}

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Repository;
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.StaffDAO;
 
@@ -114,7 +116,7 @@ public class StaffDAOImpl implements StaffDAO {
 		if(StringUtils.isNotBlank(staff.getRemark()))
 		{
 		logger.info("1");
-		sql="select User.username userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
+		sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
 				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
 				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId";
 		
@@ -174,7 +176,7 @@ public class StaffDAOImpl implements StaffDAO {
 				
 				switch (staff.getRemark().trim()) {
 				case "1"://员工姓名排序
-					sql+=" order by userId";
+					sql+=" order by id";
 					break;
 				case "2"://员工工龄排序
 					sql+=" order by  contractStartDate";			
@@ -209,6 +211,7 @@ public class StaffDAOImpl implements StaffDAO {
 			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				Staff staff = new Staff();
+				staff.setId(rs.getString("id"));
 				staff.setUserId(rs.getString("userId"));
 				staff.setPosition(rs.getString("position"));
 				staff.setPersonnelstatus(rs.getString("personnelstatus"));
@@ -227,7 +230,7 @@ public class StaffDAOImpl implements StaffDAO {
 	
 		}
 		else {
-			sql="select User.username userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
+			sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
 				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
 				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId "
 				+ " order by User.username";
@@ -236,6 +239,7 @@ public class StaffDAOImpl implements StaffDAO {
 				@Override
 				public void processRow(ResultSet rs) throws SQLException {
 					Staff staff = new Staff();
+					staff.setId(rs.getString("id"));
 					staff.setUserId(rs.getString("userId"));
 					staff.setPosition(rs.getString("position"));
 					staff.setPersonnelstatus(rs.getString("personnelstatus"));
@@ -296,5 +300,39 @@ public class StaffDAOImpl implements StaffDAO {
 		return results;		
 	}
 	
+	
+
+
+	@Override
+	public int deletemianshiqi(String userid) {
+
+		logger.info("2");
+		String sqlDeteStaff = "DELETE from `Staff` WHERE userId=:userId";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId", userid);
+		int n1=this.npJdbcTemplate.update(sqlDeteStaff, map);
+		
+
+		logger.info("3");
+		String sqlDeteUser = "DELETE from `user` WHERE userId=:userId";
+		int n2=this.npJdbcTemplate.update(sqlDeteUser, map);
+
+		logger.info("4");
+		String sqlDeteDStaffEducation = "DELETE from `DStaffEducation` WHERE userId=:userId";		
+		int n3=this.npJdbcTemplate.update(sqlDeteDStaffEducation, map);
+		logger.info("5");
+		
+		logger.info("4");
+		//注意此处，可能出错。
+		return 1;
+	}
+
+
+	@Override
+	public int editmianshiqi(Staff staff, User user) {
+		
+		
+		return 0;
+	}
 }
 

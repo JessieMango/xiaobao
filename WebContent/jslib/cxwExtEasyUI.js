@@ -10,6 +10,9 @@ $.extend($.fn.panel.defaults, {
 	loadingMessage : '加载中....'
 });
 
+/**
+ * 验证手机号是否合法
+ */
 $.extend($.fn.validatebox.defaults.rules, {
 	fixLength : {
 		validator : function(value, param) {
@@ -18,6 +21,17 @@ $.extend($.fn.validatebox.defaults.rules, {
 		message : '手机号长度为11位'
 	}
 });
+
+/**
+ * 验证开始时间小于结束时间
+ */
+cxw.checkStartTimeBeforeEndTime = function(startTime, endTime) {
+	if ($(startTime).datebox('getValue') <= $(endTime).datebox('getValue')) {
+		return true;
+	} else {
+		return false;
+	}
+}
 
 /**
  * 更改easyui加载grid时的提示文字

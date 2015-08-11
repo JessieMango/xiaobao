@@ -1,5 +1,10 @@
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String id = request.getParameter("id");
+	boolean flag = StringUtils.isNotBlank(id);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +49,14 @@ label {
 						$("#sellerCode").combobox('getText'));
 			}
 			
-			$.post("saveConsult", cxw.serializeObject($('form')), function(
+			var url="";
+			if(<%=flag%>){
+				url = "updateConsult";
+			}else{
+				url = "saveConsult";
+			}
+			
+			$.post(url, cxw.serializeObject($('form')),  function(
 					result) {
 				if (result.success) {
 					window.location.href = 'zixunjilu.jsp';
@@ -89,6 +101,33 @@ label {
 	}
 	$(document).ready(function() {
 		init();
+		if(<%=flag%>){
+			$.post("getConsultById", {id :"<%=id%>"}, function(result) {
+				$('form').form('load', {
+					"birthday" : result.birthday,
+					"class_grade" : result.class_grade,
+					"consultContent" : result.consultContent,
+					"consultCourseCode" : result.consultCourseCode,
+					"consultDate" : result.consultDate,
+					"consultWayCode" : result.consultWayCode,
+					"councilSchoolCode" : result.councilSchoolCode,
+					"fatherTel" : result.fatherTel,
+					"gender" : result.gender,
+					"handleSchoolCode" : result.handleSchoolCode,
+					"handlerCode" : result.handlerCode,
+					"liveArea" : result.liveArea,
+					"markCode" : result.markCode,
+					"motherTel" : result.motherTel,
+					"nameM" : result.nameM,
+					"otherTel" : result.otherTel,
+					"others" : result.others,
+					"sellSourceCode" : result.sellSourceCode,
+					"sellerCode" : result.sellerCode,
+					"state" : result.state,
+					"willDegreeCode" : result.willDegreeCode
+				});
+			});
+		}
 	});
 </script>
 </head>
@@ -100,6 +139,7 @@ label {
 					<div style="display: inline; float: left; width: 25%;">
 						<label for="nameM">学员姓名</label><input type="text" name="nameM"
 							data-options="required:true" class="easyui-validatebox" />
+							<input type="hidden" name="id" value="<%=id%>"/>
 					</div>
 					<div style="display: inline; width: 25%;">
 						<label for="gender">学员性别</label><input type="radio" name="gender"

@@ -36,13 +36,41 @@ public class Consult {
 	private String mark; // 标记
 	private String markCode; // 标记 编码 用于Combobox
 	private String state; // 0表示未报名,1表示已报名
+	private String carCode; // 磁卡号
+	private String banlance; // 可用余额
+	private String availabelPoints; // 可用积分
+
+	public String getCarCode() {
+		return carCode;
+	}
+
+	public void setCarCode(String carCode) {
+		this.carCode = carCode;
+	}
+
+	public String getBanlance() {
+		return banlance;
+	}
+
+	public void setBanlance(String banlance) {
+		this.banlance = banlance;
+	}
+
+	public String getAvailabelPoints() {
+		return availabelPoints;
+	}
+
+	public void setAvailabelPoints(String availabelPoints) {
+		this.availabelPoints = availabelPoints;
+	}
+
 	/**
 	 * 用于查询
 	 */
 	private String telTail; // 电话尾号
 	private String startTime; // 查询开始日期
 	private String endTime; // 查询截止日期
-	private String order; //排序字段 1按日期排序  2方式排序 3来源排序 4课程排序 5经办排序  
+	private String order; // 排序字段 1按日期排序 2方式排序 3来源排序 4课程排序 5经办排序
 
 	public String getOrder() {
 		return order;

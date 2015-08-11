@@ -105,4 +105,33 @@ public class ConsultController {
 	public @ResponseBody Grid getConsult(Consult consult, Parameter parameter) {
 		return consultService.getConsult(consult, parameter);
 	}
+
+	@RequestMapping(value = "/qiantai/getConsultById", method = RequestMethod.POST)
+	public @ResponseBody Consult getConsultById(String id) {
+		return consultService.getConsultById(id);
+	}
+
+	@RequestMapping(value = "/qiantai/updateConsult", method = RequestMethod.POST)
+	public @ResponseBody Json updateConsult(Consult consult) {
+		Json json = new Json();
+		if (0 != consultService.updateConsult(consult)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("更新失败");
+		}
+		return json;
+	}
+
+	@RequestMapping(value = "/qiantai/deleteConsult", method = RequestMethod.POST)
+	public @ResponseBody Json deleteConsult(String id) {
+		Json json = new Json();
+		if (0 != consultService.deleteConsult(id)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		}
+		return json;
+	}
 }

@@ -1,13 +1,13 @@
 package com.hqgj.xb.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
+
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.StaffDAO;
 import com.hqgj.xb.service.StaffService;
@@ -33,10 +33,27 @@ public class StaffServiceImpl implements StaffService {
 		
 	}
 	
+	@Override
 	public  List<Staff> getStaffTag(String type)
 	{
 		return staffDAO.getStaffTag(type);
 				
 	}
+
+	@Override
+	public int deletemianshiqi(String userid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int editmianshiqi(Staff staff, User user) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+
+
+
 
 }

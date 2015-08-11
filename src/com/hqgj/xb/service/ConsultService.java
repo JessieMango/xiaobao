@@ -91,5 +91,35 @@ public interface ConsultService {
 	 * @param consult
 	 * @return
 	 */
-	public Grid getConsult(Consult consult,Parameter parameter);
+	public Grid getConsult(Consult consult, Parameter parameter);
+
+	/**
+	 * 根据ID查询记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月8日 下午4:48:52
+	 * @param id
+	 * @return
+	 */
+	public Consult getConsultById(String id);
+
+	/**
+	 * 编辑指定ID记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月8日 下午4:48:52
+	 * @param id
+	 * @return
+	 */
+	public int updateConsult(Consult consult);
+
+	/**
+	 * 删除自定ID的咨询记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月10日 上午10:59:44
+	 * @param id
+	 * @return
+	 */
+	public int deleteConsult(String id);
 }
