@@ -25,9 +25,8 @@
 					panelHeight : "auto",
 					required : true,
 					onLoadSuccess : function(data) {
-
 						if (data) {
-							$('#cb').combobox('setValue', data[0].id);
+							$('#cb').combobox('setValue', data[0].operateType);
 							grid.datagrid('load', cxw
 									.serializeObject($('#searchForm')));
 						}
@@ -56,8 +55,7 @@
 				title : '用户',
 				width : "20%",
 				align : 'center',
-			},
-			{
+			}, {
 				field : 'operateName',
 				title : '操作名称',
 				width : "20%",
