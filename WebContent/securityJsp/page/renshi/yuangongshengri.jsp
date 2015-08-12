@@ -41,14 +41,14 @@
 									400, 500 ],
 							columns : [ [
 									{
-										field : 'id',
+										field : 'username',
 										title : '姓名',
 										width : "5%",
 										align : 'center'
 
 									},
 									{
-										field : 'position',
+										field : 'gender',
 										title : '性别',
 										width : "3%",
 										formatter : function(value, row, index) {
@@ -59,6 +59,13 @@
 												return '<img alt="女" src="../../../style/image/female.png">';
 											}
 										}
+									},
+									{
+										field : 'birthday',
+										title : '生日',
+										width : "5%",
+										align : 'center'
+
 									},
 									
 									{

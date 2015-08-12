@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +20,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
@@ -39,11 +41,38 @@ public class StaffDAOImpl implements StaffDAO {
 		this.npJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 	
+	
+	//编辑员工信息
+	@Override
+	public int editStaff(Staff staff) {
+		
+		String sql = "update User set username=:username,tel=:tel,gender=:gender,IDnumber=:IDnumber,nation=:nation,birthPlace=:birthPlace,birthday=:birthday"
+				+ ",email=:email,politicalStatus=:politicalStatus,marriage=:marriage,other=:other "
+				+ "where userId=:userId";
+		SqlParameterSource StaffParameterSource = new BeanPropertySqlParameterSource(staff);
+		int n1= this.npJdbcTemplate.update(sql, StaffParameterSource);
+		
+	
+		sql = "update Staff set personnelstatus=:personnelstatus,socialsecurityStatus=:socialsecurityStatus,laborRelations=:laborRelations,contractStartDate=:contractStartDate,contractEndtDate=:contractEndtDate,"
+				+ "confirmationdate=:confirmationdate,englishName=:englishName,trainingExperience=:trainingExperience,staffTag=:staffTag,wagecardName=:wagecardName,wagecardID=:wagecardID,"
+				+ "remark=:remark,contractState=:contractState "
+				+ "where userId=:userId";
+		int n2= this.npJdbcTemplate.update(sql, StaffParameterSource);
+		
+		sql = "update DStaffEducation set school=:school,major=:major,education=:education "
+				+ "where userId=:userId";
+		int n3= this.npJdbcTemplate.update(sql, StaffParameterSource);
+		
+		//此处需要事务
+		//
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		return 1;
+	}
+
 	@Override
 	public Staff getstaffByuserId(String userid) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", userid);
-		
 		String sql="select User.username username,User.userId userId,User.gender gender,User.tel tel,User.IDnumber IDnumber,User.nation nation,User.birthPlace birthPlace,User.birthday birthday,"
 				+ "User.email email,User.politicalStatus politicalStatus,User.marriage marriage,User.other other,Staff.wage wage,Staff.personnelstatus personnelstatus"
 				+ ",Staff.socialsecurityStatus socialsecurityStatus,Staff.laborRelations laborRelations,Staff.contractStartDate contractStartDate,Staff.contractEndtDate contractEndtDate,"
@@ -87,7 +116,7 @@ public class StaffDAOImpl implements StaffDAO {
 						staff.setRemark(rs.getString("remark"));
 						staff.setContractState(rs.getString("contractState"));
 						
-						staff.setSchooll(rs.getString("school"));
+						staff.setSchool(rs.getString("school"));
 						staff.setMajor(rs.getString("major"));
 						staff.setEducation(rs.getString("education"));
 						return staff;
@@ -161,128 +190,8 @@ public class StaffDAOImpl implements StaffDAO {
 	@Override
 	public  Grid Getmianshiqi(Staff staff, Parameter parameter)
 	{
-		String sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
-				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
-				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where (personnelstatus='0' or personnelstatus is null) ";;
-		final List<Staff> results = new ArrayList<Staff>();
-		
-		if(StringUtils.isNotBlank(staff.getRemark()))
-		{
-		
-		
-		if(!StringUtils.equals("qb", staff.getContractState())||!StringUtils.equals("qb", staff.getSocialsecurityStatus())||!StringUtils.equals("qb", staff.getLaborRelations())||!StringUtils.equals("qb", staff.getStaffTag()))
-		{
-			if (!StringUtils.equals("qb", staff.getContractState()))
-			{
-				sql+=" and (contractState=:contractState or contractState is null)";			
-			}
-		
-			
-			if (!StringUtils.equals("qb", staff.getSocialsecurityStatus())) 
-			{
-					sql+=" and (socialsecurityStatus=:socialsecurityStatus or socialsecurityStatus is null) ";		
-			}
-			
-			if (!StringUtils.equals("qb", staff.getLaborRelations()))
-			{
-					sql+=" and (laborRelations=:laborRelations  or laborRelations is null)";					
-			}
-		
-			if (!StringUtils.equals("qb", staff.getStaffTag())) {
-			
-					sql+=" and (Staff.staffTag=:staffTag  or Staff.staffTag is null) ";
-			}
-		}
-		
-				switch (staff.getRemark().trim()) {
-				case "1"://员工姓名排序
-					sql+=" order by id";
-					break;
-				case "2"://员工工龄排序
-					sql+=" order by  contractStartDate";			
-					break;
-				case "3"://员工状态排序
-					sql+=" order by  contractState";
-					break;
-				case "4"://合同起日排序
-					sql+=" order by  contractStartDate";
-					break;
-				case "5"://合同止日排序
-					sql+=" order by  contractEndtDate";
-					break;
-				case "6"://转正日期排序
-					sql+=" order by  confirmationdate ";
-					break;
-				}
-
-	
-		
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("socialsecurityStatus", staff.getSocialsecurityStatus());
-		map.put("contractState", staff.getContractState());
-		map.put("laborRelations", staff.getLaborRelations());
-		map.put("staffTag", staff.getStaffTag());
-		
-	
-		this.npJdbcTemplate.query(sql,map, new RowCallbackHandler() {
-			@Override
-			public void processRow(ResultSet rs) throws SQLException {
-				Staff staff = new Staff();
-				staff.setId(rs.getString("id"));
-				staff.setUserId(rs.getString("userId"));
-				staff.setPosition(rs.getString("position"));
-				staff.setPersonnelstatus(rs.getString("personnelstatus"));
-				staff.setEducation(rs.getString("education"));
-				staff.setLaborRelations(rs.getString("laborRelations"));
-				staff.setContractState(rs.getString("contractState"));
-				staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-				staff.setConfirmationdate(rs.getString("confirmationdate"));
-				staff.setContractStartDate(rs.getString("contractStartDate"));
-				staff.setContractEndtDate(rs.getString("contractEndtDate"));
-				results.add(staff);
-			}
-		});
-		}
-		else {
-			this.npJdbcTemplate.query(sql, new RowCallbackHandler() {
-
-				@Override
-				public void processRow(ResultSet rs) throws SQLException {
-					Staff staff = new Staff();
-					staff.setId(rs.getString("id"));
-					staff.setUserId(rs.getString("userId"));
-					staff.setPosition(rs.getString("position"));
-					staff.setPersonnelstatus(rs.getString("personnelstatus"));
-					staff.setEducation(rs.getString("education"));
-					staff.setLaborRelations(rs.getString("laborRelations"));
-					staff.setContractState(rs.getString("contractState"));
-					staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-					staff.setConfirmationdate(rs.getString("confirmationdate"));
-					staff.setContractStartDate(rs.getString("contractStartDate"));
-					staff.setContractEndtDate(rs.getString("contractEndtDate"));
-					results.add(staff);
-				}
-			});
-		}
-		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
-		Grid grid = new Grid();
-		if ((int) parameter.getPage() > 0) {
-			int page = (int) parameter.getPage();
-			int rows = (int) parameter.getRows();
-			int fromIndex = (page - 1) * rows;
-			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
-					* rows) ? results.size() : page * rows;
-			grid.setRows(results.subList(fromIndex, toIndex));
-			grid.setTotal(results.size());
-
-		} else {
-			grid.setRows(results);
-		}
-		
-		return grid;
+		String sql=" where (personnelstatus='0' or personnelstatus is null) ";;
+				return queryStaffByStatus(staff, parameter, sql);
 		
 	}
 	
@@ -340,128 +249,8 @@ public class StaffDAOImpl implements StaffDAO {
 	//查询培训/试用期员工
 	@Override
 	public Grid Getpeixunshiyong(Staff staff, Parameter parameter) {
-		String sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
-				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
-				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where (personnelstatus='1' or personnelstatus='2' or personnelstatus is null) ";;
-		final List<Staff> results = new ArrayList<Staff>();
-		
-		if(StringUtils.isNotBlank(staff.getRemark()))
-		{
-		
-		
-		if(!StringUtils.equals("qb", staff.getContractState())||!StringUtils.equals("qb", staff.getSocialsecurityStatus())||!StringUtils.equals("qb", staff.getLaborRelations())||!StringUtils.equals("qb", staff.getStaffTag()))
-		{
-			if (!StringUtils.equals("qb", staff.getContractState()))
-			{
-				sql+=" and (contractState=:contractState or contractState is null)";			
-			}
-		
-			
-			if (!StringUtils.equals("qb", staff.getSocialsecurityStatus())) 
-			{
-					sql+=" and (socialsecurityStatus=:socialsecurityStatus or socialsecurityStatus is null) ";		
-			}
-			
-			if (!StringUtils.equals("qb", staff.getLaborRelations()))
-			{
-					sql+=" and (laborRelations=:laborRelations  or laborRelations is null)";					
-			}
-		
-			if (!StringUtils.equals("qb", staff.getStaffTag())) {
-			
-					sql+=" and (Staff.staffTag=:staffTag  or Staff.staffTag is null) ";
-			}
-		}
-		
-				switch (staff.getRemark().trim()) {
-				case "1"://员工姓名排序
-					sql+=" order by id";
-					break;
-				case "2"://员工工龄排序
-					sql+=" order by  contractStartDate";			
-					break;
-				case "3"://员工状态排序
-					sql+=" order by  contractState";
-					break;
-				case "4"://合同起日排序
-					sql+=" order by  contractStartDate";
-					break;
-				case "5"://合同止日排序
-					sql+=" order by  contractEndtDate";
-					break;
-				case "6"://转正日期排序
-					sql+=" order by  confirmationdate ";
-					break;
-				}
-
-	
-		
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("socialsecurityStatus", staff.getSocialsecurityStatus());
-		map.put("contractState", staff.getContractState());
-		map.put("laborRelations", staff.getLaborRelations());
-		map.put("staffTag", staff.getStaffTag());
-		
-	
-		this.npJdbcTemplate.query(sql,map, new RowCallbackHandler() {
-			@Override
-			public void processRow(ResultSet rs) throws SQLException {
-				Staff staff = new Staff();
-				staff.setId(rs.getString("id"));
-				staff.setUserId(rs.getString("userId"));
-				staff.setPosition(rs.getString("position"));
-				staff.setPersonnelstatus(rs.getString("personnelstatus"));
-				staff.setEducation(rs.getString("education"));
-				staff.setLaborRelations(rs.getString("laborRelations"));
-				staff.setContractState(rs.getString("contractState"));
-				staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-				staff.setConfirmationdate(rs.getString("confirmationdate"));
-				staff.setContractStartDate(rs.getString("contractStartDate"));
-				staff.setContractEndtDate(rs.getString("contractEndtDate"));
-				results.add(staff);
-			}
-		});
-		}
-		else {
-			this.npJdbcTemplate.query(sql, new RowCallbackHandler() {
-
-				@Override
-				public void processRow(ResultSet rs) throws SQLException {
-					Staff staff = new Staff();
-					staff.setId(rs.getString("id"));
-					staff.setUserId(rs.getString("userId"));
-					staff.setPosition(rs.getString("position"));
-					staff.setPersonnelstatus(rs.getString("personnelstatus"));
-					staff.setEducation(rs.getString("education"));
-					staff.setLaborRelations(rs.getString("laborRelations"));
-					staff.setContractState(rs.getString("contractState"));
-					staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-					staff.setConfirmationdate(rs.getString("confirmationdate"));
-					staff.setContractStartDate(rs.getString("contractStartDate"));
-					staff.setContractEndtDate(rs.getString("contractEndtDate"));
-					results.add(staff);
-				}
-			});
-		}
-		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
-		Grid grid = new Grid();
-		if ((int) parameter.getPage() > 0) {
-			int page = (int) parameter.getPage();
-			int rows = (int) parameter.getRows();
-			int fromIndex = (page - 1) * rows;
-			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
-					* rows) ? results.size() : page * rows;
-			grid.setRows(results.subList(fromIndex, toIndex));
-			grid.setTotal(results.size());
-
-		} else {
-			grid.setRows(results);
-		}
-		
-		return grid;
+		String sql=" where (personnelstatus='1' or personnelstatus='2' or personnelstatus is null) ";;
+				return queryStaffByStatus(staff, parameter, sql);
 	}
 
 	//删除培训/试用期员工
@@ -473,128 +262,8 @@ public class StaffDAOImpl implements StaffDAO {
 	//查询转正失败员工
 	@Override
 	public Grid Getzhuanzhengshibai(Staff staff, Parameter parameter) {
-		String sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
-				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
-				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where (personnelstatus='4' or personnelstatus is null) ";;
-		final List<Staff> results = new ArrayList<Staff>();
-		
-		if(StringUtils.isNotBlank(staff.getRemark()))
-		{
-		
-		
-		if(!StringUtils.equals("qb", staff.getContractState())||!StringUtils.equals("qb", staff.getSocialsecurityStatus())||!StringUtils.equals("qb", staff.getLaborRelations())||!StringUtils.equals("qb", staff.getStaffTag()))
-		{
-			if (!StringUtils.equals("qb", staff.getContractState()))
-			{
-				sql+=" and (contractState=:contractState or contractState is null)";			
-			}
-		
-			
-			if (!StringUtils.equals("qb", staff.getSocialsecurityStatus())) 
-			{
-					sql+=" and (socialsecurityStatus=:socialsecurityStatus or socialsecurityStatus is null) ";		
-			}
-			
-			if (!StringUtils.equals("qb", staff.getLaborRelations()))
-			{
-					sql+=" and (laborRelations=:laborRelations  or laborRelations is null)";					
-			}
-		
-			if (!StringUtils.equals("qb", staff.getStaffTag())) {
-			
-					sql+=" and (Staff.staffTag=:staffTag  or Staff.staffTag is null) ";
-			}
-		}
-		
-				switch (staff.getRemark().trim()) {
-				case "1"://员工姓名排序
-					sql+=" order by id";
-					break;
-				case "2"://员工工龄排序
-					sql+=" order by  contractStartDate";			
-					break;
-				case "3"://员工状态排序
-					sql+=" order by  contractState";
-					break;
-				case "4"://合同起日排序
-					sql+=" order by  contractStartDate";
-					break;
-				case "5"://合同止日排序
-					sql+=" order by  contractEndtDate";
-					break;
-				case "6"://转正日期排序
-					sql+=" order by  confirmationdate ";
-					break;
-				}
-
-	
-		
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("socialsecurityStatus", staff.getSocialsecurityStatus());
-		map.put("contractState", staff.getContractState());
-		map.put("laborRelations", staff.getLaborRelations());
-		map.put("staffTag", staff.getStaffTag());
-		
-	
-		this.npJdbcTemplate.query(sql,map, new RowCallbackHandler() {
-			@Override
-			public void processRow(ResultSet rs) throws SQLException {
-				Staff staff = new Staff();
-				staff.setId(rs.getString("id"));
-				staff.setUserId(rs.getString("userId"));
-				staff.setPosition(rs.getString("position"));
-				staff.setPersonnelstatus(rs.getString("personnelstatus"));
-				staff.setEducation(rs.getString("education"));
-				staff.setLaborRelations(rs.getString("laborRelations"));
-				staff.setContractState(rs.getString("contractState"));
-				staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-				staff.setConfirmationdate(rs.getString("confirmationdate"));
-				staff.setContractStartDate(rs.getString("contractStartDate"));
-				staff.setContractEndtDate(rs.getString("contractEndtDate"));
-				results.add(staff);
-			}
-		});
-		}
-		else {
-			this.npJdbcTemplate.query(sql, new RowCallbackHandler() {
-
-				@Override
-				public void processRow(ResultSet rs) throws SQLException {
-					Staff staff = new Staff();
-					staff.setId(rs.getString("id"));
-					staff.setUserId(rs.getString("userId"));
-					staff.setPosition(rs.getString("position"));
-					staff.setPersonnelstatus(rs.getString("personnelstatus"));
-					staff.setEducation(rs.getString("education"));
-					staff.setLaborRelations(rs.getString("laborRelations"));
-					staff.setContractState(rs.getString("contractState"));
-					staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-					staff.setConfirmationdate(rs.getString("confirmationdate"));
-					staff.setContractStartDate(rs.getString("contractStartDate"));
-					staff.setContractEndtDate(rs.getString("contractEndtDate"));
-					results.add(staff);
-				}
-			});
-		}
-		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
-		Grid grid = new Grid();
-		if ((int) parameter.getPage() > 0) {
-			int page = (int) parameter.getPage();
-			int rows = (int) parameter.getRows();
-			int fromIndex = (page - 1) * rows;
-			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
-					* rows) ? results.size() : page * rows;
-			grid.setRows(results.subList(fromIndex, toIndex));
-			grid.setTotal(results.size());
-
-		} else {
-			grid.setRows(results);
-		}
-		
-		return grid;
+		String sql=" where (personnelstatus='4' or personnelstatus is null) ";;
+				return queryStaffByStatus(staff, parameter, sql);
 	}
 
 	//删除转正失败员工
@@ -604,139 +273,13 @@ public class StaffDAOImpl implements StaffDAO {
 	}
 	
 	
-	//编辑面试期员工信息
-	@Override
-	public int editmianshiqi(Staff staff, User user) {
-		
-		
-		return 0;
-	}
+
 
 
 	@Override
 	public Grid Getzhengshitingzhi(Staff staff, Parameter parameter) {
-		String sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
-				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
-				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where (personnelstatus='3' or personnelstatus='5' or personnelstatus is null) ";;
-		final List<Staff> results = new ArrayList<Staff>();
-		
-		if(StringUtils.isNotBlank(staff.getRemark()))
-		{
-		
-		
-		if(!StringUtils.equals("qb", staff.getContractState())||!StringUtils.equals("qb", staff.getSocialsecurityStatus())||!StringUtils.equals("qb", staff.getLaborRelations())||!StringUtils.equals("qb", staff.getStaffTag()))
-		{
-			if (!StringUtils.equals("qb", staff.getContractState()))
-			{
-				sql+=" and (contractState=:contractState or contractState is null)";			
-			}
-		
-			
-			if (!StringUtils.equals("qb", staff.getSocialsecurityStatus())) 
-			{
-					sql+=" and (socialsecurityStatus=:socialsecurityStatus or socialsecurityStatus is null) ";		
-			}
-			
-			if (!StringUtils.equals("qb", staff.getLaborRelations()))
-			{
-					sql+=" and (laborRelations=:laborRelations  or laborRelations is null)";					
-			}
-		
-			if (!StringUtils.equals("qb", staff.getStaffTag())) {
-			
-					sql+=" and (Staff.staffTag=:staffTag  or Staff.staffTag is null) ";
-			}
-		}
-		
-				switch (staff.getRemark().trim()) {
-				case "1"://员工姓名排序
-					sql+=" order by id";
-					break;
-				case "2"://员工工龄排序
-					sql+=" order by  contractStartDate";			
-					break;
-				case "3"://员工状态排序
-					sql+=" order by  contractState";
-					break;
-				case "4"://合同起日排序
-					sql+=" order by  contractStartDate";
-					break;
-				case "5"://合同止日排序
-					sql+=" order by  contractEndtDate";
-					break;
-				case "6"://转正日期排序
-					sql+=" order by  confirmationdate ";
-					break;
-				}
-
-	
-		
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("socialsecurityStatus", staff.getSocialsecurityStatus());
-		map.put("contractState", staff.getContractState());
-		map.put("laborRelations", staff.getLaborRelations());
-		map.put("staffTag", staff.getStaffTag());
-		
-	
-		this.npJdbcTemplate.query(sql,map, new RowCallbackHandler() {
-			@Override
-			public void processRow(ResultSet rs) throws SQLException {
-				Staff staff = new Staff();
-				staff.setId(rs.getString("id"));
-				staff.setUserId(rs.getString("userId"));
-				staff.setPosition(rs.getString("position"));
-				staff.setPersonnelstatus(rs.getString("personnelstatus"));
-				staff.setEducation(rs.getString("education"));
-				staff.setLaborRelations(rs.getString("laborRelations"));
-				staff.setContractState(rs.getString("contractState"));
-				staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-				staff.setConfirmationdate(rs.getString("confirmationdate"));
-				staff.setContractStartDate(rs.getString("contractStartDate"));
-				staff.setContractEndtDate(rs.getString("contractEndtDate"));
-				results.add(staff);
-			}
-		});
-		}
-		else {
-			this.npJdbcTemplate.query(sql, new RowCallbackHandler() {
-
-				@Override
-				public void processRow(ResultSet rs) throws SQLException {
-					Staff staff = new Staff();
-					staff.setId(rs.getString("id"));
-					staff.setUserId(rs.getString("userId"));
-					staff.setPosition(rs.getString("position"));
-					staff.setPersonnelstatus(rs.getString("personnelstatus"));
-					staff.setEducation(rs.getString("education"));
-					staff.setLaborRelations(rs.getString("laborRelations"));
-					staff.setContractState(rs.getString("contractState"));
-					staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-					staff.setConfirmationdate(rs.getString("confirmationdate"));
-					staff.setContractStartDate(rs.getString("contractStartDate"));
-					staff.setContractEndtDate(rs.getString("contractEndtDate"));
-					results.add(staff);
-				}
-			});
-		}
-		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
-		Grid grid = new Grid();
-		if ((int) parameter.getPage() > 0) {
-			int page = (int) parameter.getPage();
-			int rows = (int) parameter.getRows();
-			int fromIndex = (page - 1) * rows;
-			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
-					* rows) ? results.size() : page * rows;
-			grid.setRows(results.subList(fromIndex, toIndex));
-			grid.setTotal(results.size());
-
-		} else {
-			grid.setRows(results);
-		}
-		
-		return grid;
+		String sql=" where (personnelstatus='3' or personnelstatus='5' or personnelstatus is null) ";;
+				return queryStaffByStatus(staff, parameter, sql);
 	}
 
 
@@ -748,128 +291,8 @@ public class StaffDAOImpl implements StaffDAO {
 
 	@Override
 	public Grid Getlizhijiepin(Staff staff, Parameter parameter) {
-		String sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
-				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
-				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where (personnelstatus='6' or personnelstatus='7' or personnelstatus is null) ";;
-		final List<Staff> results = new ArrayList<Staff>();
-		
-		if(StringUtils.isNotBlank(staff.getRemark()))
-		{
-		
-		
-		if(!StringUtils.equals("qb", staff.getContractState())||!StringUtils.equals("qb", staff.getSocialsecurityStatus())||!StringUtils.equals("qb", staff.getLaborRelations())||!StringUtils.equals("qb", staff.getStaffTag()))
-		{
-			if (!StringUtils.equals("qb", staff.getContractState()))
-			{
-				sql+=" and (contractState=:contractState or contractState is null)";			
-			}
-		
-			
-			if (!StringUtils.equals("qb", staff.getSocialsecurityStatus())) 
-			{
-					sql+=" and (socialsecurityStatus=:socialsecurityStatus or socialsecurityStatus is null) ";		
-			}
-			
-			if (!StringUtils.equals("qb", staff.getLaborRelations()))
-			{
-					sql+=" and (laborRelations=:laborRelations  or laborRelations is null)";					
-			}
-		
-			if (!StringUtils.equals("qb", staff.getStaffTag())) {
-			
-					sql+=" and (Staff.staffTag=:staffTag  or Staff.staffTag is null) ";
-			}
-		}
-		
-				switch (staff.getRemark().trim()) {
-				case "1"://员工姓名排序
-					sql+=" order by id";
-					break;
-				case "2"://员工工龄排序
-					sql+=" order by  contractStartDate";			
-					break;
-				case "3"://员工状态排序
-					sql+=" order by  contractState";
-					break;
-				case "4"://合同起日排序
-					sql+=" order by  contractStartDate";
-					break;
-				case "5"://合同止日排序
-					sql+=" order by  contractEndtDate";
-					break;
-				case "6"://转正日期排序
-					sql+=" order by  confirmationdate ";
-					break;
-				}
-
-	
-		
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("socialsecurityStatus", staff.getSocialsecurityStatus());
-		map.put("contractState", staff.getContractState());
-		map.put("laborRelations", staff.getLaborRelations());
-		map.put("staffTag", staff.getStaffTag());
-		
-	
-		this.npJdbcTemplate.query(sql,map, new RowCallbackHandler() {
-			@Override
-			public void processRow(ResultSet rs) throws SQLException {
-				Staff staff = new Staff();
-				staff.setId(rs.getString("id"));
-				staff.setUserId(rs.getString("userId"));
-				staff.setPosition(rs.getString("position"));
-				staff.setPersonnelstatus(rs.getString("personnelstatus"));
-				staff.setEducation(rs.getString("education"));
-				staff.setLaborRelations(rs.getString("laborRelations"));
-				staff.setContractState(rs.getString("contractState"));
-				staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-				staff.setConfirmationdate(rs.getString("confirmationdate"));
-				staff.setContractStartDate(rs.getString("contractStartDate"));
-				staff.setContractEndtDate(rs.getString("contractEndtDate"));
-				results.add(staff);
-			}
-		});
-		}
-		else {
-			this.npJdbcTemplate.query(sql, new RowCallbackHandler() {
-
-				@Override
-				public void processRow(ResultSet rs) throws SQLException {
-					Staff staff = new Staff();
-					staff.setId(rs.getString("id"));
-					staff.setUserId(rs.getString("userId"));
-					staff.setPosition(rs.getString("position"));
-					staff.setPersonnelstatus(rs.getString("personnelstatus"));
-					staff.setEducation(rs.getString("education"));
-					staff.setLaborRelations(rs.getString("laborRelations"));
-					staff.setContractState(rs.getString("contractState"));
-					staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-					staff.setConfirmationdate(rs.getString("confirmationdate"));
-					staff.setContractStartDate(rs.getString("contractStartDate"));
-					staff.setContractEndtDate(rs.getString("contractEndtDate"));
-					results.add(staff);
-				}
-			});
-		}
-		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
-		Grid grid = new Grid();
-		if ((int) parameter.getPage() > 0) {
-			int page = (int) parameter.getPage();
-			int rows = (int) parameter.getRows();
-			int fromIndex = (page - 1) * rows;
-			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
-					* rows) ? results.size() : page * rows;
-			grid.setRows(results.subList(fromIndex, toIndex));
-			grid.setTotal(results.size());
-
-		} else {
-			grid.setRows(results);
-		}
-		
-		return grid;
+		String sql=	" where (personnelstatus='6' or personnelstatus='7' or personnelstatus is null) ";;
+				return queryStaffByStatus(staff, parameter, sql);
 	}
 
 
@@ -881,9 +304,29 @@ public class StaffDAOImpl implements StaffDAO {
 
 	@Override
 	public Grid Getyuangongshengri(Staff staff, Parameter parameter) {
-		String sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
-				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
-				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where (personnelstatus!='6' and personnelstatus!='7' or personnelstatus is null) ";
+		
+		String sql=" where (personnelstatus!='6' and personnelstatus!='7' or personnelstatus is null) ";
+		return queryStaffByStatus(staff, parameter, sql);
+	}
+
+	/**
+	 * @author 鲁宗豪
+	 * @datetime 2015年8月12日 下午2:27:08
+	 * @param staff
+	 * @param parameter
+	 * @param sql
+	 * @return
+	 */
+	private Grid queryStaffByStatus(Staff staff, Parameter parameter, String sql) {
+		
+		String mysql="select User.username username,User.userId userId,User.gender gender,User.tel tel,User.IDnumber IDnumber,User.nation nation,User.birthPlace birthPlace,User.birthday birthday,"
+				+ "User.email email,User.politicalStatus politicalStatus,User.marriage marriage,User.other other,Staff.wage wage,Staff.personnelstatus personnelstatus"
+				+ ",Staff.socialsecurityStatus socialsecurityStatus,Staff.laborRelations laborRelations,Staff.contractStartDate contractStartDate,Staff.contractEndtDate contractEndtDate,"
+				+ "Staff.confirmationdate confirmationdate,Staff.englishName englishName,Staff.trainingExperience trainingExperience,Staff.staffTag staffTag,"
+				+ "Staff.wagecardName wagecardName,Staff.wagecardID wagecardID,Staff.remark remark,Staff.contractState contractState,"
+				+ "DStaffEducation.education education,DStaffEducation.school school,DStaffEducation.major major"
+				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId ";
+		mysql+=sql;
 		final List<Staff> results = new ArrayList<Staff>();
 		
 		if(StringUtils.isNotBlank(staff.getRemark()))
@@ -916,7 +359,7 @@ public class StaffDAOImpl implements StaffDAO {
 		
 				switch (staff.getRemark().trim()) {
 				case "1"://员工姓名排序
-					sql+=" order by id";
+					sql+=" order by username";
 					break;
 				case "2"://员工工龄排序
 					sql+=" order by  contractStartDate";			
@@ -945,42 +388,78 @@ public class StaffDAOImpl implements StaffDAO {
 		map.put("staffTag", staff.getStaffTag());
 		
 	
-		this.npJdbcTemplate.query(sql,map, new RowCallbackHandler() {
+		this.npJdbcTemplate.query(mysql,map, new RowCallbackHandler() {
 			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				Staff staff = new Staff();
-				staff.setId(rs.getString("id"));
 				staff.setUserId(rs.getString("userId"));
-				staff.setPosition(rs.getString("position"));
+				staff.setUsername(rs.getString("username"));
+				staff.setTel(rs.getString("tel"));
+				staff.setGender(rs.getString("gender"));
+				staff.setIDnumber(rs.getString("IDnumber"));
+				staff.setNation(rs.getString("nation"));
+				staff.setBirthPlace(rs.getString("birthPlace"));
+				staff.setBirthday(rs.getString("birthday"));
+				staff.setEmail(rs.getString("email"));
+				staff.setPoliticalStatus(rs.getString("politicalStatus"));
+				staff.setMarriage(rs.getString("marriage"));
+				staff.setOther(rs.getString("other"));
+				staff.setWage(rs.getString("wage"));
 				staff.setPersonnelstatus(rs.getString("personnelstatus"));
-				staff.setEducation(rs.getString("education"));
-				staff.setLaborRelations(rs.getString("laborRelations"));
-				staff.setContractState(rs.getString("contractState"));
 				staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-				staff.setConfirmationdate(rs.getString("confirmationdate"));
+				staff.setLaborRelations(rs.getString("laborRelations"));
 				staff.setContractStartDate(rs.getString("contractStartDate"));
 				staff.setContractEndtDate(rs.getString("contractEndtDate"));
+				staff.setConfirmationdate(rs.getString("confirmationdate"));
+				staff.setEnglishName(rs.getString("englishName"));
+				staff.setTrainingExperience(rs.getString("trainingExperience"));
+				staff.setStaffTag(rs.getString("staffTag"));
+				staff.setWagecardName(rs.getString("wagecardName"));
+				staff.setWagecardID(rs.getString("wagecardID"));
+				staff.setRemark(rs.getString("remark"));
+				staff.setContractState(rs.getString("contractState"));
+				staff.setSchool(rs.getString("school"));
+				staff.setMajor(rs.getString("major"));
+				staff.setEducation(rs.getString("education"));
 				results.add(staff);
 			}
 		});
 		}
 		else {
-			this.npJdbcTemplate.query(sql, new RowCallbackHandler() {
+			this.npJdbcTemplate.query(mysql, new RowCallbackHandler() {
 
 				@Override
 				public void processRow(ResultSet rs) throws SQLException {
 					Staff staff = new Staff();
-					staff.setId(rs.getString("id"));
 					staff.setUserId(rs.getString("userId"));
-					staff.setPosition(rs.getString("position"));
+					staff.setUsername(rs.getString("username"));
+					staff.setTel(rs.getString("tel"));
+					staff.setGender(rs.getString("gender"));
+					staff.setIDnumber(rs.getString("IDnumber"));
+					staff.setNation(rs.getString("nation"));
+					staff.setBirthPlace(rs.getString("birthPlace"));
+					staff.setBirthday(rs.getString("birthday"));
+					staff.setEmail(rs.getString("email"));
+					staff.setPoliticalStatus(rs.getString("politicalStatus"));
+					staff.setMarriage(rs.getString("marriage"));
+					staff.setOther(rs.getString("other"));
+					staff.setWage(rs.getString("wage"));
 					staff.setPersonnelstatus(rs.getString("personnelstatus"));
-					staff.setEducation(rs.getString("education"));
-					staff.setLaborRelations(rs.getString("laborRelations"));
-					staff.setContractState(rs.getString("contractState"));
 					staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
-					staff.setConfirmationdate(rs.getString("confirmationdate"));
+					staff.setLaborRelations(rs.getString("laborRelations"));
 					staff.setContractStartDate(rs.getString("contractStartDate"));
 					staff.setContractEndtDate(rs.getString("contractEndtDate"));
+					staff.setConfirmationdate(rs.getString("confirmationdate"));
+					staff.setEnglishName(rs.getString("englishName"));
+					staff.setTrainingExperience(rs.getString("trainingExperience"));
+					staff.setStaffTag(rs.getString("staffTag"));
+					staff.setWagecardName(rs.getString("wagecardName"));
+					staff.setWagecardID(rs.getString("wagecardID"));
+					staff.setRemark(rs.getString("remark"));
+					staff.setContractState(rs.getString("contractState"));
+					staff.setSchool(rs.getString("school"));
+					staff.setMajor(rs.getString("major"));
+					staff.setEducation(rs.getString("education"));
 					results.add(staff);
 				}
 			});
@@ -1004,6 +483,7 @@ public class StaffDAOImpl implements StaffDAO {
 		
 		return grid;
 	}
+
 
 
 	

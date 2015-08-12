@@ -72,35 +72,15 @@ public class StaffController {
 
 	
 	//编辑员工信息
-	@RequestMapping(value = "/renshi/editmianshiqi", method = RequestMethod.POST)
-	public @ResponseBody Json editmianshiqi(HttpServletRequest request) {	
-	/*	Map<String, String[]> map = request.getParameterMap();
-		User user = new User();
-		for (String key : map.keySet()) {
-			if (StringUtils.equals("permission", key)) {
-				user.setPermission(request.getParameter(key));
-			} else if (StringUtils.equals("scope", key)) {
-				user.setSchool(request.getParameter(key));
-				user.setScope(request.getParameter(key));
-			} else if (StringUtils.equals("week", key)) {
-				user.setLoginDate(request.getParameter(key));
-			} else if (StringUtils.equals("loginStartTime", key)) {
-				user.setLoginStartTime(request.getParameter(key));
-			} else if (StringUtils.equals("loginEndTime", key)) {
-				user.setLoginEndTime(request.getParameter(key));
-			} else if (StringUtils.equals("gender", key)) {
-				user.setGender(request.getParameter("gender"));
-			} else if (StringUtils.equals("userId", key)) {
-				user.setUserId(request.getParameter("userId"));
-			}
-		}*/
+	@RequestMapping(value = "/renshi/editStaff", method = RequestMethod.POST)
+	public @ResponseBody Json editStaff(Staff staff) {	
 		Json json = new Json();
-		/*if (userService.updateUserByUserId(user) != 0) {
+		if (0 != staffService.editStaff(staff)) {
 			json.setSuccess(true);
 		} else {
 			json.setSuccess(false);
-			json.setMsg("更新用户信息失败");
-		}*/
+			json.setMsg("更新失败");
+		}
 		return json;
 	}
 	

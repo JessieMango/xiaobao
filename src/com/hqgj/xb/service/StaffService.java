@@ -1,19 +1,8 @@
 package com.hqgj.xb.service;
-
 import java.util.List;
-
-
-
-
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
-import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
 
 /**
@@ -31,7 +20,7 @@ public interface StaffService {
 	public int deletemianshiqi(String userid);
 	
 	
-	public int editmianshiqi(Staff staff,User user);
+	public int editStaff(Staff staff);
 	public Staff getstaffByuserId(String userid);
 	
 	//培训试用期员工

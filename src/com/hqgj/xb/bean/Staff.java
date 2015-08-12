@@ -33,7 +33,9 @@ public class Staff {
 	//以下字段来自数据表DStaffEducation
 		private String startDate;
 		private String endDate;
-		private String schooll;
+		private String school;
+	
+
 		private String unified;
 		private String major;
 		private String education;
@@ -53,7 +55,15 @@ public class Staff {
 		private String politicalStatus;
 		private String marriage;
 		private String other;
-		
+		public String getSchool() {
+			return school;
+		}
+
+		public void setSchool(String school) {
+			this.school = school;
+		}
+
+
 		
 	public String getUsername() {
 			return username;
@@ -166,17 +176,6 @@ public class Staff {
 		this.confirmationdate = confirmationdate;
 	}
 
-	public String getSchooll() {
-		return schooll;
-	}
-
-	public void setSchooll(String schooll) {
-		this.schooll = schooll;
-	}
-
-
-
-	
 	public String getContractState() {
 		return contractState;
 	}
