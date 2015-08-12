@@ -18,8 +18,8 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseDAO courseDAO;
 	@Override
-	public List<Course> getAllCourses() {
-		List<Course> courses = courseDAO.getAllCourses();
+	public List<Course> getAllCourses(String courseTypeCode) {
+		List<Course> courses = courseDAO.getAllCourses(courseTypeCode);
 		for(Course course : courses){
 			course.setDelete(course.getCourseTypeName());
 			course.setEdit(course.getCourseTypeName());

@@ -27,16 +27,17 @@ public class CourseController {
 	@Autowired
 	private CourseService courseService;
 
-	@RequestMapping(value = "/xitong/getAllCourses", 	method = RequestMethod.POST)
-	public @ResponseBody List<Course> getAllCourses() {
-		return courseService.getAllCourses();
+	@RequestMapping(value = { "/xitong/getAllCourses", "/jiaowu/getAllCourses" }, method = RequestMethod.POST)
+	public @ResponseBody List<Course> getAllCourses(String courseTypeCode) {
+		return courseService.getAllCourses(courseTypeCode);
 	}
 
-	@RequestMapping(value = {"/form/getCourseTypes","/qiantai/getCourseTypes"}, method = RequestMethod.POST)
+	@RequestMapping(value = { "/form/getCourseTypes",
+			"/qiantai/getCourseTypes", "/jiaowu/getCourseTypes" }, method = RequestMethod.POST)
 	public @ResponseBody List<Course> getCourseTypes(String type) {
 		return courseService.getCourseTypes(type);
 	}
-	
+
 	@RequestMapping(value = "/form/getCourseById", method = RequestMethod.POST)
 	public @ResponseBody Course getCourseById(HttpServletRequest request) {
 		String courseCode = request.getParameter("courseCode");
@@ -96,7 +97,7 @@ public class CourseController {
 		}
 		return json;
 	}
-	
+
 	@RequestMapping(value = "/xitong/deleteCourseType", method = RequestMethod.POST)
 	public @ResponseBody Json deleteCourseType(HttpServletRequest request) {
 		String code = request.getParameter("code");

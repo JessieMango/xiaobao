@@ -28,7 +28,8 @@ public class SchoolController {
 	@Autowired
 	private SchoolService schoolService;
 
-	@RequestMapping(value = { "/xitong/getAllSchools", "/qiantai/getAllSchools" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/xitong/getAllSchools",
+			"/qiantai/getAllSchools", "/jiaowu/getAllSchools" }, method = RequestMethod.POST)
 	public @ResponseBody List<School> getAllSchools(String type) {
 		return schoolService.getAllSchools(type);
 	}

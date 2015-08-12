@@ -37,10 +37,16 @@ public class CourseDAOImpl implements CourseDAO {
 	}
 
 	@Override
-	public List<Course> getAllCourses() {
+	public List<Course> getAllCourses(String courseTypeCode) {
+		Map<String, String> map = new HashMap<String, String>();
 		String sql = "	select c.courseCode courseCode,c.nameM courseName,c.seq courseSeq,ct.courseTypeCode courseTypeCode,ct.nameM courseTypeName,ct.seq courseTypeSeq "
-				+ "from Course c  left outer join CourseType ct on c.courseTypeCode=ct.courseTypeCode order by ct.seq,c.seq";
-		List<Course> results = this.nJdbcTemplate.query(sql,
+				+ "from Course c  left outer join CourseType ct on c.courseTypeCode=ct.courseTypeCode ";
+		if (StringUtils.isNotBlank(courseTypeCode)) {
+			map.put("courseTypeCode", courseTypeCode);
+			sql += " where c.courseTypeCode=:courseTypeCode ";
+		}
+		sql += " order by ct.seq,c.seq";
+		List<Course> results = this.nJdbcTemplate.query(sql, map,
 				new RowMapper<Course>() {
 					@Override
 					public Course mapRow(ResultSet rs, int index)
@@ -77,6 +83,12 @@ public class CourseDAOImpl implements CourseDAO {
 			Course temp = new Course();
 			temp.setCourseTypeCode("qb");
 			temp.setCourseTypeName("全部课程类");
+			results.add(0, temp);
+		}
+		if (StringUtils.equals(type, "2")) {
+			Course temp = new Course();
+			temp.setCourseTypeCode("qq");
+			temp.setCourseTypeName("请选择课程");
 			results.add(0, temp);
 		}
 		return results;
