@@ -21,8 +21,6 @@ public class Staff {
 	private String confirmationdate;//
 	
 
-
-
 	private String cardCode;//
 	private String englishName;//
 	private String trainingExperience;//
@@ -33,12 +31,131 @@ public class Staff {
 	
 	
 	//以下字段来自数据表DStaffEducation
-	private String startDate;
-	private String endDate;
-	private String schooll;
-	private String unified;
-	private String major;
-	private String education;
+		private String startDate;
+		private String endDate;
+		private String schooll;
+		private String unified;
+		private String major;
+		private String education;
+		
+		
+
+		//以下字段来自User表
+		private String username;
+		private String tel;
+		private String gender;
+		private String isEnabled;
+		private String IDnumber;
+		private String nation;
+		private String birthPlace;
+		private String birthday;
+		private String email;
+		private String politicalStatus;
+		private String marriage;
+		private String other;
+		
+		
+	public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+		public String getTel() {
+			return tel;
+		}
+
+		public void setTel(String tel) {
+			this.tel = tel;
+		}
+
+		public String getGender() {
+			return gender;
+		}
+
+		public void setGender(String gender) {
+			this.gender = gender;
+		}
+
+		public String getIsEnabled() {
+			return isEnabled;
+		}
+
+		public void setIsEnabled(String isEnabled) {
+			this.isEnabled = isEnabled;
+		}
+
+		public String getIDnumber() {
+			return IDnumber;
+		}
+
+		public void setIDnumber(String iDnumber) {
+			IDnumber = iDnumber;
+		}
+
+		public String getNation() {
+			return nation;
+		}
+
+		public void setNation(String nation) {
+			this.nation = nation;
+		}
+
+		public String getBirthPlace() {
+			return birthPlace;
+		}
+
+		public void setBirthPlace(String birthPlace) {
+			this.birthPlace = birthPlace;
+		}
+
+		public String getBirthday() {
+			return birthday;
+		}
+
+		public void setBirthday(String birthday) {
+			this.birthday = birthday;
+		}
+
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		public String getPoliticalStatus() {
+			return politicalStatus;
+		}
+
+		public void setPoliticalStatus(String politicalStatus) {
+			this.politicalStatus = politicalStatus;
+		}
+
+		public String getMarriage() {
+			return marriage;
+		}
+
+		public void setMarriage(String marriage) {
+			this.marriage = marriage;
+		}
+
+		public String getOther() {
+			return other;
+		}
+
+		public void setOther(String other) {
+			this.other = other;
+		}
+
+
+
+	
+	
+	
 	
 	
 	public String getConfirmationdate() {

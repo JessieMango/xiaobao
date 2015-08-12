@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-	String contextPath = request.getContextPath();
-	%>
+ <%
+	String userId = request.getParameter("userId");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>新建档案</title>
+<title>员工档案</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
 var submitForm = function() {
-	if ($('form').form('validate')) {
-		$.post("createStaff", cxw.serializeObject($('form')), function(
+	if ($('form').form('validate')) {		
+		$.post("editStaff", cxw.serializeObject($('form')), function(
 				result) {
 			if (result.success) {
-				$.messager.alert('提示', '添加成功!', 'info');
+				$.messager.alert('提示', '修改成功!', 'info');
 			} else {
-				$.messager.alert('提示', '添加失败!', 'info');
+				$.messager.alert('提示', '修改失败!', 'info');
 			}
 		}, 'json');
 	}
@@ -28,10 +28,49 @@ var submitForm = function() {
 	}
 /* 初始化页面 */
 	function init() {
-	
-	$("#btn_save").click(function() {
-		submitForm();
-	});
+		$("#btn_save").click(function() {
+			submitForm();
+		});
+		
+		var permission;
+		$.post("getstaffByuserId", {userId :"<%=userId%>"}, function(rs) {
+			$('form').form('load', {
+				
+				
+				"username" : rs.username,
+				"userId" :rs.userId,
+				"gender" : rs.gender,
+				"tel" : rs.tel,
+				"IDnumber" : rs.IDnumber,
+				"nation" : rs.nation,
+				"birthPlace" : rs.birthPlace ,
+				"birthday" :rs.birthday,
+				"email" : rs.email,
+				"politicalStatus" : rs.politicalStatus,
+				"marriage" : rs.marriage,
+				"wage" : rs.wage,
+				"other" : rs.other,
+				"personnelstatus" : rs.personnelstatus,
+				"socialsecurityStatus" : rs.socialsecurityStatus,
+				"laborRelations" : rs.laborRelations,
+				"contractStartDate" : rs.contractStartDate,
+				"contractEndtDate" : rs.contractEndtDate,
+				"confirmationdate" : rs.confirmationdate,
+				"englishName" : rs.englishName,
+				"trainingExperience" : rs.trainingExperience,
+				"staffTag" : rs.staffTag,
+				"wagecardName" : rs.wagecardName,		
+				"confirmationdate" : rs.confirmationdate,	
+				"trainingExperience" : rs.trainingExperience,
+				"wagecardID" : rs.wagecardID,	
+				"remark" : rs.remark,	
+				"contractState" : rs.contractState,	
+				"education" : rs.education,	
+				"school" : rs.school,	
+				"major" : rs.major
+			});
+		});
+
 	}
 	
 	$(document).ready(function() {

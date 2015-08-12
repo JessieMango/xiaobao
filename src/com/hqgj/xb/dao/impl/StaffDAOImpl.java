@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,11 +19,9 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
-import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.StaffDAO;
 
@@ -43,7 +39,63 @@ public class StaffDAOImpl implements StaffDAO {
 		this.npJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 	
-	
+	@Override
+	public Staff getstaffByuserId(String userid) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", userid);
+		
+		String sql="select User.username username,User.userId userId,User.gender gender,User.tel tel,User.IDnumber IDnumber,User.nation nation,User.birthPlace birthPlace,User.birthday birthday,"
+				+ "User.email email,User.politicalStatus politicalStatus,User.marriage marriage,User.other other,Staff.wage wage,Staff.personnelstatus personnelstatus"
+				+ ",Staff.socialsecurityStatus socialsecurityStatus,Staff.laborRelations laborRelations,Staff.contractStartDate contractStartDate,Staff.contractEndtDate contractEndtDate,"
+				+ "Staff.confirmationdate confirmationdate,Staff.englishName englishName,Staff.trainingExperience trainingExperience,Staff.staffTag staffTag,"
+				+ "Staff.wagecardName wagecardName,Staff.wagecardID wagecardID,Staff.remark remark,Staff.contractState contractState,"
+				+ "DStaffEducation.education education,DStaffEducation.school school,DStaffEducation.major major"
+				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where User.userId=:userid";
+
+		final Staff result = this.npJdbcTemplate.queryForObject(sql, paramMap,
+				new RowMapper<Staff>() {
+					@Override
+					public Staff mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Staff staff = new Staff();
+						staff.setUserId(rs.getString("userId"));
+						staff.setUsername(rs.getString("username"));
+						staff.setTel(rs.getString("tel"));
+						staff.setGender(rs.getString("gender"));
+						staff.setIDnumber(rs.getString("IDnumber"));
+						staff.setNation(rs.getString("nation"));
+						staff.setBirthPlace(rs.getString("birthPlace"));
+						staff.setBirthday(rs.getString("birthday"));
+						staff.setEmail(rs.getString("email"));
+						staff.setPoliticalStatus(rs.getString("politicalStatus"));
+						staff.setMarriage(rs.getString("marriage"));
+						staff.setOther(rs.getString("other"));
+						
+						
+						staff.setWage(rs.getString("wage"));
+						staff.setPersonnelstatus(rs.getString("personnelstatus"));
+						staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
+						staff.setLaborRelations(rs.getString("laborRelations"));
+						staff.setContractStartDate(rs.getString("contractStartDate"));
+						staff.setContractEndtDate(rs.getString("contractEndtDate"));
+						staff.setConfirmationdate(rs.getString("confirmationdate"));
+						staff.setEnglishName(rs.getString("englishName"));
+						staff.setTrainingExperience(rs.getString("trainingExperience"));
+						staff.setStaffTag(rs.getString("staffTag"));
+						staff.setWagecardName(rs.getString("wagecardName"));
+						staff.setWagecardID(rs.getString("wagecardID"));
+						staff.setRemark(rs.getString("remark"));
+						staff.setContractState(rs.getString("contractState"));
+						
+						staff.setSchooll(rs.getString("school"));
+						staff.setMajor(rs.getString("major"));
+						staff.setEducation(rs.getString("education"));
+						return staff;
+					}
+				});
+		return result;
+
+	}
 	//新增员工
 	@Override
 	public int createStaff(Staff staff,User user)
@@ -423,7 +475,7 @@ public class StaffDAOImpl implements StaffDAO {
 	public Grid Getzhuanzhengshibai(Staff staff, Parameter parameter) {
 		String sql="select User.username id,User.userId userId,User.gender position,Staff.personnelstatus personnelstatus,DStaffEducation.education education,Staff.laborRelations laborRelations,Staff.contractState contractState,Staff.socialsecurityStatus socialsecurityStatus,Staff.confirmationdate confirmationdate,"
 				+ "datediff(curdate(),Staff.contractStartDate) contractStartDate,datediff(Staff.contractEndtDate,curdate()) contractEndtDate"
-				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where (personnelstatus='4'  or personnelstatus is null) ";;
+				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId where (personnelstatus='4' or personnelstatus is null) ";;
 		final List<Staff> results = new ArrayList<Staff>();
 		
 		if(StringUtils.isNotBlank(staff.getRemark()))
@@ -952,5 +1004,8 @@ public class StaffDAOImpl implements StaffDAO {
 		
 		return grid;
 	}
+
+
+	
 }
 

@@ -20,7 +20,10 @@ public interface StaffDAO {
 	public  Grid Getmianshiqi(Staff staff, Parameter parameter);
 	public  List<Staff> getStaffTag(String type);
 	public int deletemianshiqi(String userid);
+	
+	
 	public int editmianshiqi(Staff staff,User user);
+	public Staff getstaffByuserId(String userid);
 	
 	
 	public Grid Getpeixunshiyong(Staff staff, Parameter parameter);
