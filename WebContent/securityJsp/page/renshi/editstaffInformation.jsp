@@ -10,12 +10,12 @@
 <title>员工档案</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
-var submitForm = function() {
+var submitForm = function($dialog,$grid,$pjq) {
 	if ($('form').form('validate')) {		
-		$.post("editStaff", cxw.serializeObject($('form')), function(
-				result) {
+		$.post("editStaff", cxw.serializeObject($('form')), function(result) {
 			if (result.success) {
-				$.messager.alert('提示', '修改成功!', 'info');
+				$grid.datagrid('load');
+				$dialog.dialog('destroy');
 			} else {
 				$.messager.alert('提示', '修改失败!', 'info');
 			}
@@ -35,13 +35,11 @@ var submitForm = function() {
 		var permission;
 		$.post("getstaffByuserId", {userId :"<%=userId%>"}, function(rs) {
 			$('form').form('load', {
-				
-				
 				"username" : rs.username,
 				"userId" :rs.userId,
 				"gender" : rs.gender,
 				"tel" : rs.tel,
-				"IDnumber" : rs.IDnumber,
+				"IDnumber" : rs.idnumber,
 				"nation" : rs.nation,
 				"birthPlace" : rs.birthPlace ,
 				"birthday" :rs.birthday,
@@ -82,8 +80,8 @@ var submitForm = function() {
 <form method="post" class="form">
 	<div >
 	<div style="width: 70%;margin-left:auto;margin-right:auto;">
-		
-			<label>姓  名：</label> &nbsp;<input type="text" name="username"  data-options="required:true" class="easyui-validatebox" /><br/>
+			<input type="text" name="userId" style="display:none;"  data-options="required:true" class="easyui-validatebox" />
+			<label>姓名：</label><input type="text" name="username" data-options="required:true" class="easyui-validatebox" /><br/>
 			
 			<label>性  别：</label><input type="radio" checked="checked" name="gender" value="0" />男 <input type="radio" name="gender" value="1" />女<br/>
 							
@@ -115,7 +113,7 @@ var submitForm = function() {
 						<option value="1">已婚已育</option>		
 					</select>	<br/>		
 			
-			<label>院  校：</label><input name="schooll" data-options="required:true" type="text" class="easyui-validatebox" ></input><br/>
+			<label>院  校：</label><input name="school" data-options="required:true" type="text" class="easyui-validatebox" ></input><br/>
 			
 			<label>专  业：</label><input name="major" data-options="required:true" type="text" class="easyui-validatebox" ></input><br/>
 			
@@ -145,12 +143,12 @@ var submitForm = function() {
 									<option value="0">未签</option>
 									<option value="1">已期</option>	
 							</select><br/>
-					<br/>
+					<br/><br/><br/>
 			
-			<label>合同期 ：</label><input type="text" name="contractStartDate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'">到
-								<input type="text" name="contractEndtDate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><label>（用于合同到期提醒）</label>	
-			<br/><br/>
-			<label>转正日期：</label><input type="text" name="confirmationdate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><label>（用于试用到期提醒、累计工作天数计算）</label><br/>
+			<label>合同期 ：</label><input type="text" name="contractStartDate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><br/>到
+								<input type="text" name="contractEndtDate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><br/><label>（用于合同到期提醒）</label>	
+			<br/><br/><br/><br/>
+			<label>转正日期：</label><input type="text" name="confirmationdate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><br/><label>（用于试用到期提醒、累计工作天数计算）</label><br/>
 			<br/>
 			<label>劳动关系：</label><select name="laborRelationsCode" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 						<option value="0">全职</option>
@@ -169,14 +167,6 @@ var submitForm = function() {
 			
 			<label>备  注：</label><input type="text"  name="remark" class="easyui-validatebox" ></input><br/><br/>
 			
-			
-		<div style="text-align: center; margin-top: 20px;">
-			<button type="button" id="btn_save">
-				<img alt="保存" style="vertical-align: middle;"
-					src="../../../style/image/save.gif"><span
-					style="vertical-align: middle;">保存</span>
-			</button>
-		</div>
 		</div>
 	</div>
 	</form>

@@ -46,11 +46,6 @@ public class StaffServiceImpl implements StaffService {
 	}
 
 	@Override
-	public int editmianshiqi(Staff staff, User user) {
-		return staffDAO.editmianshiqi(staff, user);
-	}
-
-	@Override
 	public Grid Getpeixunshiyong(Staff staff, Parameter parameter) {
 		return staffDAO.Getpeixunshiyong(staff, parameter);
 	}
@@ -101,6 +96,11 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public Staff getstaffByuserId(String userid) {
 		return staffDAO.getstaffByuserId(userid);
+	}
+
+	@Override
+	public int editStaff(Staff staff) {
+		return staffDAO.editStaff(staff);
 	}
 	
 
