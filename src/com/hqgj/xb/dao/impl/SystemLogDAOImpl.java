@@ -61,12 +61,11 @@ public class SystemLogDAOImpl implements SystemLogDAO {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("startTime", systemLog.getOperateTime());
 
-		if(systemLog.getOperateType()!="qb")
-		{
-			sql+=" and syslog.operateType=:opType";
-			map.put("opType",systemLog.getOperateType());		
-		}		
-		
+		if (!StringUtils.equals("qb", systemLog.getOperateType())) {
+			sql += " and syslog.operateType=:opType";
+			map.put("opType", systemLog.getOperateType());
+		}
+
 		final List<SystemLog> results = new ArrayList<SystemLog>();
 		this.npJdbcTemplate.query(sql, map, new RowCallbackHandler() {
 
@@ -84,7 +83,8 @@ public class SystemLogDAOImpl implements SystemLogDAO {
 		});
 
 		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
+		logger.info("page:" + parameter.getPage() + ";rows:"
+				+ parameter.getRows());
 		Grid grid = new Grid();
 		if ((int) parameter.getPage() > 0) {
 			int page = (int) parameter.getPage();
@@ -102,10 +102,9 @@ public class SystemLogDAOImpl implements SystemLogDAO {
 	}
 
 	// /读取登录类型数据字典
-	public List<SystemLog> readOperateType()
-	{
+	public List<SystemLog> readOperateType() {
 		String sql = "select code,nameM from OperateType";
-		
+
 		List<SystemLog> results = this.npJdbcTemplate.query(sql,
 				new RowMapper<SystemLog>() {
 					@Override
@@ -117,11 +116,11 @@ public class SystemLogDAOImpl implements SystemLogDAO {
 						return systemLog;
 					}
 				});
-		
-			SystemLog temp = new SystemLog();
-			temp.setOperateType("qb");
-			temp.setOperateName("---全部-");
-			results.add(0, temp);
+
+		SystemLog temp = new SystemLog();
+		temp.setOperateType("qb");
+		temp.setOperateName("---全部-");
+		results.add(0, temp);
 		return results;
 	}
 }

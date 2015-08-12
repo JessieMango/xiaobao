@@ -14,9 +14,11 @@ public interface CourseDAO {
 	 * 
 	 * @author 崔兴伟
 	 * @datetime 2015年8月3日 上午9:21:40
+	 * @param courseTypeCode
+	 *            如果courseTypeCode为空返回搜有课程信息，如果不为空只放回指定课程大类的课程
 	 * @return
 	 */
-	public List<Course> getAllCourses();
+	public List<Course> getAllCourses(String courseTypeCode);
 
 	/**
 	 * 获取所有课程大类
