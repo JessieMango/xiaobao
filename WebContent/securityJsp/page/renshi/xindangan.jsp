@@ -12,8 +12,6 @@
 <script type="text/javascript">
 var submitForm = function() {
 	if ($('form').form('validate')) {
-		
-		
 		$.post("createStaff", cxw.serializeObject($('form')), function(
 				result) {
 			if (result.success) {
