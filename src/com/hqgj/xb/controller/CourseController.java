@@ -27,12 +27,12 @@ public class CourseController {
 	@Autowired
 	private CourseService courseService;
 
-	@RequestMapping(value = "/xitong/getAllCourses", method = RequestMethod.POST)
+	@RequestMapping(value = "/xitong/getAllCourses", 	method = RequestMethod.POST)
 	public @ResponseBody List<Course> getAllCourses() {
 		return courseService.getAllCourses();
 	}
 
-	@RequestMapping(value = "/form/getCourseTypes", method = RequestMethod.POST)
+	@RequestMapping(value = {"/form/getCourseTypes","/qiantai/getCourseTypes"}, method = RequestMethod.POST)
 	public @ResponseBody List<Course> getCourseTypes(String type) {
 		return courseService.getCourseTypes(type);
 	}

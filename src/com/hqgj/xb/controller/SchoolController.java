@@ -28,7 +28,7 @@ public class SchoolController {
 	@Autowired
 	private SchoolService schoolService;
 
-	@RequestMapping(value = "/xitong/getAllSchools", method = RequestMethod.POST)
+	@RequestMapping(value = { "/xitong/getAllSchools", "/qiantai/getAllSchools" }, method = RequestMethod.POST)
 	public @ResponseBody List<School> getAllSchools(String type) {
 		return schoolService.getAllSchools(type);
 	}
@@ -58,7 +58,8 @@ public class SchoolController {
 	}
 
 	@RequestMapping(value = "/xitong/deleteSchoolBySchoolCode", method = RequestMethod.POST)
-	public @ResponseBody Json deleteSchoolBySchoolCode(HttpServletRequest request) {
+	public @ResponseBody Json deleteSchoolBySchoolCode(
+			HttpServletRequest request) {
 		School school = new School();
 		school.setSchoolCode(request.getParameter("schoolCode"));
 		Json json = new Json();

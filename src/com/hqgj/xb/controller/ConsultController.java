@@ -11,15 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hqgj.xb.bean.Consult;
-import com.hqgj.xb.bean.Course;
-import com.hqgj.xb.bean.School;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.service.ConsultService;
-import com.hqgj.xb.service.CourseService;
-import com.hqgj.xb.service.SchoolService;
 
 /**
  * @author 崔兴伟
@@ -28,24 +24,9 @@ import com.hqgj.xb.service.SchoolService;
 @Controller
 @RequestMapping(value = "/securityJsp/page")
 public class ConsultController {
-	@Autowired
-	private CourseService courseService;
 
 	@Autowired
 	private ConsultService consultService;
-
-	@Autowired
-	private SchoolService schoolService;
-
-	@RequestMapping(value = "/qiantai/getAllSchools", method = RequestMethod.POST)
-	public @ResponseBody List<School> getAllSchools(String type) {
-		return schoolService.getAllSchools(type);
-	}
-
-	@RequestMapping(value = "/qiantai/getCourseTypes", method = RequestMethod.POST)
-	public @ResponseBody List<Course> getCourseTypes(String type) {
-		return courseService.getCourseTypes(type);
-	}
 
 	@RequestMapping(value = "/qiantai/getCouncilSchools", method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getCouncilSchools(String type) {

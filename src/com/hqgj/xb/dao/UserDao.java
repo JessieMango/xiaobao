@@ -78,4 +78,14 @@ public interface UserDao {
 	 * @return
 	 */
 	public int deleteUserByUserId(String userId);
+
+	/**
+	 * 修改密码
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月12日 上午9:02:03
+	 * @param user
+	 * @return
+	 */
+	public int alterPwd(User user);
 }

@@ -28,9 +28,18 @@ public class Communication {
 	/**
 	 * 查询条件
 	 */
+	private String telTail; // 电话尾号
 	private String startTime; // 沟通开始日期
 	private String endTime; // 沟通截止日期
 	private String order; // 排序字段 1 日期排序 2方式排序 3经办排序
+
+	public String getTelTail() {
+		return telTail;
+	}
+
+	public void setTelTail(String telTail) {
+		this.telTail = telTail;
+	}
 
 	public String getHandleSchool() {
 		return handleSchool;

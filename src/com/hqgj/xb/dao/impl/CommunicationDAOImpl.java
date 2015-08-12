@@ -26,6 +26,7 @@ import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.CommunicationDAO;
 import com.hqgj.xb.dao.ConsultDAO;
+import com.hqgj.xb.util.CommonUtil;
 import com.hqgj.xb.util.StringUtil;
 
 /**
@@ -54,6 +55,52 @@ public class CommunicationDAOImpl implements CommunicationDAO {
 				+ "left outer join CommunicationType ct on c.communicationType=ct.id left outer join Consult co on co.id=c.consultId "
 				+ "left outer join School s on s.schoolCode=c.handleSchoolCode left outer join DHandler dh on dh.id=c.handlerCode ";
 
+		if (communication.getStartTime() != null) { // 如果是按照条件2查询
+			select += " where ";
+			if (StringUtils
+					.equals(communication.getStartTime(), communication.getEndTime())) {
+				select += "c.communicationDate=:startTime ";
+			} else {
+				select += "c.communicationDate between :startTime and :endTime ";
+			}
+			if (!StringUtils.equals("qb", communication.getHandleSchoolCode())) {
+				select += "and c.handleSchoolCode=:handleSchoolCode ";
+			}
+			if (!StringUtils.equals("qb", communication.getHandlerCode())) {
+				select += "and c.handlerCode=:handlerCode ";
+			}
+			if (!StringUtils.equals("qb", communication.getCommunicationType())) {
+				select += "and c.communicationType=:communicationType ";
+			}
+			if (StringUtils.equals("1", communication.getOrder())) {
+				select += "order by c.communicationDate";
+			} else if (StringUtils.equals("2", communication.getOrder())) {
+				select += "order by c.communicationType ";
+			} else if (StringUtils.equals("3", communication.getOrder())) {
+				select += "order by c.handlerCode ";
+			} 
+		} else if (StringUtils.isNotBlank(communication.getNameM())
+				|| StringUtils.isNotBlank(communication.getTelTail())) { // 按照条件1
+			select += " where ";
+			if (StringUtils.isNotBlank(communication.getNameM())
+					&& StringUtils.isBlank(communication.getTelTail())) {
+				select += " co.nameM=:nameM ";
+			}
+			if (StringUtils.isNotBlank(communication.getTelTail())
+					&& StringUtils.isBlank(communication.getNameM())) {
+				communication.setTelTail("%" + StringUtils.trim(communication.getTelTail()));
+				select += " co.otherTel like :telTail ";
+			}
+			if (StringUtils.isNotBlank(communication.getTelTail())
+					&& StringUtils.isNotBlank(communication.getNameM())) {
+				communication.setTelTail("%" + StringUtils.trim(communication.getTelTail()));
+				select += " co.nameM=:nameM and co.otherTel like :telTail ";
+			}
+		} else { // 默认查询当天咨询数据
+			communication.setStartTime(CommonUtil.getSystemDate());
+			select += " where c.communicationDate=:startTime ";
+		}
+		
 		SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(
 				communication);
 		final List<Communication> results = new ArrayList<Communication>();

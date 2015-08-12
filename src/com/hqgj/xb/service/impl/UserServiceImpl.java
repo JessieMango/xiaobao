@@ -55,4 +55,9 @@ public class UserServiceImpl implements UserService {
 		return userDAO.updateUserByUserId(user);
 	}
 
+	@Override
+	public int alterPwd(User user) {
+		return userDAO.alterPwd(user);
+	}
+
 }

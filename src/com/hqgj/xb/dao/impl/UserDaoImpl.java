@@ -278,4 +278,11 @@ public class UserDaoImpl implements UserDao {
 		logger.info("insertCounts:" + insertCounts.length);
 		return n1 + n2 + insertCounts.length;
 	}
+
+	@Override
+	public int alterPwd(User user) {
+		String sql = "UPDATE `User` SET `password`=:password WHERE userId=:userId";
+		SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(user);
+		return this.npJdbcTemplate.update(sql, namedParameters);
+	}
 }

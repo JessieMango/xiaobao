@@ -34,7 +34,7 @@ public class UserController {
 	@Autowired
 	private SystemLogService systemLogService;
 
-	@RequestMapping(value = "/xitong/getAllUsers", method = RequestMethod.POST)
+	@RequestMapping(value = { "/xitong/getAllUsers", "/kaishi/getAllUsers" }, method = RequestMethod.POST)
 	public @ResponseBody Grid getAllUsers(Parameter parameter) {
 		return userService.getAllUsers(parameter);
 	}
@@ -104,7 +104,7 @@ public class UserController {
 		} else {
 			json.setSuccess(true);
 			SystemLog log = new SystemLog();
-			log.setMessage("("+user.getUsername()+")");
+			log.setMessage("(" + user.getUsername() + ")");
 			log.setOperateTime(CommonUtil.getSystemTime());
 			log.setOperateType("7");
 			SessionInfo sessionInfo = (SessionInfo) request.getSession()
@@ -153,4 +153,32 @@ public class UserController {
 		return json;
 	}
 
+	@RequestMapping(value = "/kaishi/alterPwd", method = RequestMethod.POST)
+	public @ResponseBody Json alterPwd(HttpServletRequest request) {
+		String pwd = request.getParameter("pwd");
+		String password = request.getParameter("password");
+		SessionInfo sessionInfo = (SessionInfo) request.getSession()
+				.getAttribute("sessionInfo");
+		User user = new User();
+		user.setUserId(sessionInfo.getUser().getUserId());
+		String pass = sessionInfo.getUser().getPassword();
+		logger.info("pass:" + pass + ";userId:"
+				+ sessionInfo.getUser().getUserId() + ";password:" + password);
+		user.setPassword(MD5Util.md5(pwd));
+		Json json = new Json();
+		if (!StringUtils.equals(MD5Util.md5(password), pass)) {
+			json.setSuccess(false);
+			json.setMsg("原密码错误");
+			return json;
+		}
+		int n = userService.alterPwd(user);
+		logger.info("n:" + n);
+		if (n == 1) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("修改密码失败");
+		}
+		return json;
+	}
 }

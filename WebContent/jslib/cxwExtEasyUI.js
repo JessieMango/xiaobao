@@ -23,6 +23,22 @@ $.extend($.fn.validatebox.defaults.rules, {
 });
 
 /**
+ * 扩展validatebox，添加新的验证功能
+ * 
+ * 
+ * @requires jQuery,EasyUI
+ */
+$.extend($.fn.validatebox.defaults.rules, {
+	eqPwd : {/* 验证两次密码是否一致功能 */
+		validator : function(value, param) {
+			return value == $(param[0]).val();
+		},
+		message : '密码不一致！'
+	}
+});
+
+
+/**
  * 验证开始时间小于结束时间
  */
 cxw.checkStartTimeBeforeEndTime = function(startTime, endTime) {
@@ -215,20 +231,6 @@ $.extend($.fn.combogrid.defaults, {
 	}
 });
 
-/**
- * 扩展validatebox，添加新的验证功能
- * 
- * 
- * @requires jQuery,EasyUI
- */
-$.extend($.fn.validatebox.defaults.rules, {
-	eqPwd : {/* 验证两次密码是否一致功能 */
-		validator : function(value, param) {
-			return value == $(param[0]).val();
-		},
-		message : '密码不一致！'
-	}
-});
 
 /**
  * 扩展tree和combotree，使其支持平滑数据格式

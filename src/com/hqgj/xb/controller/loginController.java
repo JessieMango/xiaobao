@@ -92,7 +92,7 @@ public class loginController {
 		return json;
 	}
 
-	@RequestMapping(value = "/loginOut", method = RequestMethod.GET)
+	@RequestMapping(value = { "/loginOut", "/page/kaishi/loginOut" }, method = RequestMethod.GET)
 	public @ResponseBody Json loginOut(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		if (session != null) {
