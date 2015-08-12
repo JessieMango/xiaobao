@@ -36,5 +36,6 @@ public class SystemLogController {
 	@RequestMapping(value = "/xitong/readOperateType", method = RequestMethod.POST)
 	public @ResponseBody List<SystemLog> readOperateType() {
 		return systemLogService.readOperateType();
+		
 	}
 }

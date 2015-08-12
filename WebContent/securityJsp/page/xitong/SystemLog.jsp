@@ -16,19 +16,23 @@
 			required : true,
 			value : getCurrentDate()
 		});
-		$('#cb').combobox({
-			url : 'readOperateType',
-			valueField : 'id',
-			textField : 'operateName',
-			editable : false,
-			panelHeight : "auto",
-			required : true,
-			onLoadSuccess : function(data) {
-				if (data) {
-					$('#cb').combobox('setValue', data[0].id);
-				}
-			}
-		});
+		$('#cb').combobox(
+				{
+					url : 'readOperateType',
+					valueField : 'operateType',
+					textField : 'operateName',
+					editable : false,
+					panelHeight : "auto",
+					required : true,
+					onLoadSuccess : function(data) {
+
+						if (data) {
+							$('#cb').combobox('setValue', data[0].id);
+							grid.datagrid('load', cxw
+									.serializeObject($('#searchForm')));
+						}
+					}
+				});
 
 		grid = $('#grid').datagrid({
 			url : 'readLog',
@@ -52,15 +56,16 @@
 				title : '用户',
 				width : "20%",
 				align : 'center',
-			}, {
+			},
+			{
 				field : 'operateName',
 				title : '操作名称',
 				width : "20%",
 				align : 'center'
 
 			}, {
-				field : 'operateType',
-				title : '操作',
+				field : 'message',
+				title : 'IP',
 				width : "20%",
 				align : 'center'
 
@@ -82,7 +87,7 @@
 
 	$(function() {
 		init();
-		grid.datagrid('load', cxw.serializeObject($('#searchForm')));
+
 	});
 </script>
 </head>
