@@ -82,8 +82,6 @@ label {
 			</div>
 		</form>
 	</div>
-	=======
-	<title>修改密码</title>
 	<script type="text/javascript">
 		
 	</script>
@@ -111,6 +109,5 @@ label {
 			</div>
 		</div>
 	</form>
-	>>>>>>> b4edbeb01b63ea1584d3480c371f776bdff65357
 </body>
 </html>
