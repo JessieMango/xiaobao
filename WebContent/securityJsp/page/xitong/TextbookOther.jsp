@@ -113,11 +113,19 @@
 															return '￥'+value;
 														}
 													},
+
 													{
 														title : '兑换',
-														field : 'points',
+														field : 'isEnableExchange',
 														width : "10%",
-														align : 'center'
+														align : 'center',
+														formatter : function(value, row) {
+															if (value == 0) {
+																return '<img  alt="未签"  style="vertical-align: middle;" src="../../../style/image/NoExchange.png" />';
+															} else {
+																return cxw.formatString(row.points);
+															}
+														}
 													},
 													{
 														title : '编辑',
@@ -196,9 +204,17 @@
 													},
 													{
 														title : '兑换',
-														field : 'points',
+														field : 'isEnableExchange',
 														width : "10%",
-														align : 'center'
+														align : 'center',
+														formatter : function(value, row) {
+															if (value == 0) {
+																return '<img  alt="未签"  style="vertical-align: middle;" src="../../../style/image/NoExchange.png" />';
+																
+															} else {
+																return cxw.formatString(row.points);
+															}
+														}
 													},
 													{
 														title : '编辑',
