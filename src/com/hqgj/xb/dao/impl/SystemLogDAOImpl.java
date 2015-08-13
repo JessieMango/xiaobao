@@ -36,7 +36,6 @@ public class SystemLogDAOImpl implements SystemLogDAO {
 			.getLogger(SystemLogDAOImpl.class);
 
 	private NamedParameterJdbcTemplate npJdbcTemplate;
-
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.npJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -94,7 +93,6 @@ public class SystemLogDAOImpl implements SystemLogDAO {
 					* rows) ? results.size() : page * rows;
 			grid.setRows(results.subList(fromIndex, toIndex));
 			grid.setTotal(results.size());
-
 		} else {
 			grid.setRows(results);
 		}
@@ -104,7 +102,6 @@ public class SystemLogDAOImpl implements SystemLogDAO {
 	// /读取登录类型数据字典
 	public List<SystemLog> readOperateType() {
 		String sql = "select code,nameM from OperateType";
-
 		List<SystemLog> results = this.npJdbcTemplate.query(sql,
 				new RowMapper<SystemLog>() {
 					@Override
@@ -119,7 +116,7 @@ public class SystemLogDAOImpl implements SystemLogDAO {
 
 		SystemLog temp = new SystemLog();
 		temp.setOperateType("qb");
-		temp.setOperateName("---全部-");
+		temp.setOperateName("--全部--");
 		results.add(0, temp);
 		return results;
 	}

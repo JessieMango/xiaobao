@@ -105,12 +105,12 @@
 				</tr>
 				<tr>
 					<th>价格:</th>
-					<td>￥<input class="easyui-validatebox" name="price" style="width: 70px;"
+					<td>￥<input class="easyui-numberbox" name="price"  data-options="min:0,value:0" style="width: 70px;"
 						required="required" /></td>
 				</tr>
 				<tr>
 					<th>需要积分:</th>
-					<td><input class="easyui-validatebox" name="points" /></td>
+					<td><input class="easyui-numberbox"  data-options="min:0,value:0"  name="points" /></td>
 				</tr>
 			</table>
 		</fieldset>

@@ -161,7 +161,7 @@ public class StaffDAOImpl implements StaffDAO {
 		
 		staff.setId(UUID.randomUUID().toString());
 		String sqlDStaffEducation="insert into DStaffEducation (id,userId,school,major,education)"+
-		"values (:id,:userId,:schooll,:major,:education)";
+		"values (:id,:userId,:school,:major,:education)";
 		userParameterSource = new BeanPropertySqlParameterSource(
 				staff);
 		int n3 = this.npJdbcTemplate.update(sqlDStaffEducation, userParameterSource);

@@ -91,10 +91,6 @@
 </head>
 
 <body class="easyui-layout" data-options="fit:true,border:false">
-
-
-
-
 	<div id="toolbar" style="display: none;">
 		<table>
 			<tr>
@@ -106,7 +102,6 @@
 								<td><input id="cc" type="text" name="cc"
 									class="easyui-datebox" style="width: 200px;"
 									required="required"></td>
-
 								<td>登录类型：</td>
 								<td><select id="cb" name="cb" style="width: 200px;"
 									class="easyui-combobox"></select></td>
