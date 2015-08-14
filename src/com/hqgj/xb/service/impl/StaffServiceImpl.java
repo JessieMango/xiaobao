@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
@@ -101,6 +102,26 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public int editStaff(Staff staff) {
 		return staffDAO.editStaff(staff);
+	}
+
+	@Override
+	public List<Dictionary> getpoliticalStatus(String type) {
+		return staffDAO.getpoliticalStatus(type);
+	}
+
+	@Override
+	public List<Dictionary> getpersonnelstatus(String type) {
+		return staffDAO.getpersonnelstatus(type);
+	}
+
+	@Override
+	public List<Dictionary> getlaborRelations(String type) {
+		return staffDAO.getlaborRelations(type);
+	}
+
+	@Override
+	public List<Dictionary> getsocialsecurityStatus(String type) {
+		return staffDAO.getsocialsecurityStatus(type);
 	}
 	
 

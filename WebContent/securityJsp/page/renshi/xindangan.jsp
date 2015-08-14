@@ -28,6 +28,42 @@ var submitForm = function() {
 	}
 /* 初始化页面 */
 	function init() {
+		$('#politicalStatus').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#politicalStatus').combobox('setValue',
+									data[0].id);
+						}
+					}
+				});
+		$('#laborRelationsCode').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#laborRelationsCode').combobox('setValue',
+									data[0].id);
+						}
+					}
+				});
+		$('#personnelstatus').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#personnelstatus').combobox('setValue',
+									data[0].id);
+						}
+					}
+				});	
+		$('#socialsecurityStatusCode').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#socialsecurityStatusCode').combobox('setValue',
+									data[0].id);
+						}
+					}
+				});	
 	
 	$("#btn_save").click(function() {
 		submitForm();
@@ -63,12 +99,10 @@ var submitForm = function() {
 			<label>民  族：</label><input name="nation" type="text" class="easyui-validatebox" ></input><br/>
 			
 			<label>政  治：</label> 
-			<select name="politicalStatus" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
-						<option  value="0">群众</option>
-						<option value="1">团员</option>
-						<option value="2">预备党员</option>
-						<option value="3">党员</option>						
-					</select><br/>
+			<input class="easyui-combobox" name="politicalStatus"
+							id="politicalStatus" style="width: 155px;"
+							data-options="valueField:'id',textField:'nameM',url:'getpoliticalStatus',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
+			<br/>
 			
 			<label>婚  姻：</label><select name="marriage" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 						<option value="0">未婚</option>
@@ -89,16 +123,11 @@ var submitForm = function() {
 			
 	</div>
 	<br/><br/><br/><br/><br/>
-	<div  style="width: 70%;margin-left:auto;margin-right:auto;"><br/><label>人事状态：</label><select name="personnelstatus" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
-						<option value="0">面试期</option>
-						<option value="1">培训期</option>	
-						<option value="2">试用期</option>		
-						<option value="3">正式员工</option>		
-						<option value="4">转正失败</option>		
-						<option value="5">停薪留职</option>		
-						<option value="6">主动离职</option>		
-						<option value="7">被解聘</option>		
-					</select>
+	<div  style="width: 70%;margin-left:auto;margin-right:auto;"><br/><label>人事状态：</label>
+	<input class="easyui-combobox" name="personnelstatus"
+							id="personnelstatus" style="width: 155px;"
+							data-options="valueField:'id',textField:'nameM',url:'getpersonnelstatus',panelHeight:'auto',required:true,editable:false" />&nbsp;&nbsp;
+
 			<br/>
 			<label>标  记：</label><input type="text" name="staffTag"  data-options="required:true" class="easyui-validatebox" ></input><br/>
 			
@@ -113,18 +142,19 @@ var submitForm = function() {
 			<br/><br/>
 			<label>转正日期：</label><input type="text" name="confirmationdate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><label>（用于试用到期提醒、累计工作天数计算）</label><br/>
 			<br/>
-			<label>劳动关系：</label><select name="laborRelationsCode" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
-						<option value="0">全职</option>
-						<option value="1">兼职</option>	
-						<option value="1">合作</option>		
-					</select>		<br/>	
+			<label>劳动关系：</label>
+			<input class="easyui-combobox" name="laborRelationsCode"
+							id="laborRelationsCode" style="width: 155px;"
+							data-options="valueField:'id',textField:'nameM',url:'getlaborRelations',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
+							
+			<br/>	
 		
 			
-			<label>社  保：</label><select name="socialsecurityStatusCode" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
-						<option value="0">已办理</option>
-						<option value="1">未办理</option>		
-					</select><br/>
-			
+			<label>社  保：</label>
+			<input class="easyui-combobox" name="socialsecurityStatusCode"
+							id="socialsecurityStatusCode" style="width: 155px;"
+							data-options="valueField:'id',textField:'nameM',url:'getsocialsecurityStatus',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
+			<br/>
 			<label>工资卡 ：</label><input type="text" name="wagecardName"   class="easyui-validatebox" ></input><label>（开户行）</label>	<br/>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="wagecardID"  class="easyui-validatebox" ></input><label>（卡号）</label>	<br/>
 			

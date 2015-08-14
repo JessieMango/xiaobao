@@ -61,6 +61,24 @@
 					}
 				});
 		
+		$('#laborRelations').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#laborRelations').combobox('setValue',
+									data[0].id);
+						}
+					}
+				});
+		$('#socialsecurityStatus').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#socialsecurityStatus').combobox('setValue',
+									data[0].id);
+						}
+					}
+				});	
 
 	
 		grid = $('#grid')
@@ -208,29 +226,32 @@
 			<form id="form1">
 				<div style="margin-top: 20px;">
 					<div style="margin-left: 15%;">
-					&nbsp;&nbsp;<select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+					&nbsp;&nbsp;
+					<select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 									<option value="qb">全部合同状态</option>
 									<option value="0">未签</option>
 									<option value="1">已签</option>	
 							</select>&nbsp;
-					&nbsp;<select name="socialsecurityStatus" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
-										<option value="qb">全部社保状态</option>
-										<option value="0">已办理</option>
-										<option value="1">未办理</option>		
-								</select>&nbsp;
+					&nbsp;
+					<input class="easyui-combobox" name="socialsecurityStatus"
+							id="socialsecurityStatus" style="width: 155px;"
+							data-options="valueField:'id',textField:'nameM',url:'getsocialsecurityStatus?type=1',required:true,panelHeight:'auto',editable:false" />
+					&nbsp;
 					
-					&nbsp;<select name="laborRelations" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
-									<option value="qb">全部劳动关系</option>
-									<option value="0">全职</option>
-									<option value="1">兼职</option>	
-									<option value="1">合作</option>		
-								</select>&nbsp;
+					&nbsp;
+					<input class="easyui-combobox" name="laborRelations"
+							id="laborRelations" style="width: 155px;"
+							data-options="valueField:'id',textField:'nameM',url:'getlaborRelations?type=1',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
+							
 					
 					&nbsp;<input class="easyui-combobox" name="staffTag"
 							id="staffTag" style="width: 100px;"
-							data-options="valueField:'id',textField:'cardCode',url:'getStaffTag?type=1',panelHeight:'auto',editable:false" />&nbsp;&nbsp;
+							data-options="valueField:'id',textField:'cardCode',url:'getStaffTag?type=1',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
 				
-					&nbsp;<select name="remark" class="easyui-combobox"
+					&nbsp;
+					
+					
+					<select name="remark" class="easyui-combobox"
 							data-options="required:true,editable:false,panelHeight:'auto'"
 							style="width: 100px;">
 							<option value="1">员工姓名排序</option>
