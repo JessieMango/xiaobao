@@ -39,6 +39,23 @@ public class Consult {
 	private String carCode; // 磁卡号
 	private String banlance; // 可用余额
 	private String availabelPoints; // 可用积分
+	private String  starttime;
+	private String endtime;
+	public String getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 
 	public String getCarCode() {
 		return carCode;

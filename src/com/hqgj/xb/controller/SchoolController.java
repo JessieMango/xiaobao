@@ -29,7 +29,7 @@ public class SchoolController {
 	private SchoolService schoolService;
 
 	@RequestMapping(value = { "/xitong/getAllSchools",
-			"/qiantai/getAllSchools", "/jiaowu/getAllSchools" }, method = RequestMethod.POST)
+			"/qiantai/getAllSchools", "/jiaowu/getAllSchools","shichang/getAllSchools" }, method = RequestMethod.POST)
 	public @ResponseBody List<School> getAllSchools(String type) {
 		return schoolService.getAllSchools(type);
 	}
