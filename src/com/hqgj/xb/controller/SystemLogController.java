@@ -25,7 +25,7 @@ public class SystemLogController {
 	private SystemLogService systemLogService;
 
 	
-	@RequestMapping(value = "/xitong/readLog", method = RequestMethod.POST)
+	@RequestMapping(value = {"/xitong/readLog","/kaishi/readLog"}, method = RequestMethod.POST)
 	public @ResponseBody Grid readLog(Parameter parameter,String cc,String cb) {
 		SystemLog systemLog=new SystemLog();
 		systemLog.setOperateTime(cc);
@@ -33,7 +33,7 @@ public class SystemLogController {
 		return systemLogService.readLog(systemLog,parameter);
 	}
 	
-	@RequestMapping(value = "/xitong/readOperateType", method = RequestMethod.POST)
+	@RequestMapping(value = {"/xitong/readOperateType","/kaishi/readOperateType"}, method = RequestMethod.POST)
 	public @ResponseBody List<SystemLog> readOperateType() {
 		return systemLogService.readOperateType();
 		

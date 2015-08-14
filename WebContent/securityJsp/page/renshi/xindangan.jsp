@@ -54,7 +54,7 @@ var submitForm = function() {
 			
 			<label>生  日：</label><input name="birthday" type="text" name="dirthday" class="easyui-datebox"  data-options="required:true,editable:false,value:'getCurrentDate();'"><label>（用于年龄计算和员工生日提醒）</label><br/>	
 			
-			<label>手  机：</label><input name="tel" type="text" data-options="required:true" class="easyui-validatebox" ></input><br/>
+			<label>手  机：</label><input name="tel"  type="text"  data-options="min:0,required:true" class="easyui-numberbox" ></input><br/>
 			
 			<label>邮  箱：</label><input name="email" data-options="required:true" type="text" class="easyui-validatebox" ></input><br/>
 			
@@ -76,7 +76,7 @@ var submitForm = function() {
 						<option value="1">已婚已育</option>		
 					</select>	<br/>		
 			
-			<label>院  校：</label><input name="schooll" data-options="required:true" type="text" class="easyui-validatebox" ></input><br/>
+			<label>院  校：</label><input name="school" data-options="required:true" type="text" class="easyui-validatebox" ></input><br/>
 			
 			<label>专  业：</label><input name="major" data-options="required:true" type="text" class="easyui-validatebox" ></input><br/>
 			

@@ -81,4 +81,9 @@ public class ConsultSeriveImpl implements ConsultService {
 		return consultDAO.deleteConsult(id);
 	}
 
+	@Override
+	public List<Consult> getConsultStatistics(Consult consult) {
+		return consultDAO.getConsultStatistics(consult);
+	}
+
 }

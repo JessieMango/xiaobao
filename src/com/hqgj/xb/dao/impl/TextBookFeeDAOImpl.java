@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,7 +39,7 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 	public List<TextBookFee> getAllTextBookFees(String type) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("type", type);
-		String sql = "select t.id id,t.courseTypeCode courseTypeCode,t.seq,t.nameM,t.price,t.points,t.type,ct.nameM courseTypeName from TextBookFee t "
+		String sql = "select t.id id,t.courseTypeCode courseTypeCode,t.seq,t.nameM,t.price,t.points,t.type,ct.nameM courseTypeName,t.isEnableExchange isEnableExchange from TextBookFee t "
 				+ "left outer join CourseType ct on ct.courseTypeCode=t.courseTypeCode where t.type=:type";
 		List<TextBookFee> results = this.nJdbcTemplate.query(sql, map,
 				new RowMapper<TextBookFee>() {
@@ -56,6 +57,7 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 						textBookFee.setPrice(rs.getString("price"));
 						textBookFee.setSeq(rs.getString("seq"));
 						textBookFee.setType(rs.getString("type"));
+						textBookFee.setIsEnableExchange(rs.getString("isEnableExchange"));
 						return textBookFee;
 					}
 				});
@@ -81,7 +83,7 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 
 	@Override
 	public TextBookFee getTextBookFee(String id) {
-		String sql = "select t.courseTypeCode courseTypeCode,t.seq,t.nameM,t.price,t.points,t.type,ct.nameM courseTypeName from TextBookFee t "
+		String sql = "select t.courseTypeCode courseTypeCode,t.seq,t.nameM,t.price,t.points,t.type,ct.nameM courseTypeName,t.isEnableExchange isEnableExchange from TextBookFee t "
 				+ "left outer join CourseType ct on ct.courseTypeCode=t.courseTypeCode where t.id=:id ";
 
 		Map<String, String> map = new HashMap<String, String>();
@@ -99,6 +101,7 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 						textBookFee.setPrice(rs.getString("price"));
 						textBookFee.setSeq(rs.getString("seq"));
 						textBookFee.setType(rs.getString("type"));
+						textBookFee.setIsEnableExchange(rs.getString("isEnableExchange"));
 						return textBookFee;
 					}
 				});
@@ -107,7 +110,11 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 
 	@Override
 	public int updateTextBookFee(TextBookFee textBookFee) {
-		String sql = "update TextBookFee set courseTypeCode=:courseTypeCode,seq=:seq,nameM=:nameM,price=:price,points=:points,type=:type where id=:id";
+		if(!StringUtils.isNotEmpty(textBookFee.getIsEnableExchange()))
+		{
+			textBookFee.setIsEnableExchange("0");
+		}
+		String sql = "update TextBookFee set courseTypeCode=:courseTypeCode,seq=:seq,nameM=:nameM,price=:price,points=:points,type=:type,isEnableExchange=:isEnableExchange where id=:id";
 		SqlParameterSource textBookFeeParameterSource = new BeanPropertySqlParameterSource(
 				textBookFee);
 		return this.nJdbcTemplate.update(sql, textBookFeeParameterSource);
@@ -124,7 +131,12 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 	@Override
 	public int addTextBookFee(TextBookFee textBookFee) {
 		textBookFee.setId(UUID.randomUUID().toString());
-		String sql = "insert into TextBookFee(id,courseTypeCode,seq,nameM,price,points,type) values (:id,:courseTypeCode,:seq,:nameM,:price,:points,:type)";
+		if(!StringUtils.isNotEmpty(textBookFee.getIsEnableExchange()))
+		{
+			textBookFee.setIsEnableExchange("0");
+		}
+		String sql = "insert into TextBookFee(id,courseTypeCode,seq,nameM,price,points,type,isEnableExchange) values (:id,:courseTypeCode,:seq,:nameM,:price,:points,:type,:isEnableExchange)";
+		
 		SqlParameterSource textBookFeeParameterSource = new BeanPropertySqlParameterSource(
 				textBookFee);
 		return this.nJdbcTemplate.update(sql, textBookFeeParameterSource);

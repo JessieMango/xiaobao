@@ -70,7 +70,8 @@
 					"seq" : result.seq,
 					"nameM" : result.nameM,
 					"points" : result.points,
-					"price" : result.price
+					"price" : result.price,
+					"isEnableExchange":result.isEnableExchange
 				});
 			});
 		}
@@ -105,12 +106,16 @@
 				</tr>
 				<tr>
 					<th>价格:</th>
-					<td>￥<input class="easyui-validatebox" name="price" style="width: 70px;"
+					<td>￥<input class="easyui-numberbox" name="price"  data-options="min:0,value:0" style="width: 70px;"
 						required="required" /></td>
 				</tr>
 				<tr>
+					<th>可否积分兑换:</th>
+					<td><input name="isEnableExchange" type="checkbox" value="1"/></td>
+				</tr>
+				<tr>
 					<th>需要积分:</th>
-					<td><input class="easyui-validatebox" name="points" /></td>
+					<td><input class="easyui-numberbox"  data-options="min:0,value:0"  name="points" /></td>
 				</tr>
 			</table>
 		</fieldset>

@@ -14,6 +14,14 @@ public class TextBookFee {
 	private String points;
 	private String type; // 类型编码
 	private String dnameM; // 类型名称
+	private String isEnableExchange;//是否允许用积分兑换。
+	public String getIsEnableExchange() {
+		return isEnableExchange;
+	}
+
+	public void setIsEnableExchange(String isEnableExchange) {
+		this.isEnableExchange = isEnableExchange;
+	}
 
 	public String getId() {
 		return id;
