@@ -1,5 +1,6 @@
 package com.hqgj.xb.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -37,6 +38,11 @@ public class UserController {
 	@RequestMapping(value = { "/xitong/getAllUsers", "/kaishi/getAllUsers" }, method = RequestMethod.POST)
 	public @ResponseBody Grid getAllUsers(Parameter parameter) {
 		return userService.getAllUsers(parameter);
+	}
+
+	@RequestMapping(value = "/jiaowu/getUsersByRoleId", method = RequestMethod.POST)
+	public @ResponseBody List<User> getUsersByRoleId(String roleId) {
+		return userService.getUsersByRoleId(roleId);
 	}
 
 	@RequestMapping(value = "/xitong/resetPwd", method = RequestMethod.POST)

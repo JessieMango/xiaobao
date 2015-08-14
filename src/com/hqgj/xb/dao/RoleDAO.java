@@ -18,4 +18,5 @@ public interface RoleDAO {
 	 * @return
 	 */
 	public List<Role> getPermissionByRoleId(String role_id);
+	
 }

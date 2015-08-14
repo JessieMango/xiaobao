@@ -4,7 +4,7 @@ package com.hqgj.xb.bean;
  * @author 崔兴伟
  * @datetime 2015年8月11日 下午4:02:16
  */
-public class Class {
+public class ClassS {
 	private String classCode; // 班级编码
 	private String nameM; // 班级名称
 	private String courseCode; // 课程编码
@@ -19,12 +19,23 @@ public class Class {
 	private String dateUndetermined; // 开课日期待定 1代表日期待定
 	private String teacherCode; // 教师编码 关联User表
 	private String teacherName; // 教师姓名
-	private String assistant; // 助教
-	private String classroomCode; // 教室编码
-	private String classroomName; // 教室名称
+	private String assistantCode; // 助教编码 关联User表
+	private String assistantName; // 助教
+	private String classRoomCode; // 教室编码
+	private String classRoomName; // 教室名称
 	private String ratedNumber; // 额定人数
 	private String remark; // 备注
 	private String classState; // 班级状态
+	private String startDate2; // 开课日期 2代表按次，3代表按时间时的开课日期
+
+	/**
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月14日 上午9:26:14
+	 */
+	public ClassS() {
+
+	}
 
 	public String getClassCode() {
 		return classCode;
@@ -138,28 +149,20 @@ public class Class {
 		this.teacherName = teacherName;
 	}
 
-	public String getAssistant() {
-		return assistant;
+	public String getClassRoomCode() {
+		return classRoomCode;
 	}
 
-	public void setAssistant(String assistant) {
-		this.assistant = assistant;
+	public void setClassRoomCode(String classRoomCode) {
+		this.classRoomCode = classRoomCode;
 	}
 
-	public String getClassroomCode() {
-		return classroomCode;
+	public String getClassRoomName() {
+		return classRoomName;
 	}
 
-	public void setClassroomCode(String classroomCode) {
-		this.classroomCode = classroomCode;
-	}
-
-	public String getClassroomName() {
-		return classroomName;
-	}
-
-	public void setClassroomName(String classroomName) {
-		this.classroomName = classroomName;
+	public void setClassRoomName(String classRoomName) {
+		this.classRoomName = classRoomName;
 	}
 
 	public String getRatedNumber() {
@@ -184,6 +187,30 @@ public class Class {
 
 	public void setClassState(String classState) {
 		this.classState = classState;
+	}
+
+	public String getStartDate2() {
+		return startDate2;
+	}
+
+	public void setStartDate2(String startDate2) {
+		this.startDate2 = startDate2;
+	}
+
+	public String getAssistantCode() {
+		return assistantCode;
+	}
+
+	public void setAssistantCode(String assistantCode) {
+		this.assistantCode = assistantCode;
+	}
+
+	public String getAssistantName() {
+		return assistantName;
+	}
+
+	public void setAssistantName(String assistantName) {
+		this.assistantName = assistantName;
 	}
 
 }

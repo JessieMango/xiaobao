@@ -18,6 +18,16 @@ public interface UserService {
 	public List<User> login(User user);
 
 	/**
+	 * 获取对应角色的用户
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月14日 上午10:34:03
+	 * @param roleId
+	 * @return
+	 */
+	public List<User> getUsersByRoleId(String roleId);
+
+	/**
 	 * 获取所有的用户信息
 	 * 
 	 * @author 崔兴伟

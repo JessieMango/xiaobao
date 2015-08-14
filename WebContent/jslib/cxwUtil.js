@@ -110,7 +110,68 @@ var ChangeTimigWeekday = function(dom, num) {
 		if (!$("#Timing7").hasClass("none")) {
 			$("#Timing7").addClass("none");
 		}
+	}
+}
 
+var tuitionChange = function(target) {
+	if ($(target).val() == 1) {
+		if ($("#tuitionSpanTerm").hasClass("none")) {
+			$("#tuitionSpanTerm").removeClass("none");
+		}
+
+		if ($("#classTimesDiv").hasClass("none")) {
+			$("#classTimesDiv").removeClass("none");
+		}
+		if ($("#termDiv").hasClass("none")) {
+			$("#termDiv").removeClass("none");
+		}
+		if (!$("#timeMonthDiv").hasClass("none")) {
+			$("#timeMonthDiv").addClass("none");
+		}
+		if (!$("#tuitionSpanTimes").hasClass("none")) {
+			$("#tuitionSpanTimes").addClass("none");
+		}
+
+	}
+	if ($(target).val() == 2) {
+		if (!$("#classTimesDiv").hasClass("none")) {
+			$("#classTimesDiv").addClass("none");
+		}
+		if ($("#tuitionSpanTimes").hasClass("none")) {
+			$("#tuitionSpanTimes").removeClass("none");
+		}
+		if (!$("#termDiv").hasClass("none")) {
+			$("#termDiv").addClass("none");
+		}
+		if (!$("#tuitionSpanTerm").hasClass("none")) {
+			$("#tuitionSpanTerm").addClass("none");
+		}
+		if ($("#timeMonthDiv").hasClass("none")) {
+			$("#timeMonthDiv").removeClass("none");
+		}
+		if (!$("#tuitionSpanMonth").hasClass("none")) {
+			$("#tuitionSpanMonth").addClass("none");
+		}
+	}
+	if ($(target).val() == 3) {
+		if (!$("#classTimesDiv").hasClass("none")) {
+			$("#classTimesDiv").addClass("none");
+		}
+		if ($("#tuitionSpanMonth").hasClass("none")) {
+			$("#tuitionSpanMonth").removeClass("none");
+		}
+		if (!$("#termDiv").hasClass("none")) {
+			$("#termDiv").addClass("none");
+		}
+		if (!$("#tuitionSpanTimes").hasClass("none")) {
+			$("#tuitionSpanTimes").addClass("none");
+		}
+		if (!$("#tuitionSpanTerm").hasClass("none")) {
+			$("#tuitionSpanTerm").addClass("none");
+		}
+		if ($("#timeMonthDiv").hasClass("none")) {
+			$("#timeMonthDiv").removeClass("none");
+		}
 	}
 
 }

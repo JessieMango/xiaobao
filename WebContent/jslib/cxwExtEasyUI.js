@@ -37,6 +37,20 @@ $.extend($.fn.validatebox.defaults.rules, {
 	}
 });
 
+/**
+ * 扩展validatebox，添加两个时间验证
+ * 
+ * 
+ * @requires jQuery,EasyUI
+ */
+$.extend($.fn.validatebox.defaults.rules, {
+	notBigger : {
+		validator : function(value, param) {
+			return value >= $(param[0]).val();
+		},
+		message : '开始时间应小于结束时间'
+	}
+});
 
 /**
  * 验证开始时间小于结束时间
@@ -230,7 +244,6 @@ $.extend($.fn.combogrid.defaults, {
 		}
 	}
 });
-
 
 /**
  * 扩展tree和combotree，使其支持平滑数据格式

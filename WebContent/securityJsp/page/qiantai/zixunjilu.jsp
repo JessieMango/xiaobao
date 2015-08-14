@@ -26,13 +26,13 @@ a {
 			}
 		});
 	}
-	
-	var addFun = function(id){
-		window.location.href = 'addCommunication.jsp?id='+id;
+
+	var addFun = function(id) {
+		window.location.href = 'addCommunication.jsp?id=' + id;
 	}
-	
-	var showFun = function(id){
-		window.location.href = 'showCommunication.jsp?id='+id;
+
+	var showFun = function(id) {
+		window.location.href = 'showCommunication.jsp?id=' + id;
 	}
 	/* 初始化页面 */
 	function init() {
@@ -95,16 +95,18 @@ a {
 				}
 			}
 		});
-		$('#handleSchoolCode').combobox(
-				{
-					onLoadSuccess : function(data) {
-						if (data) {
-							$('#handleSchoolCode').combobox('setValue',
-									data[0].schoolCode);
-						}
-						grid.datagrid('load',cxw.serializeObject($('#form2')));
-					}
-				});
+		$('#handleSchoolCode')
+				.combobox(
+						{
+							onLoadSuccess : function(data) {
+								if (data) {
+									$('#handleSchoolCode').combobox('setValue',
+											data[0].schoolCode);
+								}
+								grid.datagrid('load', cxw
+										.serializeObject($('#form2')));
+							}
+						});
 
 		grid = $('#grid')
 				.datagrid(
@@ -287,9 +289,9 @@ a {
 								parent.$.messager.progress('close');
 							}
 						});
-		
+
 		var perDate = getPreThreeDate();
-		$("#startTime").datebox("setValue",perDate);
+		$("#startTime").datebox("setValue", perDate);
 	}
 
 	$(document).ready(function() {

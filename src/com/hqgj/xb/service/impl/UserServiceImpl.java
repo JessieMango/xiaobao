@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
 		return userDAO.alterPwd(user);
 	}
 
+	@Override
+	public List<User> getUsersByRoleId(String roleId) {
+		return userDAO.getUsersByRoleId(roleId);
+	}
+
 }
