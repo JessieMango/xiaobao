@@ -56,7 +56,7 @@ public class UserDaoImpl implements UserDao {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
 						User user = new User();
-						if(rs.getString("age") != null){
+						if (rs.getString("age") != null) {
 							user.setAge(Integer.parseInt(rs.getString("age")));
 						}
 						user.setCarCode(rs.getString("carCode"));
@@ -155,7 +155,7 @@ public class UserDaoImpl implements UserDao {
 				}
 			}
 		}
-		
+
 		logger.info("一共有" + results.size() + "条数据");
 		Grid grid = new Grid();
 		if ((int) parameter.getPage() > 0) {
@@ -282,7 +282,27 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int alterPwd(User user) {
 		String sql = "UPDATE `User` SET `password`=:password WHERE userId=:userId";
-		SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(user);
+		SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(
+				user);
 		return this.npJdbcTemplate.update(sql, namedParameters);
+	}
+
+	@Override
+	public List<User> getUsersByRoleId(String roleId) {
+		String sql = "select u.userId,u.username from User_Role ur left outer join User u on u.userId=ur.user_id where ur.role_id=:roleId ";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("roleId", roleId);
+		final List<User> results = new ArrayList<User>();
+		this.npJdbcTemplate.query(sql, map, new RowCallbackHandler() {
+
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				User user = new User();
+				user.setUserId(rs.getString("userId"));
+				user.setUsername(rs.getString("username"));
+				results.add(user);
+			}
+		});
+		return results;
 	}
 }
