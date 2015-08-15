@@ -10,21 +10,6 @@
 <title>校区咨询量</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
-var submitForm = function() {
-	if ($('form').form('validate')) {
-		$.post("getConsultStatistics", cxw.serializeObject($('form')), function(
-				result) {
-			if (!result.success) {
-				$.messager.alert('提示', '统计失败!', 'info');
-			}
-		}, 'json');
-	}
-	else
-		{
-			$.messager.alert('提示', '请将信息填写完整!', 'info');		
-		}
-	}
-	
 	function init() {
 		$('#starttime').datebox({
 			required : true,
@@ -48,8 +33,7 @@ var submitForm = function() {
 		$("#btn_save").click(function() {
 			submitForm();
 		});
-		}
-
+	}
 	$(function() {
 		init();
 	});
@@ -79,10 +63,10 @@ var submitForm = function() {
 			</td>
 		</tr>
 	</table>
+	
+		<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
 </form>
-	<div data-options="region:'center',fit:true,border:false">
-		
-	</div>
+	
 
 
 </body>

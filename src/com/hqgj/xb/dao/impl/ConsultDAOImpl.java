@@ -549,24 +549,4 @@ public class ConsultDAOImpl implements ConsultDAO {
 		return this.nJdbcTemplate.update(sql, map);
 	}
 
-	@Override
-	public List<Consult> getConsultStatistics(Consult consult) {
-		String sql="select handleSchoolCode,consultDate,count(id) id from Consult where consultDate between :starttime and :endtime "
-				+ "group by handleSchoolCode,consultDate";
-		SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(
-				consult);
-		final List<Consult> results = new ArrayList<Consult>();
-		this.nJdbcTemplate.query(sql, namedParameters,new RowCallbackHandler() {
-					@Override
-					public void processRow(ResultSet rs) throws SQLException {
-						Consult consult = new Consult();
-						consult.setHandlerCode(rs.getString("handleSchoolCode"));
-						consult.setConsultDate(rs.getString("consultDate"));
-						consult.setId(rs.getString("id"));
-						results.add(consult);
-					}
-				});
-		return results;
-	}
-
 }

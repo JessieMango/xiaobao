@@ -28,10 +28,6 @@ public class ConsultController {
 	@Autowired
 	private ConsultService consultService;
 	
-	@RequestMapping(value = "/shichang/getConsultStatistics", method = RequestMethod.POST)
-	public @ResponseBody List<Consult> getConsultStatistics(Consult consult) {
-		return consultService.getConsultStatistics(consult);
-	}
 	@RequestMapping(value = "/qiantai/getCouncilSchools", method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getCouncilSchools(String type) {
 		return consultService.getCouncilSchools(type);

@@ -21,6 +21,7 @@ public class ConsultSeriveImpl implements ConsultService {
 	@Autowired
 	private ConsultDAO consultDAO;
 
+	
 	@Override
 	public List<Consult> getCouncilSchools(String type) {
 		return consultDAO.getCouncilSchools(type);
@@ -79,11 +80,6 @@ public class ConsultSeriveImpl implements ConsultService {
 	@Override
 	public int deleteConsult(String id) {
 		return consultDAO.deleteConsult(id);
-	}
-
-	@Override
-	public List<Consult> getConsultStatistics(Consult consult) {
-		return consultDAO.getConsultStatistics(consult);
 	}
 
 }
