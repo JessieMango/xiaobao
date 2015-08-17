@@ -28,7 +28,7 @@ public class ConsultController {
 	@Autowired
 	private ConsultService consultService;
 	
-	@RequestMapping(value = "/qiantai/getCouncilSchools", method = RequestMethod.POST)
+	@RequestMapping(value = {"/qiantai/getCouncilSchools","/jiaowu/getCouncilSchools"}, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getCouncilSchools(String type) {
 		return consultService.getCouncilSchools(type);
 	}
@@ -58,7 +58,7 @@ public class ConsultController {
 		return consultService.getConsultWay(type);
 	}
 
-	@RequestMapping(value = "/qiantai/getHandler", method = RequestMethod.POST)
+	@RequestMapping(value = {"/qiantai/getHandler","/jiaowu/getHandler"}, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getHandler(String type) {
 		return consultService.getHandler(type);
 	}

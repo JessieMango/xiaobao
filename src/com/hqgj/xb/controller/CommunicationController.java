@@ -27,18 +27,26 @@ public class CommunicationController {
 	@Autowired
 	private CommunicationService communicationService;
 
+	@RequestMapping(value = "/jiaowu/getSellOutCommunications", method = RequestMethod.POST)
+	public @ResponseBody Grid getSellOutCommunications(Communication communication,
+			Parameter parameter) {
+		return communicationService.getSellOutCommunications(communication, parameter);
+	}
+	
+	
 	@RequestMapping(value = "/qiantai/getCommunications", method = RequestMethod.POST)
 	public @ResponseBody Grid getCommunications(Communication communication,
 			Parameter parameter) {
 		return communicationService.getCommunications(communication, parameter);
 	}
+	
 
 	@RequestMapping(value = "/qiantai/getCommunicationById", method = RequestMethod.POST)
 	public @ResponseBody Communication getCommunicationById(String id) {
 		return communicationService.getCommunicationById(id);
 	}
 	
-	@RequestMapping(value = "/qiantai/getCommunicationType", method = RequestMethod.POST)
+	@RequestMapping(value = {"/qiantai/getCommunicationType","/jiaowu/getCommunicationType"}, method = RequestMethod.POST)
 	public @ResponseBody List<Communication> getCommunicationType(String type, String flag) {
 		return communicationService.getCommunicationType(type,flag);
 	}

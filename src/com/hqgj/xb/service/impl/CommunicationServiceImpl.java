@@ -19,7 +19,14 @@ import com.hqgj.xb.service.CommunicationService;
 public class CommunicationServiceImpl implements CommunicationService {
 	@Autowired
 	private CommunicationDAO communicationDAO;
-
+	@Override
+	public Grid getSellOutCommunications(Communication communication,
+			Parameter parameter) {
+		// TODO Auto-generated method stub
+		return communicationDAO.getSellOutCommunications(communication, parameter);
+	}
+	
+	
 	@Override
 	public Grid getCommunications(Communication communication,Parameter parameter) {
 		return communicationDAO.getCommunications(communication,parameter);
@@ -54,5 +61,7 @@ public class CommunicationServiceImpl implements CommunicationService {
 	public List<Communication> getCommunicationType(String type, String flag) {
 		return communicationDAO.getCommunicationType(type, flag);
 	}
+
+	
 
 }
