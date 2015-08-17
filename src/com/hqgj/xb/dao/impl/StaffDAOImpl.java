@@ -21,11 +21,13 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.StaffDAO;
+import com.hqgj.xb.util.MD5Util;
 
 /**
  * @author 鲁宗豪
@@ -133,13 +135,12 @@ public class StaffDAOImpl implements StaffDAO {
 		staff.setId(UUID.randomUUID().toString());
 		user.setUserId(UUID.randomUUID().toString());
 		staff.setUserId(user.getUserId());
-		
-		
+		user.setPassword(MD5Util.md5("123456"));
 		user.setIsEnabled("0");
 	
 		
-		String sqlUser ="insert into User (userId,username,tel,gender,isEnabled,IDnumber,nation,birthPlace,birthday,email,politicalStatus,marriage,other) "
-				+"values (:userId,:username,:tel,:gender,:isEnabled,:IDnumber,:nation,:birthPlace,:birthday,:email,:politicalStatus,:marriage,:other)";
+		String sqlUser ="insert into User (userId,password,username,tel,gender,isEnabled,IDnumber,nation,birthPlace,birthday,email,politicalStatus,marriage,other) "
+				+"values (:userId,:password,:username,:tel,:gender,:isEnabled,:IDnumber,:nation,:birthPlace,:birthday,:email,:politicalStatus,:marriage,:other)";
 		SqlParameterSource userParameterSource = new BeanPropertySqlParameterSource(
 				user);
 		int n1 = this.npJdbcTemplate.update(sqlUser, userParameterSource);
@@ -482,6 +483,103 @@ public class StaffDAOImpl implements StaffDAO {
 		}
 		
 		return grid;
+	}
+
+
+	@Override
+	public List<Dictionary> getpoliticalStatus(String type) {
+		
+		String sql = "select * from DPoliticalstate";
+		List<Dictionary> results = this.npJdbcTemplate.query(sql,
+				new RowMapper<Dictionary>() {
+					@Override
+					public Dictionary mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Dictionary dictionary = new Dictionary();
+						dictionary.setId(rs.getString("id"));
+						dictionary.setNameM(rs.getString("nameM"));
+						return dictionary;
+					}
+				});
+		if (StringUtils.equals(type, "1")) {
+			Dictionary temp = new Dictionary();
+			temp.setId("qb");
+			temp.setNameM("全部政治状态");
+			results.add(0, temp);
+		}
+		return results;		
+	}
+
+
+	@Override
+	public List<Dictionary> getpersonnelstatus(String type){
+		String sql = "select * from DPersonnelStatus";
+		List<Dictionary> results = this.npJdbcTemplate.query(sql,
+				new RowMapper<Dictionary>() {
+					@Override
+					public Dictionary mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Dictionary dictionary = new Dictionary();
+						dictionary.setId(rs.getString("id"));
+						dictionary.setNameM(rs.getString("nameM"));
+						return dictionary;
+					}
+				});
+		if (StringUtils.equals(type, "1")) {
+			Dictionary temp = new Dictionary();
+			temp.setId("qb");
+			temp.setNameM("全部人事状态");
+			results.add(0, temp);
+		}
+		return results;		
+	}
+
+
+	@Override
+	public List<Dictionary> getlaborRelations(String type){
+		String sql = "select * from DLaborRelations";
+		List<Dictionary> results = this.npJdbcTemplate.query(sql,
+				new RowMapper<Dictionary>() {
+					@Override
+					public Dictionary mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Dictionary dictionary = new Dictionary();
+						dictionary.setId(rs.getString("id"));
+						dictionary.setNameM(rs.getString("nameM"));
+						return dictionary;
+					}
+				});
+		if (StringUtils.equals(type, "1")) {
+			Dictionary temp = new Dictionary();
+			temp.setId("qb");
+			temp.setNameM("全部劳动关系");
+			results.add(0, temp);
+		}
+		return results;		
+	}
+
+
+	@Override
+	public List<Dictionary> getsocialsecurityStatus(String type) {
+		String sql = "select * from DSocialSecurityStatus";
+		List<Dictionary> results = this.npJdbcTemplate.query(sql,
+				new RowMapper<Dictionary>() {
+					@Override
+					public Dictionary mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Dictionary dictionary = new Dictionary();
+						dictionary.setId(rs.getString("id"));
+						dictionary.setNameM(rs.getString("nameM"));
+						return dictionary;
+					}
+				});
+		if (StringUtils.equals(type, "1")) {
+			Dictionary temp = new Dictionary();
+			temp.setId("qb");
+			temp.setNameM("全部社保状态");
+			results.add(0, temp);
+		}
+		return results;		
 	}
 
 

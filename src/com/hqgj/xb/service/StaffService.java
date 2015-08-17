@@ -1,5 +1,7 @@
 package com.hqgj.xb.service;
 import java.util.List;
+
+import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
@@ -14,6 +16,11 @@ public interface StaffService {
 	public int createStaff(Staff staff,User user);
 	
 	public  List<Staff> getStaffTag(String type);
+	public  List<Dictionary> getpoliticalStatus(String type);
+	public  List<Dictionary> getpersonnelstatus(String type);
+	public  List<Dictionary> getlaborRelations(String type);
+	public  List<Dictionary> getsocialsecurityStatus(String type);
+	
 	
 	//面试期员工
 	public  Grid Getmianshiqi(Staff staff, Parameter parameter);

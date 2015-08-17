@@ -1,13 +1,17 @@
 package com.hqgj.xb.controller;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
@@ -30,6 +34,24 @@ public class StaffController {
 	
 	private Logger logger = Logger.getLogger(UserDaoImpl.class);
 	
+	@RequestMapping(value = "/renshi/getpoliticalStatus", method = RequestMethod.POST)
+	public @ResponseBody List<Dictionary> getpoliticalStatus(String type) {
+		return staffService.getpoliticalStatus(type);
+	}
+	
+	@RequestMapping(value = "/renshi/getlaborRelations", method = RequestMethod.POST)
+	public @ResponseBody List<Dictionary> getlaborRelations(String type) {
+		return staffService.getlaborRelations(type);
+	}
+	
+	@RequestMapping(value = "/renshi/getpersonnelstatus", method = RequestMethod.POST)
+	public @ResponseBody List<Dictionary> getpersonnelstatus(String type){
+		return staffService.getpersonnelstatus(type);
+	}
+	@RequestMapping(value = "/renshi/getsocialsecurityStatus", method = RequestMethod.POST)
+	public @ResponseBody List<Dictionary> getsocialsecurityStatus(String type) {
+		return staffService.getsocialsecurityStatus(type);
+	}
 	@RequestMapping(value = "/renshi/createStaff", method = RequestMethod.POST)
 	public @ResponseBody Json createStaff(User user,Staff staff) {
 		Json json = new Json();

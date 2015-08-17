@@ -2,6 +2,8 @@ package com.hqgj.xb.service;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.hqgj.xb.bean.Consult;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
@@ -11,14 +13,6 @@ import com.hqgj.xb.bean.easyui.Parameter;
  * @datetime 2015年8月6日 下午4:00:32
  */
 public interface ConsultService {
-	/**
-	 * 统计
-	 * 
-	 * @author 鲁宗豪
-	 * @datetime 2015年8月14日 下午3:52:54
-	 * @return
-	 */
-	public List<Consult> getConsultStatistics(Consult consult);
 	/**
 	 * 查询所有公立学校
 	 * 

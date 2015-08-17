@@ -12,14 +12,6 @@ import com.hqgj.xb.bean.easyui.Parameter;
  */
 public interface ConsultDAO {
 	/**
-	 * 统计
-	 * 
-	 * @author 鲁宗豪
-	 * @datetime 2015年8月14日 下午3:52:54
-	 * @return
-	 */
-	public List<Consult> getConsultStatistics(Consult consult);
-	/**
 	 * 查询所有公立学校
 	 * 
 	 * @author 崔兴伟
