@@ -1,15 +1,12 @@
 package com.hqgj.xb.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.ClassS;
 import com.hqgj.xb.bean.ClassTimePlan;
+import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.ClassSDAO;
 import com.hqgj.xb.service.ClassSService;
 
@@ -25,6 +22,26 @@ public class ClassSServiceImpl implements ClassSService {
 	@Override
 	public int addClass(ClassS cla, ClassTimePlan classTimePlan) {
 		return classSDAO.addClass(cla, classTimePlan);
+	}
+
+	@Override
+	public Grid getClass(ClassS classS, Parameter parameter) {
+		return classSDAO.getClass(classS, parameter);
+	}
+
+	@Override
+	public int deleteClass(String classCode) {
+		return classSDAO.deleteClass(classCode);
+	}
+
+	@Override
+	public ClassS getClassSByClassCode(String classCode) {
+		return classSDAO.getClassSByClassCode(classCode);
+	}
+
+	@Override
+	public int updateClass(ClassS cla, ClassTimePlan classTimePlan) {
+		return classSDAO.updateClass(cla,classTimePlan);
 	}
 
 }

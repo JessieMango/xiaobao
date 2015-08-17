@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="org.apache.commons.lang3.StringUtils"%>
+<%
+	String classCode = request.getParameter("classCode");
+	boolean flag = StringUtils.isNotBlank(classCode);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,22 +25,6 @@ label {
 }
 </style>
 <script type="text/javascript">
-	var checkChange = function(n) {
-		if (n == 1) {
-			alert(1);
-			$("#startDate1").prop({
-				disabled : true
-			});
-			$("#endDate2").prop({
-				disabled : true
-			});
-		} else if (n == 2) {
-			alert(2);
-			$("#startDate2").prop({
-				disabled : true
-			});
-		}
-	}
 	var submitForm = function() {
 		if ($("#tuitionType1").attr('checked') == true
 				&& $("#tuitionType1").val() == "1") {
@@ -62,7 +51,12 @@ label {
 						$("#assistantCode").combobox('getText'));
 			}
 
-			var url = "addClass";
+			var url = "";
+			if(<%=flag%>){
+				url = "updateClass";	
+			}else{
+				url = "addClass";
+			}
 			$.post(url, cxw.serializeObject($('form')), function(result) {
 				if (result.success) {
 					window.location.href = 'banjichaxun.jsp';
@@ -118,40 +112,23 @@ label {
 			}
 		});
 
-		$('#classRoomCode').combobox(
-				{
-					url : 'getClassRooms',
-					valueField : 'classRoomCode',
-					textField : 'classRoomName',
-					panelHeight : 'auto',
-					onLoadSuccess : function(data) {
-						if (data[0]) {
-							$('#classRoomCode').combobox('setValue',
-									data[0].classRoomCode);
-						}
-					}
-				});
+		$('#classRoomCode').combobox({
+			url : 'getClassRooms',
+			valueField : 'classRoomCode',
+			textField : 'classRoomName',
+			panelHeight : 'auto'
+		});
 		$('#teacherCode').combobox({
 			url : 'getUsersByRoleId?roleId=4',
 			valueField : 'userId',
 			textField : 'username',
-			panelHeight : 'auto',
-			onLoadSuccess : function(data) {
-				if (data[0]) {
-					$('#teacherCode').combobox('setValue', data[0].userId);
-				}
-			}
+			panelHeight : 'auto'
 		});
 		$('#assistantCode').combobox({
 			url : 'getUsersByRoleId?roleId=11',
 			valueField : 'userId',
 			textField : 'username',
-			panelHeight : 'auto',
-			onLoadSuccess : function(data) {
-				if (data[0]) {
-					$('#assistantCode').combobox('setValue', data[0].userId);
-				}
-			}
+			panelHeight : 'auto'
 		});
 
 		$("#btn_save").click(function() {
@@ -162,6 +139,41 @@ label {
 
 	$(document).ready(function() {
 		init();
+		if(<%=flag%>){
+			$.post("getClassSByClassCode", {classCode :"<%=classCode%>"}, function(result) {
+				tuitionChange(result.tuitionType);
+				tuitionDivChange(result.tuitionType);
+				loadTimigWeekday(result.weekString.split(";"));
+				var url = 'getAllCourses?courseTypeCode='
+					+ result.courseTypeCode;
+				$('#courseCode').combobox({
+					url : url,
+					valueField : 'courseCode',
+					textField : 'courseName',
+					panelHeight : 'auto',
+					editable : false,
+					onLoadSuccess : function(data) {
+						$('form').form('load', {
+							"schoolCode" : result.schoolCode,
+							"nameM" : result.nameM,
+							"courseTypeCode" : result.courseTypeCode,
+							"courseCode" : result.courseCode,
+							"tuition" : result.tuition,
+							"classTimes" : result.classTimes,
+							"startDate" : result.startDate,
+							"endDate" : result.endDate,
+							"dateUndetermined" : result.dateUndetermined,
+							"teacherCode" : result.teacherCode,
+							"assistantCode" : result.assistantCode,
+							"ratedNumber" : result.ratedNumber,
+							"remark" : result.remark,
+							"classRoomCode" : result.classRoomCode
+						});
+					}
+				});
+				
+			});
+		}
 	});
 </script>
 </head>
@@ -172,7 +184,7 @@ label {
 				<div>
 					<img src="../../../style/image/Folder.gif"
 						style="vertical-align: middle;"> <span
-						style="vertical-align: middle;">新建班级</span>
+						style="vertical-align: middle;">新建班级</span><input type="hidden" name="classCode" value="<%=classCode%>"/>
 				</div>
 				<hr />
 				<div class="divRow">
@@ -191,13 +203,13 @@ label {
 						id="courseCode" data-options="required:true"
 						class="easyui-combobox" style="width: 220px;" name="courseCode" />
 				</div>
-				<div class="divRow">
-					<label for="tuitionType">收费模式</label><input type="radio"
-						id="tuitionType1" checked="checked" onclick="tuitionChange(this);"
-						name="tuitionType" value="1" />按期 <input type="radio"
-						name="tuitionType" value="2" onclick="tuitionChange(this);" />按次
-					<input type="radio" name="tuitionType" value="3"
-						onclick="tuitionChange(this);" />按时间 &nbsp;(保存后不能修改，谨慎选择)
+				<div class="divRow" id="tuitionDiv">
+					<label for="tuitionType">收费模式</label><span id="tuitionSpan1"><input type="radio"
+						id="tuitionType1" checked="checked" onclick="tuitionChange(1);"
+						name="tuitionType" value="1" />按期 </span><span id="tuitionSpan2"><input type="radio" id="tuitionType2"
+						name="tuitionType" value="2" onclick="tuitionChange(2);" />按次</span>
+					<span id="tuitionSpan3"><input type="radio" name="tuitionType" value="3" id="tuitionType3"
+						onclick="tuitionChange(3);" />按时间 &nbsp;</span><span id="tuitionTip">(保存后不能修改，谨慎选择)</span>
 				</div>
 				<div class="divRow">
 					<label for="tuition">学费标准</label><input type="text" name="tuition"
@@ -215,19 +227,17 @@ label {
 					<label for="startDate">开班日期</label><input type="text"
 						style="width: 100px;" name="startDate" class="easyui-datebox"
 						id="startDate1"
-						data-options="required:true,value:'getCurrentDate();'" />到<input
+						data-options="value:'getCurrentDate();'" />到<input
 						style="width: 100px;" type="text" name="endDate" id="endDate2"
 						class="easyui-datebox"
-						data-options="required:true,value:'getCurrentDate();',validType:'notBigger[\'#startDate1\']'" /><input
-						type="checkbox" name="dateUndetermined" value="1"
-						onclick="checkChange(1)" /> 日期待定
+						data-options="value:'getCurrentDate();',validType:'notBigger[\'#startDate1\']'" /><input
+						type="checkbox" name="dateUndetermined" value="1" /> 日期待定
 				</div>
 				<div class="none" style="margin-top: 5px;" id="timeMonthDiv">
 					<label for="startDate2">开班日期</label><input type="text"
 						style="width: 100px;" name="startDate2" class="easyui-datebox"
-						data-options="required:true,value:'getCurrentDate();'" /><input
-						type="checkbox" name="dateUndetermined" value="1"
-						onclick="checkChange(2)" /> 日期待定
+						data-options="value:'getCurrentDate();'" /><input
+						type="checkbox" name="dateUndetermined" value="1" /> 日期待定
 				</div>
 				<div class="divRow">
 					<label for="teacherCode">教师名称</label><input type="text"
@@ -255,7 +265,7 @@ label {
 						</select> <span id="Timing1">&nbsp;<input class="easyui-timespinner"
 							name="startTime1" value="00:00" style="width: 80px;"
 							id="startTime1" required="required"
-							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input
+							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input id="endTime1"
 							name="endTime1" class="easyui-timespinner" style="width: 80px;"
 							required="required"
 							data-options="showSeconds:false,validType:'notBigger[\'#startTime1\']'"
@@ -272,7 +282,7 @@ label {
 						</select> <span id="Timing2" class="none">&nbsp;<input
 							name="startTime2" class="easyui-timespinner" value="00:00"
 							id="startTime2" style="width: 80px;" required="required"
-							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input
+							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input id="endTime2"
 							class="easyui-timespinner" name="endTime2" style="width: 80px;"
 							required="required"
 							data-options="showSeconds:false,validType:'notBigger[\'#startTime2\']'"
@@ -290,7 +300,7 @@ label {
 						</select> <span id="Timing3" class="none">&nbsp;<input
 							name="startTime3" class="easyui-timespinner" value="00:00"
 							id="startTime3" style="width: 80px;" required="required"
-							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input
+							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input id="endTime3"
 							class="easyui-timespinner" name="endTime3" style="width: 80px;"
 							required="required"
 							data-options="showSeconds:false,validType:'notBigger[\'#startTime3\']'"
@@ -308,7 +318,7 @@ label {
 						</select> <span id="Timing4" class="none">&nbsp;<input
 							name="startTime4" class="easyui-timespinner" value="00:00"
 							id="startTime4" style="width: 80px;" required="required"
-							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input
+							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input id="endTime4"
 							class="easyui-timespinner" name="endTime4" style="width: 80px;"
 							required="required"
 							data-options="showSeconds:false,validType:'notBigger[\'#startTime4\']'"
@@ -326,7 +336,7 @@ label {
 						</select> <span id="Timing5" class="none">&nbsp;<input
 							class="easyui-timespinner" value="00:00" style="width: 80px;"
 							id="startTime5" name="startTime5" required="required"
-							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input
+							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input id="endTime5"
 							class="easyui-timespinner" name="endTime5" style="width: 80px;"
 							required="required"
 							data-options="showSeconds:false,validType:'notBigger[\'#startTime5\']'"
@@ -344,7 +354,7 @@ label {
 						</select> <span id="Timing6" class="none">&nbsp;<input
 							name="startTime6" class="easyui-timespinner" value="00:00"
 							id="startTime6" style="width: 80px;" required="required"
-							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input
+							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input id="endTime6"
 							class="easyui-timespinner" name="endTime6" style="width: 80px;"
 							required="required"
 							data-options="showSeconds:false,validType:'notBigger[\'#startTime6\']'"
@@ -362,7 +372,7 @@ label {
 						</select> <span id="Timing7" class="none">&nbsp;<input
 							name="startTime7" class="easyui-timespinner" value="00:00"
 							id="startTime7" style="width: 80px;" required="required"
-							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input
+							data-options="showSeconds:false"> &nbsp;到 &nbsp;<input id="endTime7"
 							class="easyui-timespinner" name="endTime7" style="width: 80px;"
 							required="required"
 							data-options="showSeconds:false,validType:'notBigger[\'#startTime7\']'"

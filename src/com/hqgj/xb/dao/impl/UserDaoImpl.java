@@ -288,7 +288,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> getUsersByRoleId(String roleId) {
+	public List<User> getUsersByRoleId(String roleId, boolean combo) {
 		String sql = "select u.userId,u.username from User_Role ur left outer join User u on u.userId=ur.user_id where ur.role_id=:roleId ";
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("roleId", roleId);
@@ -303,6 +303,17 @@ public class UserDaoImpl implements UserDao {
 				results.add(user);
 			}
 		});
+
+		if (combo) {
+			User u = new User();
+			u.setUserId("qb");
+			if (StringUtils.equals(roleId, "4")) {
+				u.setUsername("全部教师");
+			} else if (StringUtils.equals(roleId, "1")) {
+				u.setUsername("全部助教");
+			}
+			results.add(0, u);
+		}
 		return results;
 	}
 }

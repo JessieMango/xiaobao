@@ -22,7 +22,7 @@ public class ClassRoomController {
 	private ClassRoomService classRoomService;
 
 	@RequestMapping(value = "/jiaowu/getClassRooms", method = RequestMethod.POST)
-	public @ResponseBody List<ClassS> getClassRooms() {
-		return classRoomService.getClassRooms();
+	public @ResponseBody List<ClassS> getClassRooms(String type) {
+		return classRoomService.getClassRooms(type);
 	}
 }

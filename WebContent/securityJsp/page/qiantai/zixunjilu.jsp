@@ -108,7 +108,8 @@ a {
 							}
 						});
 
-		grid = $('#grid')
+		
+	grid = $('#grid')
 				.datagrid(
 						{
 							url : 'getConsult',

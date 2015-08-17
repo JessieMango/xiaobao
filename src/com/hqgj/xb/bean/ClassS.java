@@ -9,6 +9,8 @@ public class ClassS {
 	private String nameM; // 班级名称
 	private String courseCode; // 课程编码
 	private String courseName; // 课程名称
+	private String courseTypeCode; // 课程编码
+	private String courseTypeName; // 课程名称
 	private String schoolCode; // 学校编码
 	private String schoolName;
 	private String tuitionType; // 收费类型 1代表按期，2代表按次，3代表按时间
@@ -25,8 +27,16 @@ public class ClassS {
 	private String classRoomName; // 教室名称
 	private String ratedNumber; // 额定人数
 	private String remark; // 备注
-	private String classState; // 班级状态
+	private String weekString; // 上课日期例如123表示周一周二周三
+	private String classState; // 班级状态 0未开课 1上课中 2已结课
 	private String startDate2; // 开课日期 2代表按次，3代表按时间时的开课日期
+	/**
+	 * 前台传过来的参数
+	 */
+	private String week;
+	private String order;
+	private String year;
+	private String month;
 
 	/**
 	 * 
@@ -211,6 +221,62 @@ public class ClassS {
 
 	public void setAssistantName(String assistantName) {
 		this.assistantName = assistantName;
+	}
+
+	public String getCourseTypeCode() {
+		return courseTypeCode;
+	}
+
+	public void setCourseTypeCode(String courseTypeCode) {
+		this.courseTypeCode = courseTypeCode;
+	}
+
+	public String getCourseTypeName() {
+		return courseTypeName;
+	}
+
+	public void setCourseTypeName(String courseTypeName) {
+		this.courseTypeName = courseTypeName;
+	}
+
+	public String getWeek() {
+		return week;
+	}
+
+	public void setWeek(String week) {
+		this.week = week;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getWeekString() {
+		return weekString;
+	}
+
+	public void setWeekString(String weekString) {
+		this.weekString = weekString;
 	}
 
 }

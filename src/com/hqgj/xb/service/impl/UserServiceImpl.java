@@ -61,8 +61,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUsersByRoleId(String roleId) {
-		return userDAO.getUsersByRoleId(roleId);
+	public List<User> getUsersByRoleId(String roleId,boolean combo) {
+		return userDAO.getUsersByRoleId(roleId,combo);
 	}
 
 }
