@@ -770,7 +770,7 @@ public class ClassSDAOImpl implements ClassSDAO {
 				cPlan.setWeek("周日 ");
 			}
 			if (StringUtils.equals(first, last)) {
-				temp.setStartTime1(temp.getStartTime1() + "," + cPlan.getWeek()
+				temp.setStartTime1(temp.getStartTime1() + "|" + cPlan.getWeek()
 						+ cPlan.getStartTime() + "-" + cPlan.getEndTime());
 			} else {
 				if (StringUtils.isNotBlank(last)) {
@@ -793,9 +793,21 @@ public class ClassSDAOImpl implements ClassSDAO {
 			}
 		}
 		for (ClassS cS : results) {
-			cS.setNameM(cS.getSchoolName()+"> " + cS.getStartDate()
-					+ cS.getTeacherName() + cS.getTuition() + cS.getNameM()
-					+ cS.getWeekString());
+			if (StringUtils.equals("1", cS.getDateUndetermined())) {
+				cS.setStartDate("开班日期待定 ");
+			} else {
+				cS.setStartDate(cS.getStartDate() + "开班 ");
+			}
+			if (StringUtils.equals(cS.getTuitionType(), "1")) {
+				cS.setTuition("￥" + cS.getTuition() + "/期");
+			} else if (StringUtils.equals(cS.getTuitionType(), "2")) {
+				cS.setTuition("￥" + cS.getTuition() + "/次");
+			} else if (StringUtils.equals(cS.getTuitionType(), "3")) {
+				cS.setTuition("￥" + cS.getTuition() + "/月");
+			}
+			cS.setNameM(cS.getSchoolName() + "> " + cS.getStartDate()
+					+ cS.getTeacherName() + "●" + cS.getTuition() + "●"
+					+ cS.getNameM() + "●" + cS.getWeekString());
 		}
 		ClassS tc = new ClassS();
 		tc.setClassCode("qb");
