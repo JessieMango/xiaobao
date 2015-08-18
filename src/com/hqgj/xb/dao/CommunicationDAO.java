@@ -22,6 +22,14 @@ public interface CommunicationDAO {
 	public Grid getCommunications(Communication communication,
 			Parameter parameter);
 
+	
+	
+	
+	
+	public Grid getSellOutCommunications(Communication communication,
+			Parameter parameter);
+	
+	
 	/**
 	 * 按头痛记录ID查询指定沟通记录
 	 * 
