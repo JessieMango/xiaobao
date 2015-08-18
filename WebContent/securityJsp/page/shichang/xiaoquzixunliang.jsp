@@ -126,21 +126,16 @@ var submitForm = function() {
 			<input id="xiaoqu" name="xiaoqu"  class="easyui-combobox"  data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools',required:true,editable:false,panelHeight:'auto',multiple:true"/>
 			</td>
 			<td></td>
-			<td>
-			<button type="button" id="btn_save">
-				<img alt="保存" style="vertical-align: middle;"
-					src="../../../style/image/save.gif"><span
-					style="vertical-align: middle;">保存</span>
-			</button>
+			<td>		
+					 <a href="javascript:void(0);" id="btn_save"
+						class="easyui-linkbutton"
+						data-options="iconCls:'ext-icon-zoom',plain:true">查询</a>
 			</td>
 		</tr>
 	</table>
 	
 		<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
-			<div id="container1" style="width: 550px; height: 400px; margin: 0 auto"></div>
+		<div id="container1" style="width: 550px; height: 400px; margin: 0 auto"></div>
 </form>
-	
-
-
 </body>
 </html>
