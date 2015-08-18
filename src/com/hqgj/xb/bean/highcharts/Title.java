@@ -5,7 +5,8 @@ package com.hqgj.xb.bean.highcharts;
  * @datetime 2015年8月15日 下午5:19:39
  */
 public class Title {
-	   private String text;
+	//需要填写标题名称
+	private String text;
 	   
 
 	public String getText() {

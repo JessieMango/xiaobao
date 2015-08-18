@@ -10,6 +10,78 @@
 <title>校区咨询量</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
+var submitForm = function() {
+	if ($('form').form('validate')) {
+		$.post("getXiaoQuZiXunLiang", cxw.serializeObject($('form')), function(
+				jsonData) {	
+			
+			$("#container").highcharts({
+				   title : {
+                       text : jsonData.title.text
+                   },
+                 
+                   series:[{
+                	   type:'pie',
+                	   name:jsonData.series.name,
+                	   data:[{
+                	   name:jsonData.series.data[0].name,
+                	   y:jsonData.series.data[0].y
+                	  },
+                	  {
+                   	   name:jsonData.series.data[1].name,
+                   	   y:jsonData.series.data[1].y,
+	                   sliced: true,
+	                   selected: true
+                   	  }]
+                   }]
+                   /* ,
+                   plotOptions:{
+                	   pie:{
+                		   allowPointSelect:jsonData.plotOptions.pie.allowPointSelect,
+                		   cursor:jsonData.plotOptions.pie.cursor,
+                		   dataLabels:jsonData.plotOptions.pie.dataLabels 
+							allowPointSelect: true,
+							cursor: 'pointer',
+							dataLabels: {
+								enabled: true,
+								format: '<b>{point.name}%</b>: {point.percentage:.1f} %'
+							}
+                  		 }
+					}, 
+                   chart : {
+               	   plotBackgroundColor :jsonData.chart.plotBackgroundColor,
+                	   plotBorderWidth :jsonData.chart.plotBorderWidth,
+                	   plotShadow:jsonData.chart.plotShadow 
+                	   plotBackgroundColor: null,
+            	       plotBorderWidth: null,
+            	       plotShadow: false
+                   }, 
+                   tooltip:{
+                	    pointFormat:jsonData.tooltip.pointFormat 
+                	   pointFormat: '{jsonData.series.name}: <b>{point.percentage:.1f}%</b>'
+                   }*/
+                   
+                   }
+			);
+			$("#container1").highcharts({
+				   title : {
+                    text : jsonData.title.text
+                },
+                chart:{
+                	type:'column'
+                	},
+                series:[{
+	             	   name:jsonData.series.data[0].name,
+	             	   data:[jsonData.series.data[0].y]
+             	  },
+             	  {
+                	   name:jsonData.series.data[1].name,
+                	   data:[jsonData.series.data[1].y]
+                	}]
+                });
+		}, 'json');
+	}}
+	
 	function init() {
 		$('#starttime').datebox({
 			required : true,
@@ -65,6 +137,7 @@
 	</table>
 	
 		<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+			<div id="container1" style="width: 550px; height: 400px; margin: 0 auto"></div>
 </form>
 	
 
