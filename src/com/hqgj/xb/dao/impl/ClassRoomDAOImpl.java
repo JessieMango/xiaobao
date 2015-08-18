@@ -8,7 +8,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -25,7 +25,6 @@ import com.hqgj.xb.dao.ClassRoomDAO;
  */
 @Repository
 public class ClassRoomDAOImpl implements ClassRoomDAO {
-	private Logger logger = Logger.getLogger(ClassRoomDAOImpl.class);
 
 	private NamedParameterJdbcTemplate nJdbcTemplate;
 
@@ -35,7 +34,7 @@ public class ClassRoomDAOImpl implements ClassRoomDAO {
 	}
 
 	@Override
-	public List<ClassS> getClassRooms() {
+	public List<ClassS> getClassRooms(String type) {
 		Map<String, String> map = new HashMap<String, String>();
 		String sql = "select * from ClassRoom";
 		List<ClassS> results = this.nJdbcTemplate.query(sql, map,
@@ -49,6 +48,12 @@ public class ClassRoomDAOImpl implements ClassRoomDAO {
 						return classS;
 					}
 				});
+		if (StringUtils.equals(type, "1")) {
+			ClassS cc = new ClassS();
+			cc.setClassRoomCode("qb");
+			cc.setClassRoomName("全部教室");
+			results.add(0, cc);
+		}
 		return results;
 	}
 

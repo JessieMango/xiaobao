@@ -41,8 +41,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/jiaowu/getUsersByRoleId", method = RequestMethod.POST)
-	public @ResponseBody List<User> getUsersByRoleId(String roleId) {
-		return userService.getUsersByRoleId(roleId);
+	public @ResponseBody List<User> getUsersByRoleId(String roleId,
+			boolean combo) {
+		return userService.getUsersByRoleId(roleId, combo);
 	}
 
 	@RequestMapping(value = "/xitong/resetPwd", method = RequestMethod.POST)

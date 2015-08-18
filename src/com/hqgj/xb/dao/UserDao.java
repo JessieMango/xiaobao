@@ -27,9 +27,12 @@ public interface UserDao {
 	 * @author 崔兴伟
 	 * @datetime 2015年8月14日 上午10:34:03
 	 * @param roleId
+	 *            角色ID
+	 * @param combo
+	 *            是否获取查询时需要的用户信息 true 表示获取
 	 * @return
 	 */
-	public List<User> getUsersByRoleId(String roleId);
+	public List<User> getUsersByRoleId(String roleId, boolean combo);
 
 	/**
 	 * 获取所有的用户信息

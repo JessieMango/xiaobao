@@ -14,9 +14,11 @@ public interface ClassRoomService {
 	 * 
 	 * @author 崔兴伟
 	 * @datetime 2015年8月14日 上午9:56:29
+	 * @param type
+	 *            type=1表示commobox查询需要，后台插入全部一列
 	 * @return
 	 */
-	public List<ClassS> getClassRooms();
+	public List<ClassS> getClassRooms(String type);
 
 	/**
 	 * 添加教室

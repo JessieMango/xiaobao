@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String pageType = request.getParameter("page");
+	String nameM = request.getParameter("nameM");
+	String telTail = request.getParameter("telTail");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +15,9 @@
 a {
 	text-decoration: none;
 	color: #000;
+}
+input[type='text']{
+	text-align: center;
 }
 </style>
 <script type="text/javascript">
@@ -34,6 +42,11 @@ a {
 	var showFun = function(id) {
 		window.location.href = 'showCommunication.jsp?id=' + id;
 	}
+	
+	var enrollFun = function(id){
+		window.location.href = 'xinshengbaodao.jsp?id=' + id;
+	}
+	
 	/* 初始化页面 */
 	function init() {
 		$('#consultCourseCode').combobox(
@@ -103,8 +116,10 @@ a {
 									$('#handleSchoolCode').combobox('setValue',
 											data[0].schoolCode);
 								}
-								grid.datagrid('load', cxw
-										.serializeObject($('#form2')));
+								if("<%=pageType%>" != "1"){
+									grid.datagrid('load', cxw
+											.serializeObject($('#form2')));
+								}
 							}
 						});
 
@@ -222,7 +237,7 @@ a {
 											if (value == 0) {
 												return cxw
 														.formatString(
-																'<input type="reset" value="办报名" style="color:black; font-weight:bold; width:60px;" onclick="editFun(\'{0}\')" />',
+																'<input type="reset" value="办报名" style="color:black; font-weight:bold; width:60px;" onclick="enrollFun(\'{0}\')" />',
 																row.id);
 											} else {
 												return '<img  alt="已报名"  style="vertical-align: middle;" src="../../../style/image/YES.gif" />';
@@ -296,6 +311,13 @@ a {
 
 	$(document).ready(function() {
 		init();
+		if("<%=pageType%>" == "1"){
+			$("#form1").form('load', {
+				nameM : "<%=nameM%>" ,
+				telTail : "<%=telTail%>"
+			});
+			grid.datagrid('load',cxw.serializeObject($('#form1')));
+		}
 	});
 </script>
 </head>

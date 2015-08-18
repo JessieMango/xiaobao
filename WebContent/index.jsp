@@ -13,11 +13,17 @@
 	SessionInfo sessionInfo = (SessionInfo) session
 			.getAttribute("sessionInfo");
 	if (sessionInfo != null) {
-		request.getRequestDispatcher("/securityJsp/main.jsp").forward(
-				request, response);
+%>
+<script type="text/javascript">
+	window.location.href = cxw.basePath + "/securityJsp/main.jsp";
+</script>
+<%
 	} else {
-		request.getRequestDispatcher("/securityJsp/login.jsp").forward(
-				request, response);
+%>
+<script type="text/javascript">
+	window.location.href = cxw.basePath + "/login.jsp";
+</script>
+<%
 	}
 %>
 </head>

@@ -19,8 +19,8 @@ public class ClassRoomServiceImpl implements ClassRoomService {
 	private ClassRoomDAO classRoomDAO;
 
 	@Override
-	public List<ClassS> getClassRooms() {
-		return classRoomDAO.getClassRooms();
+	public List<ClassS> getClassRooms(String type) {
+		return classRoomDAO.getClassRooms(type);
 	}
 
 	@Override

@@ -113,8 +113,49 @@ var ChangeTimigWeekday = function(dom, num) {
 	}
 }
 
+var loadTimigWeekday = function(timeSpan) {
+	var num = timeSpan.length;
+	for (var i = 0; i < num; i++) {
+		var rowTime = timeSpan[i].split(",");
+		if ($('#Timing' + (i + 1)).hasClass("none")) {
+			$('#Timing' + (i + 1)).removeClass("none");
+		}
+		if ($("#TimingWeekday" + (i + 1)).hasClass("none")) {
+			$("#TimingWeekday" + (i + 1)).removeClass("none");
+		}
+		$("#TimingWeekday" + (i + 1)).val(rowTime[0]);
+		$("#startTime" + (i + 1)).timespinner('setValue', rowTime[1]);
+		$("#endTime" + (i + 1)).timespinner('setValue', rowTime[2]);
+		if (i != 7) {
+			if ($("#TimingWeekday" + (i + 2)).hasClass("none")) {
+				$("#TimingWeekday" + (i + 2)).removeClass("none");
+			}
+		}
+	}
+}
+
+var tuitionDivChange = function(target) {
+	if (target == 1) {
+		$("#tuitionSpan2").addClass("none");
+		$("#tuitionSpan3").addClass("none");
+		$("#tuitionTip").addClass("none");
+		$("#tuitionType1").attr("checked", "true");
+	}
+	if (target == 2) {
+		$("#tuitionSpan1").addClass("none");
+		$("#tuitionSpan3").addClass("none");
+		$("#tuitionTip").addClass("none");
+		$("#tuitionType2").attr("checked", "true");
+	}
+	if (target == 3) {
+		$("#tuitionSpan1").addClass("none");
+		$("#tuitionSpan2").addClass("none");
+		$("#tuitionTip").addClass("none");
+		$("#tuitionType3").attr("checked", "true");
+	}
+}
 var tuitionChange = function(target) {
-	if ($(target).val() == 1) {
+	if (target == 1) {
 		if ($("#tuitionSpanTerm").hasClass("none")) {
 			$("#tuitionSpanTerm").removeClass("none");
 		}
@@ -128,12 +169,15 @@ var tuitionChange = function(target) {
 		if (!$("#timeMonthDiv").hasClass("none")) {
 			$("#timeMonthDiv").addClass("none");
 		}
+		if (!$("#tuitionSpanMonth").hasClass("none")) {
+			$("#tuitionSpanMonth").addClass("none");
+		}
 		if (!$("#tuitionSpanTimes").hasClass("none")) {
 			$("#tuitionSpanTimes").addClass("none");
 		}
 
 	}
-	if ($(target).val() == 2) {
+	if (target == 2) {
 		if (!$("#classTimesDiv").hasClass("none")) {
 			$("#classTimesDiv").addClass("none");
 		}
@@ -153,7 +197,7 @@ var tuitionChange = function(target) {
 			$("#tuitionSpanMonth").addClass("none");
 		}
 	}
-	if ($(target).val() == 3) {
+	if (target == 3) {
 		if (!$("#classTimesDiv").hasClass("none")) {
 			$("#classTimesDiv").addClass("none");
 		}
