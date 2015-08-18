@@ -1,5 +1,7 @@
 package com.hqgj.xb.service;
 
+import java.util.List;
+
 import com.hqgj.xb.bean.ClassS;
 import com.hqgj.xb.bean.ClassTimePlan;
 import com.hqgj.xb.bean.easyui.Grid;
@@ -28,6 +30,16 @@ public interface ClassSService {
 	 * @return
 	 */
 	public Grid getClass(ClassS classS, Parameter parameter);
+
+	/**
+	 * 报名时根据所选课程类型选择可选的班级(班级还未满的班级)
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月18日 下午1:57:31
+	 * @param courseCode
+	 * @return
+	 */
+	public List<ClassS> getClassSByCourseCode(String courseCode);
 
 	/**
 	 * 根据班级编码查询指定班级信息

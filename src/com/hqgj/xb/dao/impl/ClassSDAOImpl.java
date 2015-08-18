@@ -695,4 +695,112 @@ public class ClassSDAOImpl implements ClassSDAO {
 		int n1 = this.nJdbcTemplate.update(sql, nParameterSource);
 		return n1 + n2;
 	}
+
+	@Override
+	public List<ClassS> getClassSByCourseCode(String courseCode) {
+		String select = "select c.classCode,c.nameM,c.courseTypeCode,c.schoolCode,s.schoolName,c.weekString,c.tuitionType,c.tuition,c.classTimes,c.classState,"
+				+ "c.startDate,c.endDate,c.dateUndetermined,c.teacherCode,u.username teacherName, "
+				+ "c.ratedNumber,c.remark from Class c left outer  join School s on s.schoolCode=c.schoolCode "
+				+ "left outer join Course co on co.courseCode=c.courseCode  "
+				+ "left outer join User u on u.userId=c.teacherCode where c.courseCode=:courseCode";
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("courseCode", courseCode);
+		final List<ClassS> results = new ArrayList<ClassS>();
+		this.nJdbcTemplate.query(select, map, new RowCallbackHandler() {
+
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				ClassS classS = new ClassS();
+				classS.setClassCode(rs.getString("classCode"));
+				classS.setClassState(rs.getString("classState"));
+				classS.setClassTimes(rs.getString("classTimes"));
+				classS.setCourseTypeCode(rs.getString("courseTypeCode"));
+				classS.setDateUndetermined(rs.getString("dateUndetermined"));
+				classS.setEndDate(rs.getString("endDate"));
+				classS.setNameM(rs.getString("nameM"));
+				classS.setRatedNumber(rs.getString("ratedNumber"));
+				classS.setSchoolCode(rs.getString("schoolCode"));
+				classS.setSchoolName(rs.getString("schoolName"));
+				classS.setStartDate(rs.getString("startDate"));
+				classS.setTeacherCode(rs.getString("teacherCode"));
+				classS.setTeacherName(rs.getString("teacherName"));
+				classS.setTuition(rs.getString("tuition"));
+				classS.setTuitionType(rs.getString("tuitionType"));
+				classS.setWeekString(rs.getString("weekString"));
+				results.add(classS);
+			}
+		});
+
+		String sqlTime = "select * from ClassTimePlan order by classCode";
+		final List<ClassTimePlan> classTimePlans = new ArrayList<ClassTimePlan>();
+		this.nJdbcTemplate.query(sqlTime, new RowCallbackHandler() {
+
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				ClassTimePlan classTimePlan = new ClassTimePlan();
+				classTimePlan.setId(rs.getString("id"));
+				classTimePlan.setWeek(rs.getString("week"));
+				classTimePlan.setStartTime(rs.getString("startTime"));
+				classTimePlan.setEndTime(rs.getString("endTime"));
+				classTimePlan.setClassCode(rs.getString("classCode"));
+				classTimePlans.add(classTimePlan);
+			}
+		});
+
+		// 把每个班的上课时间转换成[classCode,[time1,time2...]]这种形式
+		String first = "", last = "";
+		final List<ClassTimePlan> classTimePlansAfters = new ArrayList<ClassTimePlan>();
+		ClassTimePlan temp = new ClassTimePlan();
+		for (ClassTimePlan cPlan : classTimePlans) {
+			first = cPlan.getClassCode();
+			if (StringUtils.equals(cPlan.getWeek(), "1")) {
+				cPlan.setWeek("周一 ");
+			} else if (StringUtils.equals(cPlan.getWeek(), "2")) {
+				cPlan.setWeek("周二 ");
+			} else if (StringUtils.equals(cPlan.getWeek(), "3")) {
+				cPlan.setWeek("周三 ");
+			} else if (StringUtils.equals(cPlan.getWeek(), "4")) {
+				cPlan.setWeek("周四 ");
+			} else if (StringUtils.equals(cPlan.getWeek(), "5")) {
+				cPlan.setWeek("周五 ");
+			} else if (StringUtils.equals(cPlan.getWeek(), "6")) {
+				cPlan.setWeek("周六 ");
+			} else if (StringUtils.equals(cPlan.getWeek(), "7")) {
+				cPlan.setWeek("周日 ");
+			}
+			if (StringUtils.equals(first, last)) {
+				temp.setStartTime1(temp.getStartTime1() + "," + cPlan.getWeek()
+						+ cPlan.getStartTime() + "-" + cPlan.getEndTime());
+			} else {
+				if (StringUtils.isNotBlank(last)) {
+					classTimePlansAfters.add(temp);
+				}
+				temp = new ClassTimePlan();
+				temp.setClassCode(cPlan.getClassCode());
+				temp.setStartTime1(cPlan.getWeek() + cPlan.getStartTime() + "-"
+						+ cPlan.getEndTime());
+			}
+			last = cPlan.getClassCode();
+		}
+		classTimePlansAfters.add(temp);
+
+		for (ClassTimePlan cPlan : classTimePlansAfters) {
+			for (ClassS cS : results) {
+				if (StringUtils.equals(cS.getClassCode(), cPlan.getClassCode())) {
+					cS.setWeekString(cPlan.getStartTime1());
+				}
+			}
+		}
+		for (ClassS cS : results) {
+			cS.setNameM(cS.getSchoolName()+"> " + cS.getStartDate()
+					+ cS.getTeacherName() + cS.getTuition() + cS.getNameM()
+					+ cS.getWeekString());
+		}
+		ClassS tc = new ClassS();
+		tc.setClassCode("qb");
+		tc.setNameM("请选择班级");
+		results.add(0, tc);
+		return results;
+	}
 }

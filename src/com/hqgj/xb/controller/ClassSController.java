@@ -1,5 +1,7 @@
 package com.hqgj.xb.controller;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,6 +78,11 @@ public class ClassSController {
 	@RequestMapping(value = "/jiaowu/getClassSByClassCode", method = RequestMethod.POST)
 	public @ResponseBody ClassS getClassSByClassCode(String classCode) {
 		return classSService.getClassSByClassCode(classCode);
+	}
+
+	@RequestMapping(value = "/qiantai/getClassSByCourseCode", method = RequestMethod.POST)
+	public @ResponseBody List<ClassS> getClassSByCourseCode(String courseCode) {
+		return classSService.getClassSByCourseCode(courseCode);
 	}
 
 	@RequestMapping(value = "/jiaowu/deleteClass", method = RequestMethod.POST)

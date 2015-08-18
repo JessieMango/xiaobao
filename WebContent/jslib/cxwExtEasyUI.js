@@ -64,16 +64,6 @@ cxw.checkStartTimeBeforeEndTime = function(startTime, endTime) {
 }
 
 /**
- * 更改easyui加载grid时的提示文字
- * 
- * 
- * @requires jQuery,EasyUI
- */
-$.extend($.fn.datagrid.defaults, {
-	loadMsg : '数据加载中....'
-});
-
-/**
  * panel关闭时回收内存，主要用于layout使用iframe嵌入网页时的内存泄漏问题
  * 
  * 
