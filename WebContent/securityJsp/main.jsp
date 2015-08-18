@@ -244,7 +244,7 @@
 
 	<div
 		data-options="region:'south',href:'<%=contextPath%>/securityJsp/south.jsp',border:false"
-		style="height: 27px; overflow: hidden; border: 0;"></div>
+		style="height: 27px; overflow: auto; border: 0;"></div>
 
 </body>
 </html>
