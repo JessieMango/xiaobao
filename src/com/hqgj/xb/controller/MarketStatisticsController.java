@@ -22,8 +22,39 @@ public class MarketStatisticsController {
 	
 	
 	@RequestMapping(value = "/shichang/getXiaoQuZiXunLiang", method = RequestMethod.POST)
-	public @ResponseBody pieCharts getXiaoQuZiXunLiang(String starttime,String endtime,String xiaoqu) {
-		return marketStatisticsService.getXiaoQuZiXunLiang( starttime, endtime, xiaoqu);
+	public @ResponseBody pieCharts getXiaoQuZiXunLiang(String starttime,String endtime) {
+		return marketStatisticsService.getXiaoQuZiXunLiang( starttime, endtime);
 	}
 
+	@RequestMapping(value = "/shichang/getZiXunLaiYuan", method = RequestMethod.POST)
+	public @ResponseBody pieCharts getZiXunLaiYuan(String starttime,String endtime) {
+		return marketStatisticsService.getZiXunLaiYuan( starttime, endtime);
+	}
+	
+	
+	@RequestMapping(value = "/shichang/getZiXunXiaoShouYuan", method = RequestMethod.POST)
+	public @ResponseBody pieCharts getZiXunXiaoShouYuan(String starttime,String endtime) {
+		return marketStatisticsService.getZiXunXiaoShouYuan( starttime, endtime);
+	}
+	
+	@RequestMapping(value = "/shichang/getBaoMingLaiYuan", method = RequestMethod.POST)
+	public @ResponseBody pieCharts getBaoMingLaiYuan(String starttime,String endtime) {
+		return marketStatisticsService.getBaoMingLaiYuan( starttime, endtime);
+	}
+	
+	@RequestMapping(value = "/shichang/getBaoMingXiaoShouYuan", method = RequestMethod.POST)
+	public @ResponseBody pieCharts getBaoMingXiaoShouYuan(String starttime,String endtime) {
+		return marketStatisticsService.getBaoMingXiaoShouYuan( starttime, endtime);
+	}
+	
+	
+	@RequestMapping(value = "/shichang/getGongLiXueXiao", method = RequestMethod.POST)
+	public @ResponseBody pieCharts getGongLiXueXiao(String starttime,String endtime) {
+		return marketStatisticsService.getGongLiXueXiao( starttime, endtime);
+	}
+	@RequestMapping(value = "/shichang/getJuZhuQuYu", method = RequestMethod.POST)
+	public @ResponseBody pieCharts getJuZhuQuYu(String starttime,String endtime) {
+		return marketStatisticsService.getJuZhuQuYu( starttime, endtime);
+	}
+	
 }

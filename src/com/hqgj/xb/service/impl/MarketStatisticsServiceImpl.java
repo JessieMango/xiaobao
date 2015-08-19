@@ -16,8 +16,33 @@ public class MarketStatisticsServiceImpl implements MarketStatisticsService {
 	@Autowired
 	private MarketStatisticsDAO marketStatisticsDAO;
 	@Override
-	public pieCharts getXiaoQuZiXunLiang(String starttime,String endtime,String xiaoqu) {
-		return marketStatisticsDAO.getXiaoQuZiXunLiang( starttime, endtime, xiaoqu);
+	public pieCharts getXiaoQuZiXunLiang(String starttime,String endtime) {
+		return marketStatisticsDAO.getXiaoQuZiXunLiang( starttime, endtime);
 	}
+	@Override
+	public pieCharts getZiXunXiaoShouYuan(String starttime, String endtime) {
+		return marketStatisticsDAO.getZiXunXiaoShouYuan(starttime,endtime);
+	}
+	@Override
+	public pieCharts getZiXunLaiYuan(String starttime, String endtime) {
+		return marketStatisticsDAO.getZiXunLaiYuan(starttime, endtime);
+	}
+	@Override
+	public pieCharts getBaoMingLaiYuan(String starttime, String endtime) {
+		return marketStatisticsDAO.getBaoMingLaiYuan(starttime, endtime);
+	}
+	@Override
+	public pieCharts getBaoMingXiaoShouYuan(String starttime, String endtime) {
+		return marketStatisticsDAO.getBaoMingXiaoShouYuan(starttime, endtime);
+	}
+	@Override
+	public pieCharts getGongLiXueXiao(String starttime, String endtime) {
+		return marketStatisticsDAO.getGongLiXueXiao(starttime, endtime);
+	}
+	@Override
+	public pieCharts getJuZhuQuYu(String starttime, String endtime) {
+		return marketStatisticsDAO.getJuZhuQuYu(starttime, endtime);
+	}
+	
 
 }

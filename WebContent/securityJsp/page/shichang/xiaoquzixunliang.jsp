@@ -14,53 +14,26 @@ var submitForm = function() {
 	if ($('form').form('validate')) {
 		$.post("getXiaoQuZiXunLiang", cxw.serializeObject($('form')), function(
 				jsonData) {	
+			var ColumnResult="[";
+			for(var i=0;i<jsonData.series.data.length;i++)
+				{
+					ColumnResult+=",{name:jsonData.series.data["+i+"].name, data:[jsonData.series.data["+i+"].y]}"
+				}
+			
+			ColumnResult=ColumnResult.replace(",","");
+			ColumnResult+="]";
+			var datas = eval("("+ColumnResult+")")
+
 			
 			$("#container").highcharts({
 				   title : {
                        text : jsonData.title.text
                    },
-                 
                    series:[{
                 	   type:'pie',
                 	   name:jsonData.series.name,
-                	   data:[{
-                	   name:jsonData.series.data[0].name,
-                	   y:jsonData.series.data[0].y
-                	  },
-                	  {
-                   	   name:jsonData.series.data[1].name,
-                   	   y:jsonData.series.data[1].y,
-	                   sliced: true,
-	                   selected: true
-                   	  }]
+                	   data:jsonData.series.data
                    }]
-                   /* ,
-                   plotOptions:{
-                	   pie:{
-                		   allowPointSelect:jsonData.plotOptions.pie.allowPointSelect,
-                		   cursor:jsonData.plotOptions.pie.cursor,
-                		   dataLabels:jsonData.plotOptions.pie.dataLabels 
-							allowPointSelect: true,
-							cursor: 'pointer',
-							dataLabels: {
-								enabled: true,
-								format: '<b>{point.name}%</b>: {point.percentage:.1f} %'
-							}
-                  		 }
-					}, 
-                   chart : {
-               	   plotBackgroundColor :jsonData.chart.plotBackgroundColor,
-                	   plotBorderWidth :jsonData.chart.plotBorderWidth,
-                	   plotShadow:jsonData.chart.plotShadow 
-                	   plotBackgroundColor: null,
-            	       plotBorderWidth: null,
-            	       plotShadow: false
-                   }, 
-                   tooltip:{
-                	    pointFormat:jsonData.tooltip.pointFormat 
-                	   pointFormat: '{jsonData.series.name}: <b>{point.percentage:.1f}%</b>'
-                   }*/
-                   
                    }
 			);
 			$("#container1").highcharts({
@@ -70,14 +43,7 @@ var submitForm = function() {
                 chart:{
                 	type:'column'
                 	},
-                series:[{
-	             	   name:jsonData.series.data[0].name,
-	             	   data:[jsonData.series.data[0].y]
-             	  },
-             	  {
-                	   name:jsonData.series.data[1].name,
-                	   data:[jsonData.series.data[1].y]
-                	}]
+                series:datas
                 });
 		}, 'json');
 	}}
@@ -91,17 +57,6 @@ var submitForm = function() {
 			required : true,
 			value : getCurrentDate()
 		});
-		
-		$('#xiaoqu').combobox(
-				{
-					onLoadSuccess : function(data) {
-						if (data) {
-							$('#xiaoqu').combobox('setValue',
-									data[0].schoolCode);
-						}
-					}
-				});
-		
 		$("#btn_save").click(function() {
 			submitForm();
 		});
@@ -112,7 +67,7 @@ var submitForm = function() {
 </script>
 </head>
 
-<body class="easyui-layout" data-options="fit:true,border:false">
+<body>
 <form method="post" class="form">
 	<table>
 		<tr>
@@ -121,11 +76,8 @@ var submitForm = function() {
 			<td>到</td>
 			<td><input id="endtime" type="text" name="endtime" class="easyui-datebox" style="width: 200px;" required="required"> </td>
 			<td></td>
-			<td>校区：</td>
-			<td>
-			<input id="xiaoqu" name="xiaoqu"  class="easyui-combobox"  data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools',required:true,editable:false,panelHeight:'auto',multiple:true"/>
-			</td>
 			<td></td>
+			
 			<td>		
 					 <a href="javascript:void(0);" id="btn_save"
 						class="easyui-linkbutton"

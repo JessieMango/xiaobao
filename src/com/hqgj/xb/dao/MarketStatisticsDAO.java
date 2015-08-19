@@ -8,6 +8,11 @@ import com.hqgj.xb.bean.highcharts.pieCharts;
  */
 public interface MarketStatisticsDAO {
 	
-	public pieCharts getXiaoQuZiXunLiang(String starttime,String endtime,String xiaoqu);
-
+	public pieCharts getXiaoQuZiXunLiang(String starttime,String endtime);
+	public pieCharts getZiXunXiaoShouYuan(String starttime,String endtime);
+	public pieCharts getZiXunLaiYuan (String starttime,String endtime);
+	public pieCharts getBaoMingLaiYuan(String starttime,String endtime);
+	public pieCharts getBaoMingXiaoShouYuan(String starttime,String endtime);
+	public pieCharts getGongLiXueXiao(String starttime,String endtime);
+	public pieCharts getJuZhuQuYu(String starttime,String endtime);
 }
