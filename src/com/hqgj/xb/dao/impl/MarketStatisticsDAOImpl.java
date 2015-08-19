@@ -365,4 +365,45 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 
 		return charts;
 	}
+
+//////////////////////////////////////////////////////////
+	@Override
+	public Charts getMeiYueXinSheng(String starttime, String endtime) {
+		String sql = "select Consult.liveArea nameM,count(Consult.liveArea) countNum from Consult "
+				+ "where Consult.consultDate between :starttime and :endtime group by nameM ";
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
+		Charts charts = new Charts();
+		//设置标题
+		Title title=new Title();
+		title.setText("每月新生统计");
+		charts.setTitle(title);
+
+		//设置Series
+		Series series=new Series();
+		series.setName("每月新生统计");
+	
+		final List<Data> results = new ArrayList<Data>();
+		this.npJdbcTemplate.query(sql, paramMap,
+				new RowCallbackHandler() {
+					@Override
+					public void processRow(ResultSet rs) throws SQLException {
+						Data data =new Data();
+					
+						data.setName(rs.getString("nameM"));
+						if(StringUtils.isNotBlank(rs.getString("countNum"))){
+							data.setY(Integer.parseInt(rs.getString("countNum")));
+						}else{
+							data.setY(0);
+						}
+						results.add(data);
+					}
+				});
+		logger.info(results );
+		series.setData(results);
+		charts.setSeries(series);
+
+		return charts;
+	}
 }

@@ -47,6 +47,10 @@ public class MarketStatisticsServiceImpl implements MarketStatisticsService {
 	public Charts getXueShengNianLing(String starttime, String endtime) {
 		return marketStatisticsDAO.getXueShengNianLing(starttime, endtime);
 	}
+	@Override
+	public Charts getMeiYueXinSheng(String starttime, String endtime) {
+		return marketStatisticsDAO.getMeiYueXinSheng(starttime, endtime);
+	}
 	
 
 }

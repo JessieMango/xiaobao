@@ -9,7 +9,7 @@
 <script type="text/javascript">
 var submitForm = function() {
 	if ($('form').form('validate')) {
-		$.post("getZiXunXiaoShouYuan", cxw.serializeObject($('form')), function(
+		$.post("getMeiYueXinSheng", cxw.serializeObject($('form')), function(
 				jsonData) {	
 			var ColumnResult="[";
 			for(var i=0;i<jsonData.series.data.length;i++)
