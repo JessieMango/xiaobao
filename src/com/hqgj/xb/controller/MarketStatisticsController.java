@@ -57,4 +57,9 @@ public class MarketStatisticsController {
 		return marketStatisticsService.getJuZhuQuYu( starttime, endtime);
 	}
 	
+	@RequestMapping(value = "/shichang/getXueShengNianLing", method = RequestMethod.POST)
+	public @ResponseBody Charts getXueShengNianLing(String starttime,String endtime) {
+		return marketStatisticsService.getXueShengNianLing( starttime, endtime);
+	}
+	
 }

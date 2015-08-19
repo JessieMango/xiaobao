@@ -14,4 +14,6 @@ public interface MarketStatisticsDAO {
 	public Charts getBaoMingXiaoShouYuan(String starttime,String endtime);
 	public Charts getGongLiXueXiao(String starttime,String endtime);
 	public Charts getJuZhuQuYu(String starttime,String endtime);
+	public Charts getXueShengNianLing(String starttime,String endtime);
+	
 }

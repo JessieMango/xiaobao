@@ -11,9 +11,6 @@ var submitForm = function() {
 	if ($('form').form('validate')) {
 		$.post("getJuZhuQuYu", cxw.serializeObject($('form')), function(
 				jsonData) {	
-			if(jsonData.series.data.length==0){
-				jsonData.series.data="{name:0, data:0]";
-			}
 			var ColumnResult="[";
 			for(var i=0;i<jsonData.series.data.length;i++)
 				{
