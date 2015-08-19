@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 import com.hqgj.xb.bean.highcharts.Data;
 import com.hqgj.xb.bean.highcharts.Series;
 import com.hqgj.xb.bean.highcharts.Title;
-import com.hqgj.xb.bean.highcharts.pieCharts;
+import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.dao.MarketStatisticsDAO;
 
 /**
@@ -40,7 +40,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 
 	
 	@Override
-	public pieCharts getXiaoQuZiXunLiang(String starttime,String endtime) {
+	public Charts getXiaoQuZiXunLiang(String starttime,String endtime) {
 		
 		String sql = "select School.schoolName schoolName,count(School.schoolName) countNum from Consult LEFT OUTER JOIN School on Consult.handleSchoolCode=School.schoolCode "
 				+ "where Consult.consultDate between :starttime and :endtime group by School.schoolName";
@@ -48,11 +48,11 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
 
-		pieCharts piecharts = new pieCharts();
+		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
 		title.setText("校区咨询量统计");
-		piecharts.setTitle(title);
+		charts.setTitle(title);
 
 		//设置Series
 		Series series=new Series();
@@ -76,24 +76,24 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				});
 		logger.info(results );
 		series.setData(results);
-		piecharts.setSeries(series);
+		charts.setSeries(series);
 
-		return piecharts;
+		return charts;
 	}
 	
 	
 	@Override
-	public pieCharts getZiXunLaiYuan(String starttime,String endtime) {
+	public Charts getZiXunLaiYuan(String starttime,String endtime) {
 		String sql = "select DSellSource.nameM nameM,count(Consult.sellSource) countNum from DSellSource left join Consult on DSellSource.id=Consult.sellSource "
 				+ "where Consult.consultDate between :starttime and :endtime group by nameM ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
-		pieCharts piecharts = new pieCharts();
+		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
 		title.setText("咨询来源统计");
-		piecharts.setTitle(title);
+		charts.setTitle(title);
 
 		//设置Series
 		Series series=new Series();
@@ -117,23 +117,23 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				});
 		logger.info(results );
 		series.setData(results);
-		piecharts.setSeries(series);
+		charts.setSeries(series);
 
-		return piecharts;
+		return charts;
 	}
 	@Override
-	public pieCharts getZiXunXiaoShouYuan(String starttime,String endtime) {
+	public Charts getZiXunXiaoShouYuan(String starttime,String endtime) {
 		String sql = "select DSeller.nameM nameM,count(Consult.seller) countNum from DSeller left join Consult on DSeller.id=Consult.seller "
 				+ "where Consult.consultDate between :starttime and :endtime group by nameM ";
 			
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
-		pieCharts piecharts = new pieCharts();
+		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
 		title.setText("咨询销售员");
-		piecharts.setTitle(title);
+		charts.setTitle(title);
 
 		//设置Series
 		Series series=new Series();
@@ -157,24 +157,24 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				});
 		logger.info(results );
 		series.setData(results);
-		piecharts.setSeries(series);
+		charts.setSeries(series);
 
-		return piecharts;
+		return charts;
 	}
 
 
 	@Override
-	public pieCharts getBaoMingLaiYuan(String starttime, String endtime) {
+	public Charts getBaoMingLaiYuan(String starttime, String endtime) {
 		String sql = "select DSellSource.nameM nameM,count(DSellSource.id) countNum from DSellSource left join StudentClass on DSellSource.id=StudentClass.sellSource "
 				+ "where StudentClass.enrollDate between :starttime and :endtime group by nameM ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
-		pieCharts piecharts = new pieCharts();
+		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
 		title.setText("报名来源");
-		piecharts.setTitle(title);
+		charts.setTitle(title);
 
 		//设置Series
 		Series series=new Series();
@@ -198,23 +198,23 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				});
 		logger.info(results );
 		series.setData(results);
-		piecharts.setSeries(series);
+		charts.setSeries(series);
 
-		return piecharts;
+		return charts;
 	}
 
 	@Override
-	public pieCharts getBaoMingXiaoShouYuan(String starttime, String endtime) {
+	public Charts getBaoMingXiaoShouYuan(String starttime, String endtime) {
 		String sql = "select DSeller.nameM nameM,count(DSeller.id) countNum from DSeller left join StudentClass on DSeller.id=StudentClass.seller "
 				+ "where StudentClass.enrollDate between :starttime and :endtime group by nameM ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
-		pieCharts piecharts = new pieCharts();
+		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
 		title.setText("报名销售员");
-		piecharts.setTitle(title);
+		charts.setTitle(title);
 
 		//设置Series
 		Series series=new Series();
@@ -238,24 +238,24 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				});
 		logger.info(results );
 		series.setData(results);
-		piecharts.setSeries(series);
+		charts.setSeries(series);
 
-		return piecharts;
+		return charts;
 	}
 
 
 	@Override
-	public pieCharts getGongLiXueXiao(String starttime, String endtime) {
+	public Charts getGongLiXueXiao(String starttime, String endtime) {
 		String sql = "select DCouncilSchool.nameM nameM,count(DCouncilSchool.id) countNum from DCouncilSchool left join Consult on DCouncilSchool.id=Consult.councilSchoolCode "
 				+ "where Consult.consultDate between :starttime and :endtime group by nameM ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
-		pieCharts piecharts = new pieCharts();
+		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
 		title.setText("公立学校");
-		piecharts.setTitle(title);
+		charts.setTitle(title);
 
 		//设置Series
 		Series series=new Series();
@@ -279,24 +279,24 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				});
 		logger.info(results );
 		series.setData(results);
-		piecharts.setSeries(series);
+		charts.setSeries(series);
 
-		return piecharts;
+		return charts;
 	}
 
 
 	@Override
-	public pieCharts getJuZhuQuYu(String starttime, String endtime) {
+	public Charts getJuZhuQuYu(String starttime, String endtime) {
 		String sql = "select Consult.liveArea nameM,count(Consult.liveArea) countNum from Consult "
 				+ "where Consult.consultDate between :starttime and :endtime group by nameM ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
-		pieCharts piecharts = new pieCharts();
+		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
 		title.setText("居住区域咨询量统计");
-		piecharts.setTitle(title);
+		charts.setTitle(title);
 
 		//设置Series
 		Series series=new Series();
@@ -320,8 +320,8 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				});
 		logger.info(results );
 		series.setData(results);
-		piecharts.setSeries(series);
+		charts.setSeries(series);
 
-		return piecharts;
+		return charts;
 	}
 }
