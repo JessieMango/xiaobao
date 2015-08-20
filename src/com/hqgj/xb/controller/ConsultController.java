@@ -58,7 +58,7 @@ public class ConsultController {
 		return consultService.getConsultWay(type);
 	}
 
-	@RequestMapping(value = {"/qiantai/getHandler","/jiaowu/getHandler"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"/qiantai/getHandler","/jiaowu/getHandler","/shichang/getHandler"}, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getHandler(String type) {
 		return consultService.getHandler(type);
 	}

@@ -34,7 +34,7 @@ public class CommunicationController {
 	}
 	
 	
-	@RequestMapping(value = "/qiantai/getCommunications", method = RequestMethod.POST)
+	@RequestMapping(value = {"/qiantai/getCommunications","shichang/getCommunications"}, method = RequestMethod.POST)
 	public @ResponseBody Grid getCommunications(Communication communication,
 			Parameter parameter) {
 		return communicationService.getCommunications(communication, parameter);
@@ -46,7 +46,7 @@ public class CommunicationController {
 		return communicationService.getCommunicationById(id);
 	}
 	
-	@RequestMapping(value = {"/qiantai/getCommunicationType","/jiaowu/getCommunicationType"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"/qiantai/getCommunicationType","/jiaowu/getCommunicationType","shichang/getCommunicationType"}, method = RequestMethod.POST)
 	public @ResponseBody List<Communication> getCommunicationType(String type, String flag) {
 		return communicationService.getCommunicationType(type,flag);
 	}
@@ -57,7 +57,7 @@ public class CommunicationController {
 		return communicationService.getCommunicationByConsultId(id);
 	}
 
-	@RequestMapping(value = "/qiantai/addCommunication", method = RequestMethod.POST)
+	@RequestMapping(value = {"/qiantai/addCommunication","shichang/addCommunication"}, method = RequestMethod.POST)
 	public @ResponseBody Json addCommunication(Communication communication,
 			HttpServletRequest request) {
 		// 经办人为当前登录人员
@@ -92,7 +92,7 @@ public class CommunicationController {
 		return json;
 	}
 
-	@RequestMapping(value = "/qiantai/deleteCommunicationById", method = RequestMethod.POST)
+	@RequestMapping(value ={ "/qiantai/deleteCommunicationById","shichang/deleteCommunicationById"}, method = RequestMethod.POST)
 	public @ResponseBody Json deleteCommunicationById(String id) {
 		Json json = new Json();
 		if (0 != communicationService.deleteCommunicationById(id)) {

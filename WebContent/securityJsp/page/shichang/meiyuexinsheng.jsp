@@ -15,6 +15,20 @@ var submitForm = function() {
 				   title : {
                        text : jsonData.title.text
                    },
+                   xAxis:{
+            		      categories: ['一月', '二月', '三月', '四月', '五月', '六月',
+            		         '七月', '八月', '九月', '十月', '十一月', '十二月']
+                 		   },
+            		   yAxis:{
+            				      title: {
+            				         text: '咨询量/报名量'
+            				      },
+            				      plotLines: [{
+            				         value: 0,
+            				         width: 1,
+            				         color: '#808080'
+            				      }]
+            				   },
                    chart:{
                    	type:'column'
                    	},
