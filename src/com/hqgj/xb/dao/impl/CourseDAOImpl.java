@@ -66,7 +66,14 @@ public class CourseDAOImpl implements CourseDAO {
 
 	@Override
 	public List<Course> getCourseTypes(String type) {
-		String sql = "	select ct.courseTypeCode courseTypeCode,ct.nameM courseTypeName,ct.seq courseTypeSeq from  CourseType ct order by ct.seq ";
+		String sql = "	select ct.courseTypeCode courseTypeCode,ct.nameM courseTypeName,ct.seq courseTypeSeq from  CourseType ct  ";
+		if (StringUtils.equals(type, "1")) {
+			sql += " where ct.courseTypeCode<>'qb' ";
+		}
+		if (StringUtils.equals(type, "2")) {
+			sql += " where ct.courseTypeCode<>'qb' ";
+		}
+		sql += " order by ct.seq";
 		List<Course> results = this.nJdbcTemplate.query(sql,
 				new RowMapper<Course>() {
 					@Override

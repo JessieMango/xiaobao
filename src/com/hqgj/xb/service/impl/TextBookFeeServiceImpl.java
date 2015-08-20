@@ -47,4 +47,9 @@ public class TextBookFeeServiceImpl implements TextBookFeeService {
 		return textBookFeeDAO.addTextBookFee(textBookFee);
 	}
 
+	@Override
+	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,String type) {
+		return textBookFeeDAO.getTextBookFeesByCourseType(courseTypeCode,type);
+	}
+
 }

@@ -10,7 +10,7 @@ import com.hqgj.xb.bean.TextBookFee;
  */
 public interface TextBookFeeDAO {
 	/**
-	 * 后期指定类型所有记录
+	 * 获取指定类型所有记录
 	 * 
 	 * @author 崔兴伟
 	 * @datetime 2015年8月3日 下午5:37:48
@@ -28,6 +28,17 @@ public interface TextBookFeeDAO {
 	 * @return
 	 */
 	public List<TextBookFee> getDTextBookFeesType();
+
+	/**
+	 * 根据课程大类获取教材杂项
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月20日 下午2:07:45
+	 * @param courseTypeCode 课程大类
+	 * @param type 1表示教材 2代表杂项
+	 * @return
+	 */
+	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,String type);
 
 	/**
 	 * 获取指定ID教材杂项的所有信息

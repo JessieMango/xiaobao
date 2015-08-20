@@ -14,6 +14,15 @@
 	String courseCode3 = request.getParameter("courseCode3") == null
 			? ""
 			: request.getParameter("courseCode3");
+	String courseTypeCode1 = request.getParameter("courseTypeCode1") == null
+			? ""
+			: request.getParameter("courseTypeCode1");
+	String courseTypeCode2 = request.getParameter("courseTypeCode2") == null
+			? ""
+			: request.getParameter("courseTypeCode2");
+	String courseTypeCode3 = request.getParameter("courseTypeCode3") == null
+			? ""
+			: request.getParameter("courseTypeCode3");
 	String courseName1 = request.getParameter("courseName1") == null
 			? ""
 			: request.getParameter("courseName1");
@@ -51,10 +60,153 @@ input[type='text'] {
 </style>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
+	var courseTypeCode = "";
+
+	var getTextbookFee = function(type1, target, type2) {
+		if(type1 == 1){
+			var courseTypeCode = "<%=courseTypeCode1%>";
+			if(type2 == 0){
+				courseTypeCode = "qb";
+			}
+			$.post("getTextBookFeesByCourseType",{courseTypeCode : courseTypeCode,type : type2}, function(result) {
+				if(type2 == 1){
+					if($("#tf11").hasClass("none")){
+						$("#tf11").removeClass("none");
+					}
+					if(!$("#tf12").hasClass("none")){
+						$("#tf12").addClass("none");
+					}
+					if(!$("#tf13").hasClass("none")){
+						$("#tf13").addClass("none");
+					}
+					$("#tf11").empty();
+					$(result).each(function(index,data){
+						$("#tf11").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num11" id="num11" onkeyup="CalcShouldPay(1);" onblur="CheckNonNegativeNumber(this);"  style="width:70px;" value="0" ">&nbsp;');
+					});
+				}
+				if(type2 == 0){
+					if($("#tf12").hasClass("none")){
+						$("#tf12").removeClass("none");
+					}
+					if(!$("#tf11").hasClass("none")){
+						$("#tf11").addClass("none");
+					}
+					if(!$("#tf13").hasClass("none")){
+						$("#tf13").addClass("none");
+					}
+					$("#tf12").empty();
+					$(result).each(function(index,data){
+						$("#tf12").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num12" id="num12" class="easyui-numberbox" style="width:70px;" value="0" data-options="min:0,precision:0">&nbsp;');
+					});
+				}
+				if(type2 == 2){
+					if($("#tf13").hasClass("none")){
+						$("#tf13").removeClass("none");
+					}
+					if(!$("#tf11").hasClass("none")){
+						$("#tf11").addClass("none");
+					}
+					if(!$("#tf12").hasClass("none")){
+						$("#tf12").addClass("none");
+					}
+					$("#tf13").empty();
+					$(result).each(function(index,data){
+						$("#tf13").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num13" id="num13" class="easyui-numberbox" style="width:70px;" value="0" data-options="min:0,precision:0">&nbsp;');
+					});
+				}
+			});
+		}
+		if(type1 == 2){
+			$.post("getTextBookFeesByCourseType",{courseTypeCode : "<%=courseTypeCode2%>",type : 0}, function(result) {
 	
-	var init = function() {
+			});
+		}
+		if(type1 == 2){
+			$.post("getTextBookFeesByCourseType",{courseTypeCode : "<%=courseTypeCode2%>",type : type2}, function(result) {
+	
+			});
+		}
 		
-		if("<%=courseCode1%>" == ""){
+	}
+	var init = function() {
+		$("#preferntial1").numberbox(
+				{
+					onChange : function(newValue, oldValue) {
+						$("#tuition1").html($("#tu1").val() - newValue);
+						$('#realTuition1').numberbox('setValue',
+								$("#tuition1").html());
+						$("#money").html(
+								$('#realTuition1').numberbox('getValue'));
+						$("#points").html(
+								$('#realTuition1').numberbox('getValue'));
+					}
+				});
+
+		$("#realTuition1").numberbox(
+				{
+					onChange : function(newValue, oldValue) {
+						va = newValue - $("#tuition1").html();
+						if (va > 0) {
+							if ($("#arrearage1").hasClass("none")) {
+								$("#arrearage1").removeClass("none");
+							}
+							$("#arrearage1").empty();
+							$("#arrearage1").append(
+									"<span style='color:red;'>预存" + va
+											+ "元</span>");
+						}
+						if (va < 0) {
+							if ($("#arrearage1").hasClass("none")) {
+								$("#arrearage1").removeClass("none");
+							}
+							$("#arrearage1").empty();
+							$("#arrearage1").append(
+									"<span style='color:red;'>欠费" + va
+											+ "元</span>");
+						}
+						if (va == 0) {
+							if (!$("#arrearage1").hasClass("none")) {
+								$("#arrearage1").addClass("none");
+							}
+						}
+						$("#money").html(
+								$('#realTuition1').numberbox('getValue'));
+						$("#points").html(
+								$('#realTuition1').numberbox('getValue'));
+					}
+				});
+
+		$("#discount1").numberbox(
+				{
+					onChange : function(newValue, oldValue) {
+						if (newValue == 0.0) {
+							$("#tuition1").html($("#tu1").val());
+						} else {
+							$("#tuition1").html(
+									$("#tu1").val() * (newValue / 10));
+						}
+						$('#realTuition1').numberbox('setValue',
+								$("#tuition1").html());
+						$("#money").html(
+								$('#realTuition1').numberbox('getValue'));
+						$("#points").html(
+								$('#realTuition1').numberbox('getValue'));
+					}
+				});
+		$("#reduceMoney1").numberbox(
+				{
+					onChange : function(newValue, oldValue) {
+						$("#tuition1").html($("#tu1").val() - newValue);
+						$('#realTuition1').numberbox('setValue',
+								$("#tuition1").html());
+						$("#money").html(
+								$('#realTuition1').numberbox('getValue'));
+						$("#points").html(
+								$('#realTuition1').numberbox('getValue'));
+					}
+				});
+
+		if ("<%=courseCode1%>" == ""){
 			$("#classDiv1").addClass("none");
 		}else{
 			$("#span1").html("<%=courseName1%>");
@@ -78,8 +230,12 @@ input[type='text'] {
 							if($("#otherDiv1").hasClass("none")){
 								$("#otherDiv1").removeClass("none")
 							}
+							if($("#textbookFee1").hasClass("none")){
+								$("#textbookFee1").removeClass("none")
+							}
+							$("#tu1").val(data.tuition);
 							$("#tuition1").html(data.tuition);
-							$("#realTuition1").val(data.tuition);
+							$('#realTuition1').numberbox('setValue', data.tuition);
 							$("#money").html(data.tuition);
 							$("#points").html(data.tuition);
 						}else{
@@ -89,6 +245,11 @@ input[type='text'] {
 							if(!$("#otherDiv1").hasClass("none")){
 								$("#otherDiv1").addClass("none")
 							}
+							if(!$("#textbookFee1").hasClass("none")){
+								$("#textbookFee1").addClass("none")
+							}
+							$("#money").html("0");
+							$("#points").html("0");
 						}
 					}
 				}
@@ -118,12 +279,18 @@ input[type='text'] {
 							if($("#otherDiv2").hasClass("none")){
 								$("#otherDiv2").removeClass("none")
 							}
+							if($("#textbookFee2").hasClass("none")){
+								$("#textbookFee2").removeClass("none")
+							}
 						}else{
 							if(!$("#otherSpan2").hasClass("none")){
 								$("#otherSpan2").addClass("none")
 							}
 							if(!$("#otherDiv2").hasClass("none")){
 								$("#otherDiv2").addClass("none")
+							}
+							if(!$("#textbookFee2").hasClass("none")){
+								$("#textbookFee2").addClass("none")
 							}
 						}
 					}
@@ -155,12 +322,18 @@ input[type='text'] {
 									if($("#otherDiv3").hasClass("none")){
 										$("#otherDiv3").removeClass("none")
 									}
+									if($("#textbookFee3").hasClass("none")){
+										$("#textbookFee3").removeClass("none")
+									}
 								}else{
 									if(!$("#otherSpan3").hasClass("none")){
 										$("#otherSpan3").addClass("none")
 									}
 									if(!$("#otherDiv3").hasClass("none")){
 										$("#otherDiv3").addClass("none")
+									}
+									if(!$("#textbookFee3").hasClass("none")){
+										$("#textbookFee3").addClass("none")
 									}
 								}
 							}
@@ -272,33 +445,61 @@ input[type='text'] {
 			</div>
 		</div>
 	</form>
-
 	<div id="classDiv1" style="text-align: center; margin-top: 30px;">
 		<span id="span1"
 			style="width: 200px; height: auto; display: inline-block; text-align: right;"></span><input
 			type="text" id="classCode1" name="classCode" style="width: 400px;"
 			class="easyui-combobox" /><a
 			href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
-			target="_blank"><button>新建</button></a><span id="otherSpan1" class="none"><select
-			onchange="changeDiscountType(1,this);" name="discountType"
-			id="discountType">
+			target="_blank"><button>新建</button></a><span id="otherSpan1"
+			class="none"><select onchange="changeDiscountType(1,this);"
+			name="discountType1" id="discountType1">
 				<option value="1">原价</option>
 				<option value="2">优惠</option>
 				<option value="3">折扣</option>
 				<option value="4">插班</option>
-		</select><span id="span12" class="none"><input class="easyui-numberbox" onkeyup="preferntialChange(1,this);"
-				style="width: 70px" value="0" />元</span><span id="span13" class="none"><input
-				class="easyui-numberbox" style="width: 70px;" value="0"
+		</select><span id="span12" class="none"><input class="easyui-numberbox"
+				id="preferntial1" name="preferntial1"
+				data-options="min:0,precision:2" style="width: 70px" value="0" />元</span><span
+			id="span13" class="none"><input class="easyui-numberbox"
+				style="width: 70px;" value="0" id="discount1" name="discount1"
 				data-options="min:0,precision:1,max:9.9" />折</span><span id="span14"
 			class="none">减免<input class="easyui-numberbox"
-				style="width: 70px" value="0" />元
+				id="reduceMoney1" name="reduceMoney1"
+				data-options="min:0,precision:2" style="width: 70px" value="0" />元
 		</span><span>=应收</span><span id="tuition1"></span><span>=实收</span><span><input
-				style="width: 70px;" type="text" id="realTuition1" onkeyup="balanceChange(1,this);"/> </span> </span>
+				style="width: 70px;" type="text" id="realTuition1"
+				name="realTuition1" data-options="min:0,precision:2"
+				class="easyui-numberbox" /> </span> </span>
 		<div style="margin-top: 10px;" id="otherDiv1" class="none">
 			<label for="tuitionRemark1">学费备注:</label><input type="text"
-				style="width: 500px;" id="tuitionRemark1" />
+				style="width: 500px;" id="tuitionRemark1" /><input type="hidden"
+				id="tu1" />
 		</div>
 		<div style="margin-top: 10px;" id="arrearage1"></div>
+		<div id="textbookFee1" class="none" style="margin-top: 10px;">
+			<div>
+				<button
+					style="padding: 5px; background-color: #0066CC; color: white;"
+					onclick="getTextbookFee(1,'#textbookFee1',1);">教材项(本课程)</button>
+				<span>/</span>
+				<button
+					style="padding: 5px; background-color: #5B8A5B; color: white;"
+					onclick="getTextbookFee(1,'#textbookFee1',0);">教材项(所有课程)</button>
+				<span>/</span>
+				<button
+					style="padding: 5px; background-color: #BD8E2F; color: white;"
+					onclick="getTextbookFee(1,'#textbookFee1',2);">杂费项</button>
+			</div>
+			<div style="margin-top: 10px;">
+				<span id="tf11" class="none"></span><span id="tf12" class="none"></span><span
+					id="tf13" class="none"></span>
+			</div>
+			<div style="margin-top: 10px;">
+				<span style="color: red;">教材杂费总计 <span>0</span> 元
+				</span>
+			</div>
+		</div>
 	</div>
 
 	<div style="text-align: center; margin-top: 30px;" id="classDiv2">
@@ -307,21 +508,26 @@ input[type='text'] {
 			type="text" id="classCode2" name="classCode2" style="width: 400px;"
 			class="easyui-combobox" /><a
 			href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
-			target="_blank"><button>新建</button></a><span id="otherSpan2" class="none"><select
-			onchange="changeDiscountType(2,this);" name="discountType"
-			id="discountType">
+			target="_blank"><button>新建</button></a><span id="otherSpan2"
+			class="none"><select onchange="changeDiscountType(2,this);"
+			name="discountType2" id="discountType2">
 				<option value="1">原价</option>
 				<option value="2">优惠</option>
 				<option value="3">折扣</option>
 				<option value="4">插班</option>
 		</select><span id="span22" class="none"><input class="easyui-numberbox"
-				style="width: 70px" value="0" />元</span><span id="span23" class="none"><input
-				class="easyui-numberbox" style="width: 70px" value="0"
+				id="preferntial2" name="preferntial2"
+				data-options="min:0,precision:2" style="width: 70px" value="0" />元</span><span
+			id="span23" class="none"><input class="easyui-numberbox"
+				style="width: 70px;" value="0" id="discount2" name="discount2"
 				data-options="min:0,precision:1,max:9.9" />折</span><span id="span24"
 			class="none">减免<input class="easyui-numberbox"
-				style="width: 70px" value="0" />元
+				id="reduceMoney2" name="reduceMoney2"
+				data-options="min:0,precision:2" style="width: 70px" value="0" />元
 		</span><span>=应收</span><span id="tuition1"></span><span>=实收</span><span><input
-				style="width: 70px;" type="text" readonly="readonly" /> </span> </span>
+				style="width: 70px;" type="text" id="realTuition2"
+				name="realTuition2" data-options="min:0,precision:2"
+				class="easyui-numberbox" /> </span> </span>
 		<div style="margin-top: 10px;" id="otherDiv2" class="none">
 			<label for="tuitionRemark2">学费备注:</label><input type="text"
 				style="width: 500px;" id="tuitionRemark2" />
@@ -335,39 +541,43 @@ input[type='text'] {
 			type="text" id="classCode3" name="classCode3" style="width: 400px;"
 			class="easyui-combobox" /><a
 			href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
-			target="_blank"><button>新建</button></a><span id="otherSpan3" class="none"><select
-			onchange="changeDiscountType(3,this);" name="discountType"
-			id="discountType">
+			target="_blank"><button>新建</button></a><span id="otherSpan3"
+			class="none"><select onchange="changeDiscountType(3,this);"
+			name="discountType3" id="discountType3">
 				<option value="1">原价</option>
 				<option value="2">优惠</option>
 				<option value="3">折扣</option>
 				<option value="4">插班</option>
 		</select><span id="span32" class="none"><input class="easyui-numberbox"
-				style="width: 70px" value="0" />元</span><span id="span33" class="none"><input
-				class="easyui-numberbox" style="width: 70px" value="0"
+				id="preferntial3" name="preferntial3"
+				data-options="min:0,precision:2" style="width: 70px" value="0" />元</span><span
+			id="span33" class="none"><input class="easyui-numberbox"
+				style="width: 70px;" value="0" id="discount3" name="discount3"
 				data-options="min:0,precision:1,max:9.9" />折</span><span id="span34"
 			class="none">减免<input class="easyui-numberbox"
-				style="width: 70px" value="0" />元
+				id="reduceMoney3" name="reduceMoney3"
+				data-options="min:0,precision:2" style="width: 70px" value="0" />元
 		</span><span>=应收</span><span id="tuition1"></span><span>=实收</span><span><input
-				style="width: 70px;" type="text" readonly="readonly" /> </span> </span>
+				style="width: 70px;" type="text" id="realTuition3"
+				name="realTuition3" data-options="min:0,precision:2"
+				class="easyui-numberbox" /> </span> </span>
 		<div style="margin-top: 10px;" id="otherDiv2" class="none">
 			<label for="tuitionRemark2">学费备注:</label><input type="text"
 				style="width: 500px;" id="tuitionRemark2" />
 		</div>
 	</div>
-
 	<form id="form2">
 		<div style="margin: 30px auto; display: table;">
 			<div style="display: table-row;">
 				<div style="display: table-cell;">
-					总计:<span id="money"></span>元 <select name="payTypeCode"
+					总计:<span id="money">0</span>元 <select name="payTypeCode"
 						id="payTypeCode">
 						<option value="1">现金支付</option>
 						<option value="2">刷卡支付</option>
 						<option value="3">转账支付</option>
 						<option value="4">支票支付</option>
 						<option value="5">网络支付</option>
-					</select>=积分:<span id="points"></span>
+					</select>=积分:0<span id="points"></span>
 				</div>
 				<div style="display: table-cell;">
 					<label for="handleSchoolCode">|经办:</label><input

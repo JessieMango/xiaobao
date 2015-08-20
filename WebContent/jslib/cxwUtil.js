@@ -233,7 +233,7 @@ var tuitionChange = function(target) {
 var changeDiscountType = function(type, target) {
 	var val = $(target).val();
 	if (type == 1) {
-		if (val == 1) {
+		if (val == 1) { // 原价
 			if (!$("#span12").hasClass("none")) {
 				$("#span12").addClass("none");
 			}
@@ -243,7 +243,14 @@ var changeDiscountType = function(type, target) {
 			if (!$("#span14").hasClass("none")) {
 				$("#span14").addClass("none");
 			}
-		} else if (val == 2) {
+			$("#arrearage1").empty();
+			$("#tuition1").html($("#tu1").val());
+			$('#realTuition1').numberbox('setValue', $("#tuition1").html());
+
+			$("#money").html($('#realTuition1').numberbox('getValue'));
+			$("#points").html($('#realTuition1').numberbox('getValue'));
+
+		} else if (val == 2) { // 优惠
 			if ($("#span12").hasClass("none")) {
 				$("#span12").removeClass("none");
 			}
@@ -253,7 +260,14 @@ var changeDiscountType = function(type, target) {
 			if (!$("#span14").hasClass("none")) {
 				$("#span14").addClass("none");
 			}
-		} else if (val == 3) {
+			$("#arrearage1").empty();
+			$("#tuition1").html($("#tu1").val() - $("#preferntial1").val());
+			$('#realTuition1').numberbox('setValue', $("#tuition1").html());
+
+			$("#money").html($('#realTuition1').numberbox('getValue'));
+			$("#points").html($('#realTuition1').numberbox('getValue'));
+
+		} else if (val == 3) { // 折扣
 			if (!$("#span12").hasClass("none")) {
 				$("#span12").addClass("none");
 			}
@@ -263,7 +277,16 @@ var changeDiscountType = function(type, target) {
 			if (!$("#span14").hasClass("none")) {
 				$("#span14").addClass("none");
 			}
-		} else if (val == 4) {
+
+			$("#arrearage1").empty();
+
+			$("#tuition1").html($("#tu1").val());
+			$('#realTuition1').numberbox('setValue', $("#tuition1").html());
+
+			$("#money").html($('#realTuition1').numberbox('getValue'));
+			$("#points").html($('#realTuition1').numberbox('getValue'));
+
+		} else if (val == 4) { // 插班
 			if (!$("#span12").hasClass("none")) {
 				$("#span12").addClass("none");
 			}
@@ -273,6 +296,13 @@ var changeDiscountType = function(type, target) {
 			if ($("#span14").hasClass("none")) {
 				$("#span14").removeClass("none");
 			}
+			$("#arrearage1").empty();
+			$("#tuition1").html(
+					$("#tu1").val() - $("#reduceMoney1").numberbox('getValue'));
+			$('#realTuition1').numberbox('setValue', $("#tuition1").html());
+
+			$("#money").html($('#realTuition1').numberbox('getValue'));
+			$("#points").html($('#realTuition1').numberbox('getValue'));
 		}
 	}
 	if (type == 2) {
@@ -364,39 +394,20 @@ var changeDiscountType = function(type, target) {
 	}
 }
 
-/**
- * 报名时实交学费改变时
- */
-var balanceChange = function(type, target) {
-	if(type==1){
-		va = $(target).val() - $("#tuition1").html();
-		if(va > 0){
-			if($("#arrearage1").hasClass("none")){
-				$("#arrearage1").removeClass("none");
-			}
-			$("#arrearage1").empty();
-			$("#arrearage1").append("<span style='color:red;'>预存"+va+"元</span>");
-		}
-		if(va < 0){
-			if($("#arrearage1").hasClass("none")){
-				$("#arrearage1").removeClass("none");
-			}
-			$("#arrearage1").empty();
-			$("#arrearage1").append("<span style='color:red;'>欠费"+va+"元</span>");
-		}
-		if(va == 0){
-			if(!$("#arrearage1").hasClass("none")){
-				$("#arrearage1").addClass("none");
-			}
-		}
-		$("#money").html($(target).val());
-		$("#points").html($(target).val());
+// ------------验证非负数的数字
+var CheckNonNegativeNumber  = function CheckNonNegativeNumber(target) {
+	var Value = $(target).val();
+
+	if (isNaN(Value) || parseFloat(Value) < 0) {
+		alert("【必须输入大于或等于0的数字】");
+		$(target).focus();
 	}
 }
 
+
 /**
- * 报名时选择时优惠金额改变
+ * 报名时选择教材的数量发生变化时
  */
-var preferntialChange = function(type,target){
+var CalcShouldPay = function(){
 	
 }
