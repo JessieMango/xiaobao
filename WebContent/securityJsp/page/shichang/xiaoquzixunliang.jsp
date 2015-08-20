@@ -12,36 +12,39 @@
 <script type="text/javascript">
 	var submitForm = function() {
 		if ($('form').form('validate')) {
-			$
-					.post(
-							"getXiaoQuZiXunLiang",
-							cxw.serializeObject($('form')),
-							function(jsonData) {
+			$.post("getXiaoQuZiXunLiang", cxw.serializeObject($('form')),
+					function(jsonData) {
+						var ColumnResult = "[";
+						for (var i = 0; i < jsonData.series.data.length; i++) {
+							ColumnResult += ",{name:jsonData.series.data[" + i
+									+ "].name, data:[jsonData.series.data[" + i
+									+ "].y]}"
+						}
 
-								var datas = "[ {name : jsonData.series.data[0].name,data : [ jsonData.series.data[0].y ]}, {name : jsonData.series.data[1].name,data : [ jsonData.series.data[1].y ]	} ]";
-								var data1 = eval("(" + datas + ")");
-								$("#container").highcharts({
-									title : {
-										text : jsonData.title.text
-									},
+						ColumnResult = ColumnResult.replace(",", "");
+						ColumnResult += "]";
+						var datas = eval("(" + ColumnResult + ")")
 
-									series : [ {
-										type : 'pie',
-										name : jsonData.series.name,
-										data : jsonData.series.data
-									} ]
-
-								});
-								$("#container1").highcharts({
-									title : {
-										text : jsonData.title.text
-									},
-									chart : {
-										type : 'column'
-									},
-									series : data1
-								});
-							}, 'json');
+						$("#container").highcharts({
+							title : {
+								text : jsonData.title.text
+							},
+							series : [ {
+								type : 'pie',
+								name : jsonData.series.name,
+								data : jsonData.series.data
+							} ]
+						});
+						$("#container1").highcharts({
+							title : {
+								text : jsonData.title.text
+							},
+							chart : {
+								type : 'column'
+							},
+							series : datas
+						});
+					}, 'json');
 		}
 	}
 
@@ -53,14 +56,6 @@
 		$('#endtime').datebox({
 			required : true,
 			value : getCurrentDate()
-		});
-
-		$('#xiaoqu').combobox({
-			onLoadSuccess : function(data) {
-				if (data) {
-					$('#xiaoqu').combobox('setValue', data[0].schoolCode);
-				}
-			}
 		});
 
 		$("#btn_save").click(function() {
@@ -85,11 +80,8 @@
 					class="easyui-datebox" style="width: 200px;" required="required">
 				</td>
 				<td></td>
-				<td>校区：</td>
-				<td><input id="xiaoqu" name="xiaoqu" class="easyui-combobox"
-					data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools',required:true,editable:false,panelHeight:'auto',multiple:true" />
-				</td>
 				<td></td>
+
 				<td><a href="javascript:void(0);" id="btn_save"
 					class="easyui-linkbutton"
 					data-options="iconCls:'ext-icon-zoom',plain:true">查询</a></td>

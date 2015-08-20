@@ -3,7 +3,7 @@ package com.hqgj.xb.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hqgj.xb.bean.highcharts.pieCharts;
+import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.dao.MarketStatisticsDAO;
 import com.hqgj.xb.service.MarketStatisticsService;
 
@@ -16,8 +16,41 @@ public class MarketStatisticsServiceImpl implements MarketStatisticsService {
 	@Autowired
 	private MarketStatisticsDAO marketStatisticsDAO;
 	@Override
-	public pieCharts getXiaoQuZiXunLiang(String starttime,String endtime,String xiaoqu) {
-		return marketStatisticsDAO.getXiaoQuZiXunLiang( starttime, endtime, xiaoqu);
+	public Charts getXiaoQuZiXunLiang(String starttime,String endtime) {
+		return marketStatisticsDAO.getXiaoQuZiXunLiang( starttime, endtime);
 	}
+	@Override
+	public Charts getZiXunXiaoShouYuan(String starttime, String endtime) {
+		return marketStatisticsDAO.getZiXunXiaoShouYuan(starttime,endtime);
+	}
+	@Override
+	public Charts getZiXunLaiYuan(String starttime, String endtime) {
+		return marketStatisticsDAO.getZiXunLaiYuan(starttime, endtime);
+	}
+	@Override
+	public Charts getBaoMingLaiYuan(String starttime, String endtime) {
+		return marketStatisticsDAO.getBaoMingLaiYuan(starttime, endtime);
+	}
+	@Override
+	public Charts getBaoMingXiaoShouYuan(String starttime, String endtime) {
+		return marketStatisticsDAO.getBaoMingXiaoShouYuan(starttime, endtime);
+	}
+	@Override
+	public Charts getGongLiXueXiao(String starttime, String endtime) {
+		return marketStatisticsDAO.getGongLiXueXiao(starttime, endtime);
+	}
+	@Override
+	public Charts getJuZhuQuYu(String starttime, String endtime) {
+		return marketStatisticsDAO.getJuZhuQuYu(starttime, endtime);
+	}
+	@Override
+	public Charts getXueShengNianLing(String starttime, String endtime) {
+		return marketStatisticsDAO.getXueShengNianLing(starttime, endtime);
+	}
+	@Override
+	public Charts getMeiYueXinSheng(String starttime, String endtime) {
+		return marketStatisticsDAO.getMeiYueXinSheng(starttime, endtime);
+	}
+	
 
 }

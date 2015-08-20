@@ -1,6 +1,7 @@
 package com.hqgj.xb.service;
 
-import com.hqgj.xb.bean.highcharts.pieCharts;
+
+import com.hqgj.xb.bean.highcharts.Charts;
 
 /**
  * @author 鲁宗豪
@@ -9,6 +10,15 @@ import com.hqgj.xb.bean.highcharts.pieCharts;
 public interface MarketStatisticsService {
 	
 	
-	public pieCharts getXiaoQuZiXunLiang(String starttime,String endtime,String xiaoqu);
-
+	public Charts getXiaoQuZiXunLiang(String starttime,String endtime);
+	public Charts getZiXunXiaoShouYuan(String starttime,String endtime);
+	public Charts getZiXunLaiYuan (String starttime,String endtime);
+	public Charts getBaoMingLaiYuan(String starttime,String endtime);
+	public Charts getBaoMingXiaoShouYuan(String starttime,String endtime);
+	public Charts getGongLiXueXiao(String starttime,String endtime);
+	public Charts getJuZhuQuYu(String starttime,String endtime);
+	public Charts getXueShengNianLing(String starttime,String endtime);
+	public Charts getMeiYueXinSheng(String starttime,String endtime);
+	
+	
 }

@@ -393,3 +393,10 @@ var balanceChange = function(type, target) {
 		$("#points").html($(target).val());
 	}
 }
+
+/**
+ * 报名时选择时优惠金额改变
+ */
+var preferntialChange = function(type,target){
+	
+}

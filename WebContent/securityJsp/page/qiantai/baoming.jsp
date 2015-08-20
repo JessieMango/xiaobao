@@ -286,7 +286,7 @@ input[type='text'] {
 				<option value="2">优惠</option>
 				<option value="3">折扣</option>
 				<option value="4">插班</option>
-		</select><span id="span12" class="none"><input class="easyui-numberbox"
+		</select><span id="span12" class="none"><input class="easyui-numberbox" onkeyup="preferntialChange(1,this);"
 				style="width: 70px" value="0" />元</span><span id="span13" class="none"><input
 				class="easyui-numberbox" style="width: 70px;" value="0"
 				data-options="min:0,precision:1,max:9.9" />折</span><span id="span14"
