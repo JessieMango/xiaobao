@@ -6,7 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>每月新生</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
-<jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
 var submitForm = function() {
 	if ($('form').form('validate')) {
@@ -19,7 +18,7 @@ var submitForm = function() {
                    chart:{
                    	type:'column'
                    	},
-                   series:jsonData
+                   series:jsonData.diagramseries
                    });
 	})}};
 	
@@ -40,7 +39,6 @@ var submitForm = function() {
 	<table>
 		<tr>
 			<td>统计年度：</td>
-			
 			<td>
 			<select name="statisticalYear" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 100px;">
 				<option value="2015">2015</option>
