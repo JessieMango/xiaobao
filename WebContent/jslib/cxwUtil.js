@@ -407,7 +407,11 @@ var CheckNonNegativeNumber  = function CheckNonNegativeNumber(target) {
 
 /**
  * 报名时选择教材的数量发生变化时
+ * type 1表示选择第一个班级 2表示第二个班级 3表示第三个班级
  */
-var CalcShouldPay = function(){
-	
+var CalcShouldPay = function(type,price){
+	alert(price);
+	if(type == 1){
+		
+	}
 }

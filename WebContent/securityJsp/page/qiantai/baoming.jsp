@@ -81,7 +81,7 @@ input[type='text'] {
 					}
 					$("#tf11").empty();
 					$(result).each(function(index,data){
-						$("#tf11").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num11" id="num11" onkeyup="CalcShouldPay(1);" onblur="CheckNonNegativeNumber(this);"  style="width:70px;" value="0" ">&nbsp;');
+						$("#tf11").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num11" id="num11" onkeyup="CalcShouldPay(1,'+data.price+');" onblur="CheckNonNegativeNumber(this);"  style="width:70px;" value="0" ">&nbsp;');
 					});
 				}
 				if(type2 == 0){
@@ -96,7 +96,7 @@ input[type='text'] {
 					}
 					$("#tf12").empty();
 					$(result).each(function(index,data){
-						$("#tf12").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num12" id="num12" class="easyui-numberbox" style="width:70px;" value="0" data-options="min:0,precision:0">&nbsp;');
+						$("#tf12").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num12" id="num12"  style="width:70px;" value="0" >&nbsp;');
 					});
 				}
 				if(type2 == 2){
@@ -111,7 +111,7 @@ input[type='text'] {
 					}
 					$("#tf13").empty();
 					$(result).each(function(index,data){
-						$("#tf13").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num13" id="num13" class="easyui-numberbox" style="width:70px;" value="0" data-options="min:0,precision:0">&nbsp;');
+						$("#tf13").append(data.nameM + '￥<span><b>'+data.price+'</b></span><input type="text" name="num13" id="num13" style="width:70px;" value="0" >&nbsp;');
 					});
 				}
 			});
