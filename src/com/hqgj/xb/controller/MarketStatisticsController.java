@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.hqgj.xb.bean.highcharts.Charts;
+import com.hqgj.xb.bean.highcharts.ChartsList;
+import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.service.MarketStatisticsService;
 
 /**
@@ -63,8 +65,21 @@ public class MarketStatisticsController {
 	}
 	
 	@RequestMapping(value = "/shichang/getMeiYueXinSheng", method = RequestMethod.POST)
-	public @ResponseBody Charts getMeiYueXinSheng(String starttime,String endtime) {
-		return marketStatisticsService.getMeiYueXinSheng( starttime, endtime);
+	public @ResponseBody DiagramCharts getMeiYueXinSheng(String statisticalYear) {
+		return marketStatisticsService.getMeiYueXinSheng( statisticalYear);
 	}
+	@RequestMapping(value = "/shichang/getZiXunLaiYuanQuShi", method = RequestMethod.POST)
+	public @ResponseBody DiagramCharts getZiXunLaiYuanQuShi(String statisticalYear) {
+		return marketStatisticsService.getZiXunLaiYuanQuShi(statisticalYear);
+	}
+	@RequestMapping(value = "/shichang/getQianTaiBaoMingLiang", method = RequestMethod.POST)
+	public @ResponseBody ChartsList getQianTaiBaoMingLiang(String starttime,String endtime,String studentType) {
+		return marketStatisticsService.getQianTaiBaoMingLiang(starttime,endtime,studentType);
+	}
+	@RequestMapping(value = "/shichang/getBaoMingLaiYuanQuShi", method = RequestMethod.POST)
+	public @ResponseBody DiagramCharts getBaoMingLaiYuanQuShi(String statisticalYear) {
+		return marketStatisticsService.getBaoMingLaiYuanQuShi(statisticalYear);
+	}
+	
 	
 }
