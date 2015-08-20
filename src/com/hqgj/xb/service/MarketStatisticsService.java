@@ -1,7 +1,7 @@
 package com.hqgj.xb.service;
-
-
 import com.hqgj.xb.bean.highcharts.Charts;
+import com.hqgj.xb.bean.highcharts.ChartsList;
+import com.hqgj.xb.bean.highcharts.DiagramCharts;
 
 /**
  * @author 鲁宗豪
@@ -18,7 +18,8 @@ public interface MarketStatisticsService {
 	public Charts getGongLiXueXiao(String starttime,String endtime);
 	public Charts getJuZhuQuYu(String starttime,String endtime);
 	public Charts getXueShengNianLing(String starttime,String endtime);
-	public Charts getMeiYueXinSheng(String starttime,String endtime);
-	
-	
+	public DiagramCharts getMeiYueXinSheng(String statisticalYear);
+	public DiagramCharts getZiXunLaiYuanQuShi(String statisticalYear);
+	public ChartsList getQianTaiBaoMingLiang(String starttime,String endtime,String studentType); 
+	public DiagramCharts getBaoMingLaiYuanQuShi(String statisticalYear);
 }

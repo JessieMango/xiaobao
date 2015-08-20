@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.highcharts.Charts;
+import com.hqgj.xb.bean.highcharts.ChartsList;
+import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.dao.MarketStatisticsDAO;
 import com.hqgj.xb.service.MarketStatisticsService;
 
@@ -47,9 +49,23 @@ public class MarketStatisticsServiceImpl implements MarketStatisticsService {
 	public Charts getXueShengNianLing(String starttime, String endtime) {
 		return marketStatisticsDAO.getXueShengNianLing(starttime, endtime);
 	}
+	
 	@Override
-	public Charts getMeiYueXinSheng(String starttime, String endtime) {
-		return marketStatisticsDAO.getMeiYueXinSheng(starttime, endtime);
+	public ChartsList getQianTaiBaoMingLiang(String starttime,
+			String endtime, String studentType) {
+		return marketStatisticsDAO.getQianTaiBaoMingLiang(starttime, endtime, studentType);
+	}
+	@Override
+	public DiagramCharts getBaoMingLaiYuanQuShi(String statisticalYear) {
+		return marketStatisticsDAO.getBaoMingLaiYuanQuShi(statisticalYear);
+	}
+	@Override
+	public DiagramCharts getMeiYueXinSheng(String statisticalYear) {
+		return marketStatisticsDAO.getMeiYueXinSheng(statisticalYear);
+	}
+	@Override
+	public DiagramCharts getZiXunLaiYuanQuShi(String statisticalYear) {
+		return marketStatisticsDAO.getZiXunLaiYuanQuShi(statisticalYear);
 	}
 	
 
