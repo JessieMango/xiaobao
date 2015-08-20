@@ -51,12 +51,12 @@ input[type='text'] {
 </style>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
+	
 	var init = function() {
 		
 		if("<%=courseCode1%>" == ""){
 			$("#classDiv1").addClass("none");
 		}else{
-			$("#classDiv1").addClass("row");
 			$("#span1").html("<%=courseName1%>");
 			$('#classCode1').combobox({
 				url : 'getClassSByCourseCode?courseCode='+'<%=courseCode1%>',
@@ -68,13 +68,35 @@ input[type='text'] {
 					if (data[0]) {
 						$('#classCode1').combobox('setValue', data[0].classCode);
 					}
+				},
+				onSelect : function(data) {
+					if(data){
+						if(data.classCode != "qb"){ //如果选中班级
+							if($("#otherSpan1").hasClass("none")){
+								$("#otherSpan1").removeClass("none")
+							}
+							if($("#otherDiv1").hasClass("none")){
+								$("#otherDiv1").removeClass("none")
+							}
+							$("#tuition1").html(data.tuition);
+							$("#realTuition1").val(data.tuition);
+							$("#money").html(data.tuition);
+							$("#points").html(data.tuition);
+						}else{
+							if(!$("#otherSpan1").hasClass("none")){
+								$("#otherSpan1").addClass("none")
+							}
+							if(!$("#otherDiv1").hasClass("none")){
+								$("#otherDiv1").addClass("none")
+							}
+						}
+					}
 				}
 			});
 		}
 		if("<%=courseCode2%>" == ""){
 			$("#classDiv2").addClass("none");
 		}else{
-			$("#classDiv2").addClass("row");
 			$("#span2").html("<%=courseName2%>");
 			$('#classCode2').combobox({
 				url : 'getClassSByCourseCode?courseCode='+'<%=courseCode2%>',
@@ -86,13 +108,31 @@ input[type='text'] {
 					if (data[0]) {
 						$('#classCode2').combobox('setValue', data[0].classCode);
 					}
+				},
+				onSelect : function(data) {
+					if(data){
+						if(data.classCode != "qb"){
+							if($("#otherSpan2").hasClass("none")){
+								$("#otherSpan2").removeClass("none")
+							}
+							if($("#otherDiv2").hasClass("none")){
+								$("#otherDiv2").removeClass("none")
+							}
+						}else{
+							if(!$("#otherSpan2").hasClass("none")){
+								$("#otherSpan2").addClass("none")
+							}
+							if(!$("#otherDiv2").hasClass("none")){
+								$("#otherDiv2").addClass("none")
+							}
+						}
+					}
 				}
 			});
 		}
 		if("<%=courseCode3%>" == "") {
 			$("#classDiv3").addClass("none");
 		}else{
-			$("#classDiv3").addClass("row");
 			$("#span3").html("<%=courseName3%>");
 			$('#classCode3').combobox({
 				url : 'getClassSByCourseCode?courseCode='+'<%=courseCode3%>',
@@ -105,6 +145,25 @@ input[type='text'] {
 								$('#classCode3').combobox('setValue',
 										data[0].classCode);
 							}
+						},
+						onSelect : function(data) {
+							if(data){
+								if(data.classCode != "qb"){
+									if($("#otherSpan3").hasClass("none")){
+										$("#otherSpan3").removeClass("none")
+									}
+									if($("#otherDiv3").hasClass("none")){
+										$("#otherDiv3").removeClass("none")
+									}
+								}else{
+									if(!$("#otherSpan3").hasClass("none")){
+										$("#otherSpan3").addClass("none")
+									}
+									if(!$("#otherDiv3").hasClass("none")){
+										$("#otherDiv3").addClass("none")
+									}
+								}
+							}
 						}
 					});
 		}
@@ -113,7 +172,6 @@ input[type='text'] {
 			
 		});
 	}
-
 	$(document).ready(function() {
 		init();
 		if(<%=flag%>){
@@ -214,47 +272,109 @@ input[type='text'] {
 			</div>
 		</div>
 	</form>
-	<div style="margin: 60px auto; display: table;">
-		<div style="text-align: center;" id="classDiv1">
-			<span id="span1" style="display: table-cell;"></span><input
-				type="text" id="classCode1" name="classCode"
-				style="width: 400px; display: table-cell;" class="easyui-combobox" /><a
-				style="display: table-cell;"
-				href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
-				target="_blank"><button>新建</button></a>
+
+	<div id="classDiv1" style="text-align: center; margin-top: 30px;">
+		<span id="span1"
+			style="width: 200px; height: auto; display: inline-block; text-align: right;"></span><input
+			type="text" id="classCode1" name="classCode" style="width: 400px;"
+			class="easyui-combobox" /><a
+			href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
+			target="_blank"><button>新建</button></a><span id="otherSpan1" class="none"><select
+			onchange="changeDiscountType(1,this);" name="discountType"
+			id="discountType">
+				<option value="1">原价</option>
+				<option value="2">优惠</option>
+				<option value="3">折扣</option>
+				<option value="4">插班</option>
+		</select><span id="span12" class="none"><input class="easyui-numberbox"
+				style="width: 70px" value="0" />元</span><span id="span13" class="none"><input
+				class="easyui-numberbox" style="width: 70px;" value="0"
+				data-options="min:0,precision:1,max:9.9" />折</span><span id="span14"
+			class="none">减免<input class="easyui-numberbox"
+				style="width: 70px" value="0" />元
+		</span><span>=应收</span><span id="tuition1"></span><span>=实收</span><span><input
+				style="width: 70px;" type="text" id="realTuition1" onkeyup="balanceChange(1,this);"/> </span> </span>
+		<div style="margin-top: 10px;" id="otherDiv1" class="none">
+			<label for="tuitionRemark1">学费备注:</label><input type="text"
+				style="width: 500px;" id="tuitionRemark1" />
 		</div>
-		<br />
-		<div style="text-align: center;" id="classDiv2">
-			<span id="span2" style="display: table-cell;"></span><input
-				type="text" id="classCode2" name="classCode2"
-				style="width: 400px; display: table-cell;" class="easyui-combobox" /><a
-				style="display: table-cell;"
-				href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
-				target="_blank"><button>新建</button></a>
-		</div>
-		<br />
-		<div style="text-align: center;" id="classDiv3">
-			<span id="span3" style="display: table-cell;"></span><input
-				type="text" id="classCode3" name="classCode3"
-				style="width: 400px; display: table-cell;" class="easyui-combobox" /><a
-				style="display: table-cell;"
-				href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
-				target="_blank"><button>新建</button></a>
+		<div style="margin-top: 10px;" id="arrearage1"></div>
+	</div>
+
+	<div style="text-align: center; margin-top: 30px;" id="classDiv2">
+		<span id="span2"
+			style="width: 200px; height: auto; display: inline-block; text-align: right;"></span><input
+			type="text" id="classCode2" name="classCode2" style="width: 400px;"
+			class="easyui-combobox" /><a
+			href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
+			target="_blank"><button>新建</button></a><span id="otherSpan2" class="none"><select
+			onchange="changeDiscountType(2,this);" name="discountType"
+			id="discountType">
+				<option value="1">原价</option>
+				<option value="2">优惠</option>
+				<option value="3">折扣</option>
+				<option value="4">插班</option>
+		</select><span id="span22" class="none"><input class="easyui-numberbox"
+				style="width: 70px" value="0" />元</span><span id="span23" class="none"><input
+				class="easyui-numberbox" style="width: 70px" value="0"
+				data-options="min:0,precision:1,max:9.9" />折</span><span id="span24"
+			class="none">减免<input class="easyui-numberbox"
+				style="width: 70px" value="0" />元
+		</span><span>=应收</span><span id="tuition1"></span><span>=实收</span><span><input
+				style="width: 70px;" type="text" readonly="readonly" /> </span> </span>
+		<div style="margin-top: 10px;" id="otherDiv2" class="none">
+			<label for="tuitionRemark2">学费备注:</label><input type="text"
+				style="width: 500px;" id="tuitionRemark2" />
 		</div>
 	</div>
+
+
+	<div style="text-align: center; margin-top: 30px;" id="classDiv3">
+		<span id="span3"
+			style="width: 200px; height: auto; display: inline-block; text-align: right;"></span><input
+			type="text" id="classCode3" name="classCode3" style="width: 400px;"
+			class="easyui-combobox" /><a
+			href="<%=basePath%>/securityJsp/page/jiaowu/xinjianbanji.jsp"
+			target="_blank"><button>新建</button></a><span id="otherSpan3" class="none"><select
+			onchange="changeDiscountType(3,this);" name="discountType"
+			id="discountType">
+				<option value="1">原价</option>
+				<option value="2">优惠</option>
+				<option value="3">折扣</option>
+				<option value="4">插班</option>
+		</select><span id="span32" class="none"><input class="easyui-numberbox"
+				style="width: 70px" value="0" />元</span><span id="span33" class="none"><input
+				class="easyui-numberbox" style="width: 70px" value="0"
+				data-options="min:0,precision:1,max:9.9" />折</span><span id="span34"
+			class="none">减免<input class="easyui-numberbox"
+				style="width: 70px" value="0" />元
+		</span><span>=应收</span><span id="tuition1"></span><span>=实收</span><span><input
+				style="width: 70px;" type="text" readonly="readonly" /> </span> </span>
+		<div style="margin-top: 10px;" id="otherDiv2" class="none">
+			<label for="tuitionRemark2">学费备注:</label><input type="text"
+				style="width: 500px;" id="tuitionRemark2" />
+		</div>
+	</div>
+
 	<form id="form2">
 		<div style="margin: 30px auto; display: table;">
 			<div style="display: table-row;">
 				<div style="display: table-cell;">
-					总计:<span id="money"></span>元<input type="text" id="payCode"
-						name="payCode" style="width: 100px;" class="easyui-combobox" />
+					总计:<span id="money"></span>元 <select name="payTypeCode"
+						id="payTypeCode">
+						<option value="1">现金支付</option>
+						<option value="2">刷卡支付</option>
+						<option value="3">转账支付</option>
+						<option value="4">支票支付</option>
+						<option value="5">网络支付</option>
+					</select>=积分:<span id="points"></span>
 				</div>
 				<div style="display: table-cell;">
-					<label for="handleSchoolCode">经办:</label><input
+					<label for="handleSchoolCode">|经办:</label><input
 						id="handleSchoolCode" class="easyui-combobox"
 						style="width: 100px;" name="handleSchoolCode"
 						data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools',panelHeight:'auto',editable:false" />
-				</div>
+				</div>&nbsp;&nbsp;
 				<div style="display: table-cell;">
 					<label for="sellSourceCode">销售来源:</label><input
 						class="easyui-combobox" name="sellSourceCode" id="sellSourceCode"
@@ -264,7 +384,7 @@ input[type='text'] {
 				<div style="display: table-cell;">
 					<label for="sellerCode">销售员:</label><input class="easyui-combobox"
 						id="sellerCode" name="sellerCode" style="width: 100px;"
-						data-options="valueField:'sellerCode',textField:'seller',url:'getSeller',panelHeight:'auto' " />
+						data-options="valueField:'sellerCode',textField:'seller',url:'getSeller',panelHeight:'auto' " />&nbsp;&nbsp;
 				</div>
 				<div style="display: table-cell;">
 					<label for="enrollDate">报名日期:</label><input type="text"

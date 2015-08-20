@@ -112,7 +112,9 @@ var ChangeTimigWeekday = function(dom, num) {
 		}
 	}
 }
-
+/**
+ * 班级编辑时加载上课时间
+ */
 var loadTimigWeekday = function(timeSpan) {
 	var num = timeSpan.length;
 	for (var i = 0; i < num; i++) {
@@ -133,7 +135,9 @@ var loadTimigWeekday = function(timeSpan) {
 		}
 	}
 }
-
+/**
+ * 新建班级时选择不同收费模式时显示对应div
+ */
 var tuitionDivChange = function(target) {
 	if (target == 1) {
 		$("#tuitionSpan2").addClass("none");
@@ -154,6 +158,9 @@ var tuitionDivChange = function(target) {
 		$("#tuitionType3").attr("checked", "true");
 	}
 }
+/**
+ * 新建班级时选择不同收费模式时显示对应span
+ */
 var tuitionChange = function(target) {
 	if (target == 1) {
 		if ($("#tuitionSpanTerm").hasClass("none")) {
@@ -218,4 +225,171 @@ var tuitionChange = function(target) {
 		}
 	}
 
+}
+
+/**
+ * 报名时选择不同的优惠方式显示对应信息
+ */
+var changeDiscountType = function(type, target) {
+	var val = $(target).val();
+	if (type == 1) {
+		if (val == 1) {
+			if (!$("#span12").hasClass("none")) {
+				$("#span12").addClass("none");
+			}
+			if (!$("#span13").hasClass("none")) {
+				$("#span13").addClass("none");
+			}
+			if (!$("#span14").hasClass("none")) {
+				$("#span14").addClass("none");
+			}
+		} else if (val == 2) {
+			if ($("#span12").hasClass("none")) {
+				$("#span12").removeClass("none");
+			}
+			if (!$("#span13").hasClass("none")) {
+				$("#span13").addClass("none");
+			}
+			if (!$("#span14").hasClass("none")) {
+				$("#span14").addClass("none");
+			}
+		} else if (val == 3) {
+			if (!$("#span12").hasClass("none")) {
+				$("#span12").addClass("none");
+			}
+			if ($("#span13").hasClass("none")) {
+				$("#span13").removeClass("none");
+			}
+			if (!$("#span14").hasClass("none")) {
+				$("#span14").addClass("none");
+			}
+		} else if (val == 4) {
+			if (!$("#span12").hasClass("none")) {
+				$("#span12").addClass("none");
+			}
+			if (!$("#span13").hasClass("none")) {
+				$("#span13").addClass("none");
+			}
+			if ($("#span14").hasClass("none")) {
+				$("#span14").removeClass("none");
+			}
+		}
+	}
+	if (type == 2) {
+		if (val == 1) {
+			if (!$("#span22").hasClass("none")) {
+				$("#span22").addClass("none");
+			}
+			if (!$("#span23").hasClass("none")) {
+				$("#span23").addClass("none");
+			}
+			if (!$("#span24").hasClass("none")) {
+				$("#span24").addClass("none");
+			}
+		} else if (val == 2) {
+			if ($("#span22").hasClass("none")) {
+				$("#span22").removeClass("none");
+			}
+			if (!$("#span23").hasClass("none")) {
+				$("#span23").addClass("none");
+			}
+			if (!$("#span24").hasClass("none")) {
+				$("#span24").addClass("none");
+			}
+		} else if (val == 3) {
+			if (!$("#span22").hasClass("none")) {
+				$("#span22").addClass("none");
+			}
+			if ($("#span23").hasClass("none")) {
+				$("#span23").removeClass("none");
+			}
+			if (!$("#span24").hasClass("none")) {
+				$("#span24").addClass("none");
+			}
+		} else if (val == 4) {
+			if (!$("#span22").hasClass("none")) {
+				$("#span22").addClass("none");
+			}
+			if (!$("#span23").hasClass("none")) {
+				$("#span23").addClass("none");
+			}
+			if ($("#span24").hasClass("none")) {
+				$("#span24").removeClass("none");
+			}
+		}
+	}
+
+	if (type == 3) {
+		if (val == 1) {
+			if (!$("#span32").hasClass("none")) {
+				$("#span32").addClass("none");
+			}
+			if (!$("#span33").hasClass("none")) {
+				$("#span33").addClass("none");
+			}
+			if (!$("#span34").hasClass("none")) {
+				$("#span34").addClass("none");
+			}
+		} else if (val == 2) {
+			if ($("#span32").hasClass("none")) {
+				$("#span32").removeClass("none");
+			}
+			if (!$("#span33").hasClass("none")) {
+				$("#span33").addClass("none");
+			}
+			if (!$("#span34").hasClass("none")) {
+				$("#span34").addClass("none");
+			}
+		} else if (val == 3) {
+			if (!$("#span32").hasClass("none")) {
+				$("#span32").addClass("none");
+			}
+			if ($("#span33").hasClass("none")) {
+				$("#span33").removeClass("none");
+			}
+			if (!$("#span34").hasClass("none")) {
+				$("#span34").addClass("none");
+			}
+		} else if (val == 4) {
+			if (!$("#span32").hasClass("none")) {
+				$("#span32").addClass("none");
+			}
+			if (!$("#span33").hasClass("none")) {
+				$("#span33").addClass("none");
+			}
+			if ($("#span34").hasClass("none")) {
+				$("#span34").removeClass("none");
+			}
+		}
+	}
+}
+
+/**
+ * 报名时实交学费改变时
+ */
+var balanceChange = function(type, target) {
+	if(type==1){
+		va = $(target).val() - $("#tuition1").html();
+		if(va > 0){
+			if($("#arrearage1").hasClass("none")){
+				$("#arrearage1").removeClass("none");
+			}
+			$("#arrearage1").empty();
+			$("#arrearage1").append("<span style='color:red;'>预存"+va+"元</span>");
+		}
+		if(va < 0){
+			if($("#arrearage1").hasClass("none")){
+				$("#arrearage1").removeClass("none");
+			}
+			$("#arrearage1").empty();
+			$("#arrearage1").append("<span style='color:red;'>欠费"+va+"元</span>");
+		}
+		if(va == 0){
+			if(!$("#arrearage1").hasClass("none")){
+				$("#arrearage1").addClass("none");
+			}
+		}
+		$("#money").html($(target).val());
+		$("#points").html($(target).val());
+	}
 }

@@ -793,21 +793,22 @@ public class ClassSDAOImpl implements ClassSDAO {
 			}
 		}
 		for (ClassS cS : results) {
+			String startDate = "", tuition = "";
 			if (StringUtils.equals("1", cS.getDateUndetermined())) {
-				cS.setStartDate("开班日期待定 ");
+				startDate = "开班日期待定 ";
 			} else {
-				cS.setStartDate(cS.getStartDate() + "开班 ");
+				startDate = cS.getStartDate() + "开班 ";
 			}
 			if (StringUtils.equals(cS.getTuitionType(), "1")) {
-				cS.setTuition("￥" + cS.getTuition() + "/期");
+				tuition = "/期";
 			} else if (StringUtils.equals(cS.getTuitionType(), "2")) {
-				cS.setTuition("￥" + cS.getTuition() + "/次");
+				tuition = "/次";
 			} else if (StringUtils.equals(cS.getTuitionType(), "3")) {
-				cS.setTuition("￥" + cS.getTuition() + "/月");
+				tuition = "/月";
 			}
-			cS.setNameM(cS.getSchoolName() + "> " + cS.getStartDate()
-					+ cS.getTeacherName() + "●" + cS.getTuition() + "●"
-					+ cS.getNameM() + "●" + cS.getWeekString());
+			cS.setNameM(cS.getSchoolName() + "> " + startDate
+					+ cS.getTeacherName() + "●" + "￥" + cS.getTuition()
+					+ tuition + "●" + cS.getNameM() + "●" + cS.getWeekString());
 		}
 		ClassS tc = new ClassS();
 		tc.setClassCode("qb");
