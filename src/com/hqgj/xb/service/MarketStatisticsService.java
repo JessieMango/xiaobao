@@ -8,8 +8,6 @@ import com.hqgj.xb.bean.highcharts.DiagramCharts;
  * @datetime 2015年8月17日 下午4:39:23
  */
 public interface MarketStatisticsService {
-	
-	
 	public Charts getXiaoQuZiXunLiang(String starttime,String endtime);
 	public Charts getZiXunXiaoShouYuan(String starttime,String endtime);
 	public Charts getZiXunLaiYuan (String starttime,String endtime);
