@@ -27,7 +27,7 @@ public class TextBookFeeController {
 	@Autowired
 	private TextBookFeeService textBookFeeService;
 
-	@RequestMapping(value = "/xitong/getAllTextBookFees", method = RequestMethod.POST)
+	@RequestMapping(value = {"/xitong/getAllTextBookFees","/caiwu/getAllTextBookFees"}, method = RequestMethod.POST)
 	public @ResponseBody List<TextBookFee> getAllTextBookFees(String type) {
 		return textBookFeeService.getAllTextBookFees(type);
 	}
@@ -54,7 +54,7 @@ public class TextBookFeeController {
 		return json;
 	}
 	
-	@RequestMapping(value = "/xitong/deleteTextBookFee", method = RequestMethod.POST)
+	@RequestMapping(value = {"/xitong/deleteTextBookFee","/caiwu/deleteTextBookFee"}, method = RequestMethod.POST)
 	public @ResponseBody Json deleteTextBookFee(String id) {
 		Json json = new Json();
 		if (0 != textBookFeeService.deleteTextBookFee(id)) {

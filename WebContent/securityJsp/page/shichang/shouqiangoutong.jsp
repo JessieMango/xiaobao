@@ -218,7 +218,7 @@ a {
 						<label>沟通日期</label> &nbsp;&nbsp;&nbsp;<input type="text"
 							id="startTime" name="startTime" style="width: 100px;"
 							class="easyui-datebox"
-							data-options="required:true,value:'getCurrentDate();'" />到<input
+							data-options="required:true,value:'getPreOneMonths();'" />到<input
 							style="width: 100px;" type="text" id="endTime" name="endTime"
 							class="easyui-datebox"
 							data-options="required:true,value:'getCurrentDate();'" />&nbsp;&nbsp;
