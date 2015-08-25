@@ -1,8 +1,12 @@
 package com.hqgj.xb.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hqgj.xb.bean.Dictionary;
+import com.hqgj.xb.bean.ExpenseAccount;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
@@ -18,6 +22,72 @@ public class FinancialStatisticsServiceImpl implements
 		FinancialStatisticsService {
 	@Autowired
 	private FinancialStatisticsDAO  financialStatisticsDAO;
+	@Override
+	public int addExpenseAccount(ExpenseAccount expenseAccount) {
+		// TODO Auto-generated method stub
+		return financialStatisticsDAO.addExpenseAccount(expenseAccount);
+	}
+
+	@Override
+	public ExpenseAccount getExpenseAccountById(String id) {
+		// TODO Auto-generated method stub
+		return financialStatisticsDAO.getExpenseAccountById(id);
+	}
+
+	@Override
+	public int updateExpenseAccount(ExpenseAccount expenseAccount) {
+		// TODO Auto-generated method stub
+		return financialStatisticsDAO.updateExpenseAccount(expenseAccount);
+	}
+	@Override
+	public int deleteExpenseAccount(String id) {
+		// TODO Auto-generated method stub
+		return financialStatisticsDAO.deleteExpenseAccount(id);
+	}
+
+	@Override
+	public Grid getExpenseAccount(ExpenseAccount expenseAccount) {
+		// TODO Auto-generated method stub
+		return financialStatisticsDAO.getExpenseAccount(expenseAccount);
+	}
+
+	@Override
+	public List<Dictionary> getAllExpenditure(String type) {
+		// TODO Auto-generated method stub
+		return financialStatisticsDAO.getAllExpenditure(type);
+	}
+
+	@Override
+	public List<Dictionary> getAllExpenditureProject(String type) {
+		// TODO Auto-generated method stub
+		return financialStatisticsDAO.getAllExpenditureProject(type);
+	}
+
+	@Override
+	public List<Dictionary> getAllDHandler(String type) {
+		// TODO Auto-generated method stub
+		return financialStatisticsDAO.getAllDHandler(type);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public Grid getLiuShuiZhang() {
@@ -53,6 +123,10 @@ public class FinancialStatisticsServiceImpl implements
 	public Charts getTuiFeiAnKeCheng(String starttime, String endtime) {
 		return financialStatisticsDAO.getTuiFeiAnKeCheng(starttime, endtime);
 	}
+
+	
+
+	
 	
 
 }

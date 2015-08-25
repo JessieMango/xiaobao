@@ -23,7 +23,7 @@ input[type='text']{
 <script type="text/javascript">
 	var grid;
 	var deleteFun = function(id) {
-		$.post("deleteConsult", {
+		$.post("deletePaymentRecord", {
 			id : id
 		}, function(result) {
 			if (result.success) {
@@ -35,7 +35,7 @@ input[type='text']{
 		});
 	}
 
-	var addFun = function(id) {
+/* 	var addFun = function(id) {
 		window.location.href = 'addCommunication.jsp?id=' + id;
 	}
 
@@ -45,7 +45,7 @@ input[type='text']{
 	
 	var enrollFun = function(id){
 		window.location.href = 'xinshengbaodao.jsp?id=' + id;
-	}
+	} */
 	
 	/* 初始化页面 */
 	function init() {
@@ -126,7 +126,7 @@ input[type='text']{
 		grid = $('#grid')
 				.datagrid(
 						{
-							url : 'getConsult',
+							url : 'getPaymentRecord',
 							striped : true,
 							pagination : true,
 							rownumbers : true,
@@ -145,6 +145,21 @@ input[type='text']{
 										align : 'center'
 
 									},
+									{
+										field : 'id',
+										title : '交易号',
+										width : "5%",
+										align : 'center'
+
+									},
+									{
+										field : '',
+										title : '操作',
+										width : "5%",
+										align : 'center'
+
+									},
+									
 									{
 										field : 'gender',
 										title : '性别',
@@ -328,7 +343,7 @@ input[type='text']{
 				<div style="text-align: center;">
 					<b><label for="nameM">学员完整姓名</label></b><input type="text"
 						name="nameM" class="easyui-validatebox" />&nbsp; <b><label
-						for="telTail">学员电话尾号</label></b><input type="text" name="telTail"
+						for="telTail">交易号</label></b><input type="text" name="tradingNumber"
 						class="easyui-validatebox" />&nbsp; <a href="javascript:void(0);"
 						class="easyui-linkbutton"
 						data-options="iconCls:'ext-icon-zoom',plain:true"

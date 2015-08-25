@@ -1,12 +1,19 @@
 package com.hqgj.xb.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hqgj.xb.bean.Dictionary;
+import com.hqgj.xb.bean.ExpenseAccount;
+import com.hqgj.xb.bean.School;
+import com.hqgj.xb.bean.TextBookFee;
 import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.service.FinancialStatisticsService;
@@ -20,6 +27,84 @@ import com.hqgj.xb.service.FinancialStatisticsService;
 public class FinancialStatisticsController {
 	@Autowired
 	private FinancialStatisticsService financialStatisticsService;
+	
+	@RequestMapping(value = "/caiwu/addExpenseAccount", method = RequestMethod.POST)
+	public @ResponseBody Json addExpenseAccount(ExpenseAccount expenseAccount) {
+		Json json = new Json();
+		if (0 != financialStatisticsService.addExpenseAccount(expenseAccount)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("添加失败");
+		}
+		return json;
+	}
+	
+	@RequestMapping(value = "/caiwu/updateExpenseAccount", method = RequestMethod.POST)
+	public @ResponseBody Json updateExpenseAccount(ExpenseAccount expenseAccount) {
+		Json json = new Json();
+		if (-1 != financialStatisticsService.updateExpenseAccount(expenseAccount)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("修改信息失败");
+		}
+		return json;
+	}
+	
+	@RequestMapping(value = "/caiwu/deleteExpenseAccount", method = RequestMethod.POST)
+	public @ResponseBody Json deleteExpenseAccount(String id) {
+		Json json = new Json();
+		if (0 != financialStatisticsService.deleteExpenseAccount(id)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		}
+		return json;
+	}
+	
+	
+	@RequestMapping(value = "/caiwu/getExpenseAccount", method = RequestMethod.POST)
+	public @ResponseBody Grid getExpenseAccount(ExpenseAccount expenseAccount ) {
+		return financialStatisticsService.getExpenseAccount(expenseAccount);
+	}
+	
+	@RequestMapping(value = "/caiwu/getAllExpenditure", method = RequestMethod.POST)
+	public @ResponseBody List<Dictionary> getAllExpenditure(String type) {
+		return financialStatisticsService.getAllExpenditure(type);
+	}
+	@RequestMapping(value = "/caiwu/getAllExpenditureProject", method = RequestMethod.POST)
+	public @ResponseBody List<Dictionary> getAllExpenditureProject(String type)
+	{
+		return financialStatisticsService.getAllExpenditureProject(type);
+	}
+	
+	@RequestMapping(value = "/caiwu/getAllDHandler", method = RequestMethod.POST)
+	public @ResponseBody List<Dictionary> getAllDHandler(String type)
+	{
+		return financialStatisticsService.getAllDHandler(type);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/caiwu/getLiuShuiZhang", method = RequestMethod.POST)
 	public @ResponseBody Grid getLiuShuiZhang() {
 		return financialStatisticsService.getLiuShuiZhang();
