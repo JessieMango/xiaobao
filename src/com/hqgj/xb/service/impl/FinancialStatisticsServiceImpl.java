@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.ExpenseAccount;
 import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.dao.FinancialStatisticsDAO;
@@ -46,9 +47,8 @@ public class FinancialStatisticsServiceImpl implements
 	}
 
 	@Override
-	public Grid getExpenseAccount(ExpenseAccount expenseAccount) {
-		// TODO Auto-generated method stub
-		return financialStatisticsDAO.getExpenseAccount(expenseAccount);
+	public Grid getExpenseAccount(ExpenseAccount expenseAccount, Parameter parameter) {
+		return financialStatisticsDAO.getExpenseAccount(expenseAccount,parameter);
 	}
 
 	@Override
@@ -63,13 +63,6 @@ public class FinancialStatisticsServiceImpl implements
 		return financialStatisticsDAO.getAllExpenditureProject(type);
 	}
 
-	@Override
-	public List<Dictionary> getAllDHandler(String type) {
-		// TODO Auto-generated method stub
-		return financialStatisticsDAO.getAllDHandler(type);
-	}
-	
-	
 	
 	
 	
