@@ -1,6 +1,8 @@
 package com.hqgj.xb.bean;
 
 /**
+ * 沟通bean
+ * 
  * @author 崔兴伟
  * @datetime 2015年8月10日 上午9:40:06
  */

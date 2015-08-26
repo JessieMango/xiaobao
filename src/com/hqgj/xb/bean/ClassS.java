@@ -1,6 +1,8 @@
 package com.hqgj.xb.bean;
 
 /**
+ * 班级Bean
+ * 
  * @author 崔兴伟
  * @datetime 2015年8月11日 下午4:02:16
  */

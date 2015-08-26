@@ -341,6 +341,7 @@ public class ConsultDAOImpl implements ConsultDAO {
 			} else {
 				select += "c.consultDate between :startTime and :endTime ";
 			}
+			select += " and c.flag=0 ";
 			if (!StringUtils.equals("qb", consult.getMarkCode())) {
 				select += "and c.mark=:markCode ";
 			}

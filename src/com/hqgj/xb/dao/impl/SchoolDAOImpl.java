@@ -38,6 +38,10 @@ public class SchoolDAOImpl implements SchoolDAO {
 	@Override
 	public List<School> getAllSchools(String type) {
 		String sql = "select * from School s left outer join SchoolType st on st.code=s.schoolType where s.flag=1 ";
+		if (StringUtils.isBlank(type)) {
+			sql += " and s.schoolCode<>'qb' ";
+		}
+		sql += " order by s.seq";
 		List<School> results = this.npJdbcTemplate.query(sql,
 				new RowMapper<School>() {
 					@Override
@@ -56,12 +60,6 @@ public class SchoolDAOImpl implements SchoolDAO {
 						return school;
 					}
 				});
-		if (StringUtils.equals(type, "1")) {
-			School temp = new School();
-			temp.setSchoolCode("qb");
-			temp.setSchoolName("全部校区");
-			results.add(0, temp);
-		}
 		return results;
 	}
 
