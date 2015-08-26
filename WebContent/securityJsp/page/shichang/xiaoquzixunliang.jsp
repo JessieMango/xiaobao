@@ -51,7 +51,7 @@
 	function init() {
 		$('#starttime').datebox({
 			required : true,
-			value : getCurrentDate()
+			value : getPreOneMonths()
 		});
 		$('#endtime').datebox({
 			required : true,
@@ -69,6 +69,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 	<form method="post" class="form">
 		<table>
 			<tr>
@@ -93,5 +94,28 @@
 		<div id="container1"
 			style="width: 550px; height: 400px; margin: 0 auto"></div>
 	</form>
+=======
+<form method="post" class="form">
+	<table >
+		<tr>
+			<td>统计时间：</td>
+			<td><input id="starttime" type="text" name="starttime"  class="easyui-datebox" style="width: 200px;" required="required"></td>
+			<td>到</td>
+			<td><input id="endtime" type="text" name="endtime" class="easyui-datebox" style="width: 200px;" required="required"> </td>
+			<td></td>
+			<td></td>
+			
+			<td>		
+					 <a href="javascript:void(0);" id="btn_save"
+						class="easyui-linkbutton"
+						data-options="iconCls:'ext-icon-zoom',plain:true">查询</a>
+			</td>
+		</tr>
+	</table>
+	
+		<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+		<div id="container1" style="width: 550px; height: 400px; margin: 0 auto"></div>
+</form>
+>>>>>>> e19635f1a3c511c53f8536339e27d9fd01943e68
 </body>
 </html>

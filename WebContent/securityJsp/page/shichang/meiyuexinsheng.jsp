@@ -7,6 +7,7 @@
 <title>每月新生</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
+<<<<<<< HEAD
 	var submitForm = function() {
 		if ($('form').form('validate')) {
 			$.post("getMeiYueXinSheng", cxw.serializeObject($('form')),
@@ -24,6 +25,37 @@
 		}
 	};
 
+=======
+var submitForm = function() {
+	if ($('form').form('validate')) {
+		$.post("getMeiYueXinSheng", cxw.serializeObject($('form')), function(
+				jsonData) {	
+			$("#container").highcharts({
+				   title : {
+                       text : jsonData.title.text
+                   },
+                   xAxis:{
+            		      categories: ['一月', '二月', '三月', '四月', '五月', '六月',
+            		         '七月', '八月', '九月', '十月', '十一月', '十二月']
+                 		   },
+            		   yAxis:{
+            				      title: {
+            				         text: '咨询量/报名量'
+            				      },
+            				      plotLines: [{
+            				         value: 0,
+            				         width: 1,
+            				         color: '#808080'
+            				      }]
+            				   },
+                   chart:{
+                   	type:'column'
+                   	},
+                   series:jsonData.diagramseries
+                   });
+	})}};
+	
+>>>>>>> e19635f1a3c511c53f8536339e27d9fd01943e68
 	function init() {
 		$("#btn_save").click(function() {
 			submitForm();

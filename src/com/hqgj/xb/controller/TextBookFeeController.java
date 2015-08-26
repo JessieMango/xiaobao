@@ -25,11 +25,14 @@ public class TextBookFeeController {
 	private TextBookFeeService textBookFeeService;
 
 	@RequestMapping(value = "/qiantai/getTextBookFeesByCourseType", method = RequestMethod.POST)
-	public @ResponseBody List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,String type) {
-		return textBookFeeService.getTextBookFeesByCourseType(courseTypeCode,type);
+	public @ResponseBody List<TextBookFee> getTextBookFeesByCourseType(
+			String courseTypeCode, String type) {
+		return textBookFeeService.getTextBookFeesByCourseType(courseTypeCode,
+				type);
 	}
-	
-	@RequestMapping(value = "/xitong/getAllTextBookFees", method = RequestMethod.POST)
+
+	@RequestMapping(value = { "/xitong/getAllTextBookFees",
+			"/caiwu/getAllTextBookFees" }, method = RequestMethod.POST)
 	public @ResponseBody List<TextBookFee> getAllTextBookFees(String type) {
 		return textBookFeeService.getAllTextBookFees(type);
 	}
@@ -43,7 +46,7 @@ public class TextBookFeeController {
 	public @ResponseBody TextBookFee getTextBookFee(String id) {
 		return textBookFeeService.getTextBookFee(id);
 	}
-	
+
 	@RequestMapping(value = "/form/updateTextBookFee", method = RequestMethod.POST)
 	public @ResponseBody Json updateTextBookFee(TextBookFee textBookFee) {
 		Json json = new Json();
@@ -55,8 +58,9 @@ public class TextBookFeeController {
 		}
 		return json;
 	}
-	
-	@RequestMapping(value = "/xitong/deleteTextBookFee", method = RequestMethod.POST)
+
+	@RequestMapping(value = { "/xitong/deleteTextBookFee",
+			"/caiwu/deleteTextBookFee" }, method = RequestMethod.POST)
 	public @ResponseBody Json deleteTextBookFee(String id) {
 		Json json = new Json();
 		if (0 != textBookFeeService.deleteTextBookFee(id)) {
@@ -67,7 +71,7 @@ public class TextBookFeeController {
 		}
 		return json;
 	}
-	
+
 	@RequestMapping(value = "/form/addTextBookFee", method = RequestMethod.POST)
 	public @ResponseBody Json addTextBookFee(TextBookFee textBookFee) {
 		Json json = new Json();
@@ -79,5 +83,5 @@ public class TextBookFeeController {
 		}
 		return json;
 	}
-	
+
 }

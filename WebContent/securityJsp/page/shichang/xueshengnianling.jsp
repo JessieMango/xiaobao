@@ -49,7 +49,7 @@ var submitForm = function() {
 	function init() {
 		$('#starttime').datebox({
 			required : true,
-			value : getCurrentDate()
+			value : getPreOneMonths()
 		});
 		$('#endtime').datebox({
 			required : true,

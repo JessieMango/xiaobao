@@ -16,11 +16,7 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import bsh.Console;
-
 import com.hqgj.xb.bean.Dictionary;
-import com.hqgj.xb.bean.Role;
 import com.hqgj.xb.bean.highcharts.ChartsList;
 import com.hqgj.xb.bean.highcharts.Data;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
@@ -405,8 +401,6 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("statisticalYear",  statisticalYear );
 		DiagramCharts diagramCharts=new DiagramCharts();
-		
-		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
 		title.setText("每月新生统计");
