@@ -1,16 +1,6 @@
 var cxw = cxw || {};
 
 /**
- * 更改easyui加载panel时的提示文字
- * 
- * 
- * @requires jQuery,EasyUI
- */
-$.extend($.fn.panel.defaults, {
-	loadingMessage : '加载中....'
-});
-
-/**
  * 验证手机号是否合法
  */
 $.extend($.fn.validatebox.defaults.rules, {

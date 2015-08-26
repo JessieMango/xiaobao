@@ -149,13 +149,7 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 		map.put("type", type);
 		map.put("courseTypeCode", courseTypeCode);
 		String sql = "select t.id id,t.courseTypeCode courseTypeCode,t.seq,t.nameM,t.price,t.points,t.type,ct.nameM courseTypeName,t.isEnableExchange isEnableExchange from TextBookFee t "
-				+ "left outer join CourseType ct on ct.courseTypeCode=t.courseTypeCode where t.courseTypeCode=:courseTypeCode ";
-		if (StringUtils.equals(type, "1")) {
-			sql += " and t.type=1 ";
-		}
-		if (StringUtils.equals(type, "2")) {
-			sql += " and t.type=2 ";
-		}
+				+ "left outer join CourseType ct on ct.courseTypeCode=t.courseTypeCode where t.courseTypeCode=:courseTypeCode or t.courseTypeCode='qb' ";
 		List<TextBookFee> results = this.nJdbcTemplate.query(sql, map,
 				new RowMapper<TextBookFee>() {
 					@Override

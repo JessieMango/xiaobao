@@ -109,9 +109,11 @@ public interface ConsultDAO {
 	 * @author 崔兴伟
 	 * @datetime 2015年8月8日 下午4:48:52
 	 * @param id
+	 * @param type
+	 *            1表示咨询记录编辑 2表示报名时咨询表更新
 	 * @return
 	 */
-	public int updateConsult(Consult consult);
+	public int updateConsult(Consult consult, int type);
 
 	/**
 	 * 删除自定ID的咨询记录

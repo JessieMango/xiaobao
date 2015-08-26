@@ -375,7 +375,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 
 	@Override
 	public DiagramCharts getMeiYueXinSheng(String statisticalYear) {
-		String consultSql = "select count((case when DATE_FORMAT(consultDate,'%y%m')=1 then 1 else null end)) '一月',"
+		String consultSql = "select count((case when DATE_FORMAT(consultDate,'%m')=1 then 1 else null end)) '一月',"
 				+ " count((case when DATE_FORMAT(consultDate,'%m')=2 then 1 else  null  end)) '二月',"
 				+ " count((case when DATE_FORMAT(consultDate,'%m')=3 then  0  else  null  end)) '三月',"
 				+ " count((case when DATE_FORMAT(consultDate,'%m')=4 then 1  else  null end)) '四月',"
@@ -400,7 +400,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				+ "count((case when DATE_FORMAT(enrollDate,'%m')=9 then 1 else null end)) '九月',"
 				+ "count((case when DATE_FORMAT(enrollDate,'%m')=10 then 1 else null end)) '十月',"
 				+ "count((case when DATE_FORMAT(enrollDate,'%m')=11 then 1 else null end)) '十一月',"
-				+ "count((case when DATE_FORMAT(enrollDate,'%m')=12 then 1 else null end)) '十二月',"
+				+ "count((case when DATE_FORMAT(enrollDate,'%m')=12 then 1 else null end)) '十二月' "
 				+ " from DSellSource left join StudentClass on DSellSource.id=StudentClass.sellSource where DATE_FORMAT(enrollDate,'%Y')=:statisticalYear ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("statisticalYear",  statisticalYear );
@@ -411,6 +411,48 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 		Title title=new Title();
 		title.setText("每月新生统计");
 		diagramCharts.setTitle(title);
+
+		//设置List<DiagramSeries>
+		final List<DiagramSeries> results=new ArrayList<DiagramSeries>();
+		this.npJdbcTemplate.query(consultSql, paramMap,
+				new RowCallbackHandler() {
+					@Override
+					public void processRow(ResultSet rs) throws SQLException {
+						int mydata1,mydata2,mydata3,mydata4,mydata5,mydata6,mydata7,mydata8,mydata9,mydata10,mydata11,mydata12;
+						mydata1=Integer.parseInt(rs.getString("一月"));
+						mydata2=Integer.parseInt(rs.getString("二月"));
+						mydata3=Integer.parseInt(rs.getString("三月"));
+						mydata4=Integer.parseInt(rs.getString("四月"));
+						mydata5=Integer.parseInt(rs.getString("五月"));
+						mydata6=Integer.parseInt(rs.getString("六月"));
+						mydata7=Integer.parseInt(rs.getString("七月"));
+						mydata8=Integer.parseInt(rs.getString("八月"));
+						mydata9=Integer.parseInt(rs.getString("九月"));
+						mydata10=Integer.parseInt(rs.getString("十月"));
+						mydata11=Integer.parseInt(rs.getString("十一月"));
+						mydata12=Integer.parseInt(rs.getString("十二月"));
+						
+						
+						DiagramSeries diagramSeries=new DiagramSeries();
+						List<Integer> LData= new ArrayList<Integer>();
+						LData.add(mydata1);
+						LData.add(mydata2);
+						LData.add(mydata3);
+						LData.add(mydata4);
+						LData.add(mydata5);
+						LData.add(mydata6);
+						LData.add(mydata7);
+						LData.add(mydata8);
+						LData.add(mydata9);
+						LData.add(mydata10);
+						LData.add(mydata11);
+						LData.add(mydata12);
+						diagramSeries.setData(LData);
+						diagramSeries.setName("每月学生咨询量");
+						
+						results.add(diagramSeries);
+					}
+				});
 		
 		this.npJdbcTemplate.query(enrollSql, paramMap,
 				new RowCallbackHandler() {
@@ -446,64 +488,19 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 						LData.add(mydata11);
 						LData.add(mydata12);
 						diagramSeries.setData(LData);
-						diagramSeries.setName(rs.getString("nameM"));
+						diagramSeries.setName("每月新生报名量");
 						
 						results.add(diagramSeries);
 					}
 				});
-
-		
-		
-		
-		this.npJdbcTemplate.query(consultSql, paramMap,
-				new RowCallbackHandler() {
-					@Override
-					public void processRow(ResultSet rs) throws SQLException {
-						int mydata1,mydata2,mydata3,mydata4,mydata5,mydata6,mydata7,mydata8,mydata9,mydata10,mydata11,mydata12;
-						mydata1=Integer.parseInt(rs.getString("一月"));
-						mydata2=Integer.parseInt(rs.getString("二月"));
-						mydata3=Integer.parseInt(rs.getString("三月"));
-						mydata4=Integer.parseInt(rs.getString("四月"));
-						mydata5=Integer.parseInt(rs.getString("五月"));
-						mydata6=Integer.parseInt(rs.getString("六月"));
-						mydata7=Integer.parseInt(rs.getString("七月"));
-						mydata8=Integer.parseInt(rs.getString("八月"));
-						mydata9=Integer.parseInt(rs.getString("九月"));
-						mydata10=Integer.parseInt(rs.getString("十月"));
-						mydata11=Integer.parseInt(rs.getString("十一月"));
-						mydata12=Integer.parseInt(rs.getString("十二月"));
-						
-						
-						DiagramSeries diagramSeries=new DiagramSeries();
-						List<Integer> LData= new ArrayList<Integer>();
-						LData.add(mydata1);
-						LData.add(mydata2);
-						LData.add(mydata3);
-						LData.add(mydata4);
-						LData.add(mydata5);
-						LData.add(mydata6);
-						LData.add(mydata7);
-						LData.add(mydata8);
-						LData.add(mydata9);
-						LData.add(mydata10);
-						LData.add(mydata11);
-						LData.add(mydata12);
-						diagramSeries.setData(LData);
-						diagramSeries.setName(rs.getString("nameM"));
-						
-						results.add(diagramSeries);
-					}
-				});
-		series.setData(results);
-		charts.setSeries(series);
-
+		diagramCharts.setDiagramseries(results);
 		return diagramCharts;
 	}
 
 
 	@Override
 	public DiagramCharts getZiXunLaiYuanQuShi(String statisticalYear) {
-		String sql ="select (case when DATE_FORMAT(consultDate,'%y%m')=1 then 1 else 0 end) '一月',(case when DATE_FORMAT(consultDate,'%m')=2 then 1 else 0 end) '二月',(case when DATE_FORMAT(consultDate,'%m')=3 then 1 else 0 end) '三月',"
+		String sql ="select (case when DATE_FORMAT(consultDate,'%m')=1 then 1 else 0 end) '一月',(case when DATE_FORMAT(consultDate,'%m')=2 then 1 else 0 end) '二月',(case when DATE_FORMAT(consultDate,'%m')=3 then 1 else 0 end) '三月',"
 		+ "(case when DATE_FORMAT(consultDate,'%m')=4 then 1 else 0 end) '四月',(case when DATE_FORMAT(consultDate,'%m')=5 then 1 else 0 end) '五月',(case when DATE_FORMAT(consultDate,'%m')=6 then 1 else 0 end) '六月',"
 		+ "(case when DATE_FORMAT(consultDate,'%m')=7 then 1 else 0 end) '七月',(case when DATE_FORMAT(consultDate,'%m')=8 then 1 else 0 end)'八月',(case when DATE_FORMAT(consultDate,'%m')=9 then 1 else 0 end) '九月',"
 		+ "(case when DATE_FORMAT(consultDate,'%m')=10 then 1 else 0 end) '十月',(case when DATE_FORMAT(consultDate,'%m')=11 then 1 else 0 end) '十一月',(case when DATE_FORMAT(consultDate,'%m')=12 then 1 else 0 end) '十二月',"
@@ -651,7 +648,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 
 	@Override
 	public DiagramCharts getBaoMingLaiYuanQuShi(String statisticalYear) {
-		String sql ="select (case when DATE_FORMAT(enrollDate,'%y%m')=1 then 1 else 0 end) '一月',(case when DATE_FORMAT(enrollDate,'%m')=2 then 1 else 0 end) '二月',(case when DATE_FORMAT(enrollDate,'%m')=3 then 1 else 0 end) '三月',"
+		String sql ="select (case when DATE_FORMAT(enrollDate,'%m')=1 then 1 else 0 end) '一月',(case when DATE_FORMAT(enrollDate,'%m')=2 then 1 else 0 end) '二月',(case when DATE_FORMAT(enrollDate,'%m')=3 then 1 else 0 end) '三月',"
 				+ "(case when DATE_FORMAT(enrollDate,'%m')=4 then 1 else 0 end) '四月',(case when DATE_FORMAT(enrollDate,'%m')=5 then 1 else 0 end) '五月',(case when DATE_FORMAT(enrollDate,'%m')=6 then 1 else 0 end) '六月',"
 				+ "(case when DATE_FORMAT(enrollDate,'%m')=7 then 1 else 0 end) '七月',(case when DATE_FORMAT(enrollDate,'%m')=8 then 1 else 0 end)'八月',(case when DATE_FORMAT(enrollDate,'%m')=9 then 1 else 0 end) '九月',"
 				+ "(case when DATE_FORMAT(enrollDate,'%m')=10 then 1 else 0 end) '十月',(case when DATE_FORMAT(enrollDate,'%m')=11 then 1 else 0 end) '十一月',(case when DATE_FORMAT(enrollDate,'%m')=12 then 1 else 0 end) '十二月',"

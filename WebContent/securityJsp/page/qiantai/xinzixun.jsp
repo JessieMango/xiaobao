@@ -201,7 +201,7 @@ label {
 						<label for="consultCourseCode">咨询课程</label><input
 							class="easyui-combobox" name="consultCourseCode"
 							id="consultCourseCode"
-							data-options="valueField:'courseTypeCode',textField:'courseTypeName',url:'getCourseTypes',panelHeight:'auto',editable:false" />
+							data-options="valueField:'courseTypeCode',textField:'courseTypeName',url:'getCourseTypes?type=3',panelHeight:'auto',editable:false" />
 					</div>
 					<div class="rowdiv">
 						<label for="consultContent" style="vertical-align: top;">咨询内容</label>

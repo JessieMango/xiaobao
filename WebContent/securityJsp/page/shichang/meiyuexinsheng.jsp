@@ -18,7 +18,7 @@
 							chart : {
 								type : 'column'
 							},
-							series : jsonData
+							series : jsonData.diagramseries
 						});
 					})
 		}
@@ -41,7 +41,6 @@
 		<table>
 			<tr>
 				<td>统计年度：</td>
-
 				<td><select name="statisticalYear" class="easyui-combobox"
 					data-options="required:true,editable:false,panelHeight:'auto'"
 					style="width: 100px;">

@@ -32,9 +32,6 @@
 	String courseName3 = request.getParameter("courseName3") == null
 			? ""
 			: request.getParameter("courseName3");
-	String id = request.getParameter("id") == null ? "" : request
-			.getParameter("id");
-	boolean flag = StringUtils.isNotBlank(id);
 %>
 <!DOCTYPE html>
 <html>
@@ -191,9 +188,16 @@ input[type='text'] {
 		if($("#classCode3").combobox('getValue')=="qb"){
 			nQb += 1;
 		}
-		if(nQb == nClass){
-			$.messager.alert('提示', '必须至少选择一个班级!', 'info');
+		if ((cxw.trim($("#motherTel").val()) == ""
+			&& cxw.trim($("#fatherTel").val()) == ""
+			&& cxw.trim($("#otherTel").val()) == "") || nQb == nClass) {
+			$.messager.alert('提示', '必须至少填入一个电话!<br>必须至少选择一个班级!', 'info');
 		} else if ($('form').form('validate')) {
+			if ($("#councilSchoolCode").combobox('getValue') == undefined
+					&& cxw.trim($("#councilSchoolCode").combobox('getText')) != "") {
+				$("#councilSchoolCode").combobox('setValue',
+						$("#councilSchoolCode").combobox('getText'));
+			}
 			if ($("#sellSourceCode").combobox('getValue') == undefined
 					&& cxw.trim($("#sellSourceCode").combobox('getText')) != "") {
 				$("#sellSourceCode").combobox('setValue',
@@ -208,7 +212,7 @@ input[type='text'] {
 				text : '保存中....'
 			});
 			var url="";
-			url = "addStudentClass";
+			url = "addStudentClassNo";
 			$.post(url, cxw.serializeObject($('form')), function(
 					result) {
 				if (result.success) {
@@ -448,47 +452,33 @@ input[type='text'] {
 			});
 		});
 		
-		$.post("getTextBookFeesByCourseType",{courseTypeCode : "<%=courseTypeCode3%>"}, function(result) {
-			var length3 = result.length;
-			$(result).each(function(index,data){
-				var str = cxw.formatString('{0}￥<span><b>{1}</b></span><input type="text" name="num3"  onkeyup="CalcShouldPay(this,3,{2},{3},{4});" onblur="CheckNonNegativeNumber(this);"  style="width:50px;" value="0">&nbsp;&nbsp;<input type="hidden" id="three{5}" value="0"><input type="hidden" name="textBookFeeCode3" value="{6}">',data.nameM,data.price,data.price,index,length3,index,data.id);
-				if(data.type == 1 && data.courseTypeCode != "qb"){
-					$("#tf31").append(str);
-				}else if(data.type == 2){
-					$("#tf33").append(str);
-				}else if(data.courseTypeCode == "qb"){
-					$("#tf32").append(str);
-				}
-			});
-		});
-		
+		$.post("getTextBookFeesByCourseType",{courseTypeCode : "<%=courseTypeCode3%>"},function(result) {
+							var length3 = result.length;
+							$(result)
+									.each(
+											function(index, data) {
+												var str = cxw
+														.formatString(
+																'{0}￥<span><b>{1}</b></span><input type="text" name="num3"  onkeyup="CalcShouldPay(this,3,{2},{3},{4});" onblur="CheckNonNegativeNumber(this);"  style="width:50px;" value="0">&nbsp;&nbsp;<input type="hidden" id="three{5}" value="0"><input type="hidden" name="textBookFeeCode3" value="{6}">',
+																data.nameM,
+																data.price,
+																data.price,
+																index, length3,
+																index, data.id);
+												if (data.type == 1
+														&& data.courseTypeCode != "qb") {
+													$("#tf31").append(str);
+												} else if (data.type == 2) {
+													$("#tf33").append(str);
+												} else if (data.courseTypeCode == "qb") {
+													$("#tf32").append(str);
+												}
+											});
+						});
+
 	}
 	$(document).ready(function() {
 		init();
-		if(<%=flag%>){$.post("getConsultById", {id :"<%=id%>"}, function(result) {
-				$('form').form('load', {
-					"birthday" : result.birthday,
-					"class_grade" : result.class_grade,
-					"consultCourseCode" : result.consultCourseCode,
-					"consultDate" : result.consultDate,
-					"consultWayCode" : result.consultWayCode,
-					"councilSchoolCode" : result.councilSchool,
-					"carCode" : result.carCode,
-					"banlance" : result.banlance,
-					"availabelPoints" : result.availabelPoints,
-					"fatherTel" : result.fatherTel,
-					"gender" : result.gender,
-					"handleSchoolCode" : result.handleSchoolCode,
-					"liveArea" : result.liveArea,
-					"motherTel" : result.motherTel,
-					"nameM" : result.nameM,
-					"otherTel" : result.otherTel,
-					"others" : result.others,
-					"sellSourceCode" : result.sellSourceCode,
-					"sellerCode" : result.sellerCode
-				});
-			});
-		}
 	});
 </script>
 </head>
@@ -497,24 +487,23 @@ input[type='text'] {
 		<div style="display: table; margin: 20px auto;">
 			<div style="display: table-row;">
 				<div style="display: table-cell;">
-					<input type="hidden" name="studentCode" value="<%=id%>"> <label
-						for="nameM" class="labelUnit">学员姓名</label><input type="text"
-						id="nameM" readonly="readonly" name="nameM"
-						style="margin-right: 20px;" />
+					<label for="nameM" class="labelUnit">学员姓名</label><input type="text"
+						name="nameM" data-options="required:true"
+						class="easyui-validatebox" style="margin-right: 20px;" />
 				</div>
 				<div style="display: table-cell;">
 					<label for="gender" class="labelUnit">学员性别</label><input
-						readonly="readonly" id="gender" type="text" name="gender"
-						style="margin-right: 20px;" />
+						type="radio" name="gender" checked="checked" value="0" />男 <input
+						type="radio" name="gender" value="1" />女
 				</div>
 				<div style="display: table-cell;">
-					<label for="birthday" class="labelUnit">学员生日</label><input
-						id="birthday" readonly="readonly" type="text" name="birthday"
-						style="margin-right: 20px;" />
+					<label for="birthday" class="labelUnit">学员生日</label><input type="text" id="birthday"
+							name="birthday" class="easyui-datebox"
+							data-options="required:true,value:'getCurrentDate();'" />
 				</div>
 				<div style="display: table-cell;">
 					<label for="carCode" class="labelUnit">磁卡卡号</label><input
-						id="carCode" readonly="readonly" type="text" name="carCode" />
+						id="carCode" type="text" name="carCode" />
 				</div>
 			</div>
 			<br />
@@ -522,52 +511,44 @@ input[type='text'] {
 			<div style="display: table-row;">
 				<div style="display: table-cell;">
 					<label for="motherTel" class="labelUnit">母亲电话</label><input
-						id="motherTel" readonly="readonly" type="text" name="motherTel"
+						id="motherTel" type="text" name="motherTel"
 						style="margin-right: 20px;" />
 				</div>
 				<div style="display: table-cell;">
 					<label for="fatherTel" class="labelUnit">父亲电话</label><input
-						id="fatherTel" readonly="readonly" type="text" name="fatherTel"
+						id="fatherTel" type="text" name="fatherTel"
 						style="margin-right: 20px;" />
 				</div>
 				<div style="display: table-cell;">
 					<label for="otherTel" class="labelUnit">其他电话</label><input
-						id="otherTel" readonly="readonly" type="text" name="otherTel"
+						id="otherTel" type="text" name="otherTel"
 						style="margin-right: 20px;" />
-				</div>
-				<div style="display: table-cell;">
-					<label for="banlance" class="labelUnit">可用余额</label><input
-						id="banlance" readonly="readonly" type="text" name="banlance" />
 				</div>
 			</div>
 			<br />
 			<div style="display: table-row;">
 				<div style="display: table-cell;">
 					<label for="councilSchoolCode" class="labelUnit">公立学校</label><input
-						id="councilSchoolCode" readonly="readonly" type="text"
-						name="councilSchoolCode" style="margin-right: 20px;" />
+							class="easyui-combobox" name="councilSchoolCode"
+							id="councilSchoolCode"
+							data-options="valueField:'councilSchoolCode',textField:'councilSchool',url:'getCouncilSchools',panelHeight:'auto'" />
 				</div>
 				<div style="display: table-cell;">
 					<label for="class_grade" class="labelUnit">班级年级</label><input
-						id="class_grade" readonly="readonly" type="text"
-						name="class_grade" style="margin-right: 20px;" />
-				</div>
-				<div style="display: table-cell;">
-					<label for="liveArea" class="labelUnit">居住区域</label><input
-						id="liveArea" readonly="readonly" type="text" name="liveArea"
+						id="class_grade" type="text" name="class_grade"
 						style="margin-right: 20px;" />
 				</div>
 				<div style="display: table-cell;">
-					<label for="availabelPoints" class="labelUnit">可用积分</label><input
-						id="availabelPoints" readonly="readonly" type="text"
-						name="availabelPoints" />
+					<label for="liveArea" class="labelUnit">居住区域</label><input
+						id="liveArea" type="text" name="liveArea"
+						style="margin-right: 20px;" />
 				</div>
 			</div>
 			<br />
 			<div style="display: table-row;">
 				<div style="display: table-cell;">
 					<label for="others" class="labelUnit">其他信息</label><input
-						id="others" readonly="readonly" type="text" name="others" />
+						id="others" type="text" name="others" />
 				</div>
 			</div>
 		</div>

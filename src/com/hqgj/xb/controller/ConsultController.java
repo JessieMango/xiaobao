@@ -1,6 +1,7 @@
 package com.hqgj.xb.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,8 +28,9 @@ public class ConsultController {
 
 	@Autowired
 	private ConsultService consultService;
-	
-	@RequestMapping(value = {"/qiantai/getCouncilSchools","/jiaowu/getCouncilSchools"}, method = RequestMethod.POST)
+
+	@RequestMapping(value = { "/qiantai/getCouncilSchools",
+			"/jiaowu/getCouncilSchools" }, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getCouncilSchools(String type) {
 		return consultService.getCouncilSchools(type);
 	}
@@ -58,7 +60,7 @@ public class ConsultController {
 		return consultService.getConsultWay(type);
 	}
 
-	@RequestMapping(value = {"/qiantai/getHandler","/jiaowu/getHandler"}, method = RequestMethod.POST)
+	@RequestMapping(value = { "/qiantai/getHandler", "/jiaowu/getHandler" }, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getHandler(String type) {
 		return consultService.getHandler(type);
 	}
@@ -71,7 +73,8 @@ public class ConsultController {
 				.getAttribute("sessionInfo");
 		consult.setHandler(sessionInfo.getUser().getUsername());
 		consult.setHandlerCode(sessionInfo.getUser().getUserId());
-
+		consult.setId(UUID.randomUUID().toString()); // 设置咨询表ID
+		consult.setState("0"); // 默认咨询时没有报名
 		Json json = new Json();
 		if (0 != consultService.saveConsult(consult)) {
 			json.setSuccess(true);

@@ -70,7 +70,7 @@ public class CourseDAOImpl implements CourseDAO {
 		if (StringUtils.equals(type, "1")) {
 			sql += " where ct.courseTypeCode<>'qb' ";
 		}
-		if (StringUtils.equals(type, "2")) {
+		if (StringUtils.equals(type, "2") || StringUtils.equals(type, "3")) {
 			sql += " where ct.courseTypeCode<>'qb' ";
 		}
 		sql += " order by ct.seq";
