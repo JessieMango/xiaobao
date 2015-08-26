@@ -116,10 +116,6 @@ input[type='text']{
 									$('#handleSchoolCode').combobox('setValue',
 											data[0].schoolCode);
 								}
-								if("<%=pageType%>" != "1"){
-									grid.datagrid('load', cxw
-											.serializeObject($('#form2')));
-								}
 							}
 						});
 
@@ -317,6 +313,10 @@ input[type='text']{
 				telTail : "<%=telTail%>"
 			});
 			grid.datagrid('load',cxw.serializeObject($('#form1')));
+		}
+		if("<%=pageType%>" != "1"){
+			grid.datagrid('load', cxw
+					.serializeObject($('#form2')));
 		}
 	});
 </script>

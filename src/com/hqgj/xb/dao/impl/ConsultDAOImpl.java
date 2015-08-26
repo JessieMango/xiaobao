@@ -175,17 +175,14 @@ public class ConsultDAOImpl implements ConsultDAO {
 
 	@Override
 	public int saveConsult(Consult consult) {
-
 		consult = handlerDictionary(consult);
-		consult.setId(UUID.randomUUID().toString()); // 设置咨询表ID
-		consult.setState("0"); // 默认咨询时没有报名
 
 		// 插入咨询表
 		String sql = "insert into Consult(id,nameM,gender,consultDate,birthday,motherTel,fatherTel,otherTel,councilSchoolCode,"
 				+ "class_grade,liveArea,others,consultWayCode,consultCourseCode,consultContent,willDegreeCode,sellSource,seller,"
-				+ "handleSchoolCode,handler,mark,state) values(:id,:nameM,:gender,:consultDate,:birthday,:motherTel,:fatherTel,:otherTel,"
+				+ "handleSchoolCode,handler,mark,state,carCode,banlance,availabelPoints,flag) values(:id,:nameM,:gender,:consultDate,:birthday,:motherTel,:fatherTel,:otherTel,"
 				+ ":councilSchoolCode,:class_grade,:liveArea,:others,:consultWayCode,:consultCourseCode,:consultContent,:willDegreeCode,"
-				+ ":sellSourceCode,:sellerCode,:handleSchoolCode,:handlerCode,:markCode,:state)";
+				+ ":sellSourceCode,:sellerCode,:handleSchoolCode,:handlerCode,:markCode,:state,:carCode,:banlance,:availabelPoints,:flag)";
 		SqlParameterSource consultParameterSource = new BeanPropertySqlParameterSource(
 				consult);
 
@@ -527,18 +524,27 @@ public class ConsultDAOImpl implements ConsultDAO {
 	}
 
 	@Override
-	public int updateConsult(Consult consult) {
+	public int updateConsult(Consult consult, int type) {
 		consult = handlerDictionary(consult);
 		// 开始更新
-		consult.setState("0"); // 默认咨询时没有报名
+		if (!StringUtils.equals("1", consult.getState())) {
+			consult.setState("0"); // 默认咨询时没有报名
+		}
 		SqlParameterSource consultParameterSource = new BeanPropertySqlParameterSource(
 				consult);
-		String sql = "update Consult set nameM=:nameM,gender=:gender,consultDate=:consultDate,birthday=:birthday,motherTel=:motherTel,"
+		String sql1 = "update Consult set nameM=:nameM,gender=:gender,consultDate=:consultDate,birthday=:birthday,motherTel=:motherTel,"
 				+ "fatherTel=:fatherTel,otherTel=:otherTel,councilSchoolCode=:councilSchoolCode,class_grade=:class_grade,liveArea=:liveArea,"
 				+ "others=:others,consultWayCode=:consultWayCode,consultCourseCode=:consultCourseCode,consultContent=:consultContent,"
 				+ "willDegreeCode=:willDegreeCode,sellSource=:sellSourceCode,seller=:sellerCode,handleSchoolCode=:handleSchoolCode,"
 				+ "handler=:handlerCode,mark=:markCode,state=:state where id=:id";
-		return this.nJdbcTemplate.update(sql, consultParameterSource);
+		String sql2 = "update Consult set state=:state,availabelPoints=:availabelPoints,banlance=:banlance where id=:id";
+		if (StringUtils.equals((type + ""), "1")) {
+			return this.nJdbcTemplate.update(sql1, consultParameterSource);
+		} else if (StringUtils.equals((type + ""), "2")) {
+			return this.nJdbcTemplate.update(sql2, consultParameterSource);
+		} else {
+			return 0;
+		}
 	}
 
 	@Override

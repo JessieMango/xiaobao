@@ -21,6 +21,17 @@ public interface TextBookFeeService {
 	public List<TextBookFee> getAllTextBookFees(String type);
 
 	/**
+	 * 根据课程大类获取教材杂项
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年8月20日 下午2:07:45
+	 * @param courseTypeCode 课程大类
+	 * @param type 1表示教材 2代表杂项
+	 * @return
+	 */
+	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,String type);
+
+	/**
 	 * 获取教材杂项类型字典表
 	 * 
 	 * @author 崔兴伟
@@ -38,6 +49,7 @@ public interface TextBookFeeService {
 	 * @return
 	 */
 	public TextBookFee getTextBookFee(String id);
+
 	/**
 	 * 添加指定教材杂项的信息
 	 * 

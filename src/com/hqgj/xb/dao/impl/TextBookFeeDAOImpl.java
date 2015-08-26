@@ -57,7 +57,8 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 						textBookFee.setPrice(rs.getString("price"));
 						textBookFee.setSeq(rs.getString("seq"));
 						textBookFee.setType(rs.getString("type"));
-						textBookFee.setIsEnableExchange(rs.getString("isEnableExchange"));
+						textBookFee.setIsEnableExchange(rs
+								.getString("isEnableExchange"));
 						return textBookFee;
 					}
 				});
@@ -101,7 +102,8 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 						textBookFee.setPrice(rs.getString("price"));
 						textBookFee.setSeq(rs.getString("seq"));
 						textBookFee.setType(rs.getString("type"));
-						textBookFee.setIsEnableExchange(rs.getString("isEnableExchange"));
+						textBookFee.setIsEnableExchange(rs
+								.getString("isEnableExchange"));
 						return textBookFee;
 					}
 				});
@@ -110,8 +112,7 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 
 	@Override
 	public int updateTextBookFee(TextBookFee textBookFee) {
-		if(!StringUtils.isNotEmpty(textBookFee.getIsEnableExchange()))
-		{
+		if (!StringUtils.isNotEmpty(textBookFee.getIsEnableExchange())) {
 			textBookFee.setIsEnableExchange("0");
 		}
 		String sql = "update TextBookFee set courseTypeCode=:courseTypeCode,seq=:seq,nameM=:nameM,price=:price,points=:points,type=:type,isEnableExchange=:isEnableExchange where id=:id";
@@ -131,15 +132,46 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 	@Override
 	public int addTextBookFee(TextBookFee textBookFee) {
 		textBookFee.setId(UUID.randomUUID().toString());
-		if(!StringUtils.isNotEmpty(textBookFee.getIsEnableExchange()))
-		{
+		if (!StringUtils.isNotEmpty(textBookFee.getIsEnableExchange())) {
 			textBookFee.setIsEnableExchange("0");
 		}
 		String sql = "insert into TextBookFee(id,courseTypeCode,seq,nameM,price,points,type,isEnableExchange) values (:id,:courseTypeCode,:seq,:nameM,:price,:points,:type,:isEnableExchange)";
-		
+
 		SqlParameterSource textBookFeeParameterSource = new BeanPropertySqlParameterSource(
 				textBookFee);
 		return this.nJdbcTemplate.update(sql, textBookFeeParameterSource);
+	}
+
+	@Override
+	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,
+			String type) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("type", type);
+		map.put("courseTypeCode", courseTypeCode);
+		String sql = "select t.id id,t.courseTypeCode courseTypeCode,t.seq,t.nameM,t.price,t.points,t.type,ct.nameM courseTypeName,t.isEnableExchange isEnableExchange from TextBookFee t "
+				+ "left outer join CourseType ct on ct.courseTypeCode=t.courseTypeCode where t.courseTypeCode=:courseTypeCode or t.courseTypeCode='qb' ";
+		List<TextBookFee> results = this.nJdbcTemplate.query(sql, map,
+				new RowMapper<TextBookFee>() {
+					@Override
+					public TextBookFee mapRow(ResultSet rs, int index)
+							throws SQLException {
+						TextBookFee textBookFee = new TextBookFee();
+						textBookFee.setCourseTypeCode(rs
+								.getString("courseTypeCode"));
+						textBookFee.setCourseTypeName(rs
+								.getString("courseTypeName"));
+						textBookFee.setId(rs.getString("id"));
+						textBookFee.setNameM(rs.getString("nameM"));
+						textBookFee.setPoints(rs.getString("points"));
+						textBookFee.setPrice(rs.getString("price"));
+						textBookFee.setSeq(rs.getString("seq"));
+						textBookFee.setType(rs.getString("type"));
+						textBookFee.setIsEnableExchange(rs
+								.getString("isEnableExchange"));
+						return textBookFee;
+					}
+				});
+		return results;
 	}
 
 }

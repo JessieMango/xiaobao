@@ -6,10 +6,11 @@ cxw.data = cxw.data || {};// 用于存放临时的数据或者对象
  * 
  * 
  * @requires jQuery
- */
+ 
 $(document).bind('contextmenu', function() {
 	return false;
 });
+*/
 
 /**
  * 禁止复制

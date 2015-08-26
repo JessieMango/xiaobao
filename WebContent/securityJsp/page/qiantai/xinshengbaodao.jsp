@@ -32,12 +32,25 @@
 			var courseCode1 = $('#courseCode1').combobox('getValue');
 			var courseCode2 = $('#courseCode2').combobox('getValue');
 			var courseCode3 = $('#courseCode3').combobox('getValue');
+			var courseTypeCode1 = $('#courseTypeCode1').combobox('getValue');
+			var courseTypeCode2 = $('#courseTypeCode2').combobox('getValue');
+			var courseTypeCode3 = $('#courseTypeCode3').combobox('getValue');
 			var courseName1 = $('#courseCode1').combobox('getText');
 			var courseName2 = $('#courseCode2').combobox('getText');
 			var courseName3 = $('#courseCode3').combobox('getText');
-			window.location.href = "baoming.jsp?courseCode1="
+			if("<%=id%>" != ""){
+				window.location.href = "baoming.jsp?courseCode1="
+						+ courseCode1 + "&courseCode2=" + courseCode2
+						+ "&courseCode3=" + courseCode3+"&courseName1="+courseName1+"&courseName2="+
+						courseName2+"&courseName3="+courseName3 + "&courseTypeCode1="+ courseTypeCode1 + "&courseTypeCode2=" 
+						+ courseTypeCode2  + "&courseTypeCode3=" + courseTypeCode3 +"&id="+"<%=id%>";
+			}else{
+				window.location.href = "wuzixunbaoming.jsp?courseCode1="
 					+ courseCode1 + "&courseCode2=" + courseCode2
-					+ "&courseCode3=" + courseCode3+"&courseName1="+courseName1+"&courseName2="+courseName2+"&courseName3="+courseName3+"&id="+"<%=id%>";
+					+ "&courseCode3=" + courseCode3+"&courseName1="+courseName1+"&courseName2="+
+					courseName2+"&courseName3="+courseName3 + "&courseTypeCode1="+ courseTypeCode1 + "&courseTypeCode2=" 
+					+ courseTypeCode2  + "&courseTypeCode3=" + courseTypeCode3;
+			}
 		}
 	};
 

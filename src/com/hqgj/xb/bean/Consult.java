@@ -39,14 +39,24 @@ public class Consult {
 	private String carCode; // 磁卡号
 	private String banlance; // 可用余额
 	private String availabelPoints; // 可用积分
-	private String  starttime;
+	private String flag; // 表示是否有咨询记录 0表示有，1表示没有
+	private String starttime;
 	private String endtime;
+
 	public String getStarttime() {
 		return starttime;
 	}
 
 	public void setStarttime(String starttime) {
 		this.starttime = starttime;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 	public String getEndtime() {

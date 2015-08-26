@@ -2,8 +2,6 @@ package com.hqgj.xb.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hqgj.xb.bean.Course;
 import com.hqgj.xb.bean.TextBookFee;
 import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.service.TextBookFeeService;
@@ -27,7 +24,15 @@ public class TextBookFeeController {
 	@Autowired
 	private TextBookFeeService textBookFeeService;
 
-	@RequestMapping(value = {"/xitong/getAllTextBookFees","/caiwu/getAllTextBookFees"}, method = RequestMethod.POST)
+	@RequestMapping(value = "/qiantai/getTextBookFeesByCourseType", method = RequestMethod.POST)
+	public @ResponseBody List<TextBookFee> getTextBookFeesByCourseType(
+			String courseTypeCode, String type) {
+		return textBookFeeService.getTextBookFeesByCourseType(courseTypeCode,
+				type);
+	}
+
+	@RequestMapping(value = { "/xitong/getAllTextBookFees",
+			"/caiwu/getAllTextBookFees" }, method = RequestMethod.POST)
 	public @ResponseBody List<TextBookFee> getAllTextBookFees(String type) {
 		return textBookFeeService.getAllTextBookFees(type);
 	}
@@ -41,7 +46,7 @@ public class TextBookFeeController {
 	public @ResponseBody TextBookFee getTextBookFee(String id) {
 		return textBookFeeService.getTextBookFee(id);
 	}
-	
+
 	@RequestMapping(value = "/form/updateTextBookFee", method = RequestMethod.POST)
 	public @ResponseBody Json updateTextBookFee(TextBookFee textBookFee) {
 		Json json = new Json();
@@ -53,8 +58,9 @@ public class TextBookFeeController {
 		}
 		return json;
 	}
-	
-	@RequestMapping(value = {"/xitong/deleteTextBookFee","/caiwu/deleteTextBookFee"}, method = RequestMethod.POST)
+
+	@RequestMapping(value = { "/xitong/deleteTextBookFee",
+			"/caiwu/deleteTextBookFee" }, method = RequestMethod.POST)
 	public @ResponseBody Json deleteTextBookFee(String id) {
 		Json json = new Json();
 		if (0 != textBookFeeService.deleteTextBookFee(id)) {
@@ -65,7 +71,7 @@ public class TextBookFeeController {
 		}
 		return json;
 	}
-	
+
 	@RequestMapping(value = "/form/addTextBookFee", method = RequestMethod.POST)
 	public @ResponseBody Json addTextBookFee(TextBookFee textBookFee) {
 		Json json = new Json();
@@ -77,5 +83,5 @@ public class TextBookFeeController {
 		}
 		return json;
 	}
-	
+
 }
