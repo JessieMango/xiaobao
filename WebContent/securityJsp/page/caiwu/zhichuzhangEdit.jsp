@@ -32,7 +32,40 @@ var submitForm = function($dialog,$grid,$pjq) {
 		$("#btn_save").click(function() {
 			submitForm();
 		});
-		
+		$('#schoolCode').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#schoolCode').combobox('setValue',
+									data[0].schoolCode);
+						}
+					}
+				});
+		$('#expenditureCode').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data[0]) {
+							$('#expenditureCode').combobox('setValue',
+									data[0].id);
+						}
+					},
+					onSelect : function(data) {
+						var url = 'getAllExpenditureProject?type='
+								+ data.id;
+						$('#expenditureProjectCode').combobox('reload', url);
+					}
+				});
+
+		$('#expenditureProjectCode').combobox({
+			onLoadSuccess : function(data) {
+				if (data[0] && data[0] != undefined) {
+					$('#expenditureProjectCode').combobox('setValue', data[0].id);
+				}
+				if (data[0] == undefined) {
+					$('#expenditureProjectCode').combobox('setValue', '');
+				}
+			}
+		});
 		var permission;
 		$.post("getExpenseAccountById", {id :"<%=id%>"}, function(rs) {
 			$('form').form('load', {
@@ -51,25 +84,49 @@ var submitForm = function($dialog,$grid,$pjq) {
 </head>
 <body>
 <form method="post" class="form">
-	<label>支出校区：</label> <input class="easyui-combobox" name="schoolCode"	id="schoolCode" style="width: 155px;" 
-	data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools?type=1',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
-	<br/><label>支出日期：</label>
+<table>
+	<tr>
+		<td><label>支出校区：</label> </td>
+		<td></td>
+		<td><input class="easyui-combobox" name="schoolCode"	id="schoolCode" style="width: 155px;" 
+	data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools?type=1',required:true,panelHeight:'auto',editable:false" /></td>
+	</tr>
+<tr></tr>
+	<tr>
+		<td><label>支出日期：</label></td>
+		<td></td>
+		<td>
 	<input type="text" id="payDate" name="payDate"
 							style="width: 100px;" class="easyui-datebox"
-							data-options="required:true,value:'getCurrentDate();'" />
-	<br/>
-	<label>支出类别：</label>
-	 <input class="easyui-combobox" name="expenditureCode"	id="expenditureCode" style="width: 155px;" 
-	data-options="valueField:'',textField:'',url:'',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
-	 <input class="easyui-combobox" name="expenditureProjectCode"	id="expenditureProjectCode" style="width: 155px;" 
-	data-options="valueField:'',textField:'',url:'',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
-	<br/>
-	<label>支出金额：</label>
-	<input type="text" class="easyui-numberbox" value="100" data-options="min:0,precision:2"/>
-	<br/>
-	<label>备注：</label>
-	<br/>
-	<label>经办人：</label>
+							data-options="required:true,value:'getCurrentDate();'" /></td>
+	</tr>
+<tr></tr>
+	<tr>
+		<td><label>支出类别：</label></td>
+		<td><input class="easyui-combobox" name="expenditureCode"	id="expenditureCode" style="width: 155px;" 
+	data-options="valueField:'id',textField:'nameM',url:'getAllExpenditure?type=2',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;</td>
+		<td> <input class="easyui-combobox" name="expenditureProjectCode"	id="expenditureProjectCode" style="width: 155px;" 
+	data-options="valueField:'id',textField:'nameM',required:true,panelHeight:'auto',editable:false" /></td>
+	</tr>
+<tr></tr>
+	<tr>
+		<td><label>支出金额：</label></td>
+		<td></td>
+		<td><input type="text" name="moneyAmount" id="moneyAmount" class="easyui-numberbox" data-options="min:0,precision:2"/></td>
+	</tr>
+<tr></tr>
+	<tr>
+		<td><label>备注：</label></td>
+		<td></td>
+		<td><input type="text" name="remarks" id="remarks" class="easyui-validatebox" /></td>
+	</tr>
+<tr></tr>
+	<tr>
+		<td><label>经办人：</label></td>
+		<td></td>
+		<td><input type="text" name="dHandlerNameM" id="dHandlerNameM" class="easyui-validatebox" /></td>
+	</tr>
+</table>
 </form>
 </body>
 </html>
