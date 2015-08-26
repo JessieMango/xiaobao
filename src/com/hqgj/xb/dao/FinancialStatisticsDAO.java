@@ -5,6 +5,7 @@ import java.util.List;
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.ExpenseAccount;
 import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
 
@@ -18,10 +19,9 @@ public interface FinancialStatisticsDAO {
 	public ExpenseAccount getExpenseAccountById(String id);
 	public int updateExpenseAccount(ExpenseAccount expenseAccount);
 	public int deleteExpenseAccount(String id);
-	public Grid getExpenseAccount(ExpenseAccount expenseAccount );
+	public Grid getExpenseAccount(ExpenseAccount expenseAccount, Parameter parameter );
 	public List<Dictionary> getAllExpenditure(String type);
 	public List<Dictionary> getAllExpenditureProject(String type);
-	public List<Dictionary> getAllDHandler(String type);
 	
 	
 	

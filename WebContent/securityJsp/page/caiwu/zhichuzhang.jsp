@@ -15,8 +15,8 @@
 		var dialog = parent.cxw.modalDialog({
 			modal : true,
 			title : title,
-			width : 400,
-			height : 200,
+			width : 500,
+			height : 600,
 			url : url,
 			buttons : [ {
 				text : '保存',
@@ -206,7 +206,7 @@
 							style="width: 100px;" name="expenditureProjectCode"
 							data-options="valueField:'id',textField:'nameM',url:'getAllExpenditureProject?type=1',panelHeight:'auto',editable:false"/>
 						&nbsp; <label>经办人：</label>&nbsp;<input name="state" class="easyui-combobox" 
-							data-options="valueField:'id',textField:'nameM',url:'getAllDHandler?type=1',panelHeight:'auto',editable:false"/>
+							data-options="valueField:'handlerCode',textField:'handler',url:'getHandler?type=1',panelHeight:'auto',editable:false"/>
 							&nbsp;<label>备注：</label>&nbsp;<input type="text" id="remarks" name="remarks" />
 							 &nbsp; <a href="javascript:void(0);" class="easyui-linkbutton"
 							data-options="iconCls:'ext-icon-zoom',plain:true"

@@ -2,6 +2,8 @@ package com.hqgj.xb.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.ExpenseAccount;
-import com.hqgj.xb.bean.School;
-import com.hqgj.xb.bean.TextBookFee;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Json;
+import com.hqgj.xb.bean.easyui.Parameter;
+import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.service.FinancialStatisticsService;
@@ -23,14 +25,16 @@ import com.hqgj.xb.service.FinancialStatisticsService;
  * @datetime 2015年8月20日 下午10:19:34
  */
 @Controller
-@RequestMapping(value = "/securityJsp")
+@RequestMapping(value = "/securityJsp/page")
 public class FinancialStatisticsController {
 	@Autowired
 	private FinancialStatisticsService financialStatisticsService;
 	
 	@RequestMapping(value = "/caiwu/addExpenseAccount", method = RequestMethod.POST)
-	public @ResponseBody Json addExpenseAccount(ExpenseAccount expenseAccount) {
+	public @ResponseBody Json addExpenseAccount(ExpenseAccount expenseAccount,HttpServletRequest request) {
 		Json json = new Json();
+		SessionInfo sessionInfo = (SessionInfo) request.getSession().getAttribute("sessionInfo");
+		expenseAccount.setDhandlerId(sessionInfo.getUser().getUserId());
 		if (0 != financialStatisticsService.addExpenseAccount(expenseAccount)) {
 			json.setSuccess(true);
 		} else {
@@ -66,8 +70,8 @@ public class FinancialStatisticsController {
 	
 	
 	@RequestMapping(value = "/caiwu/getExpenseAccount", method = RequestMethod.POST)
-	public @ResponseBody Grid getExpenseAccount(ExpenseAccount expenseAccount ) {
-		return financialStatisticsService.getExpenseAccount(expenseAccount);
+	public @ResponseBody Grid getExpenseAccount(ExpenseAccount expenseAccount, Parameter parameter ) {
+		return financialStatisticsService.getExpenseAccount(expenseAccount, parameter);
 	}
 	
 	@RequestMapping(value = "/caiwu/getAllExpenditure", method = RequestMethod.POST)
@@ -78,12 +82,6 @@ public class FinancialStatisticsController {
 	public @ResponseBody List<Dictionary> getAllExpenditureProject(String type)
 	{
 		return financialStatisticsService.getAllExpenditureProject(type);
-	}
-	
-	@RequestMapping(value = "/caiwu/getAllDHandler", method = RequestMethod.POST)
-	public @ResponseBody List<Dictionary> getAllDHandler(String type)
-	{
-		return financialStatisticsService.getAllDHandler(type);
 	}
 	
 	
