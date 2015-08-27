@@ -15,8 +15,8 @@
 		var dialog = parent.cxw.modalDialog({
 			modal : true,
 			title : title,
-			width : 500,
-			height : 600,
+			width : 600,
+			height : 350,
 			url : url,
 			buttons : [ {
 				text : '保存',
@@ -29,7 +29,7 @@
 
 	}
 	
-	var editFun = function(id, type) {
+	var editFun = function(id) {
 		var title = "编辑支出记录"
 		var url = cxw.contextPath
 					+ '/securityJsp/page/caiwu/zhichuzhangEdit.jsp?id='
@@ -38,8 +38,8 @@
 		var dialog = parent.cxw.modalDialog({
 			modal : true,
 			title : title,
-			width : 400,
-			height : 400,
+			width : 600,
+			height : 350,
 			url : url,
 			buttons : [ {
 				text : '保存',
@@ -51,14 +51,14 @@
 		});
 	}
 
-	var deleteFun = function(code, type) {
+	var deleteFun = function(id) {
 		var url = "deleteExpenseAccount";
 		var title =  "你确定要删除这个大类嘛?";
 		
 		$.messager.confirm('确认', title, function(r) {
 			if (r) {
 				$.post(url, {
-					code : code
+					id : id
 				}, function(data) {
 					if (!data.success) {
 						parent.$.messager.alert('提示', data.msg, 'error');
@@ -80,21 +80,11 @@
 						}
 					}
 				});
-		$('#schoolCode').combobox(
+		$('#dhandlerId').combobox(
 				{
 					onLoadSuccess : function(data) {
 						if (data) {
-							$('#schoolCode').combobox('setValue',
-									data[0].schoolCode);
-						}
-					}
-				});
-		
-		$('#dHandlerNameM').combobox(
-				{
-					onLoadSuccess : function(data) {
-						if (data) {
-							$('#dHandlerNameM').combobox('setValue',
+							$('#dhandlerId').combobox('setValue',
 									data[0].handlerCode);
 						}
 					}
@@ -153,13 +143,13 @@
 							},
 							{
 								title : '支出大类',
-								field : 'expenditureNameM',
+								field : 'expenditurenameM',
 								width : "10%",
 								align : 'center'
 							},
 							{
 								title : '支出项目',
-								field : 'expenditureProjectID',
+								field : 'expenditureProjectnameM',
 								width : "10%",
 								align : 'center'
 							},
@@ -177,7 +167,7 @@
 							},
 							{
 								title : '经办人',
-								field : 'dHandlerNameM',
+								field : 'dhandlernameM',
 								width : "10%",
 								align : 'center'
 							},
@@ -190,9 +180,8 @@
 										value, row) {
 									return cxw
 											.formatString(
-													'<span onclick="editFun(\'{0}\',\'{1}\')">{2}</span>',
-													row.expenditureCode,
-													'1',
+													'<span onclick="editFun(\'{0}\')">{1}</span>',
+													row.id,
 													'编辑');
 								}
 							},
@@ -205,9 +194,8 @@
 										value, row) {
 									return cxw
 											.formatString(
-													'<img  alt="删除" onclick="deleteFun(\'{0}\',\'{1}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
-													row.expenditureCode,
-													'1');
+													'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
+													row.id);
 								}
 							}
 							 ] ],
@@ -237,7 +225,7 @@
 			style="vertical-align: middle;">添加项目</span>
 	</div>
 		<div>
-			<form id="form2">
+			<form id="form">
 				<div style="margin-top: 20px;">
 					<div style="margin-left: 15%;">
 						<input type="text" id="startTime" name="startTime"
@@ -253,13 +241,14 @@
 							data-options="valueField:'id',textField:'nameM',url:'getAllExpenditure?type=1',panelHeight:'auto',editable:false"/>
 						&nbsp; <label>支出项目:</label>&nbsp;<input id="expenditureProjectCode" class="easyui-combobox"
 							style="width: 100px;" name="expenditureProjectCode"
-							data-options="valueField:'id',textField:'nameM',url:'',panelHeight:'auto',editable:false"/>
-						&nbsp; <label>经办人：</label>&nbsp;<input name="dHandlerNameM" id="dHandlerNameM" class="easyui-combobox" 
+							data-options="valueField:'id',textField:'nameM',url:'',panelHeight:'auto',editable:false"/><br/>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						<label>经办人：</label>&nbsp;<input name="dhandlerId" id="dhandlerId" class="easyui-combobox" 
 							data-options="valueField:'handlerCode',textField:'handler',url:'getHandler?type=1',panelHeight:'auto',editable:false"/>
 							&nbsp;<label>备注：</label>&nbsp;<input type="text" id="remarks" name="remarks" />
 							 &nbsp; <a href="javascript:void(0);" class="easyui-linkbutton"
 							data-options="iconCls:'ext-icon-zoom',plain:true"
-							onclick="grid.datagrid('load',cxw.serializeObject($('#form2')));">查询</a>
+							onclick="grid.datagrid('load',cxw.serializeObject($('#form')));">查询</a>
 					</div>
 				</div>
 			</form>

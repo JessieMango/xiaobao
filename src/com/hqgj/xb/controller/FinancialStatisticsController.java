@@ -55,6 +55,11 @@ public class FinancialStatisticsController {
 		}
 		return json;
 	}
+	@RequestMapping(value = "/caiwu/getExpenseAccountById", method = RequestMethod.POST)
+	public @ResponseBody ExpenseAccount getExpenseAccountById(String id)
+	{
+		return financialStatisticsService.getExpenseAccountById(id);
+	}
 	
 	@RequestMapping(value = "/caiwu/deleteExpenseAccount", method = RequestMethod.POST)
 	public @ResponseBody Json deleteExpenseAccount(String id) {

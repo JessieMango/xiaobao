@@ -20,6 +20,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import bsh.Console;
+
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.ExpenseAccount;
 import com.hqgj.xb.bean.easyui.Grid;
@@ -108,7 +110,8 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 	public ExpenseAccount getExpenseAccountById(String id) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("id", id);
-		String sql="select School.schoolCode schoolCode,School.schoolName schoolName,ExpenseAccount.payDate payDate,"
+		logger.info(id);
+		String sql="select ExpenseAccount.id ExpenseAccountid,School.schoolCode schoolCode,School.schoolName schoolName,ExpenseAccount.payDate payDate,"
 				+ "ExpenseAccount.expenditureProjectCode expenditureProjectCode,ExpenseAccount.expenditureCode expenditureCode,"
 				+ "ExpenseAccount.moneyAmount moneyAmount,ExpenseAccount.remarks remarks,DHandler.nameM dHandlerNameM"
 				+ " from ExpenseAccount left join Expenditure on ExpenseAccount.expenditureCode=Expenditure.code "
@@ -123,6 +126,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 					public ExpenseAccount mapRow(ResultSet rs, int index)
 							throws SQLException {
 						ExpenseAccount expenseAccount = new ExpenseAccount();
+						expenseAccount.setId(rs.getString("ExpenseAccountid"));
 						expenseAccount.setSchoolCode(rs.getString("schoolCode"));
 						expenseAccount.setSchoolName(rs.getString("schoolName"));
 						expenseAccount.setPayDate(rs.getString("payDate"));
@@ -131,14 +135,18 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 						expenseAccount.setMoneyAmount(rs.getString("moneyAmount"));
 						expenseAccount.setRemarks(rs.getString("remarks"));
 						expenseAccount.setDhandlernameM(rs.getString("dHandlerNameM"));
+						logger.info(expenseAccount.getDhandlernameM());
 						return expenseAccount;
 					}});
+		
 		return result;
 	}
 
 	@Override
 	public int updateExpenseAccount(ExpenseAccount expenseAccount) {
-		String sql = "update ExpenseAccount set payDate=:payDate,schoolCode=:schoolCode,expenditureCode=:expenditureCode,expenditureProjectCode=:expenditureProjectCode,moneyAmount=:moneyAmount,dhandlerId=:dhandlerId,remarks=:remarks where id=:id";
+		String sql = "update ExpenseAccount set payDate=:payDate,schoolCode=:schoolCode,expenditureCode=:expenditurenameM,expenditureProjectCode=:expenditureProjectnameM,moneyAmount=:moneyAmount,remarks=:remarks where id=:id";
+		logger.info(sql);
+		logger.info(expenseAccount);
 		SqlParameterSource paramSource = new BeanPropertySqlParameterSource(
 				expenseAccount);
 		return this.npJdbcTemplate.update(sql, paramSource);
@@ -154,7 +162,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 
 	@Override
 	public Grid getExpenseAccount(ExpenseAccount expenseAccount, Parameter parameter) {
-		String sql = "select ExpenseAccount.payDate payDate,School.schoolCode schoolCode,School.schoolName schoolName,"
+		String sql = "select ExpenseAccount.id id,ExpenseAccount.payDate payDate,School.schoolCode schoolCode,School.schoolName schoolName,"
 				+ "ExpenseAccount.expenditureProjectCode expenditureProjectCode,ExpenditureProject.nameM expenditureProjectnameM,"
 				+ "Expenditure.nameM expenditurenameM,ExpenseAccount.expenditureCode expenditureCode,"
 				+ "ExpenseAccount.moneyAmount moneyAmount,ExpenseAccount.remarks remarks,DHandler.nameM dHandlerNameM"
@@ -163,21 +171,49 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 				+ " left join DHandler on ExpenseAccount.dhandlerId=DHandler.id "
 				+ " left join School on ExpenseAccount.schoolCode=School.schoolCode ";
 		//////////参数的设置？？？
-		
-		
+		if(StringUtils.isNotBlank(expenseAccount.getStartTime()))
+		{
+			sql+=" where payDate between :startTime and :endTime ";
+			
+				if (!StringUtils.equals("qb", expenseAccount.getSchoolCode()))
+				{
+					sql+=" and School.schoolCode=:schoolCode ";			
+				}
+				if (!StringUtils.equals("qb", expenseAccount.getExpenditureCode()))
+				{
+					sql+=" and expenditureCode=:expenditureCode ";			
+				}
+				if (!StringUtils.equals("qb", expenseAccount.getDhandlerId()))
+				{
+					sql+=" and DHandler.id=:dhandlerId ";			
+				}
+				if (StringUtils.isNotBlank(expenseAccount.getExpenditureProjectCode())&&!StringUtils.equals("qb", expenseAccount.getExpenditureProjectCode()))
+				{
+					sql+=" and expenditureProjectCode=:expenditureProjectCode ";			
+				}
+				if (StringUtils.isNotBlank(expenseAccount.getRemarks())&&!StringUtils.equals("qb", expenseAccount.getRemarks()))
+				{
+					String temp=expenseAccount.getRemarks();
+					temp="%"+temp+"%";
+					expenseAccount.setRemarks(temp);
+					sql+=" and remarks like :remarks ";			
+				}
+		}
+		logger.info(sql);
 		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
 		SqlParameterSource expenseaccountParameterSource = new BeanPropertySqlParameterSource(expenseAccount);
 		this.npJdbcTemplate.query(sql, expenseaccountParameterSource,new RowCallbackHandler() {
 			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				ExpenseAccount expenseAccount = new ExpenseAccount();
+				expenseAccount.setId(rs.getString("id"));
 				expenseAccount.setPayDate(rs.getString("payDate"));
 				expenseAccount.setSchoolCode(rs.getString("schoolCode"));
 				expenseAccount.setSchoolName(rs.getString("schoolName"));
 				expenseAccount.setExpenditureProjectCode(rs.getString("expenditureProjectCode"));
 				expenseAccount.setExpenditureProjectnameM(rs.getString("expenditureProjectnameM"));
-				expenseAccount.setExpenditureCode(rs.getString("expenditurenameM"));
-				expenseAccount.setExpenditurenameM(rs.getString("expenditureCode"));
+				expenseAccount.setExpenditureCode(rs.getString("expenditureCode"));
+				expenseAccount.setExpenditurenameM(rs.getString("expenditurenameM"));
 				expenseAccount.setMoneyAmount(rs.getString("moneyAmount"));
 				expenseAccount.setRemarks(rs.getString("remarks"));
 				expenseAccount.setDhandlernameM(rs.getString("dHandlerNameM"));
