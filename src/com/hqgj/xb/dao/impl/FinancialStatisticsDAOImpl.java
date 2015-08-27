@@ -28,7 +28,12 @@ import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.bean.highcharts.Charts;
+import com.hqgj.xb.bean.highcharts.Data;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
+import com.hqgj.xb.bean.highcharts.Series;
+import com.hqgj.xb.bean.highcharts.Title;
+import com.hqgj.xb.bean.highcharts.mixedgraph.Labels;
+import com.hqgj.xb.bean.highcharts.mixedgraph.MixedCharts;
 import com.hqgj.xb.dao.FinancialStatisticsDAO;
 
 /**
@@ -235,7 +240,51 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		}
 		return grid;
 	}
+	@Override
+	public MixedCharts getZhiChuAnDaLei(String starttime, String endtime) {
+		String sql = "";
+			
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
+		
+		MixedCharts mixedCharts = new MixedCharts();
+		  List<String> xAxis;
+		  Labels labels ;
+		  List<Series> series;
+		  List<String> center;
+		  String size;
+		  Boolean showInLegend;
+		//设置标题
+		Title title=new Title();
+		title.setText("支出按大类统计表");
+		mixedCharts.setTitle(title);
 
+		//设置Series
+		Series myseries=new Series();
+		myseries.setName("");
+	
+		final List<Data> results = new ArrayList<Data>();
+		this.npJdbcTemplate.query(sql, paramMap,
+				new RowCallbackHandler() {
+					@Override
+					public void processRow(ResultSet rs) throws SQLException {
+						Data data =new Data();
+						data.setName(rs.getString(""));
+						if(StringUtils.isNotBlank(rs.getString(""))){
+							data.setY(Integer.parseInt(rs.getString("")));
+						}else{
+							data.setY(0);
+						}
+						results.add(data);
+					}
+				});
+		logger.info(results );
+		myseries.setData(results);
+	
+
+		return mixedCharts;
+	}
 	
 	
 	
@@ -305,6 +354,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
 	
 	

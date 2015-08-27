@@ -11,6 +11,7 @@ import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
+import com.hqgj.xb.bean.highcharts.mixedgraph.MixedCharts;
 import com.hqgj.xb.dao.FinancialStatisticsDAO;
 import com.hqgj.xb.service.FinancialStatisticsService;
 
@@ -25,24 +26,20 @@ public class FinancialStatisticsServiceImpl implements
 	private FinancialStatisticsDAO  financialStatisticsDAO;
 	@Override
 	public int addExpenseAccount(ExpenseAccount expenseAccount) {
-		// TODO Auto-generated method stub
 		return financialStatisticsDAO.addExpenseAccount(expenseAccount);
 	}
 
 	@Override
 	public ExpenseAccount getExpenseAccountById(String id) {
-		// TODO Auto-generated method stub
 		return financialStatisticsDAO.getExpenseAccountById(id);
 	}
 
 	@Override
 	public int updateExpenseAccount(ExpenseAccount expenseAccount) {
-		// TODO Auto-generated method stub
 		return financialStatisticsDAO.updateExpenseAccount(expenseAccount);
 	}
 	@Override
 	public int deleteExpenseAccount(String id) {
-		// TODO Auto-generated method stub
 		return financialStatisticsDAO.deleteExpenseAccount(id);
 	}
 
@@ -53,14 +50,16 @@ public class FinancialStatisticsServiceImpl implements
 
 	@Override
 	public List<Dictionary> getAllExpenditure(String type) {
-		// TODO Auto-generated method stub
 		return financialStatisticsDAO.getAllExpenditure(type);
 	}
 
 	@Override
 	public List<Dictionary> getAllExpenditureProject(String type) {
-		// TODO Auto-generated method stub
 		return financialStatisticsDAO.getAllExpenditureProject(type);
+	}
+	@Override
+	public MixedCharts getZhiChuAnDaLei(String starttime, String endtime) {
+		return financialStatisticsDAO.getZhiChuAnDaLei(starttime, endtime);
 	}
 
 	
@@ -117,6 +116,7 @@ public class FinancialStatisticsServiceImpl implements
 		return financialStatisticsDAO.getTuiFeiAnKeCheng(starttime, endtime);
 	}
 
+	
 	
 
 	

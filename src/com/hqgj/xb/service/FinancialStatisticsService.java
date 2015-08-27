@@ -7,6 +7,7 @@ import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
+import com.hqgj.xb.bean.highcharts.mixedgraph.MixedCharts;
 
 /**
  * @author 鲁宗豪
@@ -21,6 +22,8 @@ public interface FinancialStatisticsService {
 	public List<Dictionary> getAllExpenditure(String type);
 	public List<Dictionary> getAllExpenditureProject(String type);
 	
+	
+	public MixedCharts getZhiChuAnDaLei(String starttime,String endtime);
 	
 	
 	
