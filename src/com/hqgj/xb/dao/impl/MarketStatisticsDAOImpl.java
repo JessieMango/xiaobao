@@ -167,7 +167,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 
 	@Override
 	public Charts getBaoMingLaiYuan(String starttime, String endtime) {
-		String sql = "select DSellSource.nameM nameM,count(DSellSource.id) countNum from DSellSource left join StudentClass on DSellSource.id=StudentClass.sellSource "
+		String sql = "select DSellSource.nameM nameM,count(DSellSource.id) countNum from DSellSource left join StudentClass on DSellSource.id=StudentClass.sellSourceCode "
 				+ "where StudentClass.enrollDate between :starttime and :endtime group by nameM ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
@@ -207,7 +207,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 
 	@Override
 	public Charts getBaoMingXiaoShouYuan(String starttime, String endtime) {
-		String sql = "select DSeller.nameM nameM,count(DSeller.id) countNum from DSeller left join StudentClass on DSeller.id=StudentClass.seller "
+		String sql = "select DSeller.nameM nameM,count(DSeller.id) countNum from DSeller left join StudentClass on DSeller.id=StudentClass.sellerCode "
 				+ "where StudentClass.enrollDate between :starttime and :endtime group by nameM ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
@@ -397,7 +397,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				+ "count((case when DATE_FORMAT(enrollDate,'%m')=10 then 1 else null end)) '十月',"
 				+ "count((case when DATE_FORMAT(enrollDate,'%m')=11 then 1 else null end)) '十一月',"
 				+ "count((case when DATE_FORMAT(enrollDate,'%m')=12 then 1 else null end)) '十二月' "
-				+ " from DSellSource left join StudentClass on DSellSource.id=StudentClass.sellSource where DATE_FORMAT(enrollDate,'%Y')=:statisticalYear ";
+				+ " from DSellSource left join StudentClass on DSellSource.id=StudentClass.sellSourceCode where DATE_FORMAT(enrollDate,'%Y')=:statisticalYear ";
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("statisticalYear",  statisticalYear );
 		DiagramCharts diagramCharts=new DiagramCharts();
@@ -575,18 +575,20 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 		//获得查询的sql语句
 		String listCourseSql="";
 		final int listCoursenum=courseList.size();
+		logger.info(listCoursenum);
 		for(int i=0;i<courseList.size();i++)
 		{
 			listCourseSql+=",(case when Course.nameM='"+courseList.get(i).getNameM()+"' then 1 else 0 end) '"+i+"' ";
 		}
+		logger.info(listCourseSql);
 		String sql="select  DSeller.nameM SellerName"+listCourseSql+",count(*) countNum "
-				+ " from StudentClass left join DSeller on StudentClass.seller=DSeller.id "
+				+ " from StudentClass left join DSeller on StudentClass.sellerCode=DSeller.id "
 				+ " left join Class on StudentClass.classCode=Class.classCode "
 				+ " left join Course on Class.courseCode=Course.courseCode "
 				+ " where StudentClass.studentType=:studentType "
 				+ " and StudentClass.enrollDate between :starttime and :endtime "
 				+ " group by SellerName ";
-		
+		logger.info(sql);
 		
 		//传递参数解析
 		Map<String, String> paramMap = new HashMap<String, String>();
@@ -606,7 +608,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 						Charts charts=new Charts();
 						//设置标题
 						Title title=new Title();
-						title.setText(rs.getString("前台报名量"));
+						title.setText(rs.getString("countNum"));
 						charts.setTitle(title);
 						//设置系列
 						Series series=new Series();
@@ -628,7 +630,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 						{
 							series.getData().get(i).setName(courseList.get(i).getNameM());
 						}
-						series.setName(rs.getString(""));
+						series.setName(rs.getString("SellerName"));
 						charts.setSeries(series);
 						results.add(charts);
 					}
@@ -646,7 +648,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 				+ "(case when DATE_FORMAT(enrollDate,'%m')=4 then 1 else 0 end) '四月',(case when DATE_FORMAT(enrollDate,'%m')=5 then 1 else 0 end) '五月',(case when DATE_FORMAT(enrollDate,'%m')=6 then 1 else 0 end) '六月',"
 				+ "(case when DATE_FORMAT(enrollDate,'%m')=7 then 1 else 0 end) '七月',(case when DATE_FORMAT(enrollDate,'%m')=8 then 1 else 0 end)'八月',(case when DATE_FORMAT(enrollDate,'%m')=9 then 1 else 0 end) '九月',"
 				+ "(case when DATE_FORMAT(enrollDate,'%m')=10 then 1 else 0 end) '十月',(case when DATE_FORMAT(enrollDate,'%m')=11 then 1 else 0 end) '十一月',(case when DATE_FORMAT(enrollDate,'%m')=12 then 1 else 0 end) '十二月',"
-				+ "DSellSource.nameM nameM from DSellSource left join StudentClass on DSellSource.id=StudentClass.sellSource where DATE_FORMAT(enrollDate,'%Y')=:statisticalYear group by nameM ";
+				+ "DSellSource.nameM nameM from DSellSource left join StudentClass on DSellSource.id=StudentClass.sellSourceCode where DATE_FORMAT(enrollDate,'%Y')=:statisticalYear group by nameM ";
 					
 				Map<String, String> paramMap = new HashMap<String, String>();
 				paramMap.put("statisticalYear",  statisticalYear );
