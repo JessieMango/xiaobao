@@ -40,7 +40,14 @@
 								text : jsonData.title.text
 							},
 							chart : {
-								type : 'column'
+								  type: jsonData.chart.type,
+							      margin: jsonData.chart.margin,
+							      options3d: {
+							         enabled:jsonData.chart.options3d.enabled,
+							         alpha: jsonData.chart.options3d.alpha,
+							         beta: jsonData.chart.options3d.beta,
+							         depth: jsonData.chart.options3d.depth
+							      }
 							},
 							series : datas
 						});

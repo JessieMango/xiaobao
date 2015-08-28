@@ -9,14 +9,27 @@
 <script type="text/javascript">
 var submitForm = function() {
 	if ($('form').form('validate')) {
-		$.post("getZhiChuAnDaLei", cxw.serializeObject($('form')), function(
-				jsonData) {	
-			$("#container").highcharts({
-				  
-                   }
-			);
-		}, 'json');
-	}}
+		$.post("getZhiChuAnDaLei", cxw.serializeObject($('form')),
+				function(jsonData) {
+					$("#container").highcharts({
+						  title:{
+						      text:  jsonData.title.text
+						   },
+							xAxis:{
+						      categories:  jsonData.xAxis.categories
+						   },
+						   labels:{
+						      items: jsonData.labels.items
+						   },
+						   series:jsonData.series,
+						   center: jsonData.center,
+						   size: jsonData.size,
+						   showInLegend: jsonData.showInLegend
+					});
+				})
+	}
+};
+
 	
 	function init() {
 		$('#starttime').datebox({

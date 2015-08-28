@@ -7,7 +7,15 @@ package com.hqgj.xb.bean.highcharts;
 public class Charts {
 	 private Title title; 
 	 private  Series series;
-	 public Title getTitle() {
+	 private  Chart chart;
+	 
+	 public Chart getChart() {
+		return chart;
+	}
+	public void setChart(Chart chart) {
+		this.chart = chart;
+	}
+	public Title getTitle() {
 		return title;
 	}
 	public void setTitle(Title title) {

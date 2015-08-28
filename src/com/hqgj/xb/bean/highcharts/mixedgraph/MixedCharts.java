@@ -1,8 +1,6 @@
 package com.hqgj.xb.bean.highcharts.mixedgraph;
 
 import java.util.List;
-
-import com.hqgj.xb.bean.highcharts.Series;
 import com.hqgj.xb.bean.highcharts.Title;
 
 /**
@@ -12,7 +10,7 @@ import com.hqgj.xb.bean.highcharts.Title;
 public class MixedCharts {
 	
 	 private Title title; 
-	 private List<String> xAxis;
+	 private XAxis xAxis;
 	 private Labels labels ;
 	 //修改了Series类，增加了type属性
 	 private List<Series> series;
@@ -24,12 +22,6 @@ public class MixedCharts {
 	}
 	public void setTitle(Title title) {
 		this.title = title;
-	}
-	public List<String> getxAxis() {
-		return xAxis;
-	}
-	public void setxAxis(List<String> xAxis) {
-		this.xAxis = xAxis;
 	}
 	public Labels getLabels() {
 		return labels;
@@ -60,6 +52,12 @@ public class MixedCharts {
 	}
 	public void setShowInLegend(Boolean showInLegend) {
 		this.showInLegend = showInLegend;
+	}
+	public XAxis getxAxis() {
+		return xAxis;
+	}
+	public void setxAxis(XAxis xAxis) {
+		this.xAxis = xAxis;
 	}
 	
 	 

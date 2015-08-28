@@ -16,11 +16,14 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import com.hqgj.xb.bean.Dictionary;
+import com.hqgj.xb.bean.highcharts.Chart;
 import com.hqgj.xb.bean.highcharts.ChartsList;
 import com.hqgj.xb.bean.highcharts.Data;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.bean.highcharts.DiagramSeries;
+import com.hqgj.xb.bean.highcharts.Options3d;
 import com.hqgj.xb.bean.highcharts.Series;
 import com.hqgj.xb.bean.highcharts.Title;
 import com.hqgj.xb.bean.highcharts.Charts;
@@ -60,6 +63,18 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 		Series series=new Series();
 		series.setName("校区咨询量");
 	
+		//设置3D的显示
+		Chart chart=new Chart();
+		chart.setMargin(75);
+		chart.setType("column");
+		Options3d options3d=new Options3d();
+		options3d.setAlpha(10);
+		options3d.setBeta(25);
+		options3d.setDepth(70);
+		options3d.setEnabled(true);
+		chart.setOptions3d(options3d);
+		charts.setChart(chart);
+		
 		final List<Data> results = new ArrayList<Data>();
 		this.npJdbcTemplate.query(sql, paramMap,
 				new RowCallbackHandler() {

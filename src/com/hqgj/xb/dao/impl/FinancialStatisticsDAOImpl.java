@@ -3,6 +3,7 @@ package com.hqgj.xb.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,20 +21,19 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import bsh.Console;
-
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.ExpenseAccount;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
-import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.bean.highcharts.Charts;
-import com.hqgj.xb.bean.highcharts.Data;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
-import com.hqgj.xb.bean.highcharts.Series;
 import com.hqgj.xb.bean.highcharts.Title;
+import com.hqgj.xb.bean.highcharts.mixedgraph.Items;
 import com.hqgj.xb.bean.highcharts.mixedgraph.Labels;
 import com.hqgj.xb.bean.highcharts.mixedgraph.MixedCharts;
+import com.hqgj.xb.bean.highcharts.mixedgraph.Series;
+import com.hqgj.xb.bean.highcharts.mixedgraph.Style;
+import com.hqgj.xb.bean.highcharts.mixedgraph.XAxis;
 import com.hqgj.xb.dao.FinancialStatisticsDAO;
 
 /**
@@ -175,7 +175,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 				+ " left join ExpenditureProject on ExpenseAccount.expenditureProjectCode=ExpenditureProject.id "
 				+ " left join DHandler on ExpenseAccount.dhandlerId=DHandler.id "
 				+ " left join School on ExpenseAccount.schoolCode=School.schoolCode ";
-		//////////参数的设置？？？
+		
 		if(StringUtils.isNotBlank(expenseAccount.getStartTime()))
 		{
 			sql+=" where payDate between :startTime and :endTime ";
@@ -242,48 +242,93 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 	}
 	@Override
 	public MixedCharts getZhiChuAnDaLei(String starttime, String endtime) {
-		String sql = "";
+		String sql = "select Expenditure.nameM ExpenditurenameM,count(*) Numberofaccounts,sum(ExpenseAccount.moneyAmount) from ExpenseAccount left join Expenditure on ExpenseAccount.expenditureCode=Expenditure.code group by ExpenseAccount.expenditureCode ";
 			
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
 		
-		MixedCharts mixedCharts = new MixedCharts();
-		  List<String> xAxis;
-		  Labels labels ;
-		  List<Series> series;
-		  List<String> center;
-		  String size;
-		  Boolean showInLegend;
+		final MixedCharts mixedCharts = new MixedCharts();
+		
+		  
+		  Labels labels =new Labels();
+		  mixedCharts.setLabels(labels);
+		  List<Items> items=new ArrayList<Items>();
+		  labels.setItems(items);
+		  Items Items0=new Items();
+		  Items0.setHtml("开支部门");
+		  Style style=new Style();
+		  style.setColor("(Highcharts.theme && Highcharts.theme.textColor) || 'black'");
+		  style.setLeft("50px");
+		  style.setTop("18px");
+		  Items0.setStyle(style);
+		  items.add(Items0);
+		  
+		  
+		  List<String> center=new ArrayList<String>();
+		  center.add("80");
+		  center.add("100");
+		  mixedCharts.setCenter(center);
+		  
+		  String size="100";
+		  mixedCharts.setSize(size);
+		  
+		  Boolean showInLegend=false;
+		  mixedCharts.setShowInLegend(showInLegend);
+		  
 		//设置标题
 		Title title=new Title();
 		title.setText("支出按大类统计表");
 		mixedCharts.setTitle(title);
 
-		//设置Series
-		Series myseries=new Series();
-		myseries.setName("");
-	
-		final List<Data> results = new ArrayList<Data>();
+		
 		this.npJdbcTemplate.query(sql, paramMap,
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
-						Data data =new Data();
-						data.setName(rs.getString(""));
-						if(StringUtils.isNotBlank(rs.getString(""))){
-							data.setY(Integer.parseInt(rs.getString("")));
-						}else{
-							data.setY(0);
+						
+						 //1动态数据
+						  XAxis xAxis=new XAxis();
+						  List<String> categories;
+						  if(null == mixedCharts.getxAxis()||null==mixedCharts.getxAxis().getCategories())
+						  {
+							  categories=new ArrayList<String>();
+						  }
+						  else {
+							  categories=mixedCharts.getxAxis().getCategories();
+						  }
+						  categories.add(rs.getString("ExpenditurenameM"));
+						  xAxis.setCategories(categories);
+						  mixedCharts.setxAxis(xAxis);
+						  
+						  //2动态数据
+						  List<Series> series;
+						  if (null != mixedCharts.getSeries())
+						  {
+							  series=mixedCharts.getSeries();
+						  }
+						  else {
+							  series=new ArrayList<Series>();
 						}
-						results.add(data);
+						  
+						  Series seriesobj=new Series();
+						  seriesobj.setType("column");
+						  seriesobj.setName("账目条数");
+						  List<Integer> data=new ArrayList<Integer>();
+						  
+						  if(StringUtils.isNotBlank(rs.getString("Numberofaccounts")))
+						  {
+						  data.add(Integer.parseInt(rs.getString("Numberofaccounts")));
+						  }
+						  else {
+							  data.add(0);
+						}
+						  seriesobj.setData(data);
+						  series.add(seriesobj);
+						  mixedCharts.setSeries(series);
 					}
 				});
-		logger.info(results );
-		myseries.setData(results);
-	
-
-		return mixedCharts;
+			return mixedCharts;
 	}
 	
 	
