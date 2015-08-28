@@ -18,6 +18,7 @@ import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
+import com.hqgj.xb.bean.highcharts.mixedgraph.MixedCharts;
 import com.hqgj.xb.service.FinancialStatisticsService;
 
 /**
@@ -55,6 +56,11 @@ public class FinancialStatisticsController {
 		}
 		return json;
 	}
+	@RequestMapping(value = "/caiwu/getExpenseAccountById", method = RequestMethod.POST)
+	public @ResponseBody ExpenseAccount getExpenseAccountById(String id)
+	{
+		return financialStatisticsService.getExpenseAccountById(id);
+	}
 	
 	@RequestMapping(value = "/caiwu/deleteExpenseAccount", method = RequestMethod.POST)
 	public @ResponseBody Json deleteExpenseAccount(String id) {
@@ -84,6 +90,12 @@ public class FinancialStatisticsController {
 		return financialStatisticsService.getAllExpenditureProject(type);
 	}
 	
+	//绘制混合图
+	@RequestMapping(value = "/caiwu/getZhiChuAnDaLei", method = RequestMethod.POST)
+	public @ResponseBody MixedCharts getZhiChuAnDaLei(String starttime,String endtime)
+	{
+		return financialStatisticsService.getZhiChuAnDaLei(starttime,endtime);
+	}
 	
 	
 	

@@ -61,7 +61,7 @@ public class ConsultController {
 	}
 
 	@RequestMapping(value = { "/qiantai/getHandler", "/jiaowu/getHandler",
-			"/shichang/getHandler,/caiwu/getHandler" }, method = RequestMethod.POST)
+			"/shichang/getHandler", "/caiwu/getHandler" }, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getHandler(String type) {
 		return consultService.getHandler(type);
 	}
