@@ -102,7 +102,9 @@ label {
 	$(document).ready(function() {
 		init();
 		if(<%=flag%>){
-			$.post("getConsultById", {id :"<%=id%>"}, function(result) {
+			$.post("getConsultById", {id :"<%=id%>
+	"
+			}, function(result) {
 				$('form').form('load', {
 					"birthday" : result.birthday,
 					"class_grade" : result.class_grade,
@@ -138,8 +140,8 @@ label {
 				<div>
 					<div style="display: inline; float: left; width: 25%;">
 						<label for="nameM">学员姓名</label><input type="text" name="nameM"
-							data-options="required:true" class="easyui-validatebox" />
-							<input type="hidden" name="id" value="<%=id%>"/>
+							data-options="required:true" class="easyui-validatebox" /> <input
+							type="hidden" name="id" value="<%=id%>" />
 					</div>
 					<div style="display: inline; width: 25%;">
 						<label for="gender">学员性别</label><input type="radio" name="gender"
@@ -251,7 +253,6 @@ label {
 						style="vertical-align: middle;">保存</span>
 				</button>
 			</div>
-		</form>
 	</div>
 </body>
 </html>

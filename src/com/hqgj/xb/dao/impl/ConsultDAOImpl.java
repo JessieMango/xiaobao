@@ -39,8 +39,8 @@ public class ConsultDAOImpl implements ConsultDAO {
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.nJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-	}
 
+	}
 	@Override
 	public List<Consult> getCouncilSchools(String type) {
 		String sql = "select * from DCouncilSchool order by seq ";
@@ -341,7 +341,7 @@ public class ConsultDAOImpl implements ConsultDAO {
 			} else {
 				select += "c.consultDate between :startTime and :endTime ";
 			}
-			select += " and c.flag=0 ";
+			select += " and c.flag=0 "; // 有咨询记录学员
 			if (!StringUtils.equals("qb", consult.getMarkCode())) {
 				select += "and c.mark=:markCode ";
 			}

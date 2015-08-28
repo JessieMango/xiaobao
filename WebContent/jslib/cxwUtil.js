@@ -1,9 +1,16 @@
-/* 本月第一天 */
+/* 本月第一天  时间*/
 function firstOfMouth() {
 	var curr_time = new Date();
 	var y = curr_time.getFullYear();
 	var m = curr_time.getMonth() + 1;
 	return y + '-' + (m < 10 ? ('0' + m) : m) + "-01 " + "00:00:00";
+}
+/* 本月第一天 日期 */
+function firstOfMouthDate() {
+	var curr_time = new Date();
+	var y = curr_time.getFullYear();
+	var m = curr_time.getMonth() + 1;
+	return y + '-' + (m < 10 ? ('0' + m) : m) + "-01 ";
 }
 /* 当前日期 */
 function getCurrentTime() {
@@ -38,16 +45,6 @@ function getNextDate() {
 	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
 }
 
-/* 前三天日期 */
-function getPreThreeDate() {
-	
-	var curr_time = new Date();
-	var y = curr_time.getFullYear();
-	var m = curr_time.getMonth() + 1;
-	var d = curr_time.getDate();
-	d = d - 3;
-	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
-}
 /* 前一个星期日期 */
 function getPreOneWeek() {
 	alert("321321")
@@ -62,9 +59,9 @@ function getPreOneWeek() {
 function getPreOneMonths() {
 	var curr_time = new Date();
 	var y = curr_time.getFullYear();
-	var m = curr_time.getMonth()+1;
+	var m = curr_time.getMonth() + 1;
 	var d = curr_time.getDate();
-	m=m-1;
+	m = m - 1;
 	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
 }
 

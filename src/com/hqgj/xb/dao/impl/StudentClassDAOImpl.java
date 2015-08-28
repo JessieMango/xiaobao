@@ -34,9 +34,9 @@ public class StudentClassDAOImpl implements StudentClassDAO {
 	public int addStudentClass(List<StudentClass> studentClasses,
 			List<StudentClass_TextbookFee> studentClass_TextbookFees) {
 		String sqlSC = "insert into StudentClass (id,classCode,studentCode,tuitionRemark,enrollDate,payTypeCode,realTuition,"
-				+ "discountType,preferentialPrice,reduceMoney,discount,sellerCode,handleSchoolCode,sellSourceCode,studentType) values (:id,:classCode,"
+				+ "discountType,preferentialPrice,reduceMoney,discount,sellerCode,handleSchoolCode,sellSourceCode,studentType,isMiddle,handlerCode) values (:id,:classCode,"
 				+ ":studentCode,:tuitionRemark,:enrollDate,:payTypeCode,:realTuition,:discountType,:preferentialPrice,:reduceMoney,"
-				+ ":discount,:sellerCode,:handleSchoolCode,:sellSourceCode,:studentType)";
+				+ ":discount,:sellerCode,:handleSchoolCode,:sellSourceCode,:studentType,:isMiddle,:handlerCode)";
 		String sqlSCTF = "insert into StudentClass_TextbookFee (id,studentClassCode,textbookFeeCode,numbers) "
 				+ "values (:id,:studentClassCode,:textbookFeeCode,:numbers)";
 		SqlParameterSource[] parameterSources1 = SqlParameterSourceUtils

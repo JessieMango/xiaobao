@@ -1,6 +1,5 @@
 package com.hqgj.xb.bean;
 
-
 /**
  * @author 崔兴伟
  * @datetime 2015年8月24日 下午5:37:30
@@ -21,7 +20,8 @@ public class StudentClass {
 	private String studentType; // 1代表新生，2代表插班，3代表老生
 	private String realTuition; // 实收学费
 	private String reduceMoney; // 插班时减免的学费
-
+	private String isMiddle; // 是否为插班生 0不是，1是
+	private String handlerCode;// 经办人编码
 	/**
 	 * 用于接收前台参数
 	 */
@@ -60,6 +60,22 @@ public class StudentClass {
 
 	private String money; // 报名交的总钱数
 	private String points; // 积分
+
+	public String getHandlerCode() {
+		return handlerCode;
+	}
+
+	public void setHandlerCode(String handlerCode) {
+		this.handlerCode = handlerCode;
+	}
+
+	public String getIsMiddle() {
+		return isMiddle;
+	}
+
+	public void setIsMiddle(String isMiddle) {
+		this.isMiddle = isMiddle;
+	}
 
 	public String getRealTuition() {
 		return realTuition;

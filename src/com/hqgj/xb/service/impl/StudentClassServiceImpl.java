@@ -43,6 +43,8 @@ public class StudentClassServiceImpl implements StudentClassService {
 			tStudentClass.setSellerCode(studentClass.getSellerCode());
 			tStudentClass.setSellSourceCode(studentClass.getSellSourceCode());
 			tStudentClass.setStudentType("1"); // 默认为新生
+			tStudentClass.setIsMiddle("0"); 
+			tStudentClass.setHandlerCode(studentClass.getHandlerCode());
 			tStudentClass.setHandleSchoolCode(studentClass
 					.getHandleSchoolCode());
 			if (StringUtils.equals("3", studentClass.getDiscountType1())) {
@@ -51,7 +53,7 @@ public class StudentClassServiceImpl implements StudentClassService {
 			if (StringUtils.equals("2", studentClass.getDiscountType1())) {
 				tStudentClass.setPreferentialPrice(studentClass
 						.getPreferntial1());
-				tStudentClass.setStudentType("2"); // 学生类型为插班
+				tStudentClass.setIsMiddle("1"); // 学生类型为插班
 			}
 			if (StringUtils.equals("4", studentClass.getDiscountType1())) {
 				tStudentClass.setReduceMoney(studentClass.getReduceMoney1());
@@ -92,13 +94,15 @@ public class StudentClassServiceImpl implements StudentClassService {
 			tStudentClass.setHandleSchoolCode(studentClass
 					.getHandleSchoolCode());
 			tStudentClass.setStudentType("1"); // 默认为新生
+			tStudentClass.setIsMiddle("0"); 
+			tStudentClass.setHandlerCode(studentClass.getHandlerCode());
 			if (StringUtils.equals("3", studentClass.getDiscountType2())) {
 				tStudentClass.setDiscount(studentClass.getDiscount2());
 			}
 			if (StringUtils.equals("2", studentClass.getDiscountType2())) {
 				tStudentClass.setPreferentialPrice(studentClass
 						.getPreferntial2());
-				tStudentClass.setStudentType("2");
+				tStudentClass.setIsMiddle("1"); // 学生类型为插班
 			}
 			if (StringUtils.equals("4", studentClass.getDiscountType2())) {
 				tStudentClass.setReduceMoney(studentClass.getReduceMoney2());
@@ -141,13 +145,15 @@ public class StudentClassServiceImpl implements StudentClassService {
 			tStudentClass.setHandleSchoolCode(studentClass
 					.getHandleSchoolCode());
 			tStudentClass.setStudentType("1"); // 默认为新生
+			tStudentClass.setIsMiddle("0"); 
+			tStudentClass.setHandlerCode(studentClass.getHandlerCode());
 			if (StringUtils.equals("3", studentClass.getDiscountType3())) {
 				tStudentClass.setDiscount(studentClass.getDiscount3());
 			}
 			if (StringUtils.equals("2", studentClass.getDiscountType3())) {
 				tStudentClass.setPreferentialPrice(studentClass
 						.getPreferntial3());
-				tStudentClass.setStudentType("2");
+				tStudentClass.setIsMiddle("1"); // 学生类型为插班
 			}
 			if (StringUtils.equals("4", studentClass.getDiscountType3())) {
 				tStudentClass.setReduceMoney(studentClass.getReduceMoney3());
