@@ -19,6 +19,20 @@ public class ExpenseAccount {
 	private String remarks;
 	private String startTime;
 	private String endTime;
+	private String Numberofaccounts;
+	private String summoneyAmount;
+	public String getNumberofaccounts() {
+		return Numberofaccounts;
+	}
+	public void setNumberofaccounts(String numberofaccounts) {
+		Numberofaccounts = numberofaccounts;
+	}
+	public String getSummoneyAmount() {
+		return summoneyAmount;
+	}
+	public void setSummoneyAmount(String summoneyAmount) {
+		this.summoneyAmount = summoneyAmount;
+	}
 	public String getStartTime() {
 		return startTime;
 	}

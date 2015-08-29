@@ -23,28 +23,13 @@ public interface FinancialStatisticsService {
 	public List<Dictionary> getAllExpenditureProject(String type);
 	
 	
-	public MixedCharts getZhiChuAnDaLei(String starttime,String endtime);
+	public Grid getZhiChuAnDaLei(String starttime,String endtime,Parameter parameter);
+	public  Grid getZhiChuAnZiXiang(String starttime,String endtime,Parameter parameter);
+	public Grid getZhiChuAnXiaoQu(String starttime,String endtime,Parameter parameter);
+	public Grid getZhiChuYueDuiBi(String statisticalYear,Parameter parameter);
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public  Grid getLiuShuiZhang();
 	public Charts getLiuShuiAnXiaoQu(String starttime,String endtime);
 	public  DiagramCharts getLiuShuiYueDuiBi(String statisticalYear);
 	public Charts getLiuShuiAnRenYuan(String starttime,String endtime);

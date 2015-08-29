@@ -7,30 +7,7 @@
 <title>支出按大类</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
-var submitForm = function() {
-	if ($('form').form('validate')) {
-		$.post("getZhiChuAnDaLei", cxw.serializeObject($('form')),
-				function(jsonData) {
-					$("#container").highcharts({
-						  title:{
-						      text:  jsonData.title.text
-						   },
-							xAxis:{
-						      categories:  jsonData.xAxis.categories
-						   },
-						   labels:{
-						      items: jsonData.labels.items
-						   },
-						   series:jsonData.series,
-						   center: jsonData.center,
-						   size: jsonData.size,
-						   showInLegend: jsonData.showInLegend
-					});
-				})
-	}
-};
-
-	
+var grid;
 	function init() {
 		$('#starttime').datebox({
 			required : true,
@@ -40,9 +17,53 @@ var submitForm = function() {
 			required : true,
 			value : getCurrentDate()
 		});
-		$("#btn_save").click(function() {
-			submitForm();
-		});
+	
+		grid = $('#grid')
+		.datagrid(
+				{
+					url : 'getZhiChuAnDaLei',
+					striped : true,
+					pagination : true,
+					rownumbers : true,
+					nowrap : false,
+					idField : 'userId',
+					pageSize : 20,
+					pageList : [ 10, 20, 30, 40, 50, 100, 200, 300,
+							400, 500 ],
+					columns : [ [
+							{
+								field : 'expenditurenameM',
+								title : '支出大类名称',
+								width : "5%",
+								align : 'center'
+
+							},
+							{
+								field : 'numberofaccounts',
+								title : '条数',
+								width : "5%",
+								align : 'center'
+
+							},
+							
+							{
+								field : 'summoneyAmount',
+								title : '总金额',
+								width : "5%",
+								align : 'center',
+								
+							}] ],
+					onBeforeLoad : function(param) {
+						parent.$.messager.progress({
+							text : '数据加载中....'
+						});
+					},
+					onSortColumn : function(sort, order) {
+					},
+					onLoadSuccess : function(data) {
+						parent.$.messager.progress('close');
+					}
+				});
 	}
 	$(function() {
 		init();
@@ -62,13 +83,16 @@ var submitForm = function() {
 			<td></td>
 			
 			<td>		
-					 <a href="javascript:void(0);" id="btn_save"
-						class="easyui-linkbutton"
-						data-options="iconCls:'ext-icon-zoom',plain:true">查询</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton"
+							data-options="iconCls:'ext-icon-zoom',plain:true"
+							onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
 			</td>
 		</tr>
 	</table>
-	<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+	
 </form>
+	<div>
+			<table id="grid" data-options="border:false"></table>
+		</div>
 </body>
 </html>
