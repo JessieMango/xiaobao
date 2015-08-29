@@ -301,7 +301,7 @@ input[type='text']{
 							}
 						});
 
-		var perDate = getPreThreeDate();
+		var perDate = firstOfMouthDate();
 		$("#startTime").datebox("setValue", perDate);
 	}
 

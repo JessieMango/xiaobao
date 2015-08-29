@@ -40,7 +40,8 @@ public class UserController {
 		return userService.getAllUsers(parameter);
 	}
 
-	@RequestMapping(value = "/jiaowu/getUsersByRoleId", method = RequestMethod.POST)
+	@RequestMapping(value = { "/jiaowu/getUsersByRoleId",
+			"/qiantai/getUsersByRoleId" }, method = RequestMethod.POST)
 	public @ResponseBody List<User> getUsersByRoleId(String roleId,
 			boolean combo) {
 		return userService.getUsersByRoleId(roleId, combo);

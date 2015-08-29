@@ -9,7 +9,8 @@ public class StudentClass_TextbookFee {
 	private String studentClassCode;
 	private String textbookFeeCode;
 	private String numbers;
-	private String type;
+	private String type; // 1教材2杂费
+	private String price; // 单价
 
 	public String getId() {
 		return id;
@@ -49,6 +50,14 @@ public class StudentClass_TextbookFee {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	/**
