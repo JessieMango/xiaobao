@@ -64,7 +64,26 @@ function getPreOneMonths() {
 	m = m - 1;
 	return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
 }
+// ------------验证非负数的数字
+var CheckNonNegativeNumber = function CheckNonNegativeNumber(target) {
+	var Value = $(target).val();
 
+	if (isNaN(Value) || parseFloat(Value) < 0) {
+		$.messager.alert('提示', '【必须输入大于或等于0的数字】', 'info');
+		$(target).val("0");
+		$(target).focus();
+	}
+}
+/* 验证输入是否为数字 */
+var CheckNonNumber = function(target) {
+	var Value = $(target).val();
+
+	if (isNaN(Value)) {
+		$.messager.alert('提示', '【必须输入数字】', 'info');
+		$(target).val("0");
+		$(target).focus();
+	}
+}
 /* 上课时间 */
 var ChangeTimigWeekday = function(dom, num) {
 	var value = $(dom).val();
@@ -444,16 +463,6 @@ var changeDiscountType = function(type, target) {
 		}
 	}
 	CalTotalMoney();
-}
-
-// ------------验证非负数的数字
-var CheckNonNegativeNumber = function CheckNonNegativeNumber(target) {
-	var Value = $(target).val();
-
-	if (isNaN(Value) || parseFloat(Value) < 0) {
-		alert("【必须输入大于或等于0的数字】");
-		$(target).focus();
-	}
 }
 
 /**

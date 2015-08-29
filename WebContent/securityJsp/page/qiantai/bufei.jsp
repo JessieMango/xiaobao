@@ -18,9 +18,9 @@ input[type='text'] {
 </style>
 <script type="text/javascript">
 	var grid;
-	var addFeeFun = function(consultId, lackMoney) {
+	var addFeeFun = function(consultId, lackMoney, banlance) {
 		window.location.href = "bufeiDetail.jsp?consultId=" + consultId
-				+ "&lackMoney=" + lackMoney;
+				+ "&lackMoney=" + lackMoney + "&banlance=" + banlance;
 	}
 	var init = function() {
 		grid = $('#grid')
@@ -150,7 +150,7 @@ input[type='text'] {
 												return cxw
 														.formatString(
 																'<img alt="欠费" onclick="alert(\'欠费{0}元\')" style="vertical-align: middle;" src="../../../style/image/Tuition_lack.gif">',
-																value);
+																-value);
 											} else {
 												return cxw
 														.formatString(
@@ -248,9 +248,10 @@ input[type='text'] {
 											if (row.lackMoney < 0) {
 												return cxw
 														.formatString(
-																'<input type="button" value="￥补费" style="color:black; font-weight:bold; width:60px;" onclick="addFeeFun(\'{0}\',\'{1}\')" />',
+																'<input type="button" value="￥补费" style="color:black; font-weight:bold; width:60px;" onclick="addFeeFun(\'{0}\',\'{1}\',\'{2}\')" />',
 																row.consultId,
-																-row.lackMoney);
+																-row.lackMoney,
+																row.banlance);
 											} else {
 												return '';
 											}

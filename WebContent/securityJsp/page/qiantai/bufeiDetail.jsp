@@ -2,10 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@	page import="com.hqgj.xb.bean.easyui.SessionInfo"%>
 <%
-	String consultId = request.getParameter("consultId") == null ? ""
+	String consultId = request.getParameter("consultId") == null
+			? ""
 			: request.getParameter("consultId");
-	String lackMoney = request.getParameter("lackMoney") == null ? ""
+	String lackMoney = request.getParameter("lackMoney") == null
+			? ""
 			: request.getParameter("lackMoney");
+	String banlance = request.getParameter("banlance") == null
+			? ""
+			: request.getParameter("banlance");
+	if (Float.parseFloat(banlance) < 0) {
+		banlance = "0";
+	}
 	String contextPath = request.getContextPath();
 	SessionInfo sessionInfo = (SessionInfo) session
 			.getAttribute("sessionInfo");
@@ -23,6 +31,55 @@
 	text-align: right;
 }
 </style>
+<script type="text/javascript">
+	var lackMoney = '<%=lackMoney%>';
+	var banlance = '<%=banlance%>';
+	var CalTotal = function() {
+		var total = parseFloat($("#balance").val())
+				+ parseFloat($("#realMoney").val());
+		$("#total").html(total);
+	}
+	var changeMoney = function(target, type) {
+		var value = parseFloat($(target).val());
+		if (type == 1) { //实付金额发生变化
+			if (value > lackMoney) {
+				$.messager.alert('提示', '"补费金额" 不能大于 "欠费金额"' + lackMoney + '元',
+						'info');
+				$(target).val(lackMoney);
+			}
+			if (value < 0) {
+				$.messager.alert('提示', '支付金额不能小于0!', 'info');
+				$(target).val(lackMoney);
+			}
+		}
+		if (type == 2) { //余额发生变化
+			if (value < 0) {
+				$.messager.alert('提示', '使用的余额不能是负数', 'info');
+				$(target).val(banlance);
+			}
+			if (banlance < value) {
+				$.messager.alert('提示', '使用余额最多为' + banlance, 'info');
+				$(target).val(banlance);
+			}
+		}
+		CalTotal(); //算总金额
+	}
+	var init = function() {
+		$('#handleSchoolCode').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#handleSchoolCode').combobox('setValue',
+									data[0].schoolCode);
+						}
+					}
+				});
+	}
+	$(document).ready(function() {
+		init();
+		CalTotal(); //算总金额
+	});
+</script>
 </head>
 <body>
 	<div style="display: table; margin-left: 20px;">
@@ -38,9 +95,12 @@
 				<option value="3">转账支付</option>
 				<option value="4">支票支付</option>
 				<option value="5">网络支付</option>
-			</select><input type="number" id="" style="width: 70px;"><span>元+使用余额</span><input
-				type="number" id="" style="width: 70px;"><span>元(可用<span
-				id=""></span>元)=<span id="total"></span>元
+			</select><input type="text" id="realMoney" name="realMoney"
+				onkeyup="changeMoney(this,1);" value="<%=lackMoney%>" onblur="CheckNonNumber(this);"
+				style="width: 70px;"><span>元+使用余额</span><input type="text"
+				id="balance" name="balance" style="width: 70px;" onblur="CheckNonNumber(this);"
+				value="<%=banlance%>" onkeyup="changeMoney(this,2);"><span>元(可用<span><%=banlance%></span>元)=<span
+				id="total"></span>元
 			</span>
 		</div>
 		<br>
