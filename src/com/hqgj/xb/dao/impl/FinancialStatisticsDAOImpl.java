@@ -23,6 +23,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.ExpenseAccount;
+import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.highcharts.Charts;
@@ -241,97 +242,203 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		return grid;
 	}
 	@Override
-	public MixedCharts getZhiChuAnDaLei(String starttime, String endtime) {
-		String sql = "select Expenditure.nameM ExpenditurenameM,count(*) Numberofaccounts,sum(ExpenseAccount.moneyAmount) from ExpenseAccount left join Expenditure on ExpenseAccount.expenditureCode=Expenditure.code group by ExpenseAccount.expenditureCode ";
+	public Grid getZhiChuAnDaLei(String starttime, String endtime,Parameter parameter) {
+		String sql = "select Expenditure.nameM ExpenditurenameM,count(*) Numberofaccounts,sum(ExpenseAccount.moneyAmount) summoneyAmount "
+				+ "from Expenditure left outer join ExpenseAccount on Expenditure.code=ExpenseAccount.expenditureCode "
+				+" where  ExpenseAccount.payDate between :starttime and :endtime "
+				+ " group by Expenditure.code ";
 			
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
 		
-		final MixedCharts mixedCharts = new MixedCharts();
-		
-		  
-		  Labels labels =new Labels();
-		  mixedCharts.setLabels(labels);
-		  List<Items> items=new ArrayList<Items>();
-		  labels.setItems(items);
-		  Items Items0=new Items();
-		  Items0.setHtml("开支部门");
-		  Style style=new Style();
-		  style.setColor("(Highcharts.theme && Highcharts.theme.textColor) || 'black'");
-		  style.setLeft("50px");
-		  style.setTop("18px");
-		  Items0.setStyle(style);
-		  items.add(Items0);
-		  
-		  
-		  List<String> center=new ArrayList<String>();
-		  center.add("80");
-		  center.add("100");
-		  mixedCharts.setCenter(center);
-		  
-		  String size="100";
-		  mixedCharts.setSize(size);
-		  
-		  Boolean showInLegend=false;
-		  mixedCharts.setShowInLegend(showInLegend);
-		  
-		//设置标题
-		Title title=new Title();
-		title.setText("支出按大类统计表");
-		mixedCharts.setTitle(title);
-
-		
+		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
 		this.npJdbcTemplate.query(sql, paramMap,
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
+						ExpenseAccount expenseAccount=new ExpenseAccount();
+						expenseAccount.setExpenditurenameM(rs.getString("ExpenditurenameM"));
 						
-						 //1动态数据
-						  XAxis xAxis=new XAxis();
-						  List<String> categories;
-						  if(null == mixedCharts.getxAxis()||null==mixedCharts.getxAxis().getCategories())
-						  {
-							  categories=new ArrayList<String>();
-						  }
-						  else {
-							  categories=mixedCharts.getxAxis().getCategories();
-						  }
-						  categories.add(rs.getString("ExpenditurenameM"));
-						  xAxis.setCategories(categories);
-						  mixedCharts.setxAxis(xAxis);
-						  
-						  //2动态数据
-						  List<Series> series;
-						  if (null != mixedCharts.getSeries())
-						  {
-							  series=mixedCharts.getSeries();
-						  }
-						  else {
-							  series=new ArrayList<Series>();
+						if(StringUtils.isEmpty(rs.getString("summoneyAmount")))
+						{
+							expenseAccount.setSummoneyAmount("0");
+							expenseAccount.setNumberofaccounts("0");
 						}
-						  
-						  Series seriesobj=new Series();
-						  seriesobj.setType("column");
-						  seriesobj.setName("账目条数");
-						  List<Integer> data=new ArrayList<Integer>();
-						  
-						  if(StringUtils.isNotBlank(rs.getString("Numberofaccounts")))
-						  {
-						  data.add(Integer.parseInt(rs.getString("Numberofaccounts")));
-						  }
-						  else {
-							  data.add(0);
+						else {
+							expenseAccount.setNumberofaccounts(rs.getString("Numberofaccounts"));
+							expenseAccount.setSummoneyAmount(rs.getString("summoneyAmount"));
 						}
-						  seriesobj.setData(data);
-						  series.add(seriesobj);
-						  mixedCharts.setSeries(series);
+						
+						results.add(expenseAccount);
 					}
 				});
-			return mixedCharts;
+		
+		logger.info("一共有" + results.size() + "条数据");
+		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
+		Grid grid = new Grid();
+		if ((int) parameter.getPage() > 0) {
+			int page = (int) parameter.getPage();
+			int rows = (int) parameter.getRows();
+			int fromIndex = (page - 1) * rows;
+			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
+					* rows) ? results.size() : page * rows;
+			grid.setRows(results.subList(fromIndex, toIndex));
+			grid.setTotal(results.size());
+
+		} else {
+			grid.setRows(results);
+		}
+		return grid;
 	}
-	
-	
+	@Override
+	public Grid getZhiChuAnZiXiang(String starttime, String endtime,
+			Parameter parameter) {
+		String sql = "select ExpenditureProject.nameM ExpenditurenameM,count(*) Numberofaccounts,sum(ExpenseAccount.moneyAmount) summoneyAmount "
+				+ "from ExpenditureProject left outer join ExpenseAccount on ExpenditureProject.id=ExpenseAccount.expenditureProjectCode "
+				+" where  ExpenseAccount.payDate between :starttime and :endtime "
+				+ " group by ExpenditureProject.id";
+			
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
+		
+		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
+		this.npJdbcTemplate.query(sql, paramMap,
+				new RowCallbackHandler() {
+					@Override
+					public void processRow(ResultSet rs) throws SQLException {
+						ExpenseAccount expenseAccount=new ExpenseAccount();
+						expenseAccount.setExpenditurenameM(rs.getString("ExpenditurenameM"));
+						
+						if(StringUtils.isEmpty(rs.getString("summoneyAmount")))
+						{
+							expenseAccount.setSummoneyAmount("0");
+							expenseAccount.setNumberofaccounts("0");
+						}
+						else {
+							expenseAccount.setNumberofaccounts(rs.getString("Numberofaccounts"));
+							expenseAccount.setSummoneyAmount(rs.getString("summoneyAmount"));
+						}
+						
+						results.add(expenseAccount);
+					}
+				});
+		
+		logger.info("一共有" + results.size() + "条数据");
+		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
+		Grid grid = new Grid();
+		if ((int) parameter.getPage() > 0) {
+			int page = (int) parameter.getPage();
+			int rows = (int) parameter.getRows();
+			int fromIndex = (page - 1) * rows;
+			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
+					* rows) ? results.size() : page * rows;
+			grid.setRows(results.subList(fromIndex, toIndex));
+			grid.setTotal(results.size());
+
+		} else {
+			grid.setRows(results);
+		}
+		return grid;
+	}
+	@Override
+	public Grid getZhiChuAnXiaoQu(String starttime, String endtime,
+			Parameter parameter) {
+		////此处有问题，全部校区如何处理？？？？
+		String sql = "select School.schoolName ExpenditurenameM,count(*) Numberofaccounts,sum(ExpenseAccount.moneyAmount) summoneyAmount "
+				+ "from School left outer join ExpenseAccount on School.schoolCode=ExpenseAccount.schoolCode "
+				+ "  group by School.schoolCode";
+			
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
+		
+		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
+		this.npJdbcTemplate.query(sql, paramMap,
+				new RowCallbackHandler() {
+					@Override
+					public void processRow(ResultSet rs) throws SQLException {
+						ExpenseAccount expenseAccount=new ExpenseAccount();
+						expenseAccount.setExpenditurenameM(rs.getString("ExpenditurenameM"));
+						
+						if(StringUtils.isEmpty(rs.getString("summoneyAmount")))
+						{
+							expenseAccount.setSummoneyAmount("0");
+							expenseAccount.setNumberofaccounts("0");
+						}
+						else {
+							expenseAccount.setNumberofaccounts(rs.getString("Numberofaccounts"));
+							expenseAccount.setSummoneyAmount(rs.getString("summoneyAmount"));
+						}
+						
+						results.add(expenseAccount);
+					}
+				});
+		
+		logger.info("一共有" + results.size() + "条数据");
+		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
+		Grid grid = new Grid();
+		if ((int) parameter.getPage() > 0) {
+			int page = (int) parameter.getPage();
+			int rows = (int) parameter.getRows();
+			int fromIndex = (page - 1) * rows;
+			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
+					* rows) ? results.size() : page * rows;
+			grid.setRows(results.subList(fromIndex, toIndex));
+			grid.setTotal(results.size());
+
+		} else {
+			grid.setRows(results);
+		}
+		return grid;
+	}
+	@Override
+	public Grid getZhiChuYueDuiBi(String statisticalYear, Parameter parameter) {
+		String sql = "";
+			
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("statisticalYear",  statisticalYear );
+		
+		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
+		this.npJdbcTemplate.query(sql, paramMap,
+				new RowCallbackHandler() {
+					@Override
+					public void processRow(ResultSet rs) throws SQLException {
+						ExpenseAccount expenseAccount=new ExpenseAccount();
+						expenseAccount.setExpenditurenameM(rs.getString("ExpenditurenameM"));
+						
+						if(StringUtils.isEmpty(rs.getString("summoneyAmount")))
+						{
+							expenseAccount.setSummoneyAmount("0");
+							expenseAccount.setNumberofaccounts("0");
+						}
+						else {
+							expenseAccount.setNumberofaccounts(rs.getString("Numberofaccounts"));
+							expenseAccount.setSummoneyAmount(rs.getString("summoneyAmount"));
+						}
+						
+						results.add(expenseAccount);
+					}
+				});
+		
+		logger.info("一共有" + results.size() + "条数据");
+		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
+		Grid grid = new Grid();
+		if ((int) parameter.getPage() > 0) {
+			int page = (int) parameter.getPage();
+			int rows = (int) parameter.getRows();
+			int fromIndex = (page - 1) * rows;
+			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
+					* rows) ? results.size() : page * rows;
+			grid.setRows(results.subList(fromIndex, toIndex));
+			grid.setTotal(results.size());
+
+		} else {
+			grid.setRows(results);
+		}
+		return grid;
+	}
 	
 	
 	
@@ -399,6 +506,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	
 
 	

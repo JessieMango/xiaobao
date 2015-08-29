@@ -58,8 +58,24 @@ public class FinancialStatisticsServiceImpl implements
 		return financialStatisticsDAO.getAllExpenditureProject(type);
 	}
 	@Override
-	public MixedCharts getZhiChuAnDaLei(String starttime, String endtime) {
-		return financialStatisticsDAO.getZhiChuAnDaLei(starttime, endtime);
+	public Grid getZhiChuAnDaLei(String starttime, String endtime,Parameter parameter) {
+		return financialStatisticsDAO.getZhiChuAnDaLei(starttime, endtime,parameter);
+	}
+	@Override
+	public Grid getZhiChuAnZiXiang(String starttime, String endtime,
+			Parameter parameter) {
+		return financialStatisticsDAO.getZhiChuAnZiXiang(starttime, endtime, parameter);
+	}
+
+	@Override
+	public Grid getZhiChuAnXiaoQu(String starttime, String endtime,
+			Parameter parameter) {
+		return financialStatisticsDAO.getZhiChuAnXiaoQu(starttime, endtime, parameter);
+	}
+
+	@Override
+	public Grid getZhiChuYueDuiBi(String statisticalYear, Parameter parameter) {
+		return financialStatisticsDAO.getZhiChuYueDuiBi(statisticalYear, parameter);
 	}
 
 	
@@ -116,6 +132,7 @@ public class FinancialStatisticsServiceImpl implements
 		return financialStatisticsDAO.getTuiFeiAnKeCheng(starttime, endtime);
 	}
 
+	
 	
 	
 

@@ -89,21 +89,37 @@ public class FinancialStatisticsController {
 	{
 		return financialStatisticsService.getAllExpenditureProject(type);
 	}
+
+
 	
-	//绘制混合图
 	@RequestMapping(value = "/caiwu/getZhiChuAnDaLei", method = RequestMethod.POST)
-	public @ResponseBody MixedCharts getZhiChuAnDaLei(String starttime,String endtime)
+	public @ResponseBody Grid getZhiChuAnDaLei(String starttime,String endtime,Parameter parameter)
 	{
-		return financialStatisticsService.getZhiChuAnDaLei(starttime,endtime);
+		return financialStatisticsService.getZhiChuAnDaLei(starttime,endtime,parameter);
+	}
+	
+	@RequestMapping(value = "/caiwu/getZhiChuAnZiXiang", method = RequestMethod.POST)
+	public @ResponseBody Grid getZhiChuAnZiXiang(String starttime,String endtime,Parameter parameter)
+	{
+		return financialStatisticsService.getZhiChuAnZiXiang(starttime,endtime,parameter);
+	}
+	
+	@RequestMapping(value = "/caiwu/getZhiChuAnXiaoQu", method = RequestMethod.POST)
+	public @ResponseBody Grid getZhiChuAnXiaoQu(String starttime,String endtime,Parameter parameter)
+	{
+		return financialStatisticsService.getZhiChuAnXiaoQu(starttime,endtime,parameter);
+	}
+	@RequestMapping(value = "/caiwu/getZhiChuYueDuiBi", method = RequestMethod.POST)
+	public @ResponseBody Grid getZhiChuYueDuiBi(String statisticalYear,Parameter parameter)
+	{
+		return financialStatisticsService.getZhiChuYueDuiBi(statisticalYear,parameter);
 	}
 	
 	
 	
 	
 	
-	
-	
-	
+
 	
 	
 	
