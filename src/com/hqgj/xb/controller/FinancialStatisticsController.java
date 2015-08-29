@@ -31,6 +31,7 @@ public class FinancialStatisticsController {
 	@Autowired
 	private FinancialStatisticsService financialStatisticsService;
 	
+	//支出帐的相关模块
 	@RequestMapping(value = "/caiwu/addExpenseAccount", method = RequestMethod.POST)
 	public @ResponseBody Json addExpenseAccount(ExpenseAccount expenseAccount,HttpServletRequest request) {
 		Json json = new Json();
@@ -44,7 +45,6 @@ public class FinancialStatisticsController {
 		}
 		return json;
 	}
-	
 	@RequestMapping(value = "/caiwu/updateExpenseAccount", method = RequestMethod.POST)
 	public @ResponseBody Json updateExpenseAccount(ExpenseAccount expenseAccount) {
 		Json json = new Json();
@@ -61,7 +61,6 @@ public class FinancialStatisticsController {
 	{
 		return financialStatisticsService.getExpenseAccountById(id);
 	}
-	
 	@RequestMapping(value = "/caiwu/deleteExpenseAccount", method = RequestMethod.POST)
 	public @ResponseBody Json deleteExpenseAccount(String id) {
 		Json json = new Json();
@@ -73,8 +72,6 @@ public class FinancialStatisticsController {
 		}
 		return json;
 	}
-	
-	
 	@RequestMapping(value = "/caiwu/getExpenseAccount", method = RequestMethod.POST)
 	public @ResponseBody Grid getExpenseAccount(ExpenseAccount expenseAccount, Parameter parameter ) {
 		return financialStatisticsService.getExpenseAccount(expenseAccount, parameter);
@@ -89,21 +86,16 @@ public class FinancialStatisticsController {
 	{
 		return financialStatisticsService.getAllExpenditureProject(type);
 	}
-
-
-	
 	@RequestMapping(value = "/caiwu/getZhiChuAnDaLei", method = RequestMethod.POST)
 	public @ResponseBody Grid getZhiChuAnDaLei(String starttime,String endtime,Parameter parameter)
 	{
 		return financialStatisticsService.getZhiChuAnDaLei(starttime,endtime,parameter);
 	}
-	
 	@RequestMapping(value = "/caiwu/getZhiChuAnZiXiang", method = RequestMethod.POST)
 	public @ResponseBody Grid getZhiChuAnZiXiang(String starttime,String endtime,Parameter parameter)
 	{
 		return financialStatisticsService.getZhiChuAnZiXiang(starttime,endtime,parameter);
 	}
-	
 	@RequestMapping(value = "/caiwu/getZhiChuAnXiaoQu", method = RequestMethod.POST)
 	public @ResponseBody Grid getZhiChuAnXiaoQu(String starttime,String endtime,Parameter parameter)
 	{
@@ -119,22 +111,8 @@ public class FinancialStatisticsController {
 	
 	
 	
+	//业务流水账相关的模块
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/caiwu/getLiuShuiZhang", method = RequestMethod.POST)
-	public @ResponseBody Grid getLiuShuiZhang() {
-		return financialStatisticsService.getLiuShuiZhang();
-	}
 	
 	@RequestMapping(value = "/caiwu/getLiuShuiAnXiaoQu", method = RequestMethod.POST)
 	public @ResponseBody Charts getLiuShuiAnXiaoQu(String starttime,String endtime) {

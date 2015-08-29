@@ -80,27 +80,6 @@ public class FinancialStatisticsServiceImpl implements
 
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	public Grid getLiuShuiZhang() {
-		return financialStatisticsDAO.getLiuShuiZhang();
-	}
 
 	@Override
 	public Charts getLiuShuiAnXiaoQu(String starttime, String endtime) {

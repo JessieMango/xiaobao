@@ -504,21 +504,6 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	public Grid getLiuShuiZhang() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public Charts getLiuShuiAnXiaoQu(String starttime, String endtime) {
 		// TODO Auto-generated method stub

@@ -30,23 +30,6 @@ public interface FinancialStatisticsService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public  Grid getLiuShuiZhang();
 	public Charts getLiuShuiAnXiaoQu(String starttime,String endtime);
 	public  DiagramCharts getLiuShuiYueDuiBi(String statisticalYear);
 	public Charts getLiuShuiAnRenYuan(String starttime,String endtime);
