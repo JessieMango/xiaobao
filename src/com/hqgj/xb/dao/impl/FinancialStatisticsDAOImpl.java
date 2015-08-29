@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.hqgj.xb.bean.ClassS;
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.ExpenseAccount;
 import com.hqgj.xb.bean.Staff;
@@ -36,6 +37,7 @@ import com.hqgj.xb.bean.highcharts.mixedgraph.Series;
 import com.hqgj.xb.bean.highcharts.mixedgraph.Style;
 import com.hqgj.xb.bean.highcharts.mixedgraph.XAxis;
 import com.hqgj.xb.dao.FinancialStatisticsDAO;
+import com.hqgj.xb.util.CommonUtil;
 
 /**
  * @author 鲁宗豪
@@ -45,16 +47,16 @@ import com.hqgj.xb.dao.FinancialStatisticsDAO;
 public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 	private static final Logger logger = Logger
 			.getLogger(ResourceDaoImpl.class);
+	private NamedParameterJdbcTemplate nJdbcTemplate;
 
-	private NamedParameterJdbcTemplate npJdbcTemplate;
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
-		this.npJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+		this.nJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 	@Override
 	public List<Dictionary> getAllExpenditure(String type) {
 		String sql = "select code,nameM from Expenditure order by seq ";
-		List<Dictionary> results = this.npJdbcTemplate.query(sql,
+		List<Dictionary> results = this.nJdbcTemplate.query(sql,
 				new RowMapper<Dictionary>() {
 					@Override
 					public Dictionary mapRow(ResultSet rs, int index)
@@ -89,7 +91,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		sql += " where epCode=:ExpenditureID ";
 		}
 	sql += " order by seq ";
-		List<Dictionary> results = this.npJdbcTemplate.query(sql,map,
+		List<Dictionary> results = this.nJdbcTemplate.query(sql,map,
 				new RowMapper<Dictionary>() {
 					@Override
 					public Dictionary mapRow(ResultSet rs, int index)
@@ -109,7 +111,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 										+ " (:id,:payDate,:schoolCode,:expenditureCode,:expenditureProjectCode,:moneyAmount,:dhandlerId,:remarks)";
 		SqlParameterSource ExParameterSource = new BeanPropertySqlParameterSource(
 				expenseAccount);
-		return this.npJdbcTemplate.update(sql, ExParameterSource);
+		return this.nJdbcTemplate.update(sql, ExParameterSource);
 	}
 
 	@Override
@@ -126,7 +128,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 				+ " left join School on ExpenseAccount.schoolCode=School.schoolCode "
 				+ " where ExpenseAccount.id=:id ";
 
-		final ExpenseAccount result = this.npJdbcTemplate.queryForObject(sql, paramMap,
+		final ExpenseAccount result = this.nJdbcTemplate.queryForObject(sql, paramMap,
 				new RowMapper<ExpenseAccount>() {
 					@Override
 					public ExpenseAccount mapRow(ResultSet rs, int index)
@@ -155,7 +157,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		logger.info(expenseAccount);
 		SqlParameterSource paramSource = new BeanPropertySqlParameterSource(
 				expenseAccount);
-		return this.npJdbcTemplate.update(sql, paramSource);
+		return this.nJdbcTemplate.update(sql, paramSource);
 	}
 
 	@Override
@@ -163,7 +165,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		String sqlDete = "DELETE from ExpenseAccount WHERE id=:id";
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
-		return this.npJdbcTemplate.update(sqlDete, map);
+		return this.nJdbcTemplate.update(sqlDete, map);
 	}
 
 	@Override
@@ -208,7 +210,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		logger.info(sql);
 		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
 		SqlParameterSource expenseaccountParameterSource = new BeanPropertySqlParameterSource(expenseAccount);
-		this.npJdbcTemplate.query(sql, expenseaccountParameterSource,new RowCallbackHandler() {
+		this.nJdbcTemplate.query(sql, expenseaccountParameterSource,new RowCallbackHandler() {
 			@Override
 			public void processRow(ResultSet rs) throws SQLException {
 				ExpenseAccount expenseAccount = new ExpenseAccount();
@@ -253,7 +255,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		paramMap.put("endtime", endtime );
 		
 		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
-		this.npJdbcTemplate.query(sql, paramMap,
+		this.nJdbcTemplate.query(sql, paramMap,
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
@@ -304,7 +306,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		paramMap.put("endtime", endtime );
 		
 		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
-		this.npJdbcTemplate.query(sql, paramMap,
+		this.nJdbcTemplate.query(sql, paramMap,
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
@@ -355,7 +357,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		paramMap.put("endtime", endtime );
 		
 		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
-		this.npJdbcTemplate.query(sql, paramMap,
+		this.nJdbcTemplate.query(sql, paramMap,
 				new RowCallbackHandler() {
 					@Override
 					public void processRow(ResultSet rs) throws SQLException {
@@ -395,35 +397,81 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 	}
 	@Override
 	public Grid getZhiChuYueDuiBi(String statisticalYear, Parameter parameter) {
-		String sql = "";
-			
+		String sql="select DATE_FORMAT(payDate,'%m') ExpenditurenameM,count(*) Numberofaccounts,sum(moneyAmount) summoneyAmount "
+				+ "from ExpenseAccount "
+				+ "where DATE_FORMAT(payDate,'%Y')=:statisticalYear "
+				+ "group by ExpenditurenameM "
+				+ "order by ExpenditurenameM";
+			if(StringUtils.isEmpty(statisticalYear))
+			{
+				statisticalYear=CommonUtil.getSystemDate().substring(0,4);
+			}
+			logger.info(statisticalYear);
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("statisticalYear",  statisticalYear );
-		
-		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
-		this.npJdbcTemplate.query(sql, paramMap,
-				new RowCallbackHandler() {
+		List<ExpenseAccount> results= this.nJdbcTemplate.query(sql, paramMap,
+				new RowMapper<ExpenseAccount>() {
 					@Override
-					public void processRow(ResultSet rs) throws SQLException {
+					public ExpenseAccount mapRow(ResultSet rs, int index)
+							throws SQLException {
 						ExpenseAccount expenseAccount=new ExpenseAccount();
 						expenseAccount.setExpenditurenameM(rs.getString("ExpenditurenameM"));
-						
-						if(StringUtils.isEmpty(rs.getString("summoneyAmount")))
-						{
-							expenseAccount.setSummoneyAmount("0");
-							expenseAccount.setNumberofaccounts("0");
-						}
-						else {
-							expenseAccount.setNumberofaccounts(rs.getString("Numberofaccounts"));
-							expenseAccount.setSummoneyAmount(rs.getString("summoneyAmount"));
-						}
-						
-						results.add(expenseAccount);
+						expenseAccount.setNumberofaccounts(rs.getString("Numberofaccounts"));
+						expenseAccount.setSummoneyAmount(rs.getString("summoneyAmount"));
+						return expenseAccount;
 					}
 				});
+		List<ExpenseAccount> temp=new ArrayList<ExpenseAccount>();
+		if(results.size()>0)
+		{
+			int j;
+			for(j=1;j<Integer.parseInt(results.get(0).getExpenditurenameM());j++)
+			{
+				ExpenseAccount expenseAccount=new ExpenseAccount();
+				expenseAccount.setExpenditurenameM(""+j);
+				expenseAccount.setNumberofaccounts("0");
+				expenseAccount.setSummoneyAmount("0");
+				temp.add(expenseAccount);
+			}
+			temp.add(results.get(0));
+			j++;
+			int resultssize=1;
+			for(int i=0;i<results.size()-1;i++)
+			{
+				int minIndex=Integer.parseInt(results.get(i).getExpenditurenameM());
+				int maxIndex=Integer.parseInt(results.get(i+1).getExpenditurenameM());
+				for(;j>minIndex&&j<maxIndex;j++)
+				{
+					ExpenseAccount expenseAccount=new ExpenseAccount();
+					expenseAccount.setExpenditurenameM(""+j);
+					expenseAccount.setNumberofaccounts("0");
+					expenseAccount.setSummoneyAmount("0");
+					temp.add(expenseAccount);
+				}
+				temp.add(results.get(resultssize++));
+				j++;
+			}
+			for(;j<13;j++)
+			{
+				ExpenseAccount expenseAccount=new ExpenseAccount();
+				expenseAccount.setExpenditurenameM(""+j);
+				expenseAccount.setNumberofaccounts("0");
+				expenseAccount.setSummoneyAmount("0");
+				temp.add(expenseAccount);
+			}
+		}
+		else {
+			for(int j=1;j<13;j++)
+			{
+				ExpenseAccount expenseAccount=new ExpenseAccount();
+				expenseAccount.setExpenditurenameM(""+j);
+				expenseAccount.setNumberofaccounts("0");
+				expenseAccount.setSummoneyAmount("0");
+				temp.add(expenseAccount);
+			}
+		}
+		results=temp;
 		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
 		Grid grid = new Grid();
 		if ((int) parameter.getPage() > 0) {
 			int page = (int) parameter.getPage();

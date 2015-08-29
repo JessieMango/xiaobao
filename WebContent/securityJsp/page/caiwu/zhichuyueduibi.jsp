@@ -9,17 +9,7 @@
 <script type="text/javascript">
 var grid;
 	function init() {
-		$('#starttime').datebox({
-			required : true,
-			value : getPreOneMonths()
-		});
-		$('#endtime').datebox({
-			required : true,
-			value : getCurrentDate()
-		});
-	
-		grid = $('#grid')
-		.datagrid(
+		grid = $('#grid').datagrid(
 				{
 					url : 'getZhiChuYueDuiBi',
 					striped : true,
@@ -90,12 +80,11 @@ var grid;
 				<option value="2025">2025</option>
 			</select>
 			</td>
-			
 			<td></td>
 			<td>		
 				<a href="javascript:void(0);" class="easyui-linkbutton"
 							data-options="iconCls:'ext-icon-zoom',plain:true"
-							onclick="grid.datagrid('load',cxw.serializeObject($('#form')));">查询</a>
+							onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
 			</td>
 		</tr>
 	</table>
