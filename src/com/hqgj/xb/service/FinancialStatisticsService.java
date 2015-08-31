@@ -7,8 +7,6 @@ import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
-import com.hqgj.xb.bean.highcharts.mixedgraph.MixedCharts;
-
 /**
  * @author 鲁宗豪
  * @datetime 2015年8月20日 下午10:20:34

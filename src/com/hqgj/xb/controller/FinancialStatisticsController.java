@@ -18,7 +18,6 @@ import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
-import com.hqgj.xb.bean.highcharts.mixedgraph.MixedCharts;
 import com.hqgj.xb.service.FinancialStatisticsService;
 
 /**

@@ -43,8 +43,6 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 	public void setDataSource(DataSource dataSource) {
 		this.npJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
-
-	
 	@Override
 	public Charts getXiaoQuZiXunLiang(String starttime,String endtime) {
 		String sql = "select School.schoolName schoolName,count(School.schoolName) countNum from Consult LEFT OUTER JOIN School on Consult.handleSchoolCode=School.schoolCode "
@@ -97,8 +95,6 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 
 		return charts;
 	}
-	
-	
 	@Override
 	public Charts getZiXunLaiYuan(String starttime,String endtime) {
 		String sql = "select DSellSource.nameM nameM,count(Consult.sellSource) countNum from DSellSource left join Consult on DSellSource.id=Consult.sellSource "

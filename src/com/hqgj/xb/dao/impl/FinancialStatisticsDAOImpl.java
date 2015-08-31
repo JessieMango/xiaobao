@@ -27,15 +27,13 @@ import com.hqgj.xb.bean.ExpenseAccount;
 import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
+import com.hqgj.xb.bean.highcharts.Chart;
 import com.hqgj.xb.bean.highcharts.Charts;
+import com.hqgj.xb.bean.highcharts.Data;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
+import com.hqgj.xb.bean.highcharts.Options3d;
+import com.hqgj.xb.bean.highcharts.Series;
 import com.hqgj.xb.bean.highcharts.Title;
-import com.hqgj.xb.bean.highcharts.mixedgraph.Items;
-import com.hqgj.xb.bean.highcharts.mixedgraph.Labels;
-import com.hqgj.xb.bean.highcharts.mixedgraph.MixedCharts;
-import com.hqgj.xb.bean.highcharts.mixedgraph.Series;
-import com.hqgj.xb.bean.highcharts.mixedgraph.Style;
-import com.hqgj.xb.bean.highcharts.mixedgraph.XAxis;
 import com.hqgj.xb.dao.FinancialStatisticsDAO;
 import com.hqgj.xb.util.CommonUtil;
 
@@ -146,15 +144,12 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 						logger.info(expenseAccount.getDhandlernameM());
 						return expenseAccount;
 					}});
-		
 		return result;
 	}
 
 	@Override
 	public int updateExpenseAccount(ExpenseAccount expenseAccount) {
 		String sql = "update ExpenseAccount set payDate=:payDate,schoolCode=:schoolCode,expenditureCode=:expenditurenameM,expenditureProjectCode=:expenditureProjectnameM,moneyAmount=:moneyAmount,remarks=:remarks where id=:id";
-		logger.info(sql);
-		logger.info(expenseAccount);
 		SqlParameterSource paramSource = new BeanPropertySqlParameterSource(
 				expenseAccount);
 		return this.nJdbcTemplate.update(sql, paramSource);
@@ -207,7 +202,6 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 					sql+=" and remarks like :remarks ";			
 				}
 		}
-		logger.info(sql);
 		final List<ExpenseAccount> results = new ArrayList<ExpenseAccount>();
 		SqlParameterSource expenseaccountParameterSource = new BeanPropertySqlParameterSource(expenseAccount);
 		this.nJdbcTemplate.query(sql, expenseaccountParameterSource,new RowCallbackHandler() {
@@ -275,9 +269,6 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 						results.add(expenseAccount);
 					}
 				});
-		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
 		Grid grid = new Grid();
 		if ((int) parameter.getPage() > 0) {
 			int page = (int) parameter.getPage();
@@ -326,9 +317,6 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 						results.add(expenseAccount);
 					}
 				});
-		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
 		Grid grid = new Grid();
 		if ((int) parameter.getPage() > 0) {
 			int page = (int) parameter.getPage();
@@ -377,9 +365,6 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 						results.add(expenseAccount);
 					}
 				});
-		
-		logger.info("一共有" + results.size() + "条数据");
-		logger.info("page:"+parameter.getPage()+";rows:"+parameter.getRows());
 		Grid grid = new Grid();
 		if ((int) parameter.getPage() > 0) {
 			int page = (int) parameter.getPage();
@@ -481,7 +466,6 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 					* rows) ? results.size() : page * rows;
 			grid.setRows(results.subList(fromIndex, toIndex));
 			grid.setTotal(results.size());
-
 		} else {
 			grid.setRows(results);
 		}
@@ -489,49 +473,176 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//账户收入统计
 	@Override
 	public Charts getLiuShuiAnXiaoQu(String starttime, String endtime) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		String sql="select School.schoolName schoolName,sum(FinancialRunnningAccount.realMoney) realMoney"
+				+ " from School left outer join FinancialRunnningAccount on School.schoolCode=FinancialRunnningAccount.handleSchoolCode "
+				+ "where FinancialRunnningAccount.operateDate between :starttime and :endtime "
+				+ " group by School.schoolCode";
+		
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
 
-	@Override
-	public DiagramCharts getLiuShuiYueDuiBi(String statisticalYear) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Charts charts = new Charts();
+		//设置标题
+		Title title=new Title();
+		title.setText("流水按校区");
+		charts.setTitle(title);
 
+		//设置Series
+		Series series=new Series();
+		series.setName("流水按校区");
+		
+		List<Data> results= this.nJdbcTemplate.query(sql, paramMap,
+				new RowMapper<Data>() {
+					@Override
+					public Data mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Data data=new Data();
+						data.setName(rs.getString("schoolName"));
+						if(StringUtils.isEmpty(rs.getString("realMoney")))
+						{
+							data.setY(0);
+						}
+						else {
+							data.setY(Integer.parseInt(rs.getString("realMoney")));
+						}
+						return data;
+					}
+				});
+		series.setData(results);
+		charts.setSeries(series);
+		return charts;
+	}
 	@Override
 	public Charts getLiuShuiAnRenYuan(String starttime, String endtime) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		String sql=" select DHandler.nameM DHandlernameM,sum(FinancialRunnningAccount.realMoney) realMoney "
+				+ " from DHandler left outer join FinancialRunnningAccount on DHandler.id=FinancialRunnningAccount.handlerCode "
+				+ " where FinancialRunnningAccount.operateDate between :starttime and :endtime "
+				+ " group by DHandler.id ";
+		
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
 
+		Charts charts = new Charts();
+		//设置标题
+		Title title=new Title();
+		title.setText("流水按人员");
+		charts.setTitle(title);
+
+		//设置Series
+		Series series=new Series();
+		series.setName("流水按人员");
+		
+		List<Data> results= this.nJdbcTemplate.query(sql, paramMap,
+				new RowMapper<Data>() {
+					@Override
+					public Data mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Data data=new Data();
+						data.setName(rs.getString("DHandlernameM"));
+						if(StringUtils.isEmpty(rs.getString("realMoney")))
+						{
+							data.setY(0);
+						}
+						else {
+							data.setY(Integer.parseInt(rs.getString("realMoney")));
+						}
+						return data;
+					}
+				});
+		series.setData(results);
+		charts.setSeries(series);
+		return charts;
+	}
+	//退费按校区		
 	@Override
 	public Charts getTuiFeiAnXiaoQu(String starttime, String endtime) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql="";
+	
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
+
+		Charts charts = new Charts();
+		//设置标题
+		Title title=new Title();
+		title.setText("退费按校区");
+		charts.setTitle(title);
+
+		//设置Series
+		Series series=new Series();
+		series.setName("退费按校区");
+		
+		List<Data> results= this.nJdbcTemplate.query(sql, paramMap,
+				new RowMapper<Data>() {
+					@Override
+					public Data mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Data data=new Data();
+						data.setName(rs.getString(""));
+						if(StringUtils.isEmpty(rs.getString("")))
+						{
+							data.setY(0);
+						}
+						else {
+							data.setY(Integer.parseInt(rs.getString("")));
+						}
+						return data;
+					}
+				});
+		series.setData(results);
+		charts.setSeries(series);
+		return charts;
 	}
 
 	@Override
 	public Charts getXueFeiAnKeCheng(String starttime, String endtime) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql=" select Course.nameM CoursenameM,sum(StudentClass.realTuition) realTuition "
+				+ " from Course left outer join Class on Course.courseCode=Class.courseCode "
+				+ " left outer join StudentClass on Class.classCode=StudentClass.classCode "
+				+ " group by Course.courseCode";
+		
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
+
+		Charts charts = new Charts();
+		//设置标题
+		Title title=new Title();
+		title.setText("流水按人员");
+		charts.setTitle(title);
+
+		//设置Series
+		Series series=new Series();
+		series.setName("流水按人员");
+		
+		List<Data> results= this.nJdbcTemplate.query(sql, paramMap,
+				new RowMapper<Data>() {
+					@Override
+					public Data mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Data data=new Data();
+						data.setName(rs.getString("CoursenameM"));
+						if(StringUtils.isEmpty(rs.getString("realTuition")))
+						{
+							data.setY(0);
+						}
+						else {
+							data.setY(Integer.parseInt(rs.getString("realTuition")));
+						}
+						return data;
+					}
+				});
+		series.setData(results);
+		charts.setSeries(series);
+		return charts;
 	}
 
 	@Override
@@ -539,7 +650,12 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+	@Override
+	public DiagramCharts getLiuShuiYueDuiBi(String statisticalYear) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	
