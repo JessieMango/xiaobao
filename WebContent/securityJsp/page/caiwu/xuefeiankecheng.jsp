@@ -29,7 +29,10 @@ var submitForm = function() {
                    series:[{
                 	   type:'pie',
                 	   name:jsonData.series.name,
-                	   data:jsonData.series.data
+                	   data:jsonData.series.data,
+                       dataLabels: {
+                           enabled: false
+                       }
                    }]
                    }
 			);

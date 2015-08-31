@@ -17,7 +17,6 @@ import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.easyui.SessionInfo;
 import com.hqgj.xb.bean.highcharts.Charts;
-import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.service.FinancialStatisticsService;
 
 /**
@@ -117,10 +116,7 @@ public class FinancialStatisticsController {
 	public @ResponseBody Charts getLiuShuiAnXiaoQu(String starttime,String endtime) {
 		return financialStatisticsService.getLiuShuiAnXiaoQu(starttime,endtime);
 	}
-	@RequestMapping(value = "/caiwu/getLiuShuiYueDuiBi", method = RequestMethod.POST)
-	public @ResponseBody DiagramCharts getLiuShuiYueDuiBi(String statisticalYear) {
-		return financialStatisticsService.getLiuShuiYueDuiBi(statisticalYear);
-	}
+
 	@RequestMapping(value = "/caiwu/getLiuShuiAnRenYuan", method = RequestMethod.POST)
 	public @ResponseBody Charts getLiuShuiAnRenYuan(String starttime,String endtime) {
 		return financialStatisticsService.getLiuShuiAnRenYuan(starttime,endtime);
@@ -139,4 +135,9 @@ public class FinancialStatisticsController {
 		return financialStatisticsService.getTuiFeiAnKeCheng(starttime,endtime);
 	}
 	
+	
+	@RequestMapping(value = "/caiwu/getLiuShuiYueDuiBi", method = RequestMethod.POST)
+	public @ResponseBody Charts getLiuShuiYueDuiBi(String statisticalYear) {
+		return financialStatisticsService.getLiuShuiYueDuiBi(statisticalYear);
+	}
 }

@@ -6,7 +6,7 @@ package com.hqgj.xb.bean.highcharts;
  */
 public class Data {
 	private String name;
-	private int y;
+	private float y;
 	
 	
 	public String getName() {
@@ -15,11 +15,10 @@ public class Data {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getY() {
+	public float getY() {
 		return y;
 	}
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
-
 }
