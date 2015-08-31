@@ -150,10 +150,12 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 							money = Float.parseFloat(rs
 									.getString("realTuition"))
 									- Float.parseFloat(rs.getString("tuition"));
+							oldStudentAgainEnroll.setRealShouldTuition(rs
+									.getString("tuition")); // 实际应交学费
 							if (money < 0) {
 								oldStudentAgainEnroll.setLackMoney(money + "");
 							} else {
-								oldStudentAgainEnroll.setLackMoney("0");
+								oldStudentAgainEnroll.setLackMoney(money+"");
 							}
 						}
 						if (StringUtils.equals("2", // 优惠
@@ -162,10 +164,15 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 									.getString("realTuition"))
 									- (Float.parseFloat(rs.getString("tuition")) - Float.parseFloat(rs
 											.getString("preferentialPrice")));
+							oldStudentAgainEnroll.setRealShouldTuition((Float
+									.parseFloat(rs.getString("tuition")) - Float
+									.parseFloat(rs
+											.getString("preferentialPrice")))
+									+ ""); // 实际应交学费
 							if (money < 0) {
 								oldStudentAgainEnroll.setLackMoney(money + "");
 							} else {
-								oldStudentAgainEnroll.setLackMoney("0");
+								oldStudentAgainEnroll.setLackMoney(money+"");
 							}
 						}
 						if (StringUtils.equals("3", // 打折
@@ -175,10 +182,14 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 									.parseFloat(rs.getString("tuition"))
 									* Float.parseFloat(rs.getString("discount"))
 									/ 10.0);
+							oldStudentAgainEnroll.setRealShouldTuition(Float
+									.parseFloat(rs.getString("tuition"))
+									* Float.parseFloat(rs.getString("discount"))
+									/ 10.0 + ""); // 实际应交学费
 							if (money < 0) {
 								oldStudentAgainEnroll.setLackMoney(money + "");
 							} else {
-								oldStudentAgainEnroll.setLackMoney("0");
+								oldStudentAgainEnroll.setLackMoney(money+"");
 							}
 						}
 						if (StringUtils.equals("4",
@@ -188,10 +199,14 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 									- (Float.parseFloat(rs.getString("tuition")) - Float
 											.parseFloat(rs
 													.getString("reduceMoney")));
+							oldStudentAgainEnroll.setRealShouldTuition((Float
+									.parseFloat(rs.getString("tuition")) - Float
+									.parseFloat(rs.getString("reduceMoney")))
+									+ "");// 实际应交学费
 							if (money < 0) {
 								oldStudentAgainEnroll.setLackMoney(money + "");
 							} else {
-								oldStudentAgainEnroll.setLackMoney("0");
+								oldStudentAgainEnroll.setLackMoney(money+"");
 							}
 						}
 						oldStudentAgainEnroll.setId(rs.getString("id"));
@@ -302,5 +317,4 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 		}
 		return grid;
 	}
-
 }

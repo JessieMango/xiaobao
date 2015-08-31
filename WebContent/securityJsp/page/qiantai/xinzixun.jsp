@@ -102,9 +102,7 @@ label {
 	$(document).ready(function() {
 		init();
 		if(<%=flag%>){
-			$.post("getConsultById", {id :"<%=id%>
-	"
-			}, function(result) {
+			$.post("getConsultById", {id :"<%=id%>"}, function(result) {
 				$('form').form('load', {
 					"birthday" : result.birthday,
 					"class_grade" : result.class_grade,
@@ -253,6 +251,7 @@ label {
 						style="vertical-align: middle;">保存</span>
 				</button>
 			</div>
+		</form>
 	</div>
 </body>
 </html>

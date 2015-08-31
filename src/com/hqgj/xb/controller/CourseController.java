@@ -32,7 +32,8 @@ public class CourseController {
 	}
 
 	@RequestMapping(value = { "/form/getCourseTypes",
-			"/qiantai/getCourseTypes", "/jiaowu/getCourseTypes" }, method = RequestMethod.POST)
+			"/qiantai/getCourseTypes", "/jiaowu/getCourseTypes",
+			"/caiwu/getCourseTypes" }, method = RequestMethod.POST)
 	public @ResponseBody List<Course> getCourseTypes(String type) {
 		return courseService.getCourseTypes(type);
 	}

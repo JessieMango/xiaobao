@@ -28,4 +28,9 @@ public class ResourceServiceImpl implements ResourceService {
 		return resourceDao.getSubResource(pid);
 	}
 
+	@Override
+	public List<Resource> getAllResource() {
+		return resourceDao.getAllResource();
+	}
+
 }

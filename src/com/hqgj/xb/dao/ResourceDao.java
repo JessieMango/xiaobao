@@ -19,6 +19,15 @@ public interface ResourceDao {
 	public List<Resource> getResource();
 
 	/**
+	 * 获取所有资源
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年7月16日 下午6:22:02
+	 * @return
+	 */
+	public List<Resource> getAllResource();
+
+	/**
 	 * 获取对应父菜单的子菜单
 	 * 
 	 * @author 崔兴伟

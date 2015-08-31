@@ -28,6 +28,10 @@ public class ResourceController {
 	public @ResponseBody List<Resource> getResources() {
 		return resourceService.getResource();
 	}
+	@RequestMapping(value = "/getAllResource", method = RequestMethod.GET)
+	public @ResponseBody List<Resource> getAllResource() {
+		return resourceService.getAllResource();
+	}
 
 	@RequestMapping(value = "/getSubResource", method = RequestMethod.GET)
 	public @ResponseBody List<Resource> getSubResource(

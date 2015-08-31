@@ -47,6 +47,7 @@ public class OldStudentAgainEnroll {
 	private String enrollDate; // 报名日期
 	private String tuition; // 规定学费
 	private String realTuition; // 实收学费
+	private String realShouldTuition; // 实际应收学费用于判断学费是否交够
 	private String reduceMoney; // 插班时减免的学费
 	private String textBook; // 教材费
 	private String fee;// 杂费
@@ -91,6 +92,14 @@ public class OldStudentAgainEnroll {
 	 */
 	public OldStudentAgainEnroll() {
 
+	}
+
+	public String getRealShouldTuition() {
+		return realShouldTuition;
+	}
+
+	public void setRealShouldTuition(String realShouldTuition) {
+		this.realShouldTuition = realShouldTuition;
 	}
 
 	public String getTelTail() {
