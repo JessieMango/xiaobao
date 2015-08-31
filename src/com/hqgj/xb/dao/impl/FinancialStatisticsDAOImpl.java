@@ -3,7 +3,6 @@ package com.hqgj.xb.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,18 +19,12 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-
-import com.hqgj.xb.bean.ClassS;
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.ExpenseAccount;
-import com.hqgj.xb.bean.Staff;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
-import com.hqgj.xb.bean.highcharts.Chart;
 import com.hqgj.xb.bean.highcharts.Charts;
 import com.hqgj.xb.bean.highcharts.Data;
-import com.hqgj.xb.bean.highcharts.DiagramCharts;
-import com.hqgj.xb.bean.highcharts.Options3d;
 import com.hqgj.xb.bean.highcharts.Series;
 import com.hqgj.xb.bean.highcharts.Title;
 import com.hqgj.xb.dao.FinancialStatisticsDAO;
@@ -508,7 +501,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 							data.setY(0);
 						}
 						else {
-							data.setY(Integer.parseInt(rs.getString("realMoney")));
+							data.setY(Float.parseFloat(rs.getString("realMoney")));
 						}
 						return data;
 					}
@@ -551,7 +544,108 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 							data.setY(0);
 						}
 						else {
-							data.setY(Integer.parseInt(rs.getString("realMoney")));
+							data.setY(Float.parseFloat(rs.getString("realMoney")));
+						}
+						return data;
+					}
+				});
+		series.setData(results);
+		charts.setSeries(series);
+		return charts;
+	}
+	@Override
+	public Charts getXueFeiAnKeCheng(String starttime, String endtime) {
+		String sql=" (select Course.nameM CoursenameM,sum(StudentClass.realTuition) realTuition "
+				+ "from Course left outer join Class on Course.courseCode=Class.courseCode "
+				+ "left outer join StudentClass on Class.classCode=StudentClass.classCode "
+				+ "where StudentClass.studentState in (1,2,3) or StudentClass.studentState is null "
+				+ "group by Course.courseCode) "
+				+ "union "
+				+ "(select Course.nameM CoursenameM,sum(StudentClass.realTuition)=null realTuition "
+				+ "from Course left outer join Class on Course.courseCode=Class.courseCode "
+				+ "left outer join StudentClass on Class.classCode=StudentClass.classCode "
+				+ "where StudentClass.studentState =4 or StudentClass.studentState is null "
+				+ "group by Course.courseCode)";
+		
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
+
+		Charts charts = new Charts();
+		//设置标题
+		Title title=new Title();
+		title.setText("学费按课程");
+		charts.setTitle(title);
+
+		//设置Series
+		Series series=new Series();
+		series.setName("学费按课程");
+		
+		List<Data> results= this.nJdbcTemplate.query(sql, paramMap,
+				new RowMapper<Data>() {
+					@Override
+					public Data mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Data data=new Data();
+						data.setName(rs.getString("CoursenameM"));
+						if(StringUtils.isEmpty(rs.getString("realTuition")))
+						{
+							data.setY(0);
+						}
+						else {
+							data.setY(Float.parseFloat(rs.getString("realTuition")));
+						}
+						return data;
+					}
+				});
+		series.setData(results);
+		charts.setSeries(series);
+		return charts;
+	}
+
+	@Override
+	public Charts getTuiFeiAnKeCheng(String starttime, String endtime) {
+		String sql=" (select Course.nameM CoursenameM,sum(StudentClass.realTuition) realTuition "
+				+ "from Course left outer join Class on Course.courseCode=Class.courseCode "
+				+ "left outer join StudentClass on Class.classCode=StudentClass.classCode "
+				+ "where StudentClass.studentState =4 or StudentClass.studentState is null "
+				+ "group by Course.courseCode) "
+				+ "union "
+				+ "(select Course.nameM CoursenameM,sum(StudentClass.realTuition)=null realTuition "
+				+ "from Course left outer join Class on Course.courseCode=Class.courseCode "
+				+ "left outer join StudentClass on Class.classCode=StudentClass.classCode"
+				+ " where StudentClass.studentState in (1,2,3) or StudentClass.studentState is null "
+				+ "group by Course.courseCode)";
+		
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("starttime",  starttime );
+		paramMap.put("endtime", endtime );
+
+		Charts charts = new Charts();
+		//设置标题
+		Title title=new Title();
+		title.setText("学费按课程");
+		charts.setTitle(title);
+
+		//设置Series
+		Series series=new Series();
+		series.setName("学费按课程");
+		
+		List<Data> results= this.nJdbcTemplate.query(sql, paramMap,
+				new RowMapper<Data>() {
+					@Override
+					public Data mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Data data=new Data();
+						data.setName(rs.getString("CoursenameM"));
+						if(StringUtils.isEmpty(rs.getString("realTuition")))
+						{
+							data.setY(0);
+						}
+						else {
+							data.setY(Float.parseFloat(rs.getString("realTuition")));
 						}
 						return data;
 					}
@@ -563,7 +657,15 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 	//退费按校区		
 	@Override
 	public Charts getTuiFeiAnXiaoQu(String starttime, String endtime) {
-		String sql="";
+		String sql="(select School.schoolName schoolName,sum(StudentClass.realTuition) realTuition "
+				+ "from School left outer join StudentClass on School.schoolCode=StudentClass.handleSchoolCode"
+				+ " where StudentClass.studentState =4 or StudentClass.studentState is null "
+				+ "group by School.schoolCode)"
+				+ "union"
+				+ "(select School.schoolName schoolName,sum(StudentClass.realTuition)=null realTuition "
+				+ "from School left outer join StudentClass on School.schoolCode=StudentClass.handleSchoolCode "
+				+ "where StudentClass.studentState in (1,2,3) or StudentClass.studentState is null "
+				+ "group by School.schoolCode)";
 	
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
@@ -585,13 +687,13 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 					public Data mapRow(ResultSet rs, int index)
 							throws SQLException {
 						Data data=new Data();
-						data.setName(rs.getString(""));
-						if(StringUtils.isEmpty(rs.getString("")))
+						data.setName(rs.getString("schoolName"));
+						if(StringUtils.isEmpty(rs.getString("realTuition")))
 						{
 							data.setY(0);
 						}
 						else {
-							data.setY(Integer.parseInt(rs.getString("")));
+							data.setY(Float.parseFloat(rs.getString("realTuition")));
 						}
 						return data;
 					}
@@ -600,65 +702,141 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 		charts.setSeries(series);
 		return charts;
 	}
-
+	
 	@Override
-	public Charts getXueFeiAnKeCheng(String starttime, String endtime) {
-		String sql=" select Course.nameM CoursenameM,sum(StudentClass.realTuition) realTuition "
-				+ " from Course left outer join Class on Course.courseCode=Class.courseCode "
-				+ " left outer join StudentClass on Class.classCode=StudentClass.classCode "
-				+ " group by Course.courseCode";
-		
-		
+	public Charts getLiuShuiYueDuiBi(String statisticalYear) {
+		String sql="select DATE_FORMAT(enrollDate,'%m') enrollDateMonth,sum(StudentClass.realTuition) realTuition "
+				+ "from StudentClass where DATE_FORMAT(enrollDate,'%Y')=:statisticalYear "
+				+ "group by enrollDateMonth";
+		logger.info(statisticalYear);
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("starttime",  starttime );
-		paramMap.put("endtime", endtime );
+		paramMap.put("statisticalYear",  statisticalYear );
 
 		Charts charts = new Charts();
 		//设置标题
 		Title title=new Title();
-		title.setText("流水按人员");
+		title.setText("流水月对比");
 		charts.setTitle(title);
 
 		//设置Series
 		Series series=new Series();
-		series.setName("流水按人员");
-		
+		series.setName("流水月对比");
 		List<Data> results= this.nJdbcTemplate.query(sql, paramMap,
 				new RowMapper<Data>() {
 					@Override
 					public Data mapRow(ResultSet rs, int index)
 							throws SQLException {
 						Data data=new Data();
-						data.setName(rs.getString("CoursenameM"));
+						data.setName(rs.getString("enrollDateMonth"));
 						if(StringUtils.isEmpty(rs.getString("realTuition")))
 						{
 							data.setY(0);
 						}
 						else {
-							data.setY(Integer.parseInt(rs.getString("realTuition")));
+							data.setY(Float.parseFloat(rs.getString("realTuition")));
 						}
 						return data;
 					}
 				});
+		List<Data> temp=new ArrayList<Data>();
+		if(results.size()>0)
+		{
+			int j;
+			for(j=1;j<Integer.parseInt(results.get(0).getName());j++)
+			{
+				Data data=new Data();
+				data.setName(convertNumToMonth(j));
+				data.setY(0);
+				temp.add(data);
+			}
+			Data data1=results.get(0);
+			data1.setName(convertNumToMonth(Integer.parseInt(data1.getName())));
+			temp.add(data1);
+			j++;
+			int resultssize=1;
+			for(int i=0;i<results.size()-1;i++)
+			{
+				int minIndex=Integer.parseInt(results.get(i).getName());
+				int maxIndex=Integer.parseInt(results.get(i+1).getName());
+				for(;j>minIndex&&j<maxIndex;j++)
+				{
+					Data data=new Data();
+					data.setName(convertNumToMonth(j));
+					data.setY(0);
+					temp.add(data);
+				}
+				data1=results.get(resultssize++);
+				data1.setName(convertNumToMonth(Integer.parseInt(data1.getName())));
+				temp.add(data1);
+				j++;
+			}
+			for(;j<13;j++)
+			{
+				Data data=new Data();
+				data.setName(convertNumToMonth(j));
+				data.setY(0);
+				temp.add(data);
+			}
+		}
+		else {
+			for(int j=1;j<13;j++)
+			{
+				Data data=new Data();
+				data.setName(convertNumToMonth(j));
+				data.setY(0);
+				temp.add(data);
+			}
+		}
+		results=temp;
 		series.setData(results);
 		charts.setSeries(series);
 		return charts;
 	}
-
-	@Override
-	public Charts getTuiFeiAnKeCheng(String starttime, String endtime) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private String convertNumToMonth(int Num) {
+		String result="";
+		switch (Num) {
+		case 1:	
+			result="一月";
+			break;
+		case 2:
+			result="二月";
+			break;
+		case 3:	
+			result="三月";
+			break;
+		case 4:	
+			result="四月";
+			break;
+		case 5:	
+			result="五月";
+			break;
+		case 6:	
+			result="六月";
+			break;
+		case 7:	
+			result="七月";
+			break;
+		case 8:	
+			result="八月";
+			break;
+		case 9:	
+			result="九月";
+			break;
+		case 10:	
+			result="十月";
+			break;
+		case 11:
+			result="十一月";
+			break;
+		case 12:	
+			result="十二月";
+			break;
+		default:
+			result="一月";
+			break;
+		}
+		return result;
 	}
-	@Override
-	public DiagramCharts getLiuShuiYueDuiBi(String statisticalYear) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-
-	
-	
 
 }

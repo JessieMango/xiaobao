@@ -8,7 +8,6 @@ import com.hqgj.xb.bean.ExpenseAccount;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.bean.highcharts.Charts;
-import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.dao.FinancialStatisticsDAO;
 import com.hqgj.xb.service.FinancialStatisticsService;
 
@@ -83,11 +82,7 @@ public class FinancialStatisticsServiceImpl implements
 		return financialStatisticsDAO.getLiuShuiAnXiaoQu(starttime, endtime);
 	}
 
-	@Override
-	public DiagramCharts getLiuShuiYueDuiBi(String statisticalYear) {
-		return financialStatisticsDAO.getLiuShuiYueDuiBi(statisticalYear);
-	}
-
+	
 	@Override
 	public Charts getLiuShuiAnRenYuan(String starttime, String endtime) {
 		return financialStatisticsDAO.getLiuShuiAnRenYuan(starttime, endtime);
@@ -109,7 +104,11 @@ public class FinancialStatisticsServiceImpl implements
 	}
 
 	
-	
+	@Override
+	public Charts getLiuShuiYueDuiBi(String statisticalYear) {
+		return financialStatisticsDAO.getLiuShuiYueDuiBi(statisticalYear);
+	}
+
 	
 
 	
