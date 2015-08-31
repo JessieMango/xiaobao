@@ -18,9 +18,12 @@ input[type='text'] {
 </style>
 <script type="text/javascript">
 	var grid;
-	var addFeeFun = function(consultId, lackMoney, banlance) {
-		window.location.href = "bufeiDetail.jsp?consultId=" + consultId
-				+ "&lackMoney=" + lackMoney + "&banlance=" + banlance;
+	var addFeeFun = function(id, lackMoney, banlance, realShouldTuition,
+			consultId, realTuition) {
+		window.location.href = "bufeiDetail.jsp?id=" + id + "&lackMoney="
+				+ lackMoney + "&banlance=" + banlance + "&realShouldTuition="
+				+ realShouldTuition + "&consultId=" + consultId
+				+ "&realTuition=" + realTuition;
 	}
 	var init = function() {
 		grid = $('#grid')
@@ -31,7 +34,7 @@ input[type='text'] {
 							pagination : true,
 							rownumbers : true,
 							nowrap : false,
-							idField : 'consultId',
+							idField : 'id',
 							pageSize : 20,
 							pageList : [ 10, 20, 30, 40, 50, 100, 200, 300,
 									400, 500 ],
@@ -150,7 +153,7 @@ input[type='text'] {
 												return cxw
 														.formatString(
 																'<img alt="欠费" onclick="alert(\'欠费{0}元\')" style="vertical-align: middle;" src="../../../style/image/Tuition_lack.gif">',
-																-value);
+																-row.banlance);
 											} else {
 												return cxw
 														.formatString(
@@ -248,10 +251,13 @@ input[type='text'] {
 											if (row.lackMoney < 0) {
 												return cxw
 														.formatString(
-																'<input type="button" value="￥补费" style="color:black; font-weight:bold; width:60px;" onclick="addFeeFun(\'{0}\',\'{1}\',\'{2}\')" />',
-																row.consultId,
+																'<input type="button" value="￥补费" style="color:black; font-weight:bold; width:60px;" onclick="addFeeFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\')" />',
+																row.id,
 																-row.lackMoney,
-																row.banlance);
+																row.banlance,
+																row.realShouldTuition,
+																row.consultId,
+																row.realTuition);
 											} else {
 												return '';
 											}

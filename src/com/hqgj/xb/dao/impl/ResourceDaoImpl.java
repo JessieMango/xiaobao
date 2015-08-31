@@ -89,4 +89,31 @@ public class ResourceDaoImpl implements ResourceDao {
 		return results;
 	}
 
+	@Override
+	public List<Resource> getAllResource() {
+		String sql = "SELECT r.id,r.iconCls,r.createTime,r.nameM,r.resourceType_id,r.resoure_id,r.target,r.updateTime,r.url from Resource r LEFT OUTER JOIN ResourceType rt on rt.id=r.resourceType_id "
+				+ "WHERE r.resourceType_id=0 and r.flag=1 ORDER BY r.seq ";
+		List<Resource> results = this.npJdbcTemplate.query(sql,
+				new RowMapper<Resource>() {
+					@Override
+					public Resource mapRow(ResultSet rs, int index)
+							throws SQLException {
+						Resource resource = new Resource();
+						resource.setCreateTime(rs.getString("createTime"));
+						resource.setIconCls(rs.getString("iconCls"));
+						resource.setId(rs.getString("id"));
+						resource.setName(rs.getString("nameM"));
+						resource.setResource_id(rs.getString("resoure_id"));
+						resource.setResourceType_id(rs
+								.getString("resourceType_id"));
+						resource.setTarget(rs.getString("target"));
+						resource.setUpdateTime(rs.getString("updateTime"));
+						resource.setUrl(rs.getString("url"));
+						return resource;
+					}
+				});
+		logger.info("有" + results.size() + "条父菜单");
+		return results;
+	}
+
 }

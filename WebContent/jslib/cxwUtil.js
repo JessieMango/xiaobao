@@ -77,7 +77,6 @@ var CheckNonNegativeNumber = function CheckNonNegativeNumber(target) {
 /* 验证输入是否为数字 */
 var CheckNonNumber = function(target) {
 	var Value = $(target).val();
-
 	if (isNaN(Value)) {
 		$.messager.alert('提示', '【必须输入数字】', 'info');
 		$(target).val("0");
