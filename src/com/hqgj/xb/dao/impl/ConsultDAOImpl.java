@@ -555,5 +555,16 @@ public class ConsultDAOImpl implements ConsultDAO {
 		String sql = "delete from  Consult  where id=:id";
 		return this.nJdbcTemplate.update(sql, map);
 	}
+	@Override
+	public Grid GetShengRiXueYuan(String StudentMonth, Parameter parameter) {
+		String sql = "select c.nameM,c.carCode,c.banlance,c.availabelPoints,c.gender,c.consultDate,c.birthday,c.motherTel,c.fatherTel,c.otherTel,c.councilSchoolCode,ds.nameM councilSchool ,"
+				+ "c.class_grade,c.liveArea,c.others,c.consultContent,c.state,c.consultWayCode,c.consultCourseCode,c.willDegreeCode,c.sellSource sellSourceCode,"
+				+ "c.seller sellerCode,c.handleSchoolCode,c.handler handlerCode,c.mark markCode from Consult c left outer join DCouncilSchool ds on ds.id=c.councilSchoolCode where c.id=:id";
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("StudentMonth", StudentMonth);
+		
+		return null;
+	}
 
 }

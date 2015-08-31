@@ -81,4 +81,9 @@ public class ConsultSeriveImpl implements ConsultService {
 		return consultDAO.deleteConsult(id);
 	}
 
+	@Override
+	public Grid GetShengRiXueYuan(String StudentMonth, Parameter parameter) {
+		return consultDAO.GetShengRiXueYuan(StudentMonth,parameter);
+	}
+
 }
