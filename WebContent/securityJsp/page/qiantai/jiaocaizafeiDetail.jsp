@@ -5,6 +5,16 @@
 	String contextPath = request.getContextPath();
 	SessionInfo sessionInfo = (SessionInfo) session
 			.getAttribute("sessionInfo");
+
+	String courseTypeCode = request.getParameter("courseTypeCode") == null
+			? ""
+			: request.getParameter("courseTypeCode");
+	String studentClass_id = request.getParameter("studentClass_id") == null
+			? ""
+			: request.getParameter("studentClass_id");
+	String consultId = request.getParameter("consultId") == null
+			? ""
+			: request.getParameter("consultId");
 %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +22,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>教材杂费详情</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
+<style type="text/css">
+input[type='text'] {
+	text-align: center;
+}
+</style>
+
 <script type="text/javascript">
+	var CalPay = function(target, price, index, length) {
+		var sum = 0;
+		var num = $(target).val();
+		$("#one" + index).val((num * price));
+		for (var i = 0; i < length; i++) {
+			sum += parseFloat($("#one" + i).val());
+		}
+		$("#total").html(sum);
+	}
 	var submitForm = function() {
 		if ($('form').form('validate')) {
 			var url = "";
@@ -32,17 +57,28 @@
 	}
 	/* 初始化操作 */
 	var init = function() {
-		$.post("getTextBookFeesByCourseType",{courseTypeCode : "<%=courseTypeCode2%>"}, function(result) {
-			var length2 = result.length;
-			$(result).each(function(index,data){
-				var str = cxw.formatString('{0}￥<span><b>{1}</b></span><input type="text" name="num2"  onkeyup="CalcShouldPay(this,2,{2},{3},{4});" onblur="CheckNonNegativeNumber(this);"  style="width:50px;" value="0">&nbsp;&nbsp;<input type="hidden" id="two{5}" value="0"><input type="hidden" name="textBookFeeCode2" value="{6}">',data.nameM,data.price,data.price,index,length2,index,data.id);
-				if((data.type == 1 || data.type == 2) && data.courseTypeCode != "qb"){
-					$("#selfCourseFee").append(str);
-				}else if(data.courseTypeCode == "qb"){
-					$("#commonCourseFee").append(str);
-				}
-			});
-		});
+		$.post("getTextBookFeesByCourseType",{courseTypeCode : "<%=courseTypeCode%>"},function(result) {
+							var length = result.length;
+							$(result)
+									.each(
+											function(index, data) {
+												var str = cxw
+														.formatString(
+																'{0}￥<span><b>{1}</b></span><input type="text" name="num"  onkeyup="CalPay(this,{2},{3},{4});"  onblur="CheckNonNegativeNumber(this);"  style="width:50px;" value="0">&nbsp;&nbsp;<input type="hidden" id="one{5}" value="0"><input type="hidden" name="typeTF" value="{6}"><input type="hidden" name="textBookFeeCode" value="{7}">',
+																data.nameM,
+																data.price,
+																data.price,
+																index, length,index,type,data.id);
+												if ((data.type == 1 || data.type == 2)
+														&& data.courseTypeCode != "qb") {
+													$("#selfCourseFee").append(
+															str);
+												} else if (data.courseTypeCode == "qb") {
+													$("#commonCourseFee")
+															.append(str);
+												}
+											});
+						});
 		$("#btn_save").click(function() {
 			submitForm();
 		});
@@ -74,6 +110,9 @@
 		</div>
 		<div style="text-align: center; margin-top: 20px;">
 			<div style="display: inline;">
+			<input type="hidden" name="courseTypeCode" value="<%=courseTypeCode %>">
+			<input type="hidden" name="studentClass_id" value="<%=studentClass_id %>">
+			<input type="hidden" name="consultId" value="<%=consultId %>">
 				<select name="payTypeCode" id="payTypeCode">
 					<option value="1">现金支付</option>
 					<option value="2">刷卡支付</option>

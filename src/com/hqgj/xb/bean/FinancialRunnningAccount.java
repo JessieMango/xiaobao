@@ -45,6 +45,33 @@ public class FinancialRunnningAccount {
 	private String schoolCode; // 1按收费校区 2按上课校区
 	private String realShouldTuition; // 实际应付学费
 	private String realTuition; // 实际已付学费
+	private String num; //教材杂费的数量
+	private String typeTF; //教材杂费类型1教材2杂费
+	private String textBookFeeCode; //教材杂费ID
+
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
+	public String getTypeTF() {
+		return typeTF;
+	}
+
+	public void setTypeTF(String typeTF) {
+		this.typeTF = typeTF;
+	}
+
+	public String getTextBookFeeCode() {
+		return textBookFeeCode;
+	}
+
+	public void setTextBookFeeCode(String textBookFeeCode) {
+		this.textBookFeeCode = textBookFeeCode;
+	}
 
 	public String getHandleSchool() {
 		return handleSchool;

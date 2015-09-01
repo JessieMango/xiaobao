@@ -51,4 +51,10 @@ public class FinancialRunnningAccountServiceImpl implements
 				financialRunnningAccount, parameter);
 	}
 
+	@Override
+	public int addTextBookFees(FinancialRunnningAccount financialRunnningAccount) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

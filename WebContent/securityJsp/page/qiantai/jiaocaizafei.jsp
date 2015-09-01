@@ -18,9 +18,9 @@ input[type='text'] {
 </style>
 <script type="text/javascript">
 	var grid;
-	var changeClassFun = function(consultId, lackMoney) {
+	var TextFeeFun = function(consultId, courseTypeCode, id) {
 		window.location.href = "jiaocaizafeiDetail.jsp?consultId=" + consultId
-				+ "&lackMoney=" + lackMoney;
+				+ "&courseTypeCode=" + courseTypeCode + "&studentClass_id=" + id;
 	}
 	var init = function() {
 		grid = $('#grid')
@@ -247,9 +247,10 @@ input[type='text'] {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<input type="button" value="￥教材杂费" style="color:black; font-weight:bold; width:90px;" onclick="changeClassFun(\'{0}\',\'{1}\')" />',
+															'<input type="button" value="￥教材杂费" style="color:black; font-weight:bold; width:90px;" onclick="TextFeeFun(\'{0}\',\'{1}\',\'{2}\')" />',
 															row.consultId,
-															-row.lackMoney);
+															row.courseTypeCode,
+															row.id);
 										}
 									} ] ],
 							onBeforeLoad : function(param) {
