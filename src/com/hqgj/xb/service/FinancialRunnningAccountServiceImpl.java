@@ -1,12 +1,16 @@
 package com.hqgj.xb.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.FinancialRunnningAccount;
+import com.hqgj.xb.bean.StudentClass_TextbookFee;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.FinancialRunnningAccountDAO;
@@ -49,12 +53,6 @@ public class FinancialRunnningAccountServiceImpl implements
 			Parameter parameter) {
 		return financialRunnningAccountDAO.getFinancialRunnningAccount(
 				financialRunnningAccount, parameter);
-	}
-
-	@Override
-	public int addTextBookFees(FinancialRunnningAccount financialRunnningAccount) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

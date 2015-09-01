@@ -36,11 +36,11 @@ input[type='text'] {
 		for (var i = 0; i < length; i++) {
 			sum += parseFloat($("#one" + i).val());
 		}
-		$("#total").html(sum);
+		$("#total").val(sum);
 	}
 	var submitForm = function() {
 		if ($('form').form('validate')) {
-			var url = "";
+			var url = "addFinancialRunnningAccount";
 			parent.$.messager.progress({
 				text : '数据加载中....'
 			});
@@ -68,17 +68,26 @@ input[type='text'] {
 																data.nameM,
 																data.price,
 																data.price,
-																index, length,index,type,data.id);
+																index, length,index,data.type,data.id);
 												if ((data.type == 1 || data.type == 2)
 														&& data.courseTypeCode != "qb") {
 													$("#selfCourseFee").append(
 															str);
 												} else if (data.courseTypeCode == "qb") {
 													$("#commonCourseFee")
-															.append(str);
+																.append(str);
 												}
 											});
 						});
+		$('#handleSchoolCode').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#handleSchoolCode').combobox('setValue',
+									data[0].schoolCode);
+						}
+					}
+				});
 		$("#btn_save").click(function() {
 			submitForm();
 		});
@@ -104,7 +113,7 @@ input[type='text'] {
 				<span id="commonCourseFee"></span>
 			</div>
 			<div>
-				<span>总计<span id="total"></span>元
+				<span>总计<input type="text" style="width: 50px;" id="total" name="realMoney"  readonly="readonly">元
 				</span>
 			</div>
 		</div>
@@ -113,7 +122,9 @@ input[type='text'] {
 			<input type="hidden" name="courseTypeCode" value="<%=courseTypeCode %>">
 			<input type="hidden" name="studentClass_id" value="<%=studentClass_id %>">
 			<input type="hidden" name="consultId" value="<%=consultId %>">
-				<select name="payTypeCode" id="payTypeCode">
+			<input type="hidden" name="operateCode" value="3">
+			<input type="hidden" name="typeCode" value="2">
+				<select name="payWayCode" id="payWayCode">
 					<option value="1">现金支付</option>
 					<option value="2">刷卡支付</option>
 					<option value="3">转账支付</option>

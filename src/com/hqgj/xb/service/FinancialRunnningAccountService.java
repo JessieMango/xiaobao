@@ -71,13 +71,4 @@ public interface FinancialRunnningAccountService {
 			FinancialRunnningAccount financialRunnningAccount,
 			Parameter parameter);
 
-	/**
-	 * 前台模块 教材杂费管理
-	 * 
-	 * @author 崔兴伟
-	 * @datetime 2015年8月31日 下午8:53:18
-	 * @param financialRunnningAccount
-	 * @return
-	 */
-	public int addTextBookFees(FinancialRunnningAccount financialRunnningAccount);
 }

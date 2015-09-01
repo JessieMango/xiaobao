@@ -18,9 +18,9 @@ input[type='text'] {
 </style>
 <script type="text/javascript">
 	var grid;
-	var pointsExchangeFun = function(consultId, lackMoney) {
+	var pointsExchangeFun = function(consultId, availabelPoints) {
 		window.location.href = "jifenduihuanDetail.jsp?consultId=" + consultId
-				+ "&lackMoney=" + lackMoney;
+				+ "&availabelPoints=" + availabelPoints;
 	}
 	var init = function() {
 		grid = $('#grid')
@@ -249,7 +249,7 @@ input[type='text'] {
 													.formatString(
 															'<input type="button" value="兑换" style="color:black; font-weight:bold; width:50px;" onclick="pointsExchangeFun(\'{0}\',\'{1}\')" />',
 															row.consultId,
-															-row.lackMoney);
+															row.availabelPoints);
 										}
 									} ] ],
 							onBeforeLoad : function(param) {

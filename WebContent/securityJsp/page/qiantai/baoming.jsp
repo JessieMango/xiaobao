@@ -224,6 +224,15 @@ input[type='text'] {
 	}
 	
 	var init = function() {
+		$('#handleSchoolCode').combobox(
+				{
+					onLoadSuccess : function(data) {
+						if (data) {
+							$('#handleSchoolCode').combobox('setValue',
+									data[0].schoolCode);
+						}
+					}
+				});
 
 		$("#discount1").numberbox(
 				{

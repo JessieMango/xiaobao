@@ -54,6 +54,7 @@ public class OldStudentAgainEnroll {
 	private String lackMoney;// 欠费金额
 	private String studentType; // 学生类型 1代表新生，2代表老生
 	private String studentState; // 学生状态 1正常2转出3停课4退费
+	private String classTimes; // 班级的上课次数
 	/**
 	 * 销售员
 	 */
@@ -92,6 +93,14 @@ public class OldStudentAgainEnroll {
 	 */
 	public OldStudentAgainEnroll() {
 
+	}
+
+	public String getClassTimes() {
+		return classTimes;
+	}
+
+	public void setClassTimes(String classTimes) {
+		this.classTimes = classTimes;
 	}
 
 	public String getRealShouldTuition() {
