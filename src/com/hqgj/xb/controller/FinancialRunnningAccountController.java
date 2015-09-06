@@ -50,6 +50,8 @@ public class FinancialRunnningAccountController {
 		}
 		return json;
 	}
+	
+	
 
 	@RequestMapping(value = "/caiwu/getTypeCode", method = RequestMethod.POST)
 	public @ResponseBody List<Dictionary> getTypeCode(String type) {

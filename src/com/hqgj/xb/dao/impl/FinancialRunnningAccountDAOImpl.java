@@ -2,9 +2,11 @@ package com.hqgj.xb.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.sql.DataSource;
 
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.FinancialRunnningAccount;
+import com.hqgj.xb.bean.StudentClass_TextbookFee;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.FinancialRunnningAccountDAO;
@@ -46,11 +49,13 @@ public class FinancialRunnningAccountDAOImpl implements
 		String insertFRA = "insert into FinancialRunnningAccount(operateDate,operateCode,typeCode,payWayCode,handlerCode,handleSchoolCode,feeState,remark,"
 				+ "studentClass_id,realMoney,balance,flag) values (:operateDate,:operateCode,:typeCode,:payWayCode,:handlerCode,:handleSchoolCode,"
 				+ ":feeState,:remark,:studentClass_id,:realMoney,:balance,:flag)";
-		SqlParameterSource nParameterSource = new BeanPropertySqlParameterSource(
-				financialRunnningAccount);
-		int n1 = this.nJdbcTemplate.update(insertFRA, nParameterSource);
-
+		int n1 = 0; // 流水表更新
+		int n2 = 0; // 报名表更新
+		int n3 = 0; // 咨询表更新
 		Map<String, String> map = new HashMap<String, String>();
+		map.put("studentClass_id",
+				financialRunnningAccount.getStudentClass_id());
+		map.put("consultId", financialRunnningAccount.getConsultId());
 		if (StringUtils.equals("8", financialRunnningAccount.getOperateCode())) { // 如果是补费
 			float realMoney = Float.parseFloat(financialRunnningAccount
 					.getRealMoney());
@@ -66,16 +71,66 @@ public class FinancialRunnningAccountDAOImpl implements
 			}
 			map.put("realMoney", realMoney + "");
 			map.put("realTuitionString", realTuitionString);
-			map.put("studentClass_id",
-					financialRunnningAccount.getStudentClass_id());
-			map.put("consultId", financialRunnningAccount.getConsultId());
+			n2 = this.nJdbcTemplate
+					.update("update StudentClass set realTuition=:realTuitionString where id=:studentClass_id",
+							map);
+			n3 = this.nJdbcTemplate
+					.update("update Consult set banlance=banlance+:realMoney,availabelPoints=availabelPoints+:realMoney where id=:consultId",
+							map);
+		} else if (StringUtils.equals("3",
+				financialRunnningAccount.getOperateCode())) { // 如果是购买教材
+			List<StudentClass_TextbookFee> studentClass_TextbookFees = new ArrayList<StudentClass_TextbookFee>(); // 杂费项
+			// 添加杂费项
+			String[] textBookFeeStrings = financialRunnningAccount
+					.getTextBookFeeCode().split(",");
+			String[] numberStrings = financialRunnningAccount.getNum().split(
+					",");
+			for (int i = 0; i < textBookFeeStrings.length; i++) {
+				if (!StringUtils.equals("0", numberStrings[i])) {
+					StudentClass_TextbookFee studentClass_TextbookFee = new StudentClass_TextbookFee();
+					studentClass_TextbookFee
+							.setId(UUID.randomUUID().toString());
+					studentClass_TextbookFee.setNumbers(numberStrings[i]);
+					studentClass_TextbookFee
+							.setTextbookFeeCode(textBookFeeStrings[i]);
+					studentClass_TextbookFee
+							.setStudentClassCode(financialRunnningAccount
+									.getId());
+					studentClass_TextbookFees.add(studentClass_TextbookFee);
+				}
+			}
+			map.put("realMoney", financialRunnningAccount.getRealMoney());
+			n3 = this.nJdbcTemplate
+					.update("update Consult set availabelPoints=availabelPoints+:realMoney where id=:consultId",
+							map);
+		} else if (StringUtils.equals("7",
+				financialRunnningAccount.getOperateCode())) { // 预存余额
+			map.put("balance", financialRunnningAccount.getBalance());
+			if (StringUtils.equals("6",
+					financialRunnningAccount.getPayWayCode())) { // 余额付款,停课
+				map.put("realMoney", "0");
+				map.put("stopClassReason",
+						financialRunnningAccount.getStopClassReason());
+				n2 = this.nJdbcTemplate
+						.update("update StudentClass set studentState=3,stopClassReason=:stopClassReason where id=:studentClass_id",
+								map);
+				n3 = this.nJdbcTemplate
+						.update("update Consult set banlance=banlance+:balance,availabelPoints=availabelPoints+:realMoney where id=:consultId",
+								map);
+				logger.info("realMoney:" + map.get("realMoney") + ";balance;"
+						+ map.get("balance") + ";consultId:"
+						+ map.get("consultId") + ";n3:" + n3);
+			} else {
+				map.put("realMoney", financialRunnningAccount.getRealMoney());
+				n3 = this.nJdbcTemplate
+						.update("update Consult set banlance=banlance+:realMoney,availabelPoints=availabelPoints+:realMoney where id=:consultId",
+								map);
+			}
 		}
-		int n2 = this.nJdbcTemplate
-				.update("update StudentClass set realTuition=:realTuitionString where id=:studentClass_id",
-						map);
-		int n3 = this.nJdbcTemplate
-				.update("update Consult set banlance=banlance+:realMoney,availabelPoints=availabelPoints+:realMoney where id=:consultId",
-						map);
+		SqlParameterSource nParameterSource = new BeanPropertySqlParameterSource(
+				financialRunnningAccount);
+		n1 = this.nJdbcTemplate.update(insertFRA, nParameterSource);
+
 		return n1 + n2 + n3;
 	}
 
@@ -207,8 +262,9 @@ public class FinancialRunnningAccountDAOImpl implements
 						financialRunnningAccount.getFeeState())) {
 					select += " and fra.feeState=:feeState ";
 				}
-				if(StringUtils.equals("1", financialRunnningAccount.getSchoolCode())){
-					
+				if (StringUtils.equals("1",
+						financialRunnningAccount.getSchoolCode())) {
+
 				}
 				if (StringUtils
 						.equals("1", financialRunnningAccount.getOrder())) {

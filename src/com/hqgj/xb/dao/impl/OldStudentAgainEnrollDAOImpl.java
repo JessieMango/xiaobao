@@ -47,8 +47,8 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 				oldStudentAgainEnroll);
 		String select = " select c.id consultId,sc.id,c.banlance,c.availabelPoints,c.gender,c.nameM,(DATE_FORMAT(NOW(),'%Y')-DATE_FORMAT(c.birthday,'%Y')) birthday,c.otherTel,"
 				+ "cs.nameM className,co.nameM courseName,u.username teacherName,sc.realTuition,sc.enrollDate,sc.discountType,"
-				+ "sc.preferentialPrice,sc.reduceMoney,sc.discount,dss.nameM sellSource,ds.nameM seller,c.liveArea,dcs.nameM councilSchool,"
-				+ "sc.studentType,dh.nameM handler,s.schoolName handleSchool,dscs.nameM studentState,cs.tuition  from Consult c "
+				+ "sc.preferentialPrice,sc.reduceMoney,sc.discount,dss.nameM sellSource,ds.nameM seller,c.liveArea,dcs.nameM councilSchool,cs.classTimes classTimes,"
+				+ "sc.studentType,dh.nameM handler,s.schoolName handleSchool,dscs.nameM studentState,cs.tuition,cs.courseTypeCode  from Consult c "
 				+ "left outer join StudentClass sc on c.id=sc.studentCode left outer join Class cs on cs.classCode=sc.classCode  "
 				+ "left outer join Course co on co.courseCode=cs.courseCode left outer join User u on u.userId=cs.teacherCode  "
 				+ "left outer join DSellSource dss on dss.id=sc.sellSourceCode left outer join DSeller ds on ds.id=sc.sellerCode  "
@@ -155,7 +155,7 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 							if (money < 0) {
 								oldStudentAgainEnroll.setLackMoney(money + "");
 							} else {
-								oldStudentAgainEnroll.setLackMoney(money+"");
+								oldStudentAgainEnroll.setLackMoney(money + "");
 							}
 						}
 						if (StringUtils.equals("2", // 优惠
@@ -172,7 +172,7 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 							if (money < 0) {
 								oldStudentAgainEnroll.setLackMoney(money + "");
 							} else {
-								oldStudentAgainEnroll.setLackMoney(money+"");
+								oldStudentAgainEnroll.setLackMoney(money + "");
 							}
 						}
 						if (StringUtils.equals("3", // 打折
@@ -189,7 +189,7 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 							if (money < 0) {
 								oldStudentAgainEnroll.setLackMoney(money + "");
 							} else {
-								oldStudentAgainEnroll.setLackMoney(money+"");
+								oldStudentAgainEnroll.setLackMoney(money + "");
 							}
 						}
 						if (StringUtils.equals("4",
@@ -206,7 +206,7 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 							if (money < 0) {
 								oldStudentAgainEnroll.setLackMoney(money + "");
 							} else {
-								oldStudentAgainEnroll.setLackMoney(money+"");
+								oldStudentAgainEnroll.setLackMoney(money + "");
 							}
 						}
 						oldStudentAgainEnroll.setId(rs.getString("id"));
@@ -235,8 +235,13 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 								.getString("discountType"));
 						oldStudentAgainEnroll.setCouncilSchool(rs
 								.getString("councilSchool"));
-						oldStudentAgainEnroll.setAvailabelPoints(rs
-								.getString("availabelPoints"));
+						if (StringUtils.isNotBlank(rs
+								.getString("availabelPoints"))) {
+							oldStudentAgainEnroll.setAvailabelPoints(rs
+									.getString("availabelPoints"));
+						} else {
+							oldStudentAgainEnroll.setAvailabelPoints("0");
+						}
 						oldStudentAgainEnroll.setBanlance(rs
 								.getString("banlance"));
 						oldStudentAgainEnroll.setConsultId(rs
@@ -255,6 +260,10 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 								.getString("studentState"));
 						oldStudentAgainEnroll.setStudentType(rs
 								.getString("studentType"));
+						oldStudentAgainEnroll.setCourseTypeCode(rs
+								.getString("courseTypeCode"));
+						oldStudentAgainEnroll.setClassTimes(rs
+								.getString("classTimes"));
 						return oldStudentAgainEnroll;
 					}
 				});

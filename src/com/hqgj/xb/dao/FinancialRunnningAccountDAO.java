@@ -70,4 +70,5 @@ public interface FinancialRunnningAccountDAO {
 	public Grid getFinancialRunnningAccount(
 			FinancialRunnningAccount financialRunnningAccount,
 			Parameter parameter);
+
 }

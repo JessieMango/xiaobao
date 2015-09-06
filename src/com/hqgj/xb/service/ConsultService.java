@@ -124,4 +124,6 @@ public interface ConsultService {
 	 * @return
 	 */
 	public int deleteConsult(String id);
+	
+	public Grid GetShengRiXueYuan(String StudentMonth, Parameter parameter);
 }

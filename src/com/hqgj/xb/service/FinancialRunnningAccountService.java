@@ -70,4 +70,5 @@ public interface FinancialRunnningAccountService {
 	public Grid getFinancialRunnningAccount(
 			FinancialRunnningAccount financialRunnningAccount,
 			Parameter parameter);
+
 }

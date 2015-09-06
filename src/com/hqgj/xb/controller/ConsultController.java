@@ -90,7 +90,10 @@ public class ConsultController {
 	public @ResponseBody Grid getConsult(Consult consult, Parameter parameter) {
 		return consultService.getConsult(consult, parameter);
 	}
-
+	@RequestMapping(value = "/qiantai/GetShengRiXueYuan", method = RequestMethod.POST)
+	public @ResponseBody Grid GetShengRiXueYuan(String StudentMonth, Parameter parameter) {
+		return consultService.GetShengRiXueYuan(StudentMonth, parameter);
+	}
 	@RequestMapping(value = "/qiantai/getConsultById", method = RequestMethod.POST)
 	public @ResponseBody Consult getConsultById(String id) {
 		return consultService.getConsultById(id);

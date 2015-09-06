@@ -247,10 +247,7 @@
 					&nbsp;<input class="easyui-combobox" name="staffTag"
 							id="staffTag" style="width: 100px;"
 							data-options="valueField:'id',textField:'cardCode',url:'getStaffTag?type=1',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
-				
 					&nbsp;
-					
-					
 					<select name="remark" class="easyui-combobox"
 							data-options="required:true,editable:false,panelHeight:'auto'"
 							style="width: 100px;">
@@ -261,11 +258,9 @@
 							<option value="5">合同止日排序</option>
 							<option value="6">转正日期排序</option>
 						</select> &nbsp; 
-						
 						<a href="javascript:void(0);" class="easyui-linkbutton"
 							data-options="iconCls:'ext-icon-zoom',plain:true"
 							onclick="grid.datagrid('load',cxw.serializeObject($('#form1')));">查询</a>
-
 					</div>
 				</div>
 			</form>

@@ -18,9 +18,13 @@ input[type='text'] {
 </style>
 <script type="text/javascript">
 	var grid;
-	var stopClassFun = function(consultId, lackMoney) {
+	var stopClassFun = function(consultId, className, courseName, classTimes,
+			realShouldTuition, realTuition, id) {
 		window.location.href = "tingkeDetail.jsp?consultId=" + consultId
-				+ "&lackMoney=" + lackMoney;
+				+ "&className=" + className + "&courseName=" + courseName
+				+ "&classTimes=" + classTimes + "&realShouldTuition="
+				+ realShouldTuition + "&realTuition=" + realTuition
+				+ "&studentClass_id=" + id;
 	}
 	var init = function() {
 		grid = $('#grid')
@@ -247,9 +251,14 @@ input[type='text'] {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<input type="button" value="停课" style="color:black; font-weight:bold; width:50px;" onclick="stopClassFun(\'{0}\',\'{1}\')" />',
+															'<input type="button" value="停课" style="color:black; font-weight:bold; width:50px;" onclick="stopClassFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',\'{6}\')" />',
 															row.consultId,
-															-row.lackMoney);
+															row.className,
+															row.courseName,
+															row.classTimes,
+															row.realShouldTuition,
+															row.realTuition,
+															row.id);
 										}
 									} ] ],
 							onBeforeLoad : function(param) {

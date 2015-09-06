@@ -20,7 +20,10 @@ var submitForm = function() {
 		               series:[{
 		            	   type:'pie',
 		            	   name:jsonData[i].series.name,
-		            	   data:jsonData[i].series.data
+		            	   data:jsonData[i].series.data,
+		                   dataLabels: {
+		                       enabled: false
+		                   }
 		               }]
 		               });
 			}

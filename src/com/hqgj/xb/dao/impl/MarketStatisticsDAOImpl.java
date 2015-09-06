@@ -82,7 +82,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					
 						data.setName(rs.getString("schoolName"));
 						if(StringUtils.isNotBlank(rs.getString("countNum"))){
-							data.setY(Integer.parseInt(rs.getString("countNum")));
+							data.setY(Float.parseFloat(rs.getString("countNum")));
 						}else{
 							data.setY(0);
 						}
@@ -121,7 +121,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					
 						data.setName(rs.getString("nameM"));
 						if(StringUtils.isNotBlank(rs.getString("countNum"))){
-							data.setY(Integer.parseInt(rs.getString("countNum")));
+							data.setY(Float.parseFloat(rs.getString("countNum")));
 						}else{
 							data.setY(0);
 						}
@@ -161,7 +161,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					
 						data.setName(rs.getString("nameM"));
 						if(StringUtils.isNotBlank(rs.getString("countNum"))){
-							data.setY(Integer.parseInt(rs.getString("countNum")));
+							data.setY(Float.parseFloat(rs.getString("countNum")));
 						}else{
 							data.setY(0);
 						}
@@ -202,7 +202,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					
 						data.setName(rs.getString("nameM"));
 						if(StringUtils.isNotBlank(rs.getString("countNum"))){
-							data.setY(Integer.parseInt(rs.getString("countNum")));
+							data.setY(Float.parseFloat(rs.getString("countNum")));
 						}else{
 							data.setY(0);
 						}
@@ -242,7 +242,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					
 						data.setName(rs.getString("nameM"));
 						if(StringUtils.isNotBlank(rs.getString("countNum"))){
-							data.setY(Integer.parseInt(rs.getString("countNum")));
+							data.setY(Float.parseFloat(rs.getString("countNum")));
 						}else{
 							data.setY(0);
 						}
@@ -283,7 +283,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					
 						data.setName(rs.getString("nameM"));
 						if(StringUtils.isNotBlank(rs.getString("countNum"))){
-							data.setY(Integer.parseInt(rs.getString("countNum")));
+							data.setY(Float.parseFloat(rs.getString("countNum")));
 						}else{
 							data.setY(0);
 						}
@@ -324,7 +324,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					
 						data.setName(rs.getString("nameM"));
 						if(StringUtils.isNotBlank(rs.getString("countNum"))){
-							data.setY(Integer.parseInt(rs.getString("countNum")));
+							data.setY(Float.parseFloat(rs.getString("countNum")));
 						}else{
 							data.setY(0);
 						}
@@ -365,7 +365,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					
 						data.setName(rs.getString("age"));
 						if(StringUtils.isNotBlank(rs.getString("countNum"))){
-							data.setY(Integer.parseInt(rs.getString("countNum")));
+							data.setY(Float.parseFloat(rs.getString("countNum")));
 						}else{
 							data.setY(0);
 						}
@@ -560,7 +560,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					}
 				});
 		
-		logger.info(sql );
+		logger.info("2" );
 		
 		diagramCharts.setDiagramseries(results);
 
@@ -629,7 +629,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 						{
 							data.setName(rs.getString(i));
 							if(StringUtils.isNotBlank(rs.getString(i))){
-								data.setY(Integer.parseInt(rs.getString(i)));
+								data.setY(Float.parseFloat(rs.getString(i)));
 							}else{
 								data.setY(0);
 							}
