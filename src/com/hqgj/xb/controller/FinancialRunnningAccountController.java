@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hqgj.xb.bean.Consult;
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.FinancialRunnningAccount;
 import com.hqgj.xb.bean.easyui.Grid;
@@ -50,8 +49,6 @@ public class FinancialRunnningAccountController {
 		}
 		return json;
 	}
-	
-	
 
 	@RequestMapping(value = "/caiwu/getTypeCode", method = RequestMethod.POST)
 	public @ResponseBody List<Dictionary> getTypeCode(String type) {
@@ -74,5 +71,35 @@ public class FinancialRunnningAccountController {
 			Parameter parameter) {
 		return financialRunnningAccountService.getFinancialRunnningAccount(
 				financialRunnningAccount, parameter);
+	}
+
+	@RequestMapping(value = "/caiwu/getFinancialRunnningAccountOfTrash", method = RequestMethod.POST)
+	public @ResponseBody Grid getFinancialRunnningAccountOfTrash(
+			FinancialRunnningAccount financialRunnningAccount,
+			Parameter parameter) {
+		return financialRunnningAccountService
+				.getFinancialRunnningAccountOfTrash(financialRunnningAccount,
+						parameter);
+	}
+
+	@RequestMapping(value = "/caiwu/getRunningwaterDaily", method = RequestMethod.POST)
+	public @ResponseBody List<FinancialRunnningAccount> getRunningwaterDaily(
+			String startTime) {
+		return financialRunnningAccountService.getRunningwaterDaily(startTime);
+	}
+
+	@RequestMapping(value = "/caiwu/deleteFinancialRunnningAccount", method = RequestMethod.POST)
+	public @ResponseBody Json deleteFinancialRunnningAccount(String id,
+			String type) {
+
+		Json json = new Json();
+		if (0 != financialRunnningAccountService
+				.deleteFinancialRunnningAccount(id, type)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		}
+		return json;
 	}
 }

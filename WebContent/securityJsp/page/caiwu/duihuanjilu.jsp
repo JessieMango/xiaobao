@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>交易回收站</title>
+<title>兑换记录</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <style type="text/css">
 a {
@@ -23,23 +23,10 @@ input[type='text'] {
 			grid.datagrid('load', cxw.serializeObject($('#form2')));
 		}
 	}
-	var restoreFun = function(id){
+	var deleteFun = function(id) {
 		$.post("deleteFinancialRunnningAccount", {
 			id : id,
-			type : 3
-		}, function(result) {
-			if (result.success) {
-				grid.datagrid('load');
-			} else {
-				parent.$.messager.alert('提示', "恢复失败", 'error');
-				grid.datagrid('load');
-			}
-		});
-	}
-	var deleteFun = function(id){
-		$.post("deleteFinancialRunnningAccount", {
-			id : id,
-			type : 2
+			type : 1
 		}, function(result) {
 			if (result.success) {
 				grid.datagrid('load');
@@ -78,7 +65,7 @@ input[type='text'] {
 		$('#typeCode').combobox({
 			onLoadSuccess : function(data) {
 				if (data) {
-					$('#typeCode').combobox('setValue', data[0].id);
+					$('#typeCode').combobox('setValue', 3);
 				}
 			}
 		});
@@ -101,7 +88,7 @@ input[type='text'] {
 		grid = $('#grid')
 				.datagrid(
 						{
-							url : 'getFinancialRunnningAccountOfTrash',
+							url : 'getFinancialRunnningAccount',
 							striped : true,
 							pagination : true,
 							rownumbers : true,
@@ -214,14 +201,14 @@ input[type='text'] {
 										align : 'center'
 									},
 									{
-										title : '还原',
+										title : '编辑',
 										field : 'edit',
 										width : "5%",
 										align : 'center',
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<a  onclick="restoreFun(\'{0}\')">还原</a>',
+															'<a href="">编辑</a>',
 															row.id);
 										}
 									},
@@ -233,7 +220,7 @@ input[type='text'] {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
+															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/trash.png" />',
 															row.id);
 										}
 									} ] ],
