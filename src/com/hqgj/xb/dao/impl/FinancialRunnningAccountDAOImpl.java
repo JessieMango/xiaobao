@@ -359,18 +359,10 @@ public class FinancialRunnningAccountDAOImpl implements
 		logger.info("startTime:" + startTime);
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("startTime", startTime);
-		String select = "(select typeCode,(select sum(realMoney) from FinancialRunnningAccount f where typeCode=1 and payWayCode in (1)) feeState,"
+		String select = "select typeCode,(select sum(realMoney) from FinancialRunnningAccount f where typeCode=1 and payWayCode in (1)) feeState,"
 				+ "(select sum(realMoney) from FinancialRunnningAccount  where typeCode=1 and payWayCode in (2,3,4,5)) as realMoney,"
-				+ "sum(realMoney) as remark from FinancialRunnningAccount "
-				+ "where payWayCode in (1,2,3,4,5) and typeCode in (1) and  operateDate=:startTime ) "
-				+ "union  (select typeCode,(select sum(realMoney) from FinancialRunnningAccount  where typeCode=2 and payWayCode in (1)) feeState,"
-				+ "(select sum(realMoney) from FinancialRunnningAccount  where typeCode=2 and payWayCode in (2,3,4,5)) as realMoney,"
-				+ "sum(realMoney)  as remark  from FinancialRunnningAccount "
-				+ "where payWayCode in (1,2,3,4,5) and typeCode in (2) and  operateDate=:startTime) "
-				+ "union  (select 3 typeCode,(select sum(realMoney) from FinancialRunnningAccount  where typeCode in (1,2) and payWayCode in (1)) feeState,"
-				+ "(select sum(realMoney) from FinancialRunnningAccount  where typeCode in (1,2) and payWayCode in (2,3,4,5)) as realMoney,"
-				+ "sum(realMoney) as remark from FinancialRunnningAccount "
-				+ "where payWayCode in (1,2,3,4,5) and typeCode in (1,2) and  operateDate=:startTime) ";
+				+ "sum(realMoney) as remark from FinancialRunnningAccount f "
+				+ "where f.payWayCode in (1,2,3,4,5) and f.typeCode in (1) and  f.operateDate=:startTime  ";
 		List<FinancialRunnningAccount> result = this.nJdbcTemplate.query(
 				select, map, new RowMapper<FinancialRunnningAccount>() {
 					@Override
