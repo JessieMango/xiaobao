@@ -20,6 +20,7 @@
 											pagination : true,
 											rownumbers : true,
 											fitColumns : true,
+											fit:true,
 											nowrap : false,
 											idField : 'userId',
 											pageSize : 20,
@@ -29,7 +30,7 @@
 													{
 														title : '姓名',
 														field : 'username',
-														width : "100",
+														width : "150",
 														align : 'center',
 														fixed : true
 													},
@@ -70,7 +71,7 @@
 													}, {
 														title : '权限',
 														field : 'permission',
-														width : "300",
+														width : "500",
 														align : 'center',
 														fixed : true
 													} ] ],
@@ -93,9 +94,9 @@
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-		<div style="text-align: center;margin: 30px auto;width: 900px;">
+	 
 			<table id="grid" data-options="border:false"></table>
-		</div>
+		 
 	</div>
 </body>
 </html>
