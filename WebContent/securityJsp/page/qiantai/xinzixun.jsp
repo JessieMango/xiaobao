@@ -206,12 +206,12 @@ textarea{
 							type="radio" name="consultWayCode" value="4" />其他
 					</div>
 					<div style="display: inline;  width: 25%;">
-						 <label for="willDegreeCode" style="text-align: right;">&nbsp;意&nbsp;&nbsp;向&nbsp;&nbsp;度</label><input
+						 <label for="willDegreeCode" style="text-align: right;">&nbsp;意向度</label><input
 							id="willDegreeCode" class="easyui-combobox" name="willDegreeCode"
 							data-options="valueField:'willDegreeCode',textField:'willDegree',url:'getWillDegree',panelHeight:'auto',editable:false" />
 					</div>
 					<div style="display: inline; float: right; width: 25%;">
-						<label for="markCode">&nbsp;&nbsp;标&nbsp;&nbsp;记&nbsp;&nbsp;</label><input
+						<label for="markCode">标&nbsp;&nbsp;记</label><input
 							class="easyui-combobox" name="markCode" id="markCode"
 							data-options="valueField:'markCode',textField:'mark',url:'getMark',panelHeight:'auto'" />
 					</div>
@@ -224,8 +224,7 @@ textarea{
 							data-options="valueField:'courseTypeCode',textField:'courseTypeName',url:'getCourseTypes?type=3',panelHeight:'auto',editable:false" />
 					</div>
 					<div class="rowdiv">
-						<label for="consultContent" style="vertical-align: top;">咨询内容</label>
-						<textarea name="consultContent" rows="3" cols="250"
+						<label for="consultContent" style="vertical-align: top;">咨询内容</label><textarea name="consultContent" rows="3" cols="250"
 							style="width: 54%; height: 50px;"></textarea>
 					</div>
 				 
