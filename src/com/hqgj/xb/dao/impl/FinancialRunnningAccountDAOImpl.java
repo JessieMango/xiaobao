@@ -203,17 +203,9 @@ public class FinancialRunnningAccountDAOImpl implements
 		return results;
 	}
 
-	@Override
-	public Grid getFinancialRunnningAccount(
+	private Grid queryFinancialRunnningAccount(
 			FinancialRunnningAccount financialRunnningAccount,
-			Parameter parameter) {
-		String select = "select fra.id,dfo.nameM operate,cl.nameM className,fra.realMoney,dt.nameM payWay,fra.balance,fra.feeState,"
-				+ "fra.remark,	c.nameM studentName,c.gender,s.schoolName,dh.nameM handler,fra.operateDate	"
-				+ "from FinancialRunnningAccount fra left outer join DPayType dt on dt.id=fra.payWayCode	"
-				+ "left outer join DFinancialOperate dfo on dfo.id=fra.operateCode	left outer join DFinancialType dft on dft.id=fra.typeCode	"
-				+ "left outer join StudentClass sc on sc.id=fra.studentClass_id	"
-				+ "left outer join Class cl on cl.classCode=sc.classCode	left outer join Consult c on c.id=sc.studentCode	"
-				+ "left outer join DHandler dh on fra.handlerCode=dh.id left outer join School s on fra.handleSchoolCode=s.schoolCode	where fra.flag=1";
+			Parameter parameter, String select) {
 		SqlParameterSource nParameterSource = new BeanPropertySqlParameterSource(
 				financialRunnningAccount);
 		if (StringUtils.isBlank(financialRunnningAccount.getId())
@@ -312,6 +304,88 @@ public class FinancialRunnningAccountDAOImpl implements
 			grid.setRows(results);
 		}
 		return grid;
+	}
+
+	@Override
+	public Grid getFinancialRunnningAccount(
+			FinancialRunnningAccount financialRunnningAccount,
+			Parameter parameter) {
+		String select = "select fra.id,dfo.nameM operate,cl.nameM className,fra.realMoney,dt.nameM payWay,fra.balance,fra.feeState,"
+				+ "fra.remark,	c.nameM studentName,c.gender,s.schoolName,dh.nameM handler,fra.operateDate	"
+				+ "from FinancialRunnningAccount fra left outer join DPayType dt on dt.id=fra.payWayCode	"
+				+ "left outer join DFinancialOperate dfo on dfo.id=fra.operateCode	left outer join DFinancialType dft on dft.id=fra.typeCode	"
+				+ "left outer join StudentClass sc on sc.id=fra.studentClass_id	"
+				+ "left outer join Class cl on cl.classCode=sc.classCode	left outer join Consult c on c.id=sc.studentCode	"
+				+ "left outer join DHandler dh on fra.handlerCode=dh.id left outer join School s on fra.handleSchoolCode=s.schoolCode	where fra.flag=1";
+		return queryFinancialRunnningAccount(financialRunnningAccount,
+				parameter, select);
+	}
+
+	@Override
+	public int deleteFinancialRunnningAccount(String id, String type) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		String updateById = "update FinancialRunnningAccount set flag=0 where id=:id ";
+		String restoreById = "update FinancialRunnningAccount set flag=1 where id=:id ";
+		String deleteById = "delete from FinancialRunnningAccount where id=:id ";
+		int n = 0;
+		if (StringUtils.equals("1", type)) {
+			n = this.nJdbcTemplate.update(updateById, map);
+		} else if (StringUtils.equals("2", type)) {
+			n = this.nJdbcTemplate.update(deleteById, map);
+		} else if (StringUtils.equals("3", type)) {
+			n = this.nJdbcTemplate.update(restoreById, map);
+		}
+		return n;
+	}
+
+	@Override
+	public Grid getFinancialRunnningAccountOfTrash(
+			FinancialRunnningAccount financialRunnningAccount,
+			Parameter parameter) {
+		String select = "select fra.id,dfo.nameM operate,cl.nameM className,fra.realMoney,dt.nameM payWay,fra.balance,fra.feeState,"
+				+ "fra.remark,	c.nameM studentName,c.gender,s.schoolName,dh.nameM handler,fra.operateDate	"
+				+ "from FinancialRunnningAccount fra left outer join DPayType dt on dt.id=fra.payWayCode	"
+				+ "left outer join DFinancialOperate dfo on dfo.id=fra.operateCode	left outer join DFinancialType dft on dft.id=fra.typeCode	"
+				+ "left outer join StudentClass sc on sc.id=fra.studentClass_id	"
+				+ "left outer join Class cl on cl.classCode=sc.classCode	left outer join Consult c on c.id=sc.studentCode	"
+				+ "left outer join DHandler dh on fra.handlerCode=dh.id left outer join School s on fra.handleSchoolCode=s.schoolCode	where fra.flag=0";
+		return queryFinancialRunnningAccount(financialRunnningAccount,
+				parameter, select);
+	}
+
+	@Override
+	public List<FinancialRunnningAccount> getRunningwaterDaily(String startTime) {
+		logger.info("startTime:" + startTime);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("startTime", startTime);
+		String select = "(select typeCode,(select sum(realMoney) from FinancialRunnningAccount f where typeCode=1 and payWayCode in (1)) feeState,"
+				+ "(select sum(realMoney) from FinancialRunnningAccount  where typeCode=1 and payWayCode in (2,3,4,5)) as realMoney,"
+				+ "sum(realMoney) as remark from FinancialRunnningAccount "
+				+ "where payWayCode in (1,2,3,4,5) and typeCode in (1) and  operateDate=:startTime ) "
+				+ "union  (select typeCode,(select sum(realMoney) from FinancialRunnningAccount  where typeCode=2 and payWayCode in (1)) feeState,"
+				+ "(select sum(realMoney) from FinancialRunnningAccount  where typeCode=2 and payWayCode in (2,3,4,5)) as realMoney,"
+				+ "sum(realMoney)  as remark  from FinancialRunnningAccount "
+				+ "where payWayCode in (1,2,3,4,5) and typeCode in (2) and  operateDate=:startTime) "
+				+ "union  (select 3 typeCode,(select sum(realMoney) from FinancialRunnningAccount  where typeCode in (1,2) and payWayCode in (1)) feeState,"
+				+ "(select sum(realMoney) from FinancialRunnningAccount  where typeCode in (1,2) and payWayCode in (2,3,4,5)) as realMoney,"
+				+ "sum(realMoney) as remark from FinancialRunnningAccount "
+				+ "where payWayCode in (1,2,3,4,5) and typeCode in (1,2) and  operateDate=:startTime) ";
+		List<FinancialRunnningAccount> result = this.nJdbcTemplate.query(
+				select, map, new RowMapper<FinancialRunnningAccount>() {
+					@Override
+					public FinancialRunnningAccount mapRow(ResultSet rs,
+							int index) throws SQLException {
+						FinancialRunnningAccount temp = new FinancialRunnningAccount();
+						temp.setTypeCode(rs.getString("typeCode"));
+						temp.setFeeState(rs.getString("feeState"));
+						temp.setRealMoney(rs.getString("realMoney"));
+						temp.setRemark(rs.getString("remark"));
+						return temp;
+					}
+				});
+
+		return result;
 	}
 
 }

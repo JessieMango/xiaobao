@@ -71,4 +71,40 @@ public interface FinancialRunnningAccountDAO {
 			FinancialRunnningAccount financialRunnningAccount,
 			Parameter parameter);
 
+	/**
+	 * 交易回收站查询
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月6日 上午8:58:58
+	 * @param financialRunnningAccount
+	 * @param parameter
+	 * @return
+	 */
+	public Grid getFinancialRunnningAccountOfTrash(
+			FinancialRunnningAccount financialRunnningAccount,
+			Parameter parameter);
+
+	/**
+	 * 删除交易记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月6日 上午8:35:46
+	 * @param id
+	 *            交易记录号
+	 * @param type
+	 *            1表示放入交易回收站 2表示彻底删除 3恢复交易记录
+	 * @return
+	 */
+	public int deleteFinancialRunnningAccount(String id, String type);
+
+	/**
+	 * 查询流水日报
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月6日 上午9:28:46
+	 * @param startTime
+	 * @return
+	 */
+	public List<FinancialRunnningAccount> getRunningwaterDaily(String startTime);
+
 }

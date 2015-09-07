@@ -37,7 +37,6 @@ public class FinancialRunnningAccount {
 	private String studentName; // 学生姓名
 	private String gender; // 性别
 
-
 	/**
 	 * 查询用于接收前台参数
 	 */
@@ -51,7 +50,6 @@ public class FinancialRunnningAccount {
 	private String typeTF; // 教材杂费类型1教材2杂费
 	private String textBookFeeCode; // 教材杂费ID
 	private String stopClassReason; // 停课原因
-
 
 	public String getStopClassReason() {
 		return stopClassReason;

@@ -23,6 +23,19 @@ input[type='text'] {
 			grid.datagrid('load', cxw.serializeObject($('#form2')));
 		}
 	}
+	var deleteFun = function(id){
+		$.post("deleteFinancialRunnningAccount", {
+			id : id,
+			type : 1
+		}, function(result) {
+			if (result.success) {
+				grid.datagrid('load');
+			} else {
+				parent.$.messager.alert('提示', result.msg, 'error');
+				grid.datagrid('load');
+			}
+		});
+	}
 	var init = function() {
 		$('#handleSchoolCode').combobox(
 				{
@@ -195,7 +208,7 @@ input[type='text'] {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<a href="xinzixun.jsp?id={0}">编辑</a>',
+															'<a href="">编辑</a>',
 															row.id);
 										}
 									},
