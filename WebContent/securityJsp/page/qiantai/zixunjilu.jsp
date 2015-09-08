@@ -281,7 +281,7 @@ input[type='text']{
 															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 															row.id);
 										}
-									} ] ],
+									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								var varify = cxw.checkStartTimeBeforeEndTime(
 										'#startTime', '#endTime');
@@ -323,22 +323,23 @@ input[type='text']{
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-		<div>
+
+			<div id="toolbar" style="display: none;">
+					<div style="margin-top: 10px;margin-left: 15%;">
 			<form id="form1">
-				<div style="text-align: center;">
-					<b><label for="nameM">学员完整姓名</label></b><input type="text"
+				<div >
+					<b><label for="nameM">学员完整姓名</label></b>&nbsp;<input type="text"
 						name="nameM" class="easyui-validatebox" />&nbsp; <b><label
-						for="telTail">学员电话尾号</label></b><input type="text" name="telTail"
+						for="telTail">学员电话尾号</label></b>&nbsp;<input type="text" name="telTail"
 						class="easyui-validatebox" />&nbsp; <a href="javascript:void(0);"
-						class="easyui-linkbutton"
+						class="easyui-linkbutton" 
 						data-options="iconCls:'ext-icon-zoom',plain:true"
 						onclick="grid.datagrid('load',cxw.serializeObject($('#form1')));">查询</a>
 				</div>
 			</form>
-		</div>
-		<div>
-			<form id="form2">
-				<div style="margin-top: 20px;">
+		</div> 
+	 			 <form id="form2">
+				<div style="margin-top: 10px;margin-bottom:5px">
 					<div style="margin-left: 15%;">
 						<input type="text" id="startTime" name="startTime"
 							style="width: 100px;" class="easyui-datebox"
@@ -393,7 +394,7 @@ input[type='text']{
 					</div>
 				</div>
 			</form>
-		</div>
+			</div>
 		<div>
 			<table id="grid" data-options="border:false"></table>
 		</div>

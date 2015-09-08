@@ -169,7 +169,7 @@ a {
 															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 															row.id);
 										}
-									} ] ],
+									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								var varify = cxw.checkStartTimeBeforeEndTime(
 										'#startTime', '#endTime');
@@ -198,12 +198,14 @@ a {
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-		<div>
+		
+		<div id="toolbar" style="display: none;">
+			<div style="margin-top: 10px;margin-left:15%">
 			<form id="form1">
-				<div style="text-align: center;">
-					<b><label for="nameM">学员完整姓名</label></b><input type="text"
+				<div >
+					<b><label for="nameM">学员完整姓名</label></b>&nbsp;<input type="text"
 						name="nameM" class="easyui-validatebox" />&nbsp; <b><label
-						for="telTail">学员电话尾号</label></b><input type="text" name="telTail"
+						for="telTail">学员电话尾号</label></b>&nbsp;<input type="text" name="telTail"
 						class="easyui-validatebox" />&nbsp; <a href="javascript:void(0);"
 						class="easyui-linkbutton"
 						data-options="iconCls:'ext-icon-zoom',plain:true"
@@ -213,19 +215,19 @@ a {
 		</div>
 		<div>
 			<form id="form2">
-				<div style="margin-top: 20px;">
+				<div style="margin-top: 10px;">
 					<div style="margin-left: 15%;">
-						<label>沟通日期</label> &nbsp;&nbsp;&nbsp;<input type="text"
+						<input type="text"
 							id="startTime" name="startTime" style="width: 100px;"
 							class="easyui-datebox"
-							data-options="required:true,value:'getCurrentDate();'" />到<input
+							data-options="required:true,value:'getCurrentDate();'" />&nbsp;到&nbsp;<input
 							style="width: 100px;" type="text" id="endTime" name="endTime"
 							class="easyui-datebox"
 							data-options="required:true,value:'getCurrentDate();'" />&nbsp;&nbsp;
 						<input id="communicationType" class="easyui-combobox"
 							style="width: 100px;" name="communicationType"
 							data-options="valueField:'communicationType',textField:'communicationTypeName',url:'getCommunicationType?type=1&flag=select',panelHeight:'auto',editable:false" />
-						<input id="handleSchoolCode" class="easyui-combobox"
+						&nbsp;<input id="handleSchoolCode" class="easyui-combobox"
 							style="width: 100px;" name="handleSchoolCode"
 							data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools?type=1',panelHeight:'auto',editable:false" />
 						&nbsp; <input class="easyui-combobox" name="handlerCode"
@@ -244,6 +246,7 @@ a {
 					</div>
 				</div>
 			</form>
+		</div>
 		</div>
 		<div>
 			<table id="grid" data-options="border:false"></table>

@@ -251,7 +251,7 @@ input[type='text'] {
 															row.consultId,
 															row.availabelPoints);
 										}
-									} ] ],
+									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								parent.$.messager.progress({
 									text : '数据加载中....'
@@ -271,18 +271,21 @@ input[type='text'] {
 </script>
 </head>
 <body>
-	<div>
+
+	<div id="toolbar" style="display: none;">
+			<div style="margin-top:5px;margin-bottom:5px;">
 		<form>
 			<div style="text-align: center;">
-				<b><label for="nameM">学员完整姓名</label></b><input type="text"
+				<b><label for="nameM">学员完整姓名</label></b>&nbsp;<input type="text"
 					name="nameM" class="easyui-validatebox" />&nbsp; <b><label
-					for="telTail">学员电话尾号</label></b><input type="text" name="telTail"
+					for="telTail">学员电话尾号</label></b>&nbsp;<input type="text" name="telTail"
 					class="easyui-validatebox" />&nbsp; <a href="javascript:void(0);"
 					class="easyui-linkbutton"
 					data-options="iconCls:'ext-icon-zoom',plain:true"
 					onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
 			</div>
 		</form>
+	</div>
 	</div>
 	<div>
 		<table id="grid" data-options="border:true"></table>
