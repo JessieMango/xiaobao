@@ -14,6 +14,20 @@
 .none {
 	display: none;
 }
+label {
+	margin-right: 10px;
+	width: 50px;
+}
+
+.rowdiv {
+	margin-top: 15px;
+}
+input{
+ border: 1px solid #95b8e7; margin: 0;padding: 0 2px;vertical-align: middle;border-radius: 5px;height:20px;
+ }
+ *{
+ 	font-size:12px;
+ }
 </style>
 <script type="text/javascript">
 	var queryConsult = function() {
@@ -148,65 +162,64 @@
 </script>
 </head>
 <body>
-	<div style="width: 40%; text-align: center; float: left;" id="leftDiv">
-		<span>有咨询记录(快速报名)</span> <br />
-		<div style="margin-top: 40px; display: inline-table;">
-			<div>
-				<label for="nameM">&nbsp;&nbsp;学员姓名</label><input type="text"
-					id="nameM" name="nameM" class="easyui-validatebox" />
-			</div>
-			<br />
-			<div style="margin-top: 20px;">
-				<label for="telTail">学员电话尾号</label><input type="text" id="telTail"
-					name="telTail" class="easyui-validatebox" />
-			</div>
-			<br />
-			<div style="margin-top: 20px;">
-				<a href="javascript:void(0);" class="easyui-linkbutton"
-					data-options="iconCls:'ext-icon-zoom',plain:true"
-					onclick="queryConsult();">查询</a>
-			</div>
-		</div>
+ <div style="padding:10px">
+ <div>
+<div class="rowdiv">
+	<span style="font-size:16px">有咨询记录(快速报名)</span>
 	</div>
-	<div style="width: 55%; float: right; text-align: center;">
-		<form>
-			<div style="display: inline-table;">
-				<span>无咨询记录(直接报名)</span> <br /> <br /> <br /> <span>选择报名课程</span><br />
-				<div style="margin-top: 30px;">
-					<input id="courseTypeCode1" class="easyui-combobox"
+	<div class="rowdiv">
+	 <label for="nameM">学员姓名</label> <input type="text"
+					id="nameM" name="nameM" class="easyui-validatebox" />
+			&nbsp;	
+			<label for="telTail">学员电话尾号</label><input type="text" id="telTail"
+					name="telTail" class="easyui-validatebox" />
+					
+					<a href="javascript:void(0);" class="easyui-linkbutton"
+					data-options="iconCls:'ext-icon-zoom',plain:true"
+					onclick="queryConsult();">查询</a>	
+	</div>	
+</div>
+<div>
+<form> 
+ <div class="rowdiv">
+ 	<span style="font-size:16px">无咨询记录(直接报名)</span> 
+ </div>
+ <div class=rowdiv>
+ 	<input id="courseTypeCode1" class="easyui-combobox"
 						style="width: 150px;"
 						data-options="required:true,valueField:'courseTypeCode',textField:'courseTypeName',url:'getCourseTypes?type=2',panelHeight:'auto',editable:false"
-						name="courseTypeCode1" /><input id="courseCode1"
+						name="courseTypeCode1" />&nbsp;<input id="courseCode1"
 						data-options="required:true,valueField:'courseCode',textField:'courseName',url:'getAllCourses?courseTypeCode=qb',panelHeight:'auto',editable:false"
 						class="easyui-combobox" style="width: 220px;" name="courseCode1" />
-				</div>
-				<br />
-				<div>
-					<input id="courseTypeCode2" class="easyui-combobox"
+	&nbsp;
+	</div>
+	<div class="rowdiv">
+	<input id="courseTypeCode2" class="easyui-combobox"
 						style="width: 150px;"
 						data-options="valueField:'courseTypeCode',textField:'courseTypeName',url:'getCourseTypes?type=2',panelHeight:'auto',editable:false"
-						name="courseTypeCode2" /><input id="courseCode2"
+						name="courseTypeCode2" />&nbsp;<input id="courseCode2"
 						data-options="valueField:'courseCode',textField:'courseName',url:'getAllCourses?courseTypeCode=qb',panelHeight:'auto',editable:false"
 						class="easyui-combobox" style="width: 220px;" name="courseCode2" />
-				</div>
-				<br />
-				<div>
-					<input id="courseTypeCode3" class="easyui-combobox"
+   </div>
+   <div class="rowdiv">
+   <input id="courseTypeCode3" class="easyui-combobox"
 						style="width: 150px;"
 						data-options="valueField:'courseTypeCode',textField:'courseTypeName',url:'getCourseTypes?type=2',panelHeight:'auto',editable:false"
-						name="courseTypeCode3" /><input id="courseCode3"
+						name="courseTypeCode3" />&nbsp;<input id="courseCode3"
 						data-options="valueField:'courseCode',textField:'courseName',url:'getAllCourses?courseTypeCode=qb',panelHeight:'auto',editable:false"
 						class="easyui-combobox" style="width: 220px;" name="courseCode3" />
-				</div>
-				<div style="text-align: center; margin-top: 20px;">
-					<button type="button" id="btn_save">
+				 
+						
+ </div>
+ <div class="rowdiv" >
+ 	<button type="button" id="btn_save">
 						<img alt="保存" style="vertical-align: middle;"
 							src="../../../style/image/save.gif"><span
 							style="vertical-align: middle;">继续</span>
 					</button>
-				</div>
-			</div>
-		</form>
-	</div>
+ </div>
+ </form>
+</div> 
+  </div>
 </body>
 </html>
