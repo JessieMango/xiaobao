@@ -79,5 +79,14 @@ public interface TextBookFeeDAO {
 	 * @return
 	 */
 	public int deleteTextBookFee(String id);
+	/**
+	 * 根据课程类型查库存
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月8日 上午10:26:53
+	 * @param courseTypeCode
+	 * @return
+	 */
+	public List<TextBookFee> getKuCun(String courseTypeCode);
 
 }

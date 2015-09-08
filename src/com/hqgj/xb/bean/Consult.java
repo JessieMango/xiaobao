@@ -44,6 +44,15 @@ public class Consult {
 	private String flag; // 表示是否有咨询记录 0表示有，1表示没有
 	private String starttime;
 	private String endtime;
+	private String age; // 年龄
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
 
 	public String getStarttime() {
 		return starttime;

@@ -24,14 +24,14 @@ var grid;
 							{
 								field : 'expenditurenameM',
 								title : '月份',
-								width : "5%",
+								width : "33%",
 								align : 'center'
 
 							},
 							{
 								field : 'numberofaccounts',
 								title : '条数',
-								width : "5%",
+								width : "33%",
 								align : 'center'
 
 							},
@@ -39,7 +39,7 @@ var grid;
 							{
 								field : 'summoneyAmount',
 								title : '总金额',
-								width : "5%",
+								width : "33%",
 								align : 'center',
 								
 							}] ],

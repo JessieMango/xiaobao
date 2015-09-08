@@ -1,7 +1,5 @@
 package com.hqgj.xb.bean.easyui;
 
-import javax.management.loading.PrivateClassLoader;
-
 public class Parameter {
 	/**
 	 * datagrid 参数 页码
@@ -11,24 +9,18 @@ public class Parameter {
 	 * datagrid 参数 每页的行数
 	 */
 	private int rows;
+	/**
+	 * 页面标识
+	 */
+	private String pageCode; 
+	/**
+	 * 开始时间
+	 */
 	private String startTime;
+	/**
+	 * 截止时间
+	 */
 	private String endTime;
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getRows() {
-		return rows;
-	}
-
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
 
 	public String getStartTime() {
 		return startTime;
@@ -44,6 +36,30 @@ public class Parameter {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getPageCode() {
+		return pageCode;
+	}
+
+	public void setPageCode(String pageCode) {
+		this.pageCode = pageCode;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getRows() {
+		return rows;
+	}
+
+	public void setRows(int rows) {
+		this.rows = rows;
 	}
 
 }

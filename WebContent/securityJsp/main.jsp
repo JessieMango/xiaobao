@@ -231,7 +231,7 @@
 	<div
 		data-options="region:'north',href:'<%=contextPath%>/securityJsp/north.jsp'"
 		style="height: 120px; overflow: hidden; border: 0;"></div>
-	<div data-options="region:'west',title:'导航',split:true,href:'<%=contextPath%>/securityJsp/menu.jsp'" style="width:150px;"></div>
+	<div data-options="region:'west',title:'导航',split:true,href:'<%=contextPath%>/securityJsp/menu.jsp'" style="width:180px;"></div>
 	<div data-options="region:'center'"
 		style="overflow: hidden; border: 0;">
 		<div id="mainTabs">

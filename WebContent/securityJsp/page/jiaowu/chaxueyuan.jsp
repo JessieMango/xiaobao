@@ -420,8 +420,6 @@ input[type='text'] {
 			</div>
 		</form>
 	</div>
-	<div>
-		<table id="grid" data-options="border:true"></table>
-	</div>
+	<table id="grid" data-options="border:true,fit:true"></table>
 </body>
 </html>

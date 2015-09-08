@@ -41,6 +41,7 @@ public class ConsultDAOImpl implements ConsultDAO {
 		this.nJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
 	}
+
 	@Override
 	public List<Consult> getCouncilSchools(String type) {
 		String sql = "select * from DCouncilSchool order by seq ";
@@ -555,16 +556,44 @@ public class ConsultDAOImpl implements ConsultDAO {
 		String sql = "delete from  Consult  where id=:id";
 		return this.nJdbcTemplate.update(sql, map);
 	}
+
 	@Override
 	public Grid GetShengRiXueYuan(String StudentMonth, Parameter parameter) {
-		String sql = "select c.nameM,c.carCode,c.banlance,c.availabelPoints,c.gender,c.consultDate,c.birthday,c.motherTel,c.fatherTel,c.otherTel,c.councilSchoolCode,ds.nameM councilSchool ,"
-				+ "c.class_grade,c.liveArea,c.others,c.consultContent,c.state,c.consultWayCode,c.consultCourseCode,c.willDegreeCode,c.sellSource sellSourceCode,"
-				+ "c.seller sellerCode,c.handleSchoolCode,c.handler handlerCode,c.mark markCode from Consult c left outer join DCouncilSchool ds on ds.id=c.councilSchoolCode where c.id=:id";
-
+		String sql = "select c.nameM,c.birthday,(DATE_FORMAT(NOW(),'%Y')-DATE_FORMAT(c.birthday,'%Y')) age,"
+				+ "c.motherTel,c.fatherTel,c.otherTel,dcs.nameM councilSchool	"
+				+ "from Consult c left outer join DCouncilSchool dcs on dcs.id=c.councilSchoolCode where month(c.birthday)=:StudentMonth ";
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("StudentMonth", StudentMonth);
+
+		List<Consult> results = this.nJdbcTemplate.query(sql, map, new RowMapper<Consult>() {
+			@Override
+			public Consult mapRow(ResultSet rs, int index) throws SQLException {
+				Consult consult = new Consult();
+				consult.setNameM(rs.getString("nameM"));
+				consult.setBirthday(rs.getString("birthday"));
+				consult.setAge(rs.getString("age"));
+				consult.setMotherTel(rs.getString("motherTel"));
+				consult.setFatherTel(rs.getString("fatherTel"));
+				consult.setOtherTel(rs.getString("otherTel"));
+				consult.setCouncilSchool(rs.getString("councilSchool"));
+				return consult;
+			}
+		});
 		
-		return null;
+		Grid grid = new Grid();
+		if ((int) parameter.getPage() > 0) {
+			int page = (int) parameter.getPage();
+			int rows = (int) parameter.getRows();
+			int fromIndex = (page - 1) * rows;
+			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
+					* rows) ? results.size() : page * rows;
+			grid.setRows(results.subList(fromIndex, toIndex));
+			grid.setTotal(results.size());
+
+		} else {
+			grid.setRows(results);
+		}
+		return grid;
 	}
 
 }

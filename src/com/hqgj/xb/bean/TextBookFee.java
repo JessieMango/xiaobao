@@ -14,7 +14,36 @@ public class TextBookFee {
 	private String points;
 	private String type; // 类型编码
 	private String dnameM; // 类型名称
-	private String isEnableExchange;//是否允许用积分兑换。
+	private String isEnableExchange;// 是否允许用积分兑换。
+	private String num1; // 仓库数量
+	private String num2; // 学校数量
+	private String total; // 总数
+	
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getNum1() {
+		return num1;
+	}
+
+	public void setNum1(String num1) {
+		this.num1 = num1;
+	}
+
+	public String getNum2() {
+		return num2;
+	}
+
+	public void setNum2(String num2) {
+		this.num2 = num2;
+	}
+
 	public String getIsEnableExchange() {
 		return isEnableExchange;
 	}

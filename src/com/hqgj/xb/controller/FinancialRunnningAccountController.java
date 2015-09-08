@@ -82,7 +82,7 @@ public class FinancialRunnningAccountController {
 						parameter);
 	}
 
-	@RequestMapping(value = "/caiwu/getRunningwaterDaily", method = RequestMethod.POST)
+	@RequestMapping(value = {"/caiwu/getRunningwaterDaily","/qiantai/getRunningwaterDaily"}, method = RequestMethod.POST)
 	public @ResponseBody List<FinancialRunnningAccount> getRunningwaterDaily(
 			String startTime) {
 		return financialRunnningAccountService.getRunningwaterDaily(startTime);

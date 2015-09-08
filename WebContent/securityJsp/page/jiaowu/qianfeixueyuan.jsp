@@ -77,7 +77,7 @@ input[type='text'] {
 		grid = $('#grid')
 				.datagrid(
 						{
-							url : 'getOldStudentAgainEnrolls',
+							url : 'getOldStudentAgainEnrolls?pageCode=qianfei',
 							striped : true,
 							pagination : true,
 							rownumbers : true,
@@ -420,8 +420,6 @@ input[type='text'] {
 			</div>
 		</form>
 	</div>
-	<div>
-		<table id="grid" data-options="border:true"></table>
-	</div>
+	<table id="grid" data-options="border:true,fit:true"></table>
 </body>
 </html>

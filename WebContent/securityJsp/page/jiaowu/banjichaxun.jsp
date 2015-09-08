@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
+<title>班级查询</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <style type="text/css">
 a {

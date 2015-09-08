@@ -394,9 +394,7 @@ input[type='text']{
 				</div>
 			</form>
 		</div>
-		<div>
-			<table id="grid" data-options="border:false"></table>
-		</div>
+		<table id="grid" data-options="border:false,fit:true"></table>
 	</div>
 
 </body>

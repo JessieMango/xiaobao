@@ -42,6 +42,7 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 	@Override
 	public Grid getOldStudentAgainEnrolls(
 			OldStudentAgainEnroll oldStudentAgainEnroll, Parameter parameter) {
+		logger.info(parameter.getPageCode());
 		Map<String, String> map = new HashMap<String, String>();
 		SqlParameterSource nParameterSource = new BeanPropertySqlParameterSource(
 				oldStudentAgainEnroll);
@@ -54,6 +55,9 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 				+ "left outer join DSellSource dss on dss.id=sc.sellSourceCode left outer join DSeller ds on ds.id=sc.sellerCode  "
 				+ "left outer join DCouncilSchool dcs on dcs.id=c.councilSchoolCode left outer join DHandler dh on dh.id=sc.handlerCode  "
 				+ "left outer join School s on s.schoolCode=sc.handleSchoolCode left outer join DStudentClassStatus dscs on dscs.id=sc.studentState where c.state=1";
+		if(StringUtils.equals("qianfei", parameter.getPageCode())){
+			select += " and c.banlance < 0";
+		}
 		if (StringUtils.isBlank(oldStudentAgainEnroll.getTelTail())
 				&& StringUtils.isBlank(oldStudentAgainEnroll.getNameM())
 				&& StringUtils.isBlank(oldStudentAgainEnroll.getStartTime())) { // 默认情况

@@ -174,4 +174,25 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 		return results;
 	}
 
+	@Override
+	public List<TextBookFee> getKuCun(String courseTypeCode) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("courseTypeCode", courseTypeCode);
+		String sql = "select nameM,num1,num2,(num1+num2) total  from TextBookFee  where type=1 and courseTypeCode=:courseTypeCode ";
+		List<TextBookFee> results = this.nJdbcTemplate.query(sql, map,
+				new RowMapper<TextBookFee>() {
+					@Override
+					public TextBookFee mapRow(ResultSet rs, int index)
+							throws SQLException {
+						TextBookFee textBookFee = new TextBookFee();
+						textBookFee.setNameM(rs.getString("nameM"));
+						textBookFee.setNum1(rs.getString("num1"));
+						textBookFee.setNum2(rs.getString("num2"));
+						textBookFee.setTotal(rs.getString("total"));
+						return textBookFee;
+					}
+				});
+		return results;
+	}
+
 }

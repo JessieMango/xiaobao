@@ -25,11 +25,14 @@ public interface TextBookFeeService {
 	 * 
 	 * @author 崔兴伟
 	 * @datetime 2015年8月20日 下午2:07:45
-	 * @param courseTypeCode 课程大类
-	 * @param type 1表示教材 2代表杂项
+	 * @param courseTypeCode
+	 *            课程大类
+	 * @param type
+	 *            1表示教材 2代表杂项
 	 * @return
 	 */
-	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,String type);
+	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,
+			String type);
 
 	/**
 	 * 获取教材杂项类型字典表
@@ -79,4 +82,14 @@ public interface TextBookFeeService {
 	 * @return
 	 */
 	public int deleteTextBookFee(String id);
+
+	/**
+	 * 根据课程类型查库存
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月8日 上午10:26:53
+	 * @param courseTypeCode
+	 * @return
+	 */
+	public List<TextBookFee> getKuCun(String courseTypeCode);
 }

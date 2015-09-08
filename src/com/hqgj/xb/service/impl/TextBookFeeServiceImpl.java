@@ -52,4 +52,9 @@ public class TextBookFeeServiceImpl implements TextBookFeeService {
 		return textBookFeeDAO.getTextBookFeesByCourseType(courseTypeCode,type);
 	}
 
+	@Override
+	public List<TextBookFee> getKuCun(String courseTypeCode) {
+		return textBookFeeDAO.getKuCun(courseTypeCode);
+	}
+
 }

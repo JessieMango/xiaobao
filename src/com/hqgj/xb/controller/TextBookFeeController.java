@@ -37,6 +37,19 @@ public class TextBookFeeController {
 		return textBookFeeService.getAllTextBookFees(type);
 	}
 
+	/**
+	 * 查库存
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月8日 上午10:29:14
+	 * @param courseTypeCode
+	 * @return
+	 */
+	@RequestMapping(value = "/qiantai/getKuCun", method = RequestMethod.POST)
+	public @ResponseBody List<TextBookFee> getKuCun(String courseTypeCode) {
+		return textBookFeeService.getKuCun(courseTypeCode);
+	}
+
 	@RequestMapping(value = "/form/getDTextBookFeesType", method = RequestMethod.POST)
 	public @ResponseBody List<TextBookFee> getDTextBookFeesType() {
 		return textBookFeeService.getDTextBookFeesType();

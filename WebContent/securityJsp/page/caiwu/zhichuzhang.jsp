@@ -254,8 +254,6 @@
 			</form>
 		</div>
 		</div>
-	<div>
-		<table id="grid" data-options="border:false"></table>
-	</div>
+	<table id="grid" data-options="border:false"></table>
 </body>
 </html>
