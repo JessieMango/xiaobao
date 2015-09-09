@@ -186,9 +186,9 @@ a {
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
 	<div id="toolbar" style="display: none;">
-				<div>
+				<div style="margin-top:5px;margin-left:21%">
 			<form id="form1">
-				<div style="text-align: center;">
+				<div>
 					<b><label for="nameM">班级名称&nbsp;</label></b><input type="text"
 						name="nameM" class="easyui-validatebox" />&nbsp; <a
 						href="javascript:void(0);" class="easyui-linkbutton"
@@ -198,7 +198,7 @@ a {
 			</form>
 		</div>
 		<form id="form2">
-			<div style="margin-top: 20px; text-align: center;">
+			<div style="margin-top: 10px; text-align: center;">
 				<div style="display: inline-table; text-align: center;">
 					<input id="schoolCode" class="easyui-combobox"
 						style="width: 100px;" name="schoolCode"

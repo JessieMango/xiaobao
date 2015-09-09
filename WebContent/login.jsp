@@ -47,6 +47,20 @@
 			}
 		}); 
 		jQuery(".slideBox").slide({mainCell:".bd ul",effect:"left",autoPlay:true});
+		 $.each($(".morePlatform img"),function(i,m){
+			 $(this).mouseover(function(){
+					 $(this).css("width","120px");
+					 $(this).css("height","120px");
+					 $(this).css("z-index","100");
+					 //$(this).css("position","absolute");
+				});
+			 $(this).mouseout(function(){
+				 $(this).css("width","80px");
+				 $(this).css("height","80px");
+				// $(this).css("position","relative");
+			});
+		 });
+		 
 	});
 </script>
 <style type="text/css">
@@ -66,6 +80,7 @@
 		.slideBox .next:hover{ filter:alpha(opacity=100);opacity:1;  }
 		.slideBox .prevStop{ display:none;  }
 		.slideBox .nextStop{ display:none;  }
+		 
 </style>
 </head>
 <body>

@@ -151,7 +151,7 @@ a {
 															'<button onclick=""><img src="../../../style/image/plus_1.png" alt="记上课" width="16" height="16" border="0" align="absbottom" /><span class="F_Red"><b>记上课</b></span></button>',
 															row.classCode);
 										}
-									} ] ],
+									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								parent.$.messager.progress({
 									text : '数据加载中....'
@@ -176,7 +176,7 @@ a {
 		<div id="toolbar">
 			<div>
 				<form id="form1">
-					<div style="text-align: center;">
+					<div style="margin-top:5px;margin-left:21%">
 						<b><label for="nameM">班级名称&nbsp;</label></b><input type="text"
 							name="nameM" class="easyui-validatebox" />&nbsp; <a
 							href="javascript:void(0);" class="easyui-linkbutton"
@@ -186,7 +186,7 @@ a {
 				</form>
 			</div>
 			<form id="form2">
-				<div style="margin-top: 20px; text-align: center;">
+				<div style="margin-top: 10px; text-align: center;">
 					<div style="display: inline-table; text-align: center;">
 						<input id="schoolCode" class="easyui-combobox"
 							style="width: 100px;" name="schoolCode"
@@ -225,7 +225,7 @@ a {
 							<option value="0">未开课</option>
 							<option value="1">上课中</option>
 							<option value="2">已结课</option>
-						</select>&nbsp; <select name="year" class="easyui-combobox"
+						</select> &nbsp;<select name="year" class="easyui-combobox"
 							data-options="required:true,editable:false,panelHeight:'auto'"
 							style="width: 100px;">
 							<option value="qb">全部年份</option>
@@ -240,7 +240,7 @@ a {
 							<option value="2023">2023</option>
 							<option value="2024">2024</option>
 							<option value="2025">2025</option>
-						</select> &nbsp; <select name="month" class="easyui-combobox"
+						</select>&nbsp;<select name="month" class="easyui-combobox"
 							data-options="required:true,editable:false,panelHeight:'auto'"
 							style="width: 100px;">
 							<option value="qb">全部月份</option>

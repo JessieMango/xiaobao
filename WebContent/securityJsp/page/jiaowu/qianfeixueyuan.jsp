@@ -283,7 +283,7 @@ input[type='text'] {
 										title : '日期',
 										width : "6%",
 										align : 'center'
-									} ] ],
+									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								parent.$.messager.progress({
 									text : '数据加载中....'
@@ -304,12 +304,13 @@ input[type='text'] {
 </script>
 </head>
 <body>
+<div id="toolbar">
 	<div>
 		<form id="form1">
 			<div style="text-align: center;">
-				<b><label for="nameM">学员完整姓名</label></b><input type="text"
+				<b><label for="nameM">学员完整姓名</label></b>&nbsp;<input type="text"
 					name="nameM" class="easyui-validatebox" />&nbsp; <b><label
-					for="telTail">学员电话尾号</label></b><input type="text" name="telTail"
+					for="telTail">学员电话尾号</label></b>&nbsp;<input type="text" name="telTail"
 					class="easyui-validatebox" />&nbsp; <a href="javascript:void(0);"
 					class="easyui-linkbutton"
 					data-options="iconCls:'ext-icon-zoom',plain:true"
@@ -320,7 +321,7 @@ input[type='text'] {
 	<div>
 		<form id="form2">
 			<div
-				style="margin-top: 20px; display: table; margin: 0 auto; padding: 5px;">
+				style="margin-top: 10px; display: table; margin: 0 auto; padding: 5px;">
 				<div style="display: table-row;">
 					<div style="display: table-cell; text-align: center;">
 						<span>报名日期</span>
@@ -370,6 +371,7 @@ input[type='text'] {
 					</div>
 
 				</div>
+				<div style="height:5px"></div>
 				<div style="display: table-row;">
 					<div style="display: table-cell;">
 						<input type="text" id="startTime" name="startTime"
@@ -419,6 +421,7 @@ input[type='text'] {
 				</div>
 			</div>
 		</form>
+	</div>
 	</div>
 	<table id="grid" data-options="border:true,fit:true"></table>
 </body>
