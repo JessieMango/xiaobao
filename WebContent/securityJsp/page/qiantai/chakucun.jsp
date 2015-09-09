@@ -13,13 +13,13 @@
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
 
+	/* 出入库 */
 	var inOutWareHouse = function() {
-
 		var dialog = parent.cxw.modalDialog({
 			modal : true,
-			title : username,
-			width : 660,
-			height : 400,
+			title : "出入库",
+			width : 500,
+			height : 300,
 			url : cxw.contextPath
 					+ '/securityJsp/page/form/churukuForm.jsp',
 			buttons : [ {
@@ -30,6 +30,28 @@
 				}
 			} ]
 		});
+	}
+	/* 转库 */
+	var transformWareHouse = function(){
+		var dialog = parent.cxw.modalDialog({
+			modal : true,
+			title : "教材转库",
+			width : 500,
+			height : 300,
+			url : cxw.contextPath
+					+ '/securityJsp/page/form/jiaocaizhuankuForm.jsp',
+			buttons : [ {
+				text : '保存',
+				handler : function() {
+					dialog.find('iframe').get(0).contentWindow.submitForm(
+							dialog, grid, parent.$);
+				}
+			} ]
+		});
+	}
+	/* 库存变动记录 */
+	var changeRecord = function(){
+		window.location.href = 'kucunbiandongjilu.jsp';
 	}
 	/* 初始化页面 */
 	function init() {
@@ -43,7 +65,7 @@
 					}
 				});
 		grid = $('#grid').datagrid({
-			url : 'getKuCun?courseTypeCode=qb',
+			url : 'getKuCun',
 			striped : true,
 			pagination : true,
 			rownumbers : true,

@@ -3,6 +3,9 @@ package com.hqgj.xb.dao;
 import java.util.List;
 
 import com.hqgj.xb.bean.TextBookFee;
+import com.hqgj.xb.bean.TextBookFeeChangeRecord;
+import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 
 /**
  * @author 崔兴伟
@@ -34,11 +37,14 @@ public interface TextBookFeeDAO {
 	 * 
 	 * @author 崔兴伟
 	 * @datetime 2015年8月20日 下午2:07:45
-	 * @param courseTypeCode 课程大类
-	 * @param type 1表示教材 2代表杂项
+	 * @param courseTypeCode
+	 *            课程大类
+	 * @param type
+	 *            1表示教材 2代表杂项
 	 * @return
 	 */
-	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,String type);
+	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,
+			String type);
 
 	/**
 	 * 获取指定ID教材杂项的所有信息
@@ -79,6 +85,7 @@ public interface TextBookFeeDAO {
 	 * @return
 	 */
 	public int deleteTextBookFee(String id);
+
 	/**
 	 * 根据课程类型查库存
 	 * 
@@ -88,5 +95,37 @@ public interface TextBookFeeDAO {
 	 * @return
 	 */
 	public List<TextBookFee> getKuCun(String courseTypeCode);
+
+	/**
+	 * 教材出入库
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月8日 下午12:31:05
+	 * @param changeRecord
+	 * @return
+	 */
+	public int chuRuKu(TextBookFeeChangeRecord changeRecord);
+
+	/**
+	 * 教材转库
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月9日 上午9:22:12
+	 * @param changeRecord
+	 * @return
+	 */
+	public int zhuanKu(TextBookFeeChangeRecord changeRecord);
+
+	/**
+	 * 库存变动记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月9日 上午10:17:37
+	 * @param changeRecord
+	 * @param parameter
+	 * @return
+	 */
+	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
+			Parameter parameter);
 
 }

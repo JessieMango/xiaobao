@@ -9,8 +9,52 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
-<link href="<%=contextPath%>/style/login.css" style="text/css"
-	rel="stylesheet" />
+<style>
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+body {
+	height: 100%;
+	background: url('style/images/loginBg.jpg') no-repeat;
+}
+
+.main {
+	min-width: 100%;
+}
+
+.top_right {
+	margin-top: 30px;
+	margin-right: 50px;
+	text-align: right;
+	height: 30px;
+}
+
+.login {
+	width: 353px;
+	height: 494px;
+	margin: auto;
+	background: url('style/images/login_box_bg.png') no-repeat;
+}
+
+.inputradius {
+	border: 1px solid #dedede;
+	-moz-border-radius: 5px; /* Gecko browsers */
+	-webkit-border-radius: 5px; /* Webkit browsers */
+	border-radius: 5px; /* W3C syntax */
+}
+</style>
 <script type="text/javascript"
 	src="<%=contextPath%>/jslib/jquery-1.9.1.js"></script>
 <script src="<%=contextPath%>/jslib/cxwExtJquery.js"
@@ -48,115 +92,61 @@
 </script>
 </head>
 <body>
-	<div class="total">
-		<div class="header">
-			<div class="logo">
-				<img alt="logo" src="<%=contextPath%>/style/images/logo.gif">
-			</div>
-			<div class="navBar">
-				<div class="menu">
-					<a href="" target="_blank" class="st-btn">学生团体入口</a>
-				</div>
-				<div class="menu">
-					<a href="" title="注册">注册</a>
-				</div>
-				<div class="menu">
-					<a href="" title="给我们提意见">反馈意见</a>
-				</div>
-			</div>
+	<div class="main">
+		<!-- top 学生登录入口  注册 反馈意见 -->
+		<div class="top_right">
+			<a>学生登录入口</a>&nbsp;&nbsp;&nbsp;<a href="http://www.baidu.com">家长登录入口</a>&nbsp;&nbsp;&nbsp;<a>联系我们</a>
 		</div>
-		<div class="mm">
-			<div class="mm-left">
-				<div class="login">
-					<div class="pic">
-						<img alt="头像" src="<%=contextPath%>/style/image/person.jpg">
+		<!-- 登录区域 -->
+		<div style="text-align: center; margin-top: 5%">
+			<div class="login">
+				<form method="post">
+					<div style="text-align: center; padding-top: 50px">
+						<img src="style/images/logo.gif" border="0" />
 					</div>
-					<form method="post" class="login-form">
-						<dl>
-							<dd>
-								<input type="text" name="loginname" id="loginname" tabindex="1"
-									autofocus="autofocus" placeholder="邮箱/手机号/用户名"
-									required="required" class="input-text" />
-							</dd>
-						</dl>
-						<dl>
-							<dd>
-								<input type="password" name="password" id="password"
-									required="required" tabindex="2" class="input-text"
-									placeholder="请输入密码" />
-							</dd>
-						</dl>
-						<dl>
-							<dd>
-								<span id="msg"></span>
-							</dd>
-						</dl>
-						<dl>
-							<dd>
-								<label title="为了确保您的信息安全，请不要在网吧或者公共机房勾选此项！" for="autoLogin"
-									class="labelCheckbox"><input type="checkbox"
-									name="autoLogin" id="autoLogin" value="true" tabindex="3" />下次自动登录</label>
-							</dd>
-							<dd>
-								<span class="getpassword" id="getpassword"><a href=""
-									tabindex="4">忘记密码?</a></span>
-							</dd>
-						</dl>
-						<dl>
-							<dd>
-								<input type="button" id="login" class="login-btn" value="登录"
-									tabindex="4" />
-							</dd>
-						</dl>
-						<dl>
-							<dd>
-								<input type="button" onclick="window.location=''" id="regnow"
-									class="regbutton" value="注册" tabindex="5" />
-							</dd>
-						</dl>
-					</form>
-				</div>
-				<div class="login-corp">
-					<div class="login-word">
-						<div class="login-word-left">其他账号登录:</div>
-						<div class="login-word-right">
-							<a title="移动" class="login-item yidong"
-								href="https://open.mmarket.com:443/omee-aus/services/oauth/authorize?responseType=code&scope=getUserInfo&clientId=300007884008&redirectUri=http%3A%2F%2Fwww.renren.com%2Fbind%2Fcnmobile%2FloginCallBack&clientState=9"
-								id="login_cnmobile"> 移动</a> <a title="天翼"
-								class="login-item tianyi" id="login_tianyi"
-								href="https://oauth.api.189.cn/emp/oauth2/authorize?app_id=296961050000000294&response_type=code&redirect_uri=http://www.renren.com/bind/ty/tyLoginCallBack">天翼</a>
-							<a title="360" class="login-item lo360" id="login_360"
-								href="https://openapi.360.cn/oauth2/authorize?client_id=5ddda4458747126a583c5d58716bab4c&response_type=code&redirect_uri=http://www.renren.com/bind/tsz/tszLoginCallBack&scope=basic&display=default">360</a>
-							<a title="百度" class="login-item baidu"
-								href="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=foRRWjPq8In3SIhmKQw1Pep3&redirect_uri=http%3A%2F%2Fwww.renren.com%2Fbind%2Fbaidu%2FbaiduLoginCallBack"
-								id="login_baidu">百度</a>
+					<div style="margin-top: 10px">
+						<img src="style/images/login_home.png" border="0" />
+					</div>
+					<div style="margin-top: 10px">
+						<img src="style/images/login_username.png" border="0"
+							style="vertical-align: middle" /> &nbsp;<input
+							style="width: 200px; height: 28px;" name="loginname"
+							id="loginname" class="inputradius" />
+					</div>
+					<div style="margin-top: 10px">
+						<img src="style/images/login_pwd.png" border="0"
+							style="vertical-align: middle" /> &nbsp;<input type="password"
+							style="width: 200px; height: 28px;" class="inputradius"
+							name="password" id="password" />
+					</div>
+					<div style="margin-top: 15px; color: red">
+						<span id="msg"></span>
+					</div>
+					<div style="margin-top: 15px">
+						<div style="display: inline; margin-right: 38px; color: #737373">
+							<input type="checkbox" name="autoLogin" id="autoLogin"
+								value="true" />下次启动登录
+						</div>
+						<div style="display: inline;">
+							<a style="color: #737373">忘记密码?</a>
 						</div>
 					</div>
-				</div>
+					<!-- 登录 注册 -->
+					<div style="margin-top: 20px">
+						<img src="style/images/login_submit.png" border="0"
+							style="margin-right: 50px" id="login" /> <img
+							src="style/images/login_reg.png" border="0" id="regnow" />
+					</div>
+					<!-- 其他登录方式 -->
+					<div style="margin-top: 50px">
+						其他登录&nbsp; <img src="style/images/01.png" border="0" />&nbsp; <img
+							src="style/images/02.png" border="0" />&nbsp; <img
+							src="style/images/03.png" border="0" />&nbsp; <img
+							src="style/images/04.png" border="0" />
+					</div>
+				</form>
 			</div>
-			<div class="mm-right">
-				<div class="mm-right-up">
-					<img alt="图片" src="<%=contextPath%>/style/image/big.jpg">
-				</div>
-				<div class="mm-right-down">
-					<div class="item">
-						<a href="" target="_blank"><img alt="二维码" class="item-image"
-							src="<%=contextPath%>/style/image/qrcode.jpg"> </a>
-					</div>
-					<div class="item">
-						<a href="" target="_blank"><img alt="手机" class="item-image"
-							src="<%=contextPath%>/style/image/phone.jpg"></a>
-					</div>
-					<div class="item">
-						<a href="" target="_blank"><img alt="平板" class="item-image"
-							src="<%=contextPath%>/style/image/pad.jpg"></a>
-					</div>
-					<div class="item">
-						<a href="" target="_blank"><img alt="其他" class="item-image"
-							src="<%=contextPath%>/style/image/other.jpg"></a>
-					</div>
-				</div>
-			</div>
+
 		</div>
 	</div>
 </body>

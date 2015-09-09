@@ -3,6 +3,9 @@ package com.hqgj.xb.service;
 import java.util.List;
 
 import com.hqgj.xb.bean.TextBookFee;
+import com.hqgj.xb.bean.TextBookFeeChangeRecord;
+import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 
 /**
  * @author 崔兴伟
@@ -92,4 +95,36 @@ public interface TextBookFeeService {
 	 * @return
 	 */
 	public List<TextBookFee> getKuCun(String courseTypeCode);
+
+	/**
+	 * 教材出入库
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月8日 下午12:31:05
+	 * @param changeRecord
+	 * @return
+	 */
+	public int chuRuKu(TextBookFeeChangeRecord changeRecord);
+
+	/**
+	 * 教材转库
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月9日 上午9:22:12
+	 * @param changeRecord
+	 * @return
+	 */
+	public int zhuanKu(TextBookFeeChangeRecord changeRecord);
+
+	/**
+	 * 库存变动记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月9日 上午10:17:37
+	 * @param changeRecord
+	 * @param parameter
+	 * @return
+	 */
+	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
+			Parameter parameter);
 }

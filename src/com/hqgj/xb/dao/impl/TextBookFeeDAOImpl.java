@@ -10,7 +10,6 @@ import java.util.UUID;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -19,6 +18,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.TextBookFee;
+import com.hqgj.xb.bean.TextBookFeeChangeRecord;
+import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.TextBookFeeDAO;
 
 /**
@@ -27,7 +29,6 @@ import com.hqgj.xb.dao.TextBookFeeDAO;
  */
 @Repository
 public class TextBookFeeDAOImpl implements TextBookFeeDAO {
-	private Logger logger = Logger.getLogger(TextBookFeeDAOImpl.class);
 	private NamedParameterJdbcTemplate nJdbcTemplate;
 
 	@Autowired
@@ -178,13 +179,17 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 	public List<TextBookFee> getKuCun(String courseTypeCode) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("courseTypeCode", courseTypeCode);
-		String sql = "select nameM,num1,num2,(num1+num2) total  from TextBookFee  where type=1 and courseTypeCode=:courseTypeCode ";
+		String sql = "select id,nameM,num1,num2,(num1+num2) total  from TextBookFee  where type=1  ";
+		if (StringUtils.isNotBlank(courseTypeCode)) {
+			sql += " and courseTypeCode=:courseTypeCode ";
+		}
 		List<TextBookFee> results = this.nJdbcTemplate.query(sql, map,
 				new RowMapper<TextBookFee>() {
 					@Override
 					public TextBookFee mapRow(ResultSet rs, int index)
 							throws SQLException {
 						TextBookFee textBookFee = new TextBookFee();
+						textBookFee.setId(rs.getString("id"));
 						textBookFee.setNameM(rs.getString("nameM"));
 						textBookFee.setNum1(rs.getString("num1"));
 						textBookFee.setNum2(rs.getString("num2"));
@@ -193,6 +198,74 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 					}
 				});
 		return results;
+	}
+
+	@Override
+	public int chuRuKu(TextBookFeeChangeRecord changeRecord) {
+		SqlParameterSource nParameterSource = new BeanPropertySqlParameterSource(
+				changeRecord);
+		String insert = "insert into TextBookFeeChangeRecord (id,location,textbookFee_id,operate,number,operateDate,handler,remark) values "
+				+ " (:id,:location,:textbookFee_id,:operate,:number,:operateDate,:handler,:remark)";
+		String update = "";
+		int n1 = 0;
+		int n2 = 0;
+		if (StringUtils.equals("1", changeRecord.getOperate())) { // 入库
+			if (StringUtils.equals("1", changeRecord.getLocation())) { // 库房
+				update = " update TextBookFee set num1=num1+:number where id=:textbookFee_id ";
+			}
+			if (StringUtils.equals("2", changeRecord.getLocation())) { // 学校
+				update = " update TextBookFee set num2=num2+:number where id=:textbookFee_id ";
+			}
+		}
+		if (StringUtils.equals("2", changeRecord.getOperate())) { // 出库
+			if (StringUtils.equals("1", changeRecord.getLocation())) { // 库房
+				update = " update TextBookFee set num1=num1-:number where id=:textbookFee_id ";
+			}
+			if (StringUtils.equals("2", changeRecord.getLocation())) { // 学校
+				update = " update TextBookFee set num2=num2-:number where id=:textbookFee_id ";
+			}
+		}
+		n1 = this.nJdbcTemplate.update(insert, nParameterSource);
+		n2 = this.nJdbcTemplate.update(update, nParameterSource);
+		return n1 + n2;
+	}
+
+	@Override
+	public int zhuanKu(TextBookFeeChangeRecord changeRecord) {
+		/**
+		 * 转出
+		 */
+		TextBookFeeChangeRecord fromKu = new TextBookFeeChangeRecord();
+		fromKu.setId(UUID.randomUUID().toString());
+		fromKu.setLocation(changeRecord.getFromLocation());
+		fromKu.setNumber(changeRecord.getNumber());
+		fromKu.setHandler(changeRecord.getHandler());
+		fromKu.setOperate("2");
+		fromKu.setTextbookFee_id(changeRecord.getTextbookFee_id());
+		fromKu.setOperateDate(changeRecord.getOperateDate());
+		fromKu.setRemark("转出>" + changeRecord.getRemark());
+		int n1 = chuRuKu(fromKu);
+		/**
+		 * 转入
+		 */
+		TextBookFeeChangeRecord toKu = new TextBookFeeChangeRecord();
+		toKu.setId(UUID.randomUUID().toString());
+		toKu.setLocation(changeRecord.getToLocation());
+		toKu.setOperate("1");
+		toKu.setNumber(changeRecord.getNumber());
+		toKu.setHandler(changeRecord.getHandler());
+		toKu.setTextbookFee_id(changeRecord.getTextbookFee_id());
+		toKu.setOperateDate(changeRecord.getOperateDate());
+		toKu.setRemark("转入>" + changeRecord.getRemark());
+		int n2 = chuRuKu(toKu);
+		return n1 + n2;
+	}
+
+	@Override
+	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
+			Parameter parameter) {
+		
+		return null;
 	}
 
 }
