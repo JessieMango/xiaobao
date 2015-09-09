@@ -2,7 +2,9 @@
 
 html body {
 	background: #F1F4F5;
-	margin: 0;
+	margin: 0;  
+   font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
+    font-size: 9pt;
 }
 
 a {
@@ -26,7 +28,7 @@ a:active {
 }
 
 .total {
-	width: 80%;
+	width:980px;
 	padding: 1em;
 	margin-right: auto;
 	margin-left: auto;
@@ -56,9 +58,12 @@ a:active {
 	color: #48B770;
 }
 
+
+
 .mm {
 	margin-top: 3em;
 	height: 700px;
+	width:980px;
 	clear: both;
 	margin: 0 auto;
 }
@@ -74,17 +79,33 @@ a:active {
 .mm-right {
 	float: right;
 	height: 530px;
-	width: 57%;
+	width: 59%;
+	margin-top:2px;
 }
 
 .mm-right-up {
-	height: 450px;
+	height: 410px;
 }
 
 .mm-right-down {
 	height: 70px;
 }
 
+.morePlatform{ 
+	text-align:center;
+}
+.morePlatform a{
+		margin:0px;
+		padding:5px;
+		margin-right:25px;
+}
+.morePlatform img{
+		margin:0px;
+		padding:0px;
+		border:0px;
+		width:80px;
+		height:80px;
+}
 .login {
 	margin: 20px;
 }
@@ -146,7 +167,7 @@ dl {
 .login-corp {
 	background-color: #F8F8F8;
 	height: 70px;
-	margin-top: 40px;
+	margin-top: 50px;
 	margin-bottom: 0px;
 }
 
@@ -185,3 +206,38 @@ dl {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+
+.ft-wrapper {
+    background-color: transparent;
+    border-top: 1px solid #d8d8d8;
+    margin: 30px auto 0;
+    padding: 15px 0 30px;
+    position: relative; 
+} 
+.ft-wrapper p {
+    float: left;
+    margin-right: 40px;
+}
+p {
+    line-height: 1.4em;
+}
+
+.ft-wrapper p a, .ft-wrapper strong, .ft-wrapper span {
+    color: #666;
+    display: block;
+    line-height: 28px;
+}
+strong {
+    font-weight: 700;
+}
+.ft-wrapper p a {
+    outline: 0 none;
+}
+.ft-wrapper .copyright-info {
+    float: right;
+    margin-right: 0;
+}
+
+
+

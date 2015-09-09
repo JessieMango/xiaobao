@@ -66,7 +66,7 @@ a {
 						{
 							url : 'getClass',
 							striped : true,
-							pagination : true,
+							pagination : true, 
 							rownumbers : true,
 							nowrap : false,
 							idField : 'classCode',
@@ -163,7 +163,7 @@ a {
 															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 															row.classCode);
 										}
-									} ] ],
+									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								parent.$.messager.progress({
 									text : '数据加载中....'
@@ -185,7 +185,8 @@ a {
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-		<div>
+	<div id="toolbar" style="display: none;">
+				<div>
 			<form id="form1">
 				<div style="text-align: center;">
 					<b><label for="nameM">班级名称&nbsp;</label></b><input type="text"
@@ -284,10 +285,8 @@ a {
 				</div>
 			</div>
 		</form>
-		<div style="width: 90%; margin: 20px auto;">
-			<table id="grid" data-options="border:false"></table>
-		</div>
+	</div> 
+		<table id="grid" data-options="border:false"></table>
 	</div>
-
 </body>
 </html>
