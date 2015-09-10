@@ -17,11 +17,20 @@ label {
 }
 
 .divRow {
-	margin-top: 5px;
+	margin-top: 10px;
 }
-
+.divRow lable{
+	margin-right: 50px;
+}
 .none {
 	display: none;
+}
+input{
+ border: 1px solid #95b8e7; margin: 0;padding: 0 2px;vertical-align: middle;border-radius: 5px;height:20px;
+ width:120px;
+ }
+textarea{
+ border: 1px solid #95b8e7; margin: 0;padding: 0 2px;vertical-align: middle;border-radius: 5px
 }
 </style>
 <script type="text/javascript">
@@ -180,7 +189,7 @@ label {
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
 		<form>
-			<div style="width: 40%; margin: 10px auto;">
+			<div style="width: 60%; margin: 10px auto;">
 				<div>
 					<img src="../../../style/image/Folder.gif"
 						style="vertical-align: middle;"> <span
@@ -188,69 +197,71 @@ label {
 				</div>
 				<hr />
 				<div class="divRow">
-					<label for="nameM">&nbsp;&nbsp;校区</label><input id="schoolCode"
-						class="easyui-combobox" style="width: 100px;" name="schoolCode"
+					<div style="display:inline;margin-right:30px"><label for="nameM">&nbsp;校&nbsp;区</label></div><input id="schoolCode"
+						class="easyui-combobox"  name="schoolCode"
 						data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools',panelHeight:'auto',editable:false" />
 				</div>
 				<div class="divRow">
-					<label for="nameM">班级名称</label><input type="text" name="nameM"
+					<div style="display:inline;margin-right:30px"><label for="nameM">班级名称</label></div><input type="text" name="nameM"
 						data-options="required:true" class="easyui-validatebox" />
 				</div>
 				<div class="divRow">
-					<label>&nbsp;&nbsp;课程</label><input id="courseTypeCode"
-						class="easyui-combobox" style="width: 150px;"
-						data-options="required:true" name="courseTypeCode" /><input
+					<div style="display:inline;margin-right:30px"><label>&nbsp;课&nbsp;程</label></div><input id="courseTypeCode"
+						class="easyui-combobox" 
+						data-options="required:true" name="courseTypeCode" />
+						&nbsp;
+						<input
 						id="courseCode" data-options="required:true"
-						class="easyui-combobox" style="width: 220px;" name="courseCode" />
+						class="easyui-combobox"  name="courseCode" />
 				</div>
 				<div class="divRow" id="tuitionDiv">
-					<label for="tuitionType">收费模式</label><span id="tuitionSpan1"><input type="radio"
-						id="tuitionType1" checked="checked" onclick="tuitionChange(1);"
+					<div style="display:inline;margin-right:30px"><label for="tuitionType">收费模式</label></div><span id="tuitionSpan1">
+					<input type="radio" style="width:20px" id="tuitionType1" checked="checked" onclick="tuitionChange(1);"
 						name="tuitionType" value="1" />按期 </span><span id="tuitionSpan2"><input type="radio" id="tuitionType2"
-						name="tuitionType" value="2" onclick="tuitionChange(2);" />按次</span>
+						name="tuitionType" value="2" onclick="tuitionChange(2);" style="width:20px"/>按次</span>
 					<span id="tuitionSpan3"><input type="radio" name="tuitionType" value="3" id="tuitionType3"
-						onclick="tuitionChange(3);" />按时间 &nbsp;</span><span id="tuitionTip">(保存后不能修改，谨慎选择)</span>
+						onclick="tuitionChange(3);" style="width:20px"/>按时间 &nbsp;</span><span id="tuitionTip">(保存后不能修改，谨慎选择)</span>
 				</div>
 				<div class="divRow">
-					<label for="tuition">学费标准</label><input type="text" name="tuition"
+					<div style="display:inline;margin-right:30px"><label for="tuition">学费标准</label></div><input type="text" name="tuition"
 						data-options="required:true,min:0,precision:0"
 						class="easyui-numberbox" /><span id="tuitionSpanTerm">元/期</span><span
 						id="tuitionSpanTimes" class="none">元/次</span><span
 						id="tuitionSpanMonth" class="none">元/月</span>
 				</div>
 				<div class="divRow" id="classTimesDiv">
-					<label for="classTimes">课时总数</label><input type="text"
+					<div style="display:inline;margin-right:30px"><label for="classTimes">课时总数</label></div><input type="text"
 						id="classTimes" name="classTimes" data-options="min:0,precision:0"
 						class="easyui-numberbox" /><span id="classTimesSpan">次</span>
 				</div>
 				<div class="divRow" id="termDiv">
-					<label for="startDate">开班日期</label><input type="text"
+					<div style="display:inline;margin-right:30px"><label for="startDate">开班日期</label></div><input type="text"
 						style="width: 100px;" name="startDate" class="easyui-datebox"
 						id="startDate1"
 						data-options="value:'getCurrentDate();'" />到<input
 						style="width: 100px;" type="text" name="endDate" id="endDate2"
 						class="easyui-datebox"
-						data-options="value:'getCurrentDate();',validType:'notBigger[\'#startDate1\']'" /><input
-						type="checkbox" name="dateUndetermined" value="1" /> 日期待定
+						data-options="value:'getCurrentDate();',validType:'notBigger[\'#startDate1\']'" />&nbsp;<input
+						type="checkbox" name="dateUndetermined" value="1" style="width:20px" /> 日期待定
 				</div>
 				<div class="none" style="margin-top: 5px;" id="timeMonthDiv">
-					<label for="startDate2">开班日期</label><input type="text"
+					<div style="display:inline;margin-right:30px"><label for="startDate2">开班日期</label></div><input type="text"
 						style="width: 100px;" name="startDate2" class="easyui-datebox"
 						data-options="value:'getCurrentDate();'" /><input
 						type="checkbox" name="dateUndetermined" value="1" /> 日期待定
 				</div>
 				<div class="divRow">
-					<label for="teacherCode">教师名称</label><input type="text"
+					<div style="display:inline;margin-right:30px"><label for="teacherCode">教师名称</label></div><input type="text"
 						id="teacherCode" name="teacherCode" class="easyui-combobox" /><label
 						for="assistantCode">助教</label><input type="text"
 						name="assistantCode" id="assistantCode" class="easyui-combobox" />
 				</div>
 				<div class="divRow">
-					<label for="classRoomCode">教室名称</label><input type="text"
+					<div style="display:inline;margin-right:30px"><label for="classRoomCode">教室名称</label></div><input type="text"
 						id="classRoomCode" name="classRoomCode" class="easyui-combobox" />
 				</div>
 				<div class="divRow">
-					<label style="vertical-align: top; display: inline-table;">上课时间</label>
+					<div style="display:inline;margin-right:30px"><label style="vertical-align: top; display: inline-table;">上课时间</label></div>
 					<div style="width: 350px; height: 160px; display: inline-table;">
 						<select name="TimingWeekday1" id="TimingWeekday1"
 							onChange="ChangeTimigWeekday(this,1);">
@@ -380,16 +391,16 @@ label {
 					</div>
 				</div>
 				<div class="divRow">
-					<label for="ratedNumber">额定人数</label><input type="text"
+					<div style="display:inline;margin-right:30px"><label for="ratedNumber">额定人数</label></div><input type="text"
 						style="width: 100px;" name="ratedNumber"
 						data-options="required:true,min:0,precision:0"
 						class="easyui-numberbox" />
 				</div>
 				<div class="divRow">
-					<label for="remark">&nbsp;&nbsp;备注</label><input type="text"
+					<div style="display:inline;margin-right:30px"><label for="remark">&nbsp;备&nbsp;注</label></div><input type="text"
 						style="width: 300px;" name="remark" class="easyui-validatebox" />
 				</div>
-				<div style="text-align: center; margin-top: 20px;">
+				<div style="margin-top: 20px;margin-left:15%">
 					<button type="button" id="btn_save">
 						<img alt="保存" style="vertical-align: middle;"
 							src="../../../style/image/save.gif"><span

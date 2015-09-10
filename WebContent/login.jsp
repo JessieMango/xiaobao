@@ -51,6 +51,16 @@
 			effect : "left",
 			autoPlay : true
 		});
+		$.each($(".morePlatform img"),function(i,m){
+			$(this).mouseover(function(){
+				$(this).css("width","150px");
+				$(this).css("height","150px");
+			});
+			$(this).mouseout(function(){
+				$(this).css("width","80px");
+				$(this).css("height","80px");
+			});
+		});
 	});
 </script>
 <style type="text/css">
@@ -211,13 +221,11 @@
 					<div id="slideBox" class="slideBox">
 						<div class="bd">
 							<ul>
-								<li><img alt="图片" src="<%=contextPath%>/style/image/AD.jpg"></li>
-								<li><img alt="图片" src="<%=contextPath%>/style/image/AD.jpg"></li>
-								<li><img alt="图片" src="<%=contextPath%>/style/image/AD.jpg">
+								<li><img alt="图片" src="<%=contextPath%>/style/image/AD01.jpg"></li>
+								<li><img alt="图片" src="<%=contextPath%>/style/image/AD02.jpg"></li>
+								<li><img alt="图片" src="<%=contextPath%>/style/image/AD03.jpg">
 								</li>
-								<li><img alt="图片" src="<%=contextPath%>/style/image/AD.jpg"></li>
-								<li><img alt="图片" src="<%=contextPath%>/style/image/AD.jpg">
-								</li>
+								
 							</ul>
 						</div>
 						<!-- 下面是前/后按钮代码，如果不需要删除即可 -->

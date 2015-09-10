@@ -103,6 +103,7 @@ a:active {
 		margin:0px;
 		padding:0px;
 		border:0px;
+		background:red;
 		width:80px;
 		height:80px;
 }

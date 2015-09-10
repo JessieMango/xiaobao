@@ -151,7 +151,7 @@ a {
 															'<button onclick=""><img src="../../../style/image/plus_1.png" alt="点名表" width="16" height="16" border="0" align="absbottom" /><span class="F_Red"><b>点名表</b></span></button>',
 															row.classCode);
 										}
-									} ] ],
+									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								parent.$.messager.progress({
 									text : '数据加载中....'
@@ -176,7 +176,7 @@ a {
 		<div id="toolbar">
 			<div>
 				<form id="form1">
-					<div style="text-align: center;">
+					<div style="margin-top:5px;margin-left:21%">
 						<b><label for="nameM">班级名称&nbsp;</label></b><input type="text"
 							name="nameM" class="easyui-validatebox" />&nbsp; <a
 							href="javascript:void(0);" class="easyui-linkbutton"
@@ -186,7 +186,7 @@ a {
 				</form>
 			</div>
 			<form id="form2">
-				<div style="margin-top: 20px; text-align: center;">
+				<div style="margin-top: 10px; text-align: center;">
 					<div style="display: inline-table; text-align: center;">
 						<input id="schoolCode" class="easyui-combobox"
 							style="width: 100px;" name="schoolCode"
