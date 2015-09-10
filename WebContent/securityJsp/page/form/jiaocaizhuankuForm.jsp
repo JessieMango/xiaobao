@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>出入库</title>
+<title>教材转库</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <style type="text/css">
 .tr {
@@ -23,7 +23,7 @@
 <script type="text/javascript">
 	var submitForm = function($dialog, $grid, $pjq) {
 		if ($('form').form('validate')) {
-			var url = cxw.contextPath + '/securityJsp/page/form/chuRuKu';
+			var url = cxw.contextPath + '/securityJsp/page/form/zhuanKu';
 			$.post(url, cxw.serializeObject($('form')), function(result) {
 				if (result.success) {
 					$grid.datagrid('load');
@@ -59,7 +59,13 @@
 				<input type="hidden" name="handler"
 					value="<%=sessionInfo.getUser().getUsername()%>">
 				<div class="th">
-					<select name="location" class="easyui-combobox"
+					<select name="fromLocation" class="easyui-combobox"
+						data-options="required:true,editable:false,panelHeight:'auto'"
+						style="width: 100px;">
+						<option value="1">库房</option>
+						<option value="2"><%=sessionInfo.getUser().getSchool()%></option>
+					</select> <span>>>转到>></span> <select name="toLocation"
+						class="easyui-combobox"
 						data-options="required:true,editable:false,panelHeight:'auto'"
 						style="width: 100px;">
 						<option value="1">库房</option>
@@ -70,20 +76,9 @@
 			<div class="tr">
 				<div class="th">教材</div>
 				<div class="th">
-					<input type="text" class="easyui-combobox" name="textbookFee_id" 
+					<input type="text" class="easyui-combobox" name="textbookFee_id"
 						style="width: 100px;" id="textbookFee_id"
 						data-options="valueField:'id',textField:'nameM',url:'getKuCun',panelHeight:'auto',editable:false" />
-				</div>
-			</div>
-			<div class="tr">
-				<div class="th">操作</div>
-				<div class="th">
-					<select name="operate" class="easyui-combobox"
-						data-options="required:true,editable:false,panelHeight:'auto'"
-						style="width: 100px;">
-						<option value="1">入库</option>
-						<option value="2">出库</option>
-					</select>
 				</div>
 			</div>
 			<div class="tr">

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.TextBookFee;
+import com.hqgj.xb.bean.TextBookFeeChangeRecord;
+import com.hqgj.xb.bean.easyui.Grid;
+import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.TextBookFeeDAO;
 import com.hqgj.xb.service.TextBookFeeService;
 
@@ -55,6 +58,22 @@ public class TextBookFeeServiceImpl implements TextBookFeeService {
 	@Override
 	public List<TextBookFee> getKuCun(String courseTypeCode) {
 		return textBookFeeDAO.getKuCun(courseTypeCode);
+	}
+
+	@Override
+	public int chuRuKu(TextBookFeeChangeRecord changeRecord) {
+		return textBookFeeDAO.chuRuKu(changeRecord);
+	}
+
+	@Override
+	public int zhuanKu(TextBookFeeChangeRecord changeRecord) {
+		return textBookFeeDAO.zhuanKu(changeRecord);
+	}
+
+	@Override
+	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
+			Parameter parameter) {
+		return textBookFeeDAO.getKuCunBianDongJiLu(changeRecord, parameter);
 	}
 
 }
