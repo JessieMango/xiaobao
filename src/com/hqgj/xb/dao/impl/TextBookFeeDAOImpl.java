@@ -22,6 +22,7 @@ import com.hqgj.xb.bean.TextBookFeeChangeRecord;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.TextBookFeeDAO;
+import com.hqgj.xb.util.CommonUtil;
 
 /**
  * @author 崔兴伟
@@ -176,7 +177,7 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 	}
 
 	@Override
-	public List<TextBookFee> getKuCun(String courseTypeCode) {
+	public List<TextBookFee> getKuCun(String courseTypeCode, String type) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("courseTypeCode", courseTypeCode);
 		String sql = "select id,nameM,num1,num2,(num1+num2) total  from TextBookFee  where type=1  ";
@@ -197,6 +198,12 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 						return textBookFee;
 					}
 				});
+		if (StringUtils.equals(type, "qb")) {
+			TextBookFee textBookFee = new TextBookFee();
+			textBookFee.setId("qb");
+			textBookFee.setNameM("全部");
+			results.add(0, textBookFee);
+		}
 		return results;
 	}
 
@@ -264,8 +271,110 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 	@Override
 	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
 			Parameter parameter) {
-		
-		return null;
+		Map<String, String> map = new HashMap<String, String>();
+		String sql = "select tc.id,tc.location,tc.operate,tc.number,tc.operateDate,tc.handler,tc.remark,tb.nameM textbookFee_id"
+				+ " from TextBookFeeChangeRecord tc left outer join TextBookFee tb on tb.id=tc.textbookFee_id  ";
+		if (StringUtils.isNotBlank(parameter.getStartTime())) {
+			map.put("startTime", parameter.getStartTime());
+			map.put("endTime", parameter.getEndTime());
+			sql += " where tc.operateDate between :startTime and :endTime ";
+			if (!StringUtils.equals("qb", changeRecord.getLocation())) {
+				map.put("location", changeRecord.getLocation());
+				sql += " and tc.location=:location ";
+			}
+			if (!StringUtils.equals("qb", changeRecord.getTextbookFee_id())) {
+				map.put("textbookFee_id", changeRecord.getTextbookFee_id());
+				sql += " and tc.textbookFee_id=:textbookFee_id";
+			}
+		} else {
+			map.put("startTime", CommonUtil.getSystemDate());
+			map.put("endTime", CommonUtil.getSystemDate());
+			sql += " where tc.operateDate between :startTime and :endTime ";
+		}
+		List<TextBookFeeChangeRecord> results = this.nJdbcTemplate.query(sql,
+				map, new RowMapper<TextBookFeeChangeRecord>() {
+					@Override
+					public TextBookFeeChangeRecord mapRow(ResultSet rs,
+							int index) throws SQLException {
+						TextBookFeeChangeRecord textBookFeeChangeRecord = new TextBookFeeChangeRecord();
+						textBookFeeChangeRecord.setId(rs.getString("id"));
+						textBookFeeChangeRecord.setHandler(rs
+								.getString("handler"));
+						textBookFeeChangeRecord.setLocation(rs
+								.getString("location"));
+						textBookFeeChangeRecord.setNumber(rs
+								.getString("number"));
+						textBookFeeChangeRecord.setOperate(rs
+								.getString("operate"));
+						textBookFeeChangeRecord.setOperateDate(rs
+								.getString("operateDate"));
+						textBookFeeChangeRecord.setRemark(rs
+								.getString("remark"));
+						textBookFeeChangeRecord.setTextbookFee_id(rs
+								.getString("textbookFee_id"));
+						return textBookFeeChangeRecord;
+					}
+				});
+		System.out.println(sql);
+		Grid grid = new Grid();
+		if ((int) parameter.getPage() > 0) {
+			int page = (int) parameter.getPage();
+			int rows = (int) parameter.getRows();
+			int fromIndex = (page - 1) * rows;
+			int toIndex = (results.size() <= page * rows && results.size() >= (page - 1)
+					* rows) ? results.size() : page * rows;
+			grid.setRows(results.subList(fromIndex, toIndex));
+			grid.setTotal(results.size());
+
+		} else {
+			grid.setRows(results);
+		}
+		return grid;
+	}
+
+	@Override
+	public int updateTextBookFeeChangeRecord(
+			TextBookFeeChangeRecord changeRecord) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteTextBookFeeChangeRecord(String id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public TextBookFeeChangeRecord getTextBookFeeChangeRecordById(String id) {
+		String sql = "select * from TextBookFeeChangeRecord  where textbookFee_id=:id ";
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		final TextBookFeeChangeRecord result = this.nJdbcTemplate
+				.queryForObject(sql, map,
+						new RowMapper<TextBookFeeChangeRecord>() {
+							@Override
+							public TextBookFeeChangeRecord mapRow(ResultSet rs,
+									int index) throws SQLException {
+								TextBookFeeChangeRecord textBookFeeChangeRecord = new TextBookFeeChangeRecord();
+								textBookFeeChangeRecord.setHandler(rs
+										.getString("handler"));
+								textBookFeeChangeRecord.setLocation(rs
+										.getString("location"));
+								textBookFeeChangeRecord.setNumber(rs
+										.getString("number"));
+								textBookFeeChangeRecord.setOperate(rs
+										.getString("operate"));
+								textBookFeeChangeRecord.setOperateDate(rs
+										.getString("operateDate"));
+								textBookFeeChangeRecord.setRemark(rs
+										.getString("remark"));
+								textBookFeeChangeRecord.setTextbookFee_id(rs
+										.getString("textbookFee_id"));
+								return textBookFeeChangeRecord;
+							}
+						});
+		return result;
 	}
 
 }

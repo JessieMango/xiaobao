@@ -26,6 +26,24 @@ a {
 }
 </style>
 <script type="text/javascript">
+	/* 编辑库存变动记录 */
+	var editFun = function(id){
+		var dialog = parent.cxw.modalDialog({
+			modal : true,
+			title : "出入库",
+			width : 500,
+			height : 300,
+			url : cxw.contextPath
+					+ '/securityJsp/page/form/churukuForm.jsp?id='+id,
+			buttons : [ {
+				text : '保存',
+				handler : function() {
+					dialog.find('iframe').get(0).contentWindow.submitForm(
+							dialog, grid, parent.$);
+				}
+			} ]
+		});
+	}
 	var submit = function() {
 		if ($('form').form('validate')) {
 			grid.datagrid('load', cxw.serializeObject($('form')));
@@ -59,8 +77,15 @@ a {
 										field : 'location',
 										title : '仓库',
 										width : "10%",
-										align : 'center'
-
+										align : 'center',
+										formatter : function(value, row) {
+											switch (value) {
+											case '1':
+												return '仓库';
+											case '2':
+												return '<%=sessionInfo.getUser().getSchool()%>';
+											}
+										}
 									},
 									{
 										field : 'textbookFee_id',
@@ -72,13 +97,28 @@ a {
 										field : 'operate',
 										title : '交易类型',
 										width : "10%",
-										align : 'center'
+										align : 'center',
+										formatter : function(value, row) {
+											switch (value) {
+											case '1':
+												return '入库';
+											case '2':
+												return '出库';
+											}
+										}
 									},
 									{
 										field : 'number',
 										title : '数量',
 										width : "10%",
-										align : 'center'
+										align : 'center',
+										formatter : function(value, row) {
+											if(row.operate == 1){
+												return value;
+											}else{
+												return -value;
+											}
+										}
 									},
 									{
 										field : 'operateDate',
@@ -106,7 +146,7 @@ a {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<a href="">编辑</a>',
+															'<button onclick="editFun(\'{0}\');">编辑</button>',
 															row.id);
 										}
 									},
@@ -129,7 +169,6 @@ a {
 
 	$(document).ready(function() {
 		init();
-		submit();
 	});
 </script>
 </head>
@@ -163,7 +202,8 @@ a {
 				</div>
 				<div class="th">
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-						data-options="iconCls:'ext-icon-zoom',plain:true" onclick="submit();">查询</a>
+						data-options="iconCls:'ext-icon-zoom',plain:true"
+						onclick="submit();">查询</a>
 				</div>
 			</div>
 		</form>

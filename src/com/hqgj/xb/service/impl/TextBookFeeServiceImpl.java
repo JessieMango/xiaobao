@@ -20,6 +20,7 @@ import com.hqgj.xb.service.TextBookFeeService;
 public class TextBookFeeServiceImpl implements TextBookFeeService {
 	@Autowired
 	private TextBookFeeDAO textBookFeeDAO;
+
 	@Override
 	public List<TextBookFee> getAllTextBookFees(String type) {
 		return textBookFeeDAO.getAllTextBookFees(type);
@@ -51,13 +52,14 @@ public class TextBookFeeServiceImpl implements TextBookFeeService {
 	}
 
 	@Override
-	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,String type) {
-		return textBookFeeDAO.getTextBookFeesByCourseType(courseTypeCode,type);
+	public List<TextBookFee> getTextBookFeesByCourseType(String courseTypeCode,
+			String type) {
+		return textBookFeeDAO.getTextBookFeesByCourseType(courseTypeCode, type);
 	}
 
 	@Override
-	public List<TextBookFee> getKuCun(String courseTypeCode) {
-		return textBookFeeDAO.getKuCun(courseTypeCode);
+	public List<TextBookFee> getKuCun(String courseTypeCode, String type) {
+		return textBookFeeDAO.getKuCun(courseTypeCode, type);
 	}
 
 	@Override
@@ -74,6 +76,22 @@ public class TextBookFeeServiceImpl implements TextBookFeeService {
 	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
 			Parameter parameter) {
 		return textBookFeeDAO.getKuCunBianDongJiLu(changeRecord, parameter);
+	}
+
+	@Override
+	public int updateTextBookFeeChangeRecord(
+			TextBookFeeChangeRecord changeRecord) {
+		return textBookFeeDAO.updateTextBookFeeChangeRecord(changeRecord);
+	}
+
+	@Override
+	public int deleteTextBookFeeChangeRecord(String id) {
+		return textBookFeeDAO.deleteTextBookFeeChangeRecord(id);
+	}
+
+	@Override
+	public TextBookFeeChangeRecord getTextBookFeeChangeRecordById(String id) {
+		return textBookFeeDAO.getTextBookFeeChangeRecordById(id);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.hqgj.xb.bean;
 
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 /**
  * 教材出入库记录

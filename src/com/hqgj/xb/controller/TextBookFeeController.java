@@ -50,8 +50,9 @@ public class TextBookFeeController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/qiantai/getKuCun", "/form/getKuCun" }, method = RequestMethod.POST)
-	public @ResponseBody List<TextBookFee> getKuCun(String courseTypeCode) {
-		return textBookFeeService.getKuCun(courseTypeCode);
+	public @ResponseBody List<TextBookFee> getKuCun(String courseTypeCode,
+			String type) {
+		return textBookFeeService.getKuCun(courseTypeCode, type);
 	}
 
 	@RequestMapping(value = "/form/getDTextBookFeesType", method = RequestMethod.POST)
@@ -146,6 +147,12 @@ public class TextBookFeeController {
 	public @ResponseBody Grid getKuCunBianDongJiLu(
 			TextBookFeeChangeRecord changeRecord, Parameter parameter) {
 		return textBookFeeService.getKuCunBianDongJiLu(changeRecord, parameter);
+	}
+
+	@RequestMapping(value = "/form/getTextBookFeeChangeRecordById", method = RequestMethod.POST)
+	public @ResponseBody TextBookFeeChangeRecord getTextBookFeeChangeRecordById(
+			String id) {
+		return textBookFeeService.getTextBookFeeChangeRecordById(id);
 	}
 
 }

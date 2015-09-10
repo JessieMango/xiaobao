@@ -1,9 +1,14 @@
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@	page import="com.hqgj.xb.bean.easyui.SessionInfo"%>
 <%
 	SessionInfo sessionInfo = (SessionInfo) session
 			.getAttribute("sessionInfo");
+	String id = request.getParameter("id");
+	if(StringUtils.isBlank(id)){
+		id = "";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -48,6 +53,20 @@
 
 	$(document).ready(function() {
 		init();
+		if("<%=id%>" != ""){
+			var url = cxw.contextPath + '/securityJsp/page/form/getTextBookFeeChangeRecordById';
+			$.post(url, {id : "<%=id%>"}, function(result) {
+				$('form').form('load', {
+					"location" : result.location,
+					"textbookFee_id" : result.textbookFee_id,
+					"operate" : result.operate,
+					"number" : result.number,
+					"operateDate" : result.operateDate,
+					"handler" : result.handler,
+					"remark" : result.remark
+				});
+			});
+		}
 	});
 </script>
 </head>
@@ -70,7 +89,7 @@
 			<div class="tr">
 				<div class="th">教材</div>
 				<div class="th">
-					<input type="text" class="easyui-combobox" name="textbookFee_id" 
+					<input type="text" class="easyui-combobox" name="textbookFee_id"
 						style="width: 100px;" id="textbookFee_id"
 						data-options="valueField:'id',textField:'nameM',url:'getKuCun',panelHeight:'auto',editable:false" />
 				</div>

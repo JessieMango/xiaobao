@@ -94,7 +94,7 @@ public interface TextBookFeeService {
 	 * @param courseTypeCode
 	 * @return
 	 */
-	public List<TextBookFee> getKuCun(String courseTypeCode);
+	public List<TextBookFee> getKuCun(String courseTypeCode, String type);
 
 	/**
 	 * 教材出入库
@@ -127,4 +127,35 @@ public interface TextBookFeeService {
 	 */
 	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
 			Parameter parameter);
+
+	/**
+	 * 编辑库存变动记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月9日 下午12:44:17
+	 * @param changeRecord
+	 * @return
+	 */
+	public int updateTextBookFeeChangeRecord(
+			TextBookFeeChangeRecord changeRecord);
+
+	/**
+	 * 删除库存变动记录
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月9日 下午12:45:28
+	 * @param id
+	 * @return
+	 */
+	public int deleteTextBookFeeChangeRecord(String id);
+
+	/**
+	 * 得到指定库存变动记录内容
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月9日 下午12:46:13
+	 * @param id
+	 * @return
+	 */
+	public TextBookFeeChangeRecord getTextBookFeeChangeRecordById(String id);
 }
