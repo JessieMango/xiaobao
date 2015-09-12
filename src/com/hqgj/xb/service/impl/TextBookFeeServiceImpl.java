@@ -78,15 +78,10 @@ public class TextBookFeeServiceImpl implements TextBookFeeService {
 		return textBookFeeDAO.getKuCunBianDongJiLu(changeRecord, parameter);
 	}
 
-	@Override
-	public int updateTextBookFeeChangeRecord(
-			TextBookFeeChangeRecord changeRecord) {
-		return textBookFeeDAO.updateTextBookFeeChangeRecord(changeRecord);
-	}
 
 	@Override
-	public int deleteTextBookFeeChangeRecord(String id) {
-		return textBookFeeDAO.deleteTextBookFeeChangeRecord(id);
+	public int deleteTextBookFeeChangeRecord(TextBookFeeChangeRecord changeRecord) {
+		return textBookFeeDAO.deleteTextBookFeeChangeRecord(changeRecord);
 	}
 
 	@Override

@@ -272,7 +272,7 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
 			Parameter parameter) {
 		Map<String, String> map = new HashMap<String, String>();
-		String sql = "select tc.id,tc.location,tc.operate,tc.number,tc.operateDate,tc.handler,tc.remark,tb.nameM textbookFee_id"
+		String sql = "select tc.id,tc.location,tc.operate,tc.number,tc.operateDate,tc.handler,tc.remark,tb.nameM textbookFee,tb.id textbookFee_id "
 				+ " from TextBookFeeChangeRecord tc left outer join TextBookFee tb on tb.id=tc.textbookFee_id  ";
 		if (StringUtils.isNotBlank(parameter.getStartTime())) {
 			map.put("startTime", parameter.getStartTime());
@@ -312,6 +312,8 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 								.getString("remark"));
 						textBookFeeChangeRecord.setTextbookFee_id(rs
 								.getString("textbookFee_id"));
+						textBookFeeChangeRecord.setTextbookFee(rs
+								.getString("textbookFee"));
 						return textBookFeeChangeRecord;
 					}
 				});
@@ -332,22 +334,38 @@ public class TextBookFeeDAOImpl implements TextBookFeeDAO {
 		return grid;
 	}
 
-	@Override
-	public int updateTextBookFeeChangeRecord(
-			TextBookFeeChangeRecord changeRecord) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
-	public int deleteTextBookFeeChangeRecord(String id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteTextBookFeeChangeRecord(
+			TextBookFeeChangeRecord changeRecord) {
+		String delete = " delete from TextBookFeeChangeRecord where id=:id ";
+		String update = " ";
+		if (StringUtils.equals("1", changeRecord.getOperate())) { // 如果是出库,数量增加
+			if (StringUtils.equals("1", changeRecord.getLocation())) { // 仓库
+				update = " update TextBookFee set num1=num1+:number where id=:textbookFee_id ";
+			}
+			if (StringUtils.equals("2", changeRecord.getLocation())) { // 学校
+				update = " update TextBookFee set num2=num2+:number where id=:textbookFee_id ";
+			}
+		}
+		if (StringUtils.equals("2", changeRecord.getOperate())) { // 如果是入库,数量减少
+			if (StringUtils.equals("1", changeRecord.getLocation())) {
+				update = " update TextBookFee set num1=num1-:number where id=:textbookFee_id ";
+			}
+			if (StringUtils.equals("2", changeRecord.getLocation())) {
+				update = " update TextBookFee set num2=num2-:number where id=:textbookFee_id ";
+			}
+		}
+		SqlParameterSource nParameterSource = new BeanPropertySqlParameterSource(
+				changeRecord);
+		int n1 = this.nJdbcTemplate.update(update, nParameterSource);
+		int n2 = this.nJdbcTemplate.update(delete, nParameterSource);
+		return n1 + n2;
 	}
 
 	@Override
 	public TextBookFeeChangeRecord getTextBookFeeChangeRecordById(String id) {
-		String sql = "select * from TextBookFeeChangeRecord  where textbookFee_id=:id ";
+		String sql = "select * from TextBookFeeChangeRecord  where id=:id ";
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);
 		final TextBookFeeChangeRecord result = this.nJdbcTemplate

@@ -28,7 +28,7 @@
 <script type="text/javascript">
 	var submitForm = function($dialog, $grid, $pjq) {
 		if ($('form').form('validate')) {
-			var url = cxw.contextPath + '/securityJsp/page/form/chuRuKu';
+			url = cxw.contextPath + '/securityJsp/page/form/chuRuKu';
 			$.post(url, cxw.serializeObject($('form')), function(result) {
 				if (result.success) {
 					$grid.datagrid('load');
@@ -53,20 +53,6 @@
 
 	$(document).ready(function() {
 		init();
-		if("<%=id%>" != ""){
-			var url = cxw.contextPath + '/securityJsp/page/form/getTextBookFeeChangeRecordById';
-			$.post(url, {id : "<%=id%>"}, function(result) {
-				$('form').form('load', {
-					"location" : result.location,
-					"textbookFee_id" : result.textbookFee_id,
-					"operate" : result.operate,
-					"number" : result.number,
-					"operateDate" : result.operateDate,
-					"handler" : result.handler,
-					"remark" : result.remark
-				});
-			});
-		}
 	});
 </script>
 </head>

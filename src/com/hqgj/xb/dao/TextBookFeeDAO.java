@@ -128,16 +128,6 @@ public interface TextBookFeeDAO {
 	public Grid getKuCunBianDongJiLu(TextBookFeeChangeRecord changeRecord,
 			Parameter parameter);
 
-	/**
-	 * 编辑库存变动记录
-	 * 
-	 * @author 崔兴伟
-	 * @datetime 2015年9月9日 下午12:44:17
-	 * @param changeRecord
-	 * @return
-	 */
-	public int updateTextBookFeeChangeRecord(
-			TextBookFeeChangeRecord changeRecord);
 
 	/**
 	 * 删除库存变动记录
@@ -147,7 +137,7 @@ public interface TextBookFeeDAO {
 	 * @param id
 	 * @return
 	 */
-	public int deleteTextBookFeeChangeRecord(String id);
+	public int deleteTextBookFeeChangeRecord(TextBookFeeChangeRecord changeRecord);
 
 	/**
 	 * 得到指定库存变动记录内容

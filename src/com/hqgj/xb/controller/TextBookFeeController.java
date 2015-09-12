@@ -155,4 +155,18 @@ public class TextBookFeeController {
 		return textBookFeeService.getTextBookFeeChangeRecordById(id);
 	}
 
+	@RequestMapping(value = "/qiantai/deleteTextBookFeeChangeRecord", method = RequestMethod.POST)
+	public @ResponseBody Json deleteTextBookFeeChangeRecord(
+			TextBookFeeChangeRecord changeRecord) {
+		Json json = new Json();
+		if (0 != textBookFeeService.deleteTextBookFeeChangeRecord(changeRecord)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		}
+		return json;
+	}
+
+
 }

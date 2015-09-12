@@ -26,22 +26,21 @@ a {
 }
 </style>
 <script type="text/javascript">
-	/* 编辑库存变动记录 */
-	var editFun = function(id){
-		var dialog = parent.cxw.modalDialog({
-			modal : true,
-			title : "出入库",
-			width : 500,
-			height : 300,
-			url : cxw.contextPath
-					+ '/securityJsp/page/form/churukuForm.jsp?id='+id,
-			buttons : [ {
-				text : '保存',
-				handler : function() {
-					dialog.find('iframe').get(0).contentWindow.submitForm(
-							dialog, grid, parent.$);
-				}
-			} ]
+	/* 删除库存变动记录 */
+	var deleteFun = function(id,textbookFee_id,location,number,operate){
+		$.post("deleteTextBookFeeChangeRecord", {
+			id : id,
+			textbookFee_id : textbookFee_id,
+			location : location,
+			number : number,
+			operate : operate
+		}, function(result) {
+			if (result.success) {
+				grid.datagrid('load');
+			} else {
+				parent.$.messager.alert('提示', result.msg, 'error');
+				grid.datagrid('load');
+			}
 		});
 	}
 	var submit = function() {
@@ -88,7 +87,7 @@ a {
 										}
 									},
 									{
-										field : 'textbookFee_id',
+										field : 'textbookFee',
 										title : '教材',
 										width : "10%",
 										align : 'center'
@@ -139,18 +138,6 @@ a {
 										align : 'center'
 									},
 									{
-										title : '编辑',
-										field : 'edit',
-										width : "6%",
-										align : 'center',
-										formatter : function(value, row) {
-											return cxw
-													.formatString(
-															'<button onclick="editFun(\'{0}\');">编辑</button>',
-															row.id);
-										}
-									},
-									{
 										title : '删除',
 										field : 'delete',
 										width : "4%",
@@ -158,8 +145,8 @@ a {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
-															row.id);
+															'<img  alt="删除" onclick="deleteFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
+															row.id,row.textbookFee_id,row.location,row.number,row.operate);
 										}
 									} ] ],
 							toolbar : '#toolbar',
@@ -188,7 +175,7 @@ a {
 				<div class="th">
 					<input type="text" class="easyui-combobox" name="textbookFee_id"
 						style="width: 100px;" id="textbookFee_id"
-						data-options="valueField:'id',textField:'nameM',url:'getKuCun',panelHeight:'auto',editable:false" />
+						data-options="valueField:'id',textField:'nameM',url:'getKuCun?type=qb',panelHeight:'auto',editable:false" />
 				</div>
 				<div class="th">
 					<input style="width: 100px;" type="text" name="startTime"

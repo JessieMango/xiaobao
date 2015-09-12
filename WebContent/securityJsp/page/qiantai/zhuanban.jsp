@@ -18,9 +18,13 @@ input[type='text'] {
 </style>
 <script type="text/javascript">
 	var grid;
-	var changeClassFun = function(consultId, lackMoney) {
-		window.location.href = "zhuanbanDetail.jsp?consultId=" + consultId
-				+ "&lackMoney=" + lackMoney;
+	var changeClassFun = function(consultId, className, courseName, classTimes,
+			realShouldTuition, realTuition, id) {
+		window.location.href = "zhuanbanmiddle.jsp?consultId=" + consultId
+		+ "&className=" + className + "&courseName=" + courseName
+		+ "&classTimes=" + classTimes + "&realShouldTuition="
+		+ realShouldTuition + "&realTuition=" + realTuition
+		+ "&studentClass_id=" + id;
 	}
 	var init = function() {
 		grid = $('#grid')
@@ -247,20 +251,21 @@ input[type='text'] {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<input type="button" value="转班" style="color:black; font-weight:bold; width:60px;" onclick="changeClassFun(\'{0}\',\'{1}\')" />',
+															'<input type="button" value="转班" style="color:black; font-weight:bold; width:60px;" onclick="changeClassFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',\'{6}\')" />',
 															row.consultId,
-															-row.lackMoney);
+															row.className,
+															row.courseName,
+															row.classTimes,
+															row.realShouldTuition,
+															row.realTuition,
+															row.id);
 										}
 									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
 							},
 							onSortColumn : function(sort, order) {
 							},
 							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
 							}
 						});
 	}

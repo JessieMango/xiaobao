@@ -19,8 +19,7 @@ input[type='text'] {
 <script type="text/javascript">
 	var grid;
 	var returnFeeFun = function(consultId, lackMoney) {
-		window.location.href = "tuifeiDetail.jsp?consultId=" + consultId
-				+ "&lackMoney=" + lackMoney;
+		window.location.href = "";
 	}
 	var init = function() {
 		grid = $('#grid')

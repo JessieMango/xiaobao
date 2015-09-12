@@ -1,6 +1,5 @@
 package com.hqgj.xb.bean;
 
-
 /**
  * 教材出入库记录
  * 
@@ -11,6 +10,7 @@ public class TextBookFeeChangeRecord {
 	private String id;
 	private String location;
 	private String textbookFee_id;
+	private String textbookFee;
 	private String operate;
 	private String number;
 	private String operateDate;
@@ -22,7 +22,24 @@ public class TextBookFeeChangeRecord {
 	 */
 	private String fromLocation; // 转出的库房
 	private String toLocation; // 转入的库房
-	
+
+	private String oldNumber; // 编辑库存变动记录的用来存储原来数量
+
+	public String getOldNumber() {
+		return oldNumber;
+	}
+
+	public void setOldNumber(String oldNumber) {
+		this.oldNumber = oldNumber;
+	}
+
+	public String getTextbookFee() {
+		return textbookFee;
+	}
+
+	public void setTextbookFee(String textbookFee) {
+		this.textbookFee = textbookFee;
+	}
 
 	public String getFromLocation() {
 		return fromLocation;
