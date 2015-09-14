@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+	String courseCode1 = request.getParameter("courseCode1") == null
+			? ""
+			: request.getParameter("courseCode1"); //课程名称
 	String consultId = request.getParameter("consultId") == null
 			? ""
 			: request.getParameter("consultId"); //咨询表ID
@@ -40,15 +43,31 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>转班详情</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
+<style type="text/css">
+.none {
+	display: none;
+}
+</style>
 <script type="text/javascript">
+	/* 计算学费剩余 */
 	var CalBanlance = function(target) {
 		var times = parseFloat($("#realClassTimes").val());
-		var price = parseFloat($("#price").val());
-		var realTuition = parseFloat('<%=realTuition%>');
-		console.info("times:" + times + ";price:" + price + ";realTuition:"
-				+ realTuition);
-		var bmoney = realTuition - times * price;
-		$("#balanceSpan").html(bmoney.toFixed(2));
+		if(times><%=classTimes%>){
+			$.messager.alert('提示', '已用课次不能超过总课次', 'info');
+			$("#realClassTimes").val(0);
+		}else{
+			var price = parseFloat($("#price").val());
+			var realTuition = parseFloat('<%=realTuition%>');
+			var bmoney = realTuition - times * price;
+			$("#balanceSpan").html(bmoney.toFixed(2));
+		}
+	}
+	/* 计算转班应补或应退的金额 */
+	var CalMoney = function(){
+		var val = parseFloat($("#tuition1").html()) - parseFloat($("#balanceSpan").html());
+		if(val>0){
+			
+		}
 	}
 	var submitForm = function() {
 		if ($('form').form('validate')) {
@@ -67,6 +86,15 @@
 			}, 'json');
 		}
 	}
+	/* 收费模式改变时 */
+	var changeType = function(order,target){
+		if (order == 1) { //优惠金额改变
+			$("#tuition1").html($("#tu1").val() - $(target).val());
+		}
+		if (order == 2) { //插班
+			$("#tuition1").html($("#tu1").val() - $(target).val());
+		}
+	}
 	/* 初始化 */
 	var init = function() {
 		$('#handleSchoolCode').combobox(
@@ -78,6 +106,52 @@
 						}
 					}
 				});
+		$('#classCode1').combobox({
+			url : 'getClassSByCourseCode?courseCode='+'<%=courseCode1%>',
+			valueField : 'classCode',
+			textField : 'nameM',
+			panelHeight : 'auto',
+			editable : false,
+			onLoadSuccess : function(data) {
+				if (data[0]) {
+					$('#classCode1').combobox('setValue', data[0].classCode);
+				}
+			},
+			onSelect : function(data) {
+				if (data) {
+					if (data.classCode != "qb") { //如果选中班级
+						if ($("#otherSpan1").hasClass("none")) {
+							$("#otherSpan1").removeClass("none")
+						}
+						if ($("#otherDiv1").hasClass("none")) {
+							$("#otherDiv1").removeClass("none")
+						}
+						$("#tu1").val(data.tuition);
+						$("#tuition1").html(data.tuition);
+					} else {
+						if (!$("#otherSpan1").hasClass("none")) {
+							$("#otherSpan1").addClass("none")
+						}
+						if (!$("#otherDiv1").hasClass("none")) {
+							$("#otherDiv1").addClass("none")
+						}
+					}
+				}
+			}
+		});
+
+		$("#discount1").numberbox({
+			onChange : function(newValue, oldValue) {
+				alert($("#tu1").val());
+				if (newValue == 0.0) {
+					$("#tuition1").html($("#tu1").val());
+				} else {
+					$("#tuition1").html($("#tu1").val() * newValue / 10);
+				}
+				$('#realTuition1').val($("#tuition1").html());
+				CalTotalMoney();
+			}
+		});
 		$("#btn_save").click(function() {
 			submitForm();
 		});
@@ -109,7 +183,42 @@
 					id="balanceSpan"></span>
 			</div>
 			<div style="margin-top: 20px;">
-			<span>转到班级:</span>
+				<span>转到班级:</span><input type="text" id="classCode1"
+					name="classCode1" style="width: 400px;" class="easyui-combobox" />
+				<span id="otherSpan1" class="none"><select
+					onchange="changeDiscountType(1,this);" name="discountType1"
+					id="discountType1">
+						<option value="1">原价</option>
+						<option value="2">优惠</option>
+						<option value="3">折扣</option>
+						<option value="4">插班</option>
+				</select><span id="span12" class="none"><input id="preferntial1"
+						onkeyup="changeType(1,this);"
+						onblur="CheckNonNegativeNumber(this);" name="preferntial1"
+						style="width: 70px" value="0" />元</span><span id="span13" class="none"><input
+						class="easyui-numberbox" style="width: 70px;" value="0"
+						id="discount1" name="discount1"
+						data-options="min:0,precision:1,max:9.9" />折</span><span id="span14"
+					class="none">减免<input id="reduceMoney1" name="reduceMoney1"
+						onkeyup="changeType(2,this);"
+						onblur="CheckNonNegativeNumber(this);" style="width: 70px"
+						value="0" />元<input type="hidden" id="tu1" />
+				</span><span>=应收</span><span id="tuition1"><span> </span> </span></span>
+			</div>
+			<div id="otherDiv1" class="none" style="margin-top: 20px; text-align: center;">
+				<span id="moreOrLess">转班应补</span><input type="text" style="width: 100px;" name="priceDiff"
+					id="priceDiff">元 <select name="payTypeCode"
+					id="payTypeCode">
+					<option value="1">现金支付</option>
+					<option value="2">刷卡支付</option>
+					<option value="3">转账支付</option>
+					<option value="4">支票支付</option>
+					<option value="5">网络支付</option>
+				</select><span>(使用余额<input type="text" style="width: 50px;" readonly="readonly" name="balance" id="balance">元)
+				</span>
+			</div>
+			<div style="text-align: center; margin-top: 20px;">
+				转班备注:<input type="text" name="remark" style="width: 50%;">
 			</div>
 			<div style="text-align: center; margin-top: 20px;">
 				<div style="display: inline;">

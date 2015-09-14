@@ -65,5 +65,5 @@ $(document).ready(function(){
  
 </script>  
 
-	<div id="menu_left" class="easyui-accordion" data-options="fit:true">
-	</div> 
+<div id="menu_left" class="easyui-accordion" data-options="fit:true">
+</div> 

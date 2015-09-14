@@ -282,7 +282,7 @@
 				<a target="_blank" href="http://mobile.renren.com">其他人人产品</a>
 			</p>
 			<p style="margi-left: -20px" class="copyright-info">
-				<span>公司全称：北京千橡网景科技发展有限公司</span> <span>公司电话：010-84481818</span> <span><a
+				<span>公司全称：环美畅行教育科技有限公司</span> <span>公司电话：010-84481818</span> <span><a
 					href="mailto:admin@renren.com">公司邮箱：admin@renren.com</a></span> <span>公司地址：北京市朝阳区酒仙桥中路18号<br>国投创意信息产业园北楼1层
 				</span> <span><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP证090254号</a></span>
 				<span>人人网&copy;2015</span> <span><a id="lawInfo" href="#nogo">法律声明</a></span>

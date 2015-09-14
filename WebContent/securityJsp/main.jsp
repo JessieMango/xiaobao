@@ -13,86 +13,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>教育家</title>
+<title>教育+ 校务管理系统 Educator</title>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript">
 	var mainMenu;
 	var mainTabs;
-	function toggleSrc(target) {
-		if ($(target).attr("name") == "exit") {
-			$.get("loginOut", function(result) {
-				if (result.success == true) {
-					window.location.replace("../index.jsp");
-				}
-			});
-
-		} else {
-			var tabs = $('#mainTabs');
-			var opts = {
-				title : $(target).find("span").html(),
-				closable : true,
-				content : cxw
-						.formatString(
-								'<iframe src="{0}" allowTransparency="true" style="border:0;width:99.9%;height:99%;" frameBorder="0"></iframe>',
-								$(target).attr("name")),
-				border : false,
-				fit : true
-			};
-			if (tabs.tabs('exists', opts.title)) {
-				tabs.tabs('select', opts.title);
-			} else {
-				tabs.tabs('add', opts);
-			}
-		}
-	}
-
-	function mouseover(target) {
-		$(target).addClass("mouse");
-	}
-
-	function mounseout(target) {
-		$(target).removeClass("mouse");
-	}
-
-	function taggleClass(target) {
-		$("#mainMenu > li > span").each(function(index, dom) {
-			if ($(dom).hasClass("clicked")) {
-				$(dom).removeClass("clicked");
-			}
-			$(target).addClass("clicked");
-		});
-		$("#subMenu").empty();
-		$
-				.get(
-						"getSubResource",
-						{
-							pid : $(target).attr("name")
-						},
-						function(data) {
-							$(data)
-									.each(
-											function(index, menu) {
-												var icon = menu.iconCls;
-												if (icon.indexOf("16") > 0) {
-													$('#subMenu')
-															.append(
-																	"<li><div onmouseover='mouseover(this);' name='"
-																			+ menu.url
-																			+ "' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanSmall'>"
-																			+ menu.name
-																			+ "</span></div></li>");
-												} else {
-													$('#subMenu')
-															.append(
-																	"<li><div onmouseover='mouseover(this);' name='"
-																			+ menu.url
-																			+ "' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanBig'>"
-																			+ menu.name
-																			+ "</span></div></li>");
-												}
-											});
-						});
-
+	/* 切换子菜单 */
+	var clickIndex = function(target){
+		$('#menu_left').accordion("select",$(target).html());
 	}
 	$(function() {
 		$('#mainLayout').layout('panel', 'center').panel(
@@ -182,47 +110,15 @@
 									} ]
 						});
 
-		$
-				.get(
-						"getResource",
-						function(data) {
-							$(data)
-									.each(
-											function(index, menu) {
-												$('#mainMenu')
-														.append(
-																"<li><span class='menuSpan' name='"
-																		+ menu.id
-																		+ "' onclick='taggleClass(this);' >"
-																		+ menu.name
-																		+ "</span></li>");
-												if (index == 0) {
-													$
-															.get(
-																	"getSubResource",
-																	{
-																		pid : menu.id
-																	},
-																	function(
-																			data) {
-																		$(data)
-																				.each(
-																						function(
-																								index,
-																								menu) {
-																							$(
-																									'#subMenu')
-																									.append(
-																											"<li><div onmouseover='mouseover(this);' name='"
-																													+ menu.url
-																													+ "' onclick='toggleSrc(this);' onmouseout='mounseout(this);' class='menudiv'><img  class='"+menu.iconCls+"' /><span class='subMenuSpanBig'>"
-																													+ menu.name
-																													+ "</span></div></li>");
-																						});
-																	});
-												}
-											});
-						});
+		$.get("getResource", function(data) {
+			$(data).each(
+					function(index, menu) {
+						$('#mainMenu').append(
+								"<li><span class='menuSpan' name='" + menu.id
+										+ "' onclick='clickIndex(this);' >"
+										+ menu.name + "</span></li>");
+					});
+		});
 
 	});
 </script>
@@ -231,7 +127,9 @@
 	<div
 		data-options="region:'north',href:'<%=contextPath%>/securityJsp/north.jsp'"
 		style="height: 120px; overflow: hidden; border: 0;"></div>
-	<div data-options="region:'west',title:'导航',split:true,href:'<%=contextPath%>/securityJsp/menu.jsp'" style="width:180px;"></div>
+	<div
+		data-options="region:'west',title:'导航',split:true,href:'<%=contextPath%>/securityJsp/menu.jsp'"
+		style="width: 180px;"></div>
 	<div data-options="region:'center'"
 		style="overflow: hidden; border: 0;">
 		<div id="mainTabs">
