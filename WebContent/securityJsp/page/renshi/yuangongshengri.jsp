@@ -146,7 +146,7 @@
 										title : '转正日期',
 										width : "5%",
 										align : 'center'
-									} ] ],
+									} ] ],toolbar:'#toolbar',
 							onBeforeLoad : function(param) {
 								parent.$.messager.progress({
 									text : '数据加载中....'
@@ -167,9 +167,9 @@
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-		<div>
+		<div id="toolbar">
 			<form id="form1">
-				<div style="margin-top: 20px;">
+				<div style="margin-top: 10px;margin-bottom:10px">
 					<div style="margin-left: 15%;">
 					&nbsp;&nbsp;<select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 									<option value="qb">全部合同状态</option>

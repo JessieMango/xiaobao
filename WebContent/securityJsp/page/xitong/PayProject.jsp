@@ -181,7 +181,7 @@
 																			row.id,
 																			'2');
 														}
-													} ] ],
+													} ] ],toolbar : '#toolbar',
 											onBeforeLoad : function(param) {
 												parent.$.messager.progress({
 													text : '数据加载中....'
@@ -203,7 +203,8 @@
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-		<div style="padding: 10px; text-align: center;">
+		<div id="toolbar">
+		<div style="text-align: center;margin-top:10px;margin-bottom:10px">
 			<div id="addEP" onclick="addFun(this);" class="add">
 				<img alt="添加大类" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
@@ -215,7 +216,8 @@
 					style="vertical-align: middle;">添加项目</span>
 			</div>
 		</div>
-		<div style="margin: 20px auto; text-align: center;">
+		</div>
+		<div style="text-align: center;">
 			<table id="grid" style="margin-top: 10px;"
 				data-options="border:false"></table>
 		</div>

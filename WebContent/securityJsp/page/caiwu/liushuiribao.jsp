@@ -46,7 +46,7 @@
 				width : "24%",
 				align : 'center'
 
-			} ] ],
+			} ] ],toolbar:'#toolbar',
 			onBeforeLoad : function(param) {
 				parent.$.messager.progress({
 					text : '数据加载中....'
@@ -66,10 +66,10 @@
 	});
 </script>
 </head>
-<body>
+<body style="margin:0px;padding:0px">
 	<form>
-		<div id="toolbar" style="text-align: center;">
-			<label>时间:</label><input id="startTime" type="text" name="startTime"
+		<div id="toolbar" style="text-align: center;padding:10px;padding-bottom:10px">
+			<label>时间:</label>&nbsp;<input id="startTime" type="text" name="startTime"
 				class="easyui-datebox" style="width: 200px;" required="required">
 			<a href="javascript:void(0);" class="easyui-linkbutton"
 				data-options="iconCls:'ext-icon-zoom',plain:true"

@@ -169,7 +169,7 @@ a {
 															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 															row.id);
 										}
-									} ] ],
+									} ] ],toolbar:'#toolbar',
 							onBeforeLoad : function(param) {
 								var varify = cxw.checkStartTimeBeforeEndTime(
 										'#startTime', '#endTime');
@@ -198,9 +198,10 @@ a {
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
+	<div id="toolbar">
 		<div>
 			<form id="form1">
-				<div style="text-align: center;">
+				<div style="text-align: center;margin-top:10px">
 					<b><label for="nameM">学员完整姓名</label></b><input type="text"
 						name="nameM" class="easyui-validatebox" />&nbsp; <b><label
 						for="telTail">学员电话尾号</label></b><input type="text" name="telTail"
@@ -213,7 +214,7 @@ a {
 		</div>
 		<div>
 			<form id="form2">
-				<div style="margin-top: 20px;">
+				<div style="margin-top: 10px;">
 					<div style="margin-left: 15%;">
 						<label>沟通日期</label> &nbsp;&nbsp;&nbsp;<input type="text"
 							id="startTime" name="startTime" style="width: 100px;"
@@ -244,6 +245,7 @@ a {
 					</div>
 				</div>
 			</form>
+		</div>
 		</div>
 		<div>
 			<table id="grid" data-options="border:false"></table>

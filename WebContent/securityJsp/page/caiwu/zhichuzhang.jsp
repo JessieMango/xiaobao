@@ -198,7 +198,7 @@
 													row.id);
 								}
 							}
-							 ] ],
+							 ] ],toolbar:'#toolbar',
 					onBeforeLoad : function(param) {
 						parent.$.messager.progress({
 							text : '数据加载中....'
@@ -217,16 +217,17 @@
 					});
 	</script>
 </head>
-<body>
+<body style="margin:0px;padding:0px;">
 <div data-options="region:'center',fit:true,border:false">
-	<div id="addE" onclick="addFun(this);" class="add">
+<div id="toolbar" style="padding-top:10px;padding-bottom:10px">
+	<div id="addE" onclick="addFun(this);" class="add" style="text-align:right;">
 		<img alt="记录支出" src="../../../style/image/plus.png"
 			style="vertical-align: middle;"> <span
 			style="vertical-align: middle;">添加项目</span>
 	</div>
 		<div>
 			<form id="form">
-				<div style="margin-top: 20px;">
+				<div style="margin-top: 10px;">
 					<div style="margin-left: 15%;">
 						<input type="text" id="startTime" name="startTime"
 							style="width: 100px;" class="easyui-datebox"
@@ -242,7 +243,9 @@
 						&nbsp; <label>支出项目:</label>&nbsp;<input id="expenditureProjectCode" class="easyui-combobox"
 							style="width: 100px;" name="expenditureProjectCode"
 							data-options="valueField:'id',textField:'nameM',url:'',panelHeight:'auto',editable:false"/><br/>
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						</div>
+						
+						<div style="margin-left:15%;margin-top:10px">
 						<label>经办人：</label>&nbsp;<input name="dhandlerId" id="dhandlerId" class="easyui-combobox" 
 							data-options="valueField:'handlerCode',textField:'handler',url:'getHandler?type=1',panelHeight:'auto',editable:false"/>
 							&nbsp;<label>备注：</label>&nbsp;<input type="text" id="remarks" name="remarks" />
@@ -252,6 +255,7 @@
 					</div>
 				</div>
 			</form>
+		</div>
 		</div>
 		</div>
 	<table id="grid" data-options="border:false"></table>

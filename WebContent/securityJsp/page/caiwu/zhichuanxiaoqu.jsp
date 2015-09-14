@@ -52,7 +52,7 @@ var grid;
 								width : "33%",
 								align : 'center',
 								
-							}] ],
+							}] ],toolbar:'#toolbar',
 					onBeforeLoad : function(param) {
 						parent.$.messager.progress({
 							text : '数据加载中....'
@@ -71,26 +71,19 @@ var grid;
 </script>
 </head>
 
-<body>
+<body style="margin:0px;padding:0px">
+<div id="toolbar" style="padding-top:10px;padding-bottom:10px;text-align:center">
 <form method="post" class="form">
-	<table>
-		<tr>
-			<td>统计开始日期：</td>
-			<td><input id="starttime" type="text" name="starttime" class="easyui-datebox" style="width: 200px;" required="required"></td>
-			<td>统计截止日期：</td>
-			<td><input id="endtime" type="text" name="endtime" class="easyui-datebox" style="width: 200px;" required="required"> </td>
-			<td></td>
-			<td></td>
-			
-			<td>		
-						<a href="javascript:void(0);" class="easyui-linkbutton"
+	<div>
+		统计开始日期：<input id="starttime" type="text" name="starttime" class="easyui-datebox" style="width: 200px;" required="required">
+		统计截止日期：<input id="endtime" type="text" name="endtime" class="easyui-datebox" style="width: 200px;" required="required">
+	<a href="javascript:void(0);" class="easyui-linkbutton"
 							data-options="iconCls:'ext-icon-zoom',plain:true"
 							onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
-			</td>
-		</tr>
-	</table>
+	</div>
 	
 </form>
+</div>
 	<div>
 			<table id="grid" data-options="border:false"></table>
 		</div>
