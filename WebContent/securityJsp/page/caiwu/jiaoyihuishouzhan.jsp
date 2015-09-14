@@ -236,7 +236,7 @@ input[type='text'] {
 															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 															row.id);
 										}
-									} ] ],
+									} ] ],toolbar:'#toolbar',
 							onBeforeLoad : function(param) {
 								parent.$.messager.progress({
 									text : '数据加载中....'
@@ -259,7 +259,8 @@ input[type='text'] {
 <body class="easyui-layout">
 	<div data-options="region:'center',fit:true"
 		style="overflow: hidden; border: 0;">
-		<div>
+		<div id="toolbar" style="padding-top:10px;padding-bottom:10px">
+		<div >
 			<form id="form1">
 				<div style="text-align: center;">
 					<b><label for="studentName">学员完整姓名</label></b><input type="text"
@@ -284,12 +285,12 @@ input[type='text'] {
 							<input type="text" style="width: 100px;" class="easyui-combobox"
 								data-options="valueField:'id',textField:'nameM',url:'getTypeCode?type=1',panelHeight:'auto',editable:false"
 								id="typeCode" name="typeCode" class="easyui-combobox" />
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<input id="operateCode" class="easyui-combobox"
 								style="width: 150px;" name="operateCode"
 								data-options="valueField:'id',textField:'nameM',url:'getOperateCode?type=1',panelHeight:'auto',editable:false" />
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<select name="schoolCode" class="easyui-combobox"
 								data-options="required:true,editable:false,panelHeight:'auto'"
@@ -297,12 +298,12 @@ input[type='text'] {
 								<option value="1">按收费校区</option>
 								<option value="2">按上课校区</option>
 							</select>
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<input class="easyui-combobox" name="handlerCode"
 								id="handlerCode" style="width: 100px;"
 								data-options="valueField:'handlerCode',textField:'handler',url:'getHandler?type=1',panelHeight:'auto',editable:false" />
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<select name="order" class="easyui-combobox"
 								data-options="required:true,editable:false,panelHeight:'auto'"
@@ -310,13 +311,14 @@ input[type='text'] {
 								<option value="1">日期排序</option>
 								<option value="2">经办排序</option>
 							</select>
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<a href="javascript:void(0);" class="easyui-linkbutton"
 								data-options="iconCls:'ext-icon-zoom',plain:true"
 								onclick="query2();">查询</a>
 						</div>
 					</div>
+					<div style="margin-top:5px"></div>
 					<div style="display: table-row;">
 
 						<div style="display: table-cell;">
@@ -326,22 +328,22 @@ input[type='text'] {
 								style="width: 100px;" type="text" id="endTime" name="endTime"
 								class="easyui-datebox"
 								data-options="required:true,value:'getCurrentDate();'" />
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<input class="easyui-combobox" id="payWayCode" name="payWayCode"
 								style="width: 100px;"
 								data-options="valueField:'id',textField:'nameM',url:'getPayWayCode?type=1',panelHeight:'auto',editable:false " />
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<input class="easyui-combobox" name="courseTypeCode"
 								style="width: 150px;" id="courseTypeCode"
 								data-options="valueField:'courseTypeCode',textField:'courseTypeName',url:'getCourseTypes?type=1',panelHeight:'auto',editable:false" />
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<input id="handleSchoolCode" class="easyui-combobox"
 								style="width: 100px;" name="handleSchoolCode"
 								data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools?type=1',panelHeight:'auto',editable:false" />
-						</div>
+						&nbsp;</div>
 						<div style="display: table-cell;">
 							<select name="feeState" class="easyui-combobox"
 								data-options="required:true,editable:false,panelHeight:'auto'"
@@ -354,6 +356,7 @@ input[type='text'] {
 					</div>
 				</div>
 			</form>
+		</div>
 		</div>
 		<div>
 			<table id="grid" data-options="border:true"></table>

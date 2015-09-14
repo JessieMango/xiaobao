@@ -96,7 +96,7 @@
 				title : '总计',
 				width : "24%",
 				align : 'center'
-			} ] ]
+			} ] ],toolbar:'#toolbar'
 		});
 
 	}
@@ -106,14 +106,15 @@
 	});
 </script>
 </head>
-<body>
-	<div style="text-align: center;">
+<body style="margin:0px;padding:0px">
+<div id="toolbar">
+	<div style="text-align: center;padding-top:10px">
 		<button onclick="inOutWareHouse();">教材入库/出库</button>
 		<button onclick="transformWareHouse();">教材转库</button>
 		<button onclick="changeRecord();">库存变动记录</button>
 	</div>
 	<form>
-		<div style="text-align: center; margin-top: 20px;">
+		<div style="text-align: center; margin-top: 10px;">
 			<label for="courseTypeCode">对应课程:</label>&nbsp;&nbsp;<input
 				class="easyui-combobox" name="courseTypeCode"
 				style="width: 215px;" id="courseTypeCode"
@@ -123,7 +124,8 @@
 				onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查库存</a>
 		</div>
 	</form>
-	<div style="width: 65%; margin: 0 auto;">
+	</div>
+	<div style="margin: 0 auto;">
 		<table id="grid" data-options="border:false"></table>
 	</div>
 </body>

@@ -94,19 +94,19 @@
 													{
 														title : '教材名称',
 														field : 'nameM',
-														width : "20%",
+														width : "25%",
 														align : 'center'
 													},
 													{
 														title : '对应课程',
 														field : 'courseTypeName',
-														width : "20%",
+														width : "30%",
 														align : 'center'
 													},
 													{
 														title : '价格',
 														field : 'price',
-														width : "10%",
+														width : "15%",
 														align : 'center',
 														formatter : function(
 																value, row) {
@@ -144,7 +144,7 @@
 													{
 														title : '删除',
 														field : 'delete',
-														width : "8%",
+														width : "10%",
 														align : 'center',
 														formatter : function(
 																value, row) {
@@ -153,7 +153,7 @@
 																			'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 																			row.id);
 														}
-													} ] ],
+													} ] ],toolbar : '#toolbar',
 											onBeforeLoad : function(param) {
 												parent.$.messager.progress({
 													text : '数据加载中....'
@@ -189,13 +189,13 @@
 													{
 														title : '对应课程',
 														field : 'courseTypeName',
-														width : "20%",
+														width : "30%",
 														align : 'center'
 													},
 													{
 														title : '价格',
 														field : 'price',
-														width : "10%",
+														width : "20%",
 														align : 'center',
 														formatter : function(
 																value, row) {
@@ -233,7 +233,7 @@
 													{
 														title : '删除',
 														field : 'delete',
-														width : "8%",
+														width : "10%",
 														align : 'center',
 														formatter : function(
 																value, row) {
@@ -242,7 +242,7 @@
 																			'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 																			row.id);
 														}
-													} ] ],
+													} ] ],toolbar : '#toolbar1',
 											onBeforeLoad : function(param) {
 												parent.$.messager.progress({
 													text : '数据加载中....'
@@ -260,26 +260,31 @@
 <body class="easyui-layout" data-options="fit:true,border:false">
 
 	<div data-options="region:'center',fit:true,border:false">
+	
 		<div
-			style="width: 45%; float: left; margin-left: 20px; text-align: center; margin-top: 20px;">
+			style="width: 45%; float: left; ">
+			<div id="toolbar">
 			<div id="addTextBook" onclick="addFun(this);" class="add">
 				<img alt="添加教材项" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">添加教材项</span>
 			</div>
-			<div style="margin-top: 20px;">
+			</div>
+			<div >
 				<table id="gridBook" data-options="border:false"></table>
 			</div>
 
 		</div>
 		<div
-			style="width: 45%; float: right; margin-right: 20px; text-align: center; margin-top: 20px;">
+			style="width: 45%; float: right;">
+			<div id="toolbar1">
 			<div id="addFee" onclick="addFun(this);" class="add">
 				<img alt="添加杂费项" src="../../../style/image/plus.png"
 					style="vertical-align: middle;"> <span
 					style="vertical-align: middle;">添加杂费项</span>
 			</div>
-			<div style="margin-top: 20px;">
+			</div>
+			<div>
 				<table id="gridFee" data-options="border:false"></table>
 			</div>
 		</div>

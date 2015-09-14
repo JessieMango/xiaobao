@@ -46,7 +46,7 @@
 				width : "24%",
 				align : 'center'
 
-			} ] ],
+			} ] ],toolbar:'#toolbar',
 			onBeforeLoad : function(param) {
 				parent.$.messager.progress({
 					text : '数据加载中....'
@@ -66,9 +66,10 @@
 	});
 </script>
 </head>
-<body>
+<body style="margin:0px;padding:0px">
+<div id="toolbar">
 	<form>
-		<div id="toolbar" style="text-align: center;">
+		<div  style="text-align: center;margin-top:10px;margin-bottom:10px">
 			<label>时间:</label><input id="startTime" type="text" name="startTime"
 				class="easyui-datebox" style="width: 200px;" required="required">
 			<a href="javascript:void(0);" class="easyui-linkbutton"
@@ -76,6 +77,7 @@
 				onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
 		</div>
 	</form>
+	</div>
 	<table id="grid" data-options="border:false"></table>
 </body>
 </html>

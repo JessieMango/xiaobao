@@ -42,7 +42,7 @@ var grid;
 								width : "33%",
 								align : 'center',
 								
-							}] ],
+							}] ],toolbar:'#toolbar',
 					onBeforeLoad : function(param) {
 						parent.$.messager.progress({
 							text : '数据加载中....'
@@ -60,13 +60,11 @@ var grid;
 	});
 </script>
 </head>
-<body>
+<body style="margin:0px;padding:0px">
 <form method="post" class="form">
-	<table>
-		<tr>
-			<td>统计年度：</td>
-			<td>
-			<select name="statisticalYear" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 100px;">
+<div id="toolbar" style="padding-top:10px;padding-bottom:10px;text-align:center">
+	<div>
+		统计年度：<select name="statisticalYear" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 100px;">
 				<option value="2015">2015</option>
 				<option value="2016">2016</option>
 				<option value="2017">2017</option>
@@ -79,15 +77,11 @@ var grid;
 				<option value="2024">2024</option>
 				<option value="2025">2025</option>
 			</select>
-			</td>
-			<td></td>
-			<td>		
-				<a href="javascript:void(0);" class="easyui-linkbutton"
+			<a href="javascript:void(0);" class="easyui-linkbutton"
 							data-options="iconCls:'ext-icon-zoom',plain:true"
 							onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
-			</td>
-		</tr>
-	</table>
+	</div>
+</div> 
 	</form>
 		<div>
 			<table id="grid" data-options="border:false"></table>

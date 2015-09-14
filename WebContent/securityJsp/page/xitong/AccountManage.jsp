@@ -298,7 +298,7 @@
 																					'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 																					row.userId);
 																}
-															} ] ],
+															} ] ],toolbar : '#toolbar',
 											onBeforeLoad : function(param) {
 												parent.$.messager.progress({
 													text : '数据加载中....'
@@ -317,7 +317,9 @@
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
+		
 		<div id="chart"></div>
+		<div id="toolbar">
 		<div style="padding: 20px; padding: 10px; text-align: center;">
 			<div id="permission1" onclick="addFun(this);" class="add">
 				<img alt="最高权限" src="../../../style/image/plus.png"
@@ -370,7 +372,7 @@
 					style="vertical-align: middle;">销售员</span>
 			</div>
 		</div>
-
+		</div>
 		<table id="grid" data-options="border:false"></table>
 
 	</div>

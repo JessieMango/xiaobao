@@ -75,11 +75,8 @@ var submitForm = function() {
 
 <body>
 <form method="post" class="form">
-	<table>
-		<tr>
-			<td>统计年度：</td>
-			<td>
-			<select name="statisticalYear" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 100px;">
+<div style="text-align:center">
+	统计年度：<select name="statisticalYear" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 100px;">
 				<option value="2015">2015</option>
 				<option value="2016">2016</option>
 				<option value="2017">2017</option>
@@ -92,14 +89,9 @@ var submitForm = function() {
 				<option value="2024">2024</option>
 				<option value="2025">2025</option>
 			</select>
-			</td>
-			
-			<td></td>
-			<td>		
-				<a href="javascript:void(0);" id="btn_save" class="easyui-linkbutton" data-options="iconCls:'ext-icon-zoom',plain:true">查询</a>
-			</td>
-		</tr>
-	</table>
+			<a href="javascript:void(0);" id="btn_save" class="easyui-linkbutton" data-options="iconCls:'ext-icon-zoom',plain:true">查询</a>
+</div>
+ 
 		<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
 		<div id="container1" style="width: 550px; height: 400px; margin: 0 auto"></div>
 </form>

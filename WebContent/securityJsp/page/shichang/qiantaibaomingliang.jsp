@@ -50,28 +50,19 @@ var submitForm = function() {
 
 <body>
 <form method="post" class="form">
-	<table>
-		<tr>
-			<td>经办人报名统计：</td>
-			<td><input id="starttime" type="text" name="starttime" class="easyui-datebox" style="width: 200px;" required="required"></td>
-			<td>到</td>
-			<td><input id="endtime" type="text" name="endtime" class="easyui-datebox" style="width: 200px;" required="required"> </td>
-			<td></td>
-			<td>
-			<select name="studentType" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
+<div style="text-align:center">
+	经办人报名统计：<input id="starttime" type="text" name="starttime" class="easyui-datebox" style="width: 200px;" required="required">
+	到<input id="endtime" type="text" name="endtime" class="easyui-datebox" style="width: 200px;" required="required"> 
+	<select name="studentType" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 									<option value="1">新生</option>
 									<option value="3">老生</option>
 									<option value="2">插班</option>	
 			</select>
-			</td>
-			
-			<td>		
-					 <a href="javascript:void(0);" id="btn_save"
+			 <a href="javascript:void(0);" id="btn_save"
 						class="easyui-linkbutton"
 						data-options="iconCls:'ext-icon-zoom',plain:true">查询</a>
-			</td>
-		</tr>
-	</table>
+</div>
+
 		<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
 		
 </form>

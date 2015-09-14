@@ -92,11 +92,11 @@
 
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div id="toolbar" style="display: none;">
-		<table>
+		<table style="width:100%">
 			<tr>
 				<td>
 					<form id="searchForm">
-						<table>
+						<table style="text-align:center;margin:auto">
 							<tr>
 								<td>登录时间：</td>
 								<td><input id="cc" type="text" name="cc"

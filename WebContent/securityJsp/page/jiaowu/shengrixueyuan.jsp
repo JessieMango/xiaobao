@@ -59,7 +59,7 @@
 				title : '其他学校',
 				width : "16%",
 				align : 'center'
-			} ] ],
+			} ] ],toolbar:'#toolbar',
 			onBeforeLoad : function(param) {
 				parent.$.messager.progress({
 					text : '数据加载中....'
@@ -79,11 +79,10 @@
 </script>
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
+<div id="toolbar">
 	<form method="post" class="form">
-		<table>
-			<tr>
-				<td>统计年度：</td>
-				<td><select name="StudentMonth" class="easyui-combobox"
+		<div style="text-align:center;margin-top:10px;margin-bottom:10px">
+			统计年度：<select name="StudentMonth" class="easyui-combobox"
 					data-options="required:true,editable:false,panelHeight:'auto'"
 					style="width: 100px;">
 						<option value="1">1</option>
@@ -98,15 +97,14 @@
 						<option value="10">10</option>
 						<option value="11">11</option>
 						<option value="12">12</option>
-				</select></td>
-				<td></td>
-				<td><a href="javascript:void(0);" class="easyui-linkbutton"
+				</select>
+				<a href="javascript:void(0);" class="easyui-linkbutton"
 					data-options="iconCls:'ext-icon-zoom',plain:true"
 					onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
-				</td>
-			</tr>
-		</table>
+		</div>
+
 	</form>
+	</div>
 	<div>
 
 		<table id="grid" data-options="border:false"></table>
