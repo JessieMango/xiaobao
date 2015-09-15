@@ -91,7 +91,7 @@ public class ResourceDaoImpl implements ResourceDao {
 
 	@Override
 	public List<Resource> getAllResource() {
-		String sql = "SELECT r.id,r.iconCls,r.createTime,r.nameM,r.resourceType_id,r.resoure_id,r.target,r.updateTime,r.url from Resource r LEFT OUTER JOIN ResourceType rt on rt.id=r.resourceType_id "
+		String sql = "SELECT r.id,r.iconCls,r.createTime,r.nameM,r.resourceType_id,r.resoure_id,r.target,r.updateTime,r.url,r.src from Resource r LEFT OUTER JOIN ResourceType rt on rt.id=r.resourceType_id "
 				+ "WHERE r.resourceType_id=0 and r.flag=1 ORDER BY r.seq,r.createTime ";
 		List<Resource> results = this.npJdbcTemplate.query(sql,
 				new RowMapper<Resource>() {
@@ -100,7 +100,7 @@ public class ResourceDaoImpl implements ResourceDao {
 							throws SQLException {
 						Resource resource = new Resource();
 						resource.setCreateTime(rs.getString("createTime"));
-						resource.setIconCls(rs.getString("iconCls"));
+						resource.setIconCls(rs.getString("src"));
 						resource.setId(rs.getString("id"));
 						resource.setName(rs.getString("nameM"));
 						resource.setResource_id(rs.getString("resoure_id"));

@@ -260,13 +260,8 @@ input[type='text'] {
 															row.realTuition,
 															row.id);
 										}
-									} ] ],toolbar : '#toolbar',
-							onBeforeLoad : function(param) {
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-							}
+									} ] ],
+							toolbar : '#toolbar'
 						});
 	}
 
@@ -292,8 +287,6 @@ input[type='text'] {
 		</form>
 	</div>
 	</div>
-	<div>
-		<table id="grid" data-options="border:true"></table>
-	</div>
+	<table id="grid" data-options="border:true,fit:true"></table>
 </body>
 </html>

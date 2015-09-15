@@ -61,17 +61,32 @@
 			var bmoney = realTuition - times * price;
 			$("#balanceSpan").html(bmoney.toFixed(2));
 		}
+		CalMoney();
 	}
 	/* 计算转班应补或应退的金额 */
 	var CalMoney = function(){
-		var val = parseFloat($("#tuition1").html()) - parseFloat($("#balanceSpan").html());
-		if(val>0){
-			
+		var val = parseFloat(parseFloat($("#balanceSpan").html() - $("#tuition1").html()));
+		if(val>=0){
+			if($("#tui").hasClass("none")){
+				$("#tui").removeClass("none");
+			}	
+			if(!$("#bu").hasClass("none")){
+				$("#bu").addClass("none");
+			}
+			$("#moneyOfReturn").val(val);
+		}else{
+			if($("#bu").hasClass("none")){
+				$("#bu").removeClass("none");
+			}	
+			if(!$("#tui").hasClass("none")){
+				$("#tui").addClass("none");
+			}
+			$("#moneyOfLack").val(-val);
 		}
 	}
 	var submitForm = function() {
 		if ($('form').form('validate')) {
-			var url = "addFinancialRunnningAccount";
+			var url = "zhuanBan";
 			parent.$.messager.progress({
 				text : '数据加载中....'
 			});
@@ -142,7 +157,6 @@
 
 		$("#discount1").numberbox({
 			onChange : function(newValue, oldValue) {
-				alert($("#tu1").val());
 				if (newValue == 0.0) {
 					$("#tuition1").html($("#tu1").val());
 				} else {
@@ -158,7 +172,7 @@
 	}
 	$(document).ready(function() {
 		init();
-		$("#balanceSpan").html(0);
+		$("#balanceSpan").html("<%=realTuition%>");
 	});
 </script>
 </head>
@@ -206,15 +220,22 @@
 				</span><span>=应收</span><span id="tuition1"><span> </span> </span></span>
 			</div>
 			<div id="otherDiv1" class="none" style="margin-top: 20px; text-align: center;">
-				<span id="moreOrLess">转班应补</span><input type="text" style="width: 100px;" name="priceDiff"
-					id="priceDiff">元 <select name="payTypeCode"
-					id="payTypeCode">
-					<option value="1">现金支付</option>
-					<option value="2">刷卡支付</option>
-					<option value="3">转账支付</option>
-					<option value="4">支票支付</option>
-					<option value="5">网络支付</option>
-				</select><span>(使用余额<input type="text" style="width: 50px;" readonly="readonly" name="balance" id="balance">元)
+				<span id="bu">转班应补<input type="text" style="width: 100px;"
+					name="moneyOfLack" id="moneyOfLack">元 <select
+					name="payTypeCode" id="payTypeCode">
+						<option value="1">现金支付</option>
+						<option value="2">刷卡支付</option>
+						<option value="3">转账支付</option>
+						<option value="4">支票支付</option>
+						<option value="5">网络支付</option>
+				</select><span>(使用余额<input type="text" style="width: 50px;"
+						readonly="readonly" name="balance" id="balance">元)
+				</span>
+				</span>
+				<span id="tui" class="none">
+					转班应退<input type="text" name="moneyOfReturn" id="moneyOfReturn" style="width: 100px;">
+					<span>(<input type="checkbox">不退款，转为余额)
+				</span>
 				</span>
 			</div>
 			<div style="text-align: center; margin-top: 20px;">
@@ -235,5 +256,12 @@
 			</div>
 		</div>
 	</form>
+	<div style="text-align: center; margin-top: 20px;">
+		<button type="button" id="btn_save">
+			<img alt="保存" style="vertical-align: middle;"
+				src="../../../style/image/save.gif"><span
+				style="vertical-align: middle;">办理转班</span>
+		</button>
+	</div>
 </body>
 </html>
