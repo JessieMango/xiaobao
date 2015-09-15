@@ -11,10 +11,12 @@ public class Staff {
 	private String position;       //职位
 	private String personnelstatusCode;	
 	private String personnelstatus;   //人事状态
+	private String DPersonnelStatusnameM;
 	private String socialsecurityStatusCode;
 	private String socialsecurityStatus;//社保状态
 	private String laborRelationsCode;//
 	private String laborRelations;//
+	private String DLaborRelationsnameM;
 	private String contractState;
 	private String contractStartDate;//
 	private String contractEndtDate;//
@@ -392,5 +394,21 @@ public class Staff {
 	
 	public Staff () {
 		
+	}
+
+	public String getDPersonnelStatusnameM() {
+		return DPersonnelStatusnameM;
+	}
+
+	public void setDPersonnelStatusnameM(String dPersonnelStatusnameM) {
+		DPersonnelStatusnameM = dPersonnelStatusnameM;
+	}
+
+	public String getDLaborRelationsnameM() {
+		return DLaborRelationsnameM;
+	}
+
+	public void setDLaborRelationsnameM(String dLaborRelationsnameM) {
+		DLaborRelationsnameM = dLaborRelationsnameM;
 	}
 }
