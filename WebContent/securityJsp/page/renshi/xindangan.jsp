@@ -85,104 +85,89 @@ lable{
 	font-size:14px;
 }
 .dvRowSpan{
-	margin-top:5px;
+	margin-top:10px;
 }
+ .dvLael {
+        float: left;
+        width: 30%;
+        display: inline;
+        text-align: right;
+        padding-top: 3px;
+        padding-right: 5px;
+    }
 </style>
 </head>
 <body>
 <form method="post" class="form">
 	<div >
-	<div style="width: 70%;margin-left:auto;margin-right:auto;">
+	<div style="width:100%;margin-left:auto;margin-right:auto;">
 		
 		<div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>姓  名：</label> &nbsp;
-			</div>
-			<div style="display:inline">
-				<input type="text" name="username"  data-options="required:true" class="easyui-validatebox" />
+			<div style="width:100%;">
+				 <div class="dvLael"><label>姓  名：</label></div><input type="text" name="username"  data-options="required:true" class="easyui-validatebox" />
 			</div> 
-		</div>
-     
+		</div> 
      <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>性  别：</label> &nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>性  别：</label></div>
 				<input type="radio" checked="checked" name="gender" value="0" />男 <input type="radio" name="gender" value="1" />女
 			</div> 
 		</div>
 			
 			
 	  <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>英文名 ：</label> &nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>英文名 ：</label></div>
 				<input type="text" name="englishName" class="easyui-validatebox" ></input>
 			</div> 
 		</div>
 		
 		 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>身份证号：</label> &nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>身份证号：</label></div>
 				<input name="IDnumber" data-options="required:true" type="text" class="easyui-validatebox" ></input>
 			</div> 
-		</div>	
-				
+		</div>	 
 	 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>生  日：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>生  日：</label></div>
 				<input name="birthday" type="text" name="dirthday" class="easyui-datebox"  data-options="required:true,editable:false,value:'getCurrentDate();'"><label>（用于年龄计算和员工生日提醒）</label>
 			</div> 
-		</div>			
+		</div>	 	
 			
 		 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>手  机：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>手  机：</label></div>
 				<input name="tel"  type="text"  data-options="min:0,required:true" class="easyui-numberbox" ></input>
 			</div> 
 		</div>			
 			
 		 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>邮  箱：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>邮  箱：</label></div>
 				<input name="email" data-options="required:true" type="text" class="easyui-validatebox" ></input>
 			</div> 
 		</div>	
 			
 	 <div class="dvRowSpan">
-			<div style="width:100px;float:left">
-				<label>籍  贯：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%">
+				<div class="dvLael"><label>籍  贯：</label></div>
 				<input name="birthPlace"  type="text" class="easyui-validatebox" ></input>
 			</div> 
 		</div>		
 			
 			
 	 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>民  族：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>民  族：</label></div>
 				<input name="nation" type="text" class="easyui-validatebox" ></input>
 			</div> 
 		</div>	
 			
 			
 	 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>政  治：</label> &nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>政  治：</label></div>
 				<input class="easyui-combobox" name="politicalStatus"
 							id="politicalStatus" style="width: 155px;"
 							data-options="valueField:'id',textField:'nameM',url:'getpoliticalStatus',required:true,panelHeight:'auto',editable:false" />
@@ -190,10 +175,8 @@ lable{
 		</div>		 
 		
 		 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>婚  姻：</label> &nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>婚  姻：</label></div>
 				<select name="marriage" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 						<option value="0">未婚</option>
 						<option value="1">已婚未育</option>	
@@ -203,56 +186,44 @@ lable{
 		</div>		
 			 
 	 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>院  校：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>院  校：</label></div>
 				<input name="school" data-options="required:true" type="text" class="easyui-validatebox" ></input>
 			</div> 
 		</div>			
 			
 		 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>专  业：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>专  业：</label></div>
 				<input name="major" data-options="required:true" type="text" class="easyui-validatebox" ></input>
 			</div> 
 		</div>		
 			
 	  <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>学  历：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>学  历：</label></div>
 				<input name="education" data-options="required:true" type="text" class="easyui-validatebox" ></input>
 			</div> 
 		</div>	 
 			
 	 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>培训经历：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>培训经历：</label></div>
 				<input name="trainingExperience" data-options="required:true" type="text" class="easyui-validatebox" ></input>
 			</div> 
 		</div>		
 		
 		 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>其  他：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>其  他：</label></div>
 				<input name="other" type="text" class="easyui-validatebox" ></input>
 			</div> 
 		</div>	 
 	</div> 
-	<div  style="width: 70%;margin-left:auto;margin-right:auto;">
+	<div  style="width: 100%;margin-left:auto;margin-right:auto;">
 	 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>人事状态：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>人事状态：</label></div>
 				<input class="easyui-combobox" name="personnelstatus"
 							id="personnelstatus" style="width: 155px;"
 							data-options="valueField:'id',textField:'nameM',url:'getpersonnelstatus',panelHeight:'auto',required:true,editable:false" />
@@ -260,19 +231,15 @@ lable{
 		</div>	
 	
 		 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>标  记：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>标  记：</label></div>
 				<input type="text" name="staffTag"  data-options="required:true" class="easyui-validatebox" ></input>
 			</div> 
 		</div>	
 	
 	 <div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>劳动合同：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>劳动合同：</label></div>
 				<select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
 									<option value="0">未签</option>
 									<option value="1">已期</option>	
@@ -281,29 +248,23 @@ lable{
 		</div>	
 	  
 		<div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>合同期 ：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>合同期 ：</label></div>
 				<input type="text" name="contractStartDate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'">到
 								<input type="text" name="contractEndtDate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><label>（用于合同到期提醒）</label>	
 			</div> 
 		</div>		
 			
 		<div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>转正日期：</label>&nbsp;
-			</div>
-			<div style="display:inline">
-				<input type="text" name="confirmationdate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><label>（用于试用到期提醒、累计工作天数计算）</label>	
+			<div style="width:100%;">
+				<div class="dvLael"><label>转正日期：</label></div>
+				<input type="text" name="confirmationdate" class="easyui-datebox" data-options="required:true,editable:false,value:'getCurrentDate();'"><label>（用于试用到期提醒、累计工作天数计算）</label>
 			</div> 
 		</div>	 
 			 
 	<div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>劳动关系：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>劳动关系：</label></div>
 				<input class="easyui-combobox" name="laborRelationsCode"
 							id="laborRelationsCode" style="width: 155px;"
 							data-options="valueField:'id',textField:'nameM',url:'getlaborRelations',required:true,panelHeight:'auto',editable:false" />	
@@ -311,10 +272,8 @@ lable{
 		</div>	 		
 			 
 	<div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>社  保：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>社  保：</label></div>
 				<input class="easyui-combobox" name="socialsecurityStatusCode"
 							id="socialsecurityStatusCode" style="width: 155px;"
 							data-options="valueField:'id',textField:'nameM',url:'getsocialsecurityStatus',required:true,panelHeight:'auto',editable:false" />	
@@ -323,21 +282,17 @@ lable{
 		  
 		  
 		<div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>工资卡 ：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>工资卡 ：</label></div>
 				<input type="text" name="wagecardName"   class="easyui-validatebox" ></input>
-				<label>（开户行）</label>&nbsp;&nbsp;&nbsp;<input type="text" name="wagecardID"  class="easyui-validatebox" ></input><label>（卡号）</label>	
+				<label>（开户行）</label>&nbsp;<input type="text" name="wagecardID"  class="easyui-validatebox" ></input><label>（卡号）</label>	
 			</div> 
 		</div>	
 		
 		
 				<div class="dvRowSpan">
-			<div style="width:100px;float:left;">
-				<label>备  注：</label>&nbsp;
-			</div>
-			<div style="display:inline">
+			<div style="width:100%;">
+				<div class="dvLael"><label>备  注：</label></div>
 				<input type="text"  name="remark" class="easyui-validatebox" ></input>
 			</div> 
 		</div> 

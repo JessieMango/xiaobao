@@ -321,12 +321,14 @@ public class StaffDAOImpl implements StaffDAO {
 	private Grid queryStaffByStatus(Staff staff, Parameter parameter, String sql) {
 		
 		String mysql="select User.username username,User.userId userId,User.gender gender,User.tel tel,User.IDnumber IDnumber,User.nation nation,User.birthPlace birthPlace,User.birthday birthday,"
-				+ "User.email email,User.politicalStatus politicalStatus,User.marriage marriage,User.other other,Staff.wage wage,Staff.personnelstatus personnelstatus"
-				+ ",Staff.socialsecurityStatus socialsecurityStatus,Staff.laborRelations laborRelations,Staff.contractStartDate contractStartDate,Staff.contractEndtDate contractEndtDate,"
+				+ "User.email email,User.politicalStatus politicalStatus,User.marriage marriage,User.other other,Staff.wage wage,Staff.personnelstatus personnelstatus,DPersonnelStatus.nameM DPersonnelStatusnameM"
+				+ ",Staff.socialsecurityStatus socialsecurityStatus,Staff.laborRelations laborRelations,DLaborRelations.nameM DLaborRelationsnameM,Staff.contractStartDate contractStartDate,Staff.contractEndtDate contractEndtDate,"
 				+ "Staff.confirmationdate confirmationdate,Staff.englishName englishName,Staff.trainingExperience trainingExperience,Staff.staffTag staffTag,"
 				+ "Staff.wagecardName wagecardName,Staff.wagecardID wagecardID,Staff.remark remark,Staff.contractState contractState,"
 				+ "DStaffEducation.education education,DStaffEducation.school school,DStaffEducation.major major"
-				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId ";
+				+ "  from User left outer join Staff on Staff.userId=User.userId left outer join DStaffEducation on User.userId=DStaffEducation.userId "
+				+ " left join DPersonnelStatus on Staff.personnelstatus=DPersonnelStatus.id "
+				+ "left join DLaborRelations on Staff.laborRelations=DLaborRelations.id";
 		mysql+=sql;
 		final List<Staff> results = new ArrayList<Staff>();
 		
@@ -407,8 +409,10 @@ public class StaffDAOImpl implements StaffDAO {
 				staff.setOther(rs.getString("other"));
 				staff.setWage(rs.getString("wage"));
 				staff.setPersonnelstatus(rs.getString("personnelstatus"));
+				staff.setDPersonnelStatusnameM(rs.getString("DPersonnelStatusnameM"));
 				staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
 				staff.setLaborRelations(rs.getString("laborRelations"));
+				staff.setDLaborRelationsnameM(rs.getString("DLaborRelationsnameM"));
 				staff.setContractStartDate(rs.getString("contractStartDate"));
 				staff.setContractEndtDate(rs.getString("contractEndtDate"));
 				staff.setConfirmationdate(rs.getString("confirmationdate"));
@@ -446,8 +450,10 @@ public class StaffDAOImpl implements StaffDAO {
 					staff.setOther(rs.getString("other"));
 					staff.setWage(rs.getString("wage"));
 					staff.setPersonnelstatus(rs.getString("personnelstatus"));
+					staff.setDPersonnelStatusnameM(rs.getString("DPersonnelStatusnameM"));
 					staff.setSocialsecurityStatus(rs.getString("socialsecurityStatus"));
 					staff.setLaborRelations(rs.getString("laborRelations"));
+					staff.setDLaborRelationsnameM(rs.getString("DLaborRelationsnameM"));
 					staff.setContractStartDate(rs.getString("contractStartDate"));
 					staff.setContractEndtDate(rs.getString("contractEndtDate"));
 					staff.setConfirmationdate(rs.getString("confirmationdate"));

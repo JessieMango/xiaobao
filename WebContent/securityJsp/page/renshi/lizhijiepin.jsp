@@ -115,7 +115,7 @@
 									},
 									
 									{
-										field : 'personnelstatus',
+										field : 'dpersonnelStatusnameM',
 										title : '状态',
 										width : "5%",
 										align : 'center',
@@ -128,7 +128,7 @@
 										align : 'center'
 									},
 									{
-										field : 'laborRelations',
+										field : 'dlaborRelationsnameM',
 										title : '关系',
 										width : "4%",
 										align : 'center'
