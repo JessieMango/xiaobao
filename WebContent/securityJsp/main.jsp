@@ -126,7 +126,7 @@
 <body id="mainLayout" class="easyui-layout">
 	<div
 		data-options="region:'north',href:'<%=contextPath%>/securityJsp/north.jsp'"
-		style="height: 120px; overflow: hidden; border: 0;"></div>
+		style="height:80px; overflow: hidden; border: 0;"></div>
 	<div
 		data-options="region:'west',title:'导航',split:true,href:'<%=contextPath%>/securityJsp/menu.jsp'"
 		style="width: 180px;"></div>
