@@ -251,14 +251,10 @@ input[type='text'] {
 										}
 									} ] ],toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
 							},
 							onSortColumn : function(sort, order) {
 							},
 							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
 							}
 						});
 	}
@@ -285,8 +281,6 @@ input[type='text'] {
 		</form>
 	</div>
 	</div>
-	<div>
-		<table id="grid" data-options="border:true"></table>
-	</div>
+	<table id="grid" data-options="border:true"></table>
 </body>
 </html>

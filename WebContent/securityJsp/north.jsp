@@ -16,9 +16,6 @@
 		<div class="main_Menu">
 			<ul id="mainMenu"></ul>
 		</div>
-		<div class="subMenu">
-			<ul id="subMenu"></ul>
-		</div>
 	</div>
 </body>
 </html>

@@ -50,8 +50,9 @@ public class TextBookFeeController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/qiantai/getKuCun", "/form/getKuCun" }, method = RequestMethod.POST)
-	public @ResponseBody List<TextBookFee> getKuCun(String courseTypeCode) {
-		return textBookFeeService.getKuCun(courseTypeCode);
+	public @ResponseBody List<TextBookFee> getKuCun(String courseTypeCode,
+			String type) {
+		return textBookFeeService.getKuCun(courseTypeCode, type);
 	}
 
 	@RequestMapping(value = "/form/getDTextBookFeesType", method = RequestMethod.POST)
@@ -147,5 +148,25 @@ public class TextBookFeeController {
 			TextBookFeeChangeRecord changeRecord, Parameter parameter) {
 		return textBookFeeService.getKuCunBianDongJiLu(changeRecord, parameter);
 	}
+
+	@RequestMapping(value = "/form/getTextBookFeeChangeRecordById", method = RequestMethod.POST)
+	public @ResponseBody TextBookFeeChangeRecord getTextBookFeeChangeRecordById(
+			String id) {
+		return textBookFeeService.getTextBookFeeChangeRecordById(id);
+	}
+
+	@RequestMapping(value = "/qiantai/deleteTextBookFeeChangeRecord", method = RequestMethod.POST)
+	public @ResponseBody Json deleteTextBookFeeChangeRecord(
+			TextBookFeeChangeRecord changeRecord) {
+		Json json = new Json();
+		if (0 != textBookFeeService.deleteTextBookFeeChangeRecord(changeRecord)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		}
+		return json;
+	}
+
 
 }

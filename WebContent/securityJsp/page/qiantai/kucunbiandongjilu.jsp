@@ -26,6 +26,23 @@ a {
 }
 </style>
 <script type="text/javascript">
+	/* 删除库存变动记录 */
+	var deleteFun = function(id,textbookFee_id,location,number,operate){
+		$.post("deleteTextBookFeeChangeRecord", {
+			id : id,
+			textbookFee_id : textbookFee_id,
+			location : location,
+			number : number,
+			operate : operate
+		}, function(result) {
+			if (result.success) {
+				grid.datagrid('load');
+			} else {
+				parent.$.messager.alert('提示', result.msg, 'error');
+				grid.datagrid('load');
+			}
+		});
+	}
 	var submit = function() {
 		if ($('form').form('validate')) {
 			grid.datagrid('load', cxw.serializeObject($('form')));
@@ -59,11 +76,18 @@ a {
 										field : 'location',
 										title : '仓库',
 										width : "10%",
-										align : 'center'
-
+										align : 'center',
+										formatter : function(value, row) {
+											switch (value) {
+											case '1':
+												return '仓库';
+											case '2':
+												return '<%=sessionInfo.getUser().getSchool()%>';
+											}
+										}
 									},
 									{
-										field : 'textbookFee_id',
+										field : 'textbookFee',
 										title : '教材',
 										width : "10%",
 										align : 'center'
@@ -72,13 +96,28 @@ a {
 										field : 'operate',
 										title : '交易类型',
 										width : "10%",
-										align : 'center'
+										align : 'center',
+										formatter : function(value, row) {
+											switch (value) {
+											case '1':
+												return '入库';
+											case '2':
+												return '出库';
+											}
+										}
 									},
 									{
 										field : 'number',
 										title : '数量',
 										width : "10%",
-										align : 'center'
+										align : 'center',
+										formatter : function(value, row) {
+											if(row.operate == 1){
+												return value;
+											}else{
+												return -value;
+											}
+										}
 									},
 									{
 										field : 'operateDate',
@@ -99,18 +138,6 @@ a {
 										align : 'center'
 									},
 									{
-										title : '编辑',
-										field : 'edit',
-										width : "6%",
-										align : 'center',
-										formatter : function(value, row) {
-											return cxw
-													.formatString(
-															'<a href="">编辑</a>',
-															row.id);
-										}
-									},
-									{
 										title : '删除',
 										field : 'delete',
 										width : "4%",
@@ -118,8 +145,8 @@ a {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
-															row.id);
+															'<img  alt="删除" onclick="deleteFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
+															row.id,row.textbookFee_id,row.location,row.number,row.operate);
 										}
 									} ] ],
 							toolbar : '#toolbar',
@@ -129,7 +156,6 @@ a {
 
 	$(document).ready(function() {
 		init();
-		submit();
 	});
 </script>
 </head>
@@ -149,7 +175,7 @@ a {
 				<div class="th">
 					<input type="text" class="easyui-combobox" name="textbookFee_id"
 						style="width: 100px;" id="textbookFee_id"
-						data-options="valueField:'id',textField:'nameM',url:'getKuCun',panelHeight:'auto',editable:false" />
+						data-options="valueField:'id',textField:'nameM',url:'getKuCun?type=qb',panelHeight:'auto',editable:false" />
 				</div>
 				<div class="th">
 					<input style="width: 100px;" type="text" name="startTime"
@@ -163,7 +189,8 @@ a {
 				</div>
 				<div class="th">
 					<a href="javascript:void(0);" class="easyui-linkbutton"
-						data-options="iconCls:'ext-icon-zoom',plain:true" onclick="submit();">查询</a>
+						data-options="iconCls:'ext-icon-zoom',plain:true"
+						onclick="submit();">查询</a>
 				</div>
 			</div>
 		</form>

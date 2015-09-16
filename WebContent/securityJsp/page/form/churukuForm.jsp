@@ -1,9 +1,14 @@
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@	page import="com.hqgj.xb.bean.easyui.SessionInfo"%>
 <%
 	SessionInfo sessionInfo = (SessionInfo) session
 			.getAttribute("sessionInfo");
+	String id = request.getParameter("id");
+	if(StringUtils.isBlank(id)){
+		id = "";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +28,7 @@
 <script type="text/javascript">
 	var submitForm = function($dialog, $grid, $pjq) {
 		if ($('form').form('validate')) {
-			var url = cxw.contextPath + '/securityJsp/page/form/chuRuKu';
+			url = cxw.contextPath + '/securityJsp/page/form/chuRuKu';
 			$.post(url, cxw.serializeObject($('form')), function(result) {
 				if (result.success) {
 					$grid.datagrid('load');
@@ -70,7 +75,7 @@
 			<div class="tr">
 				<div class="th">教材</div>
 				<div class="th">
-					<input type="text" class="easyui-combobox" name="textbookFee_id" 
+					<input type="text" class="easyui-combobox" name="textbookFee_id"
 						style="width: 100px;" id="textbookFee_id"
 						data-options="valueField:'id',textField:'nameM',url:'getKuCun',panelHeight:'auto',editable:false" />
 				</div>

@@ -53,7 +53,8 @@ $(document).ready(function(){
 				if(n.resource_id==titleArray[i]){
 					//添加二级菜单
 					var panels = $('#menu_left').accordion("getPanel",i);
-					$(panels).append("<div class='secMenu' onclick='toggleTab(this)' name='"+n.url+"'><img src='/xiaobao/style/image/xb/weixin.png' style='width:16px;margin-right:5px;'/> <a>"+n.name+"</a></div>");
+					//$(panels).append("<div class='secMenu' onclick='toggleTab(this)' name='"+n.url+"'><img src='"+n.iconCls+"' style='width:16px;margin-right:5px;'/> <a>"+n.name+"</a></div>");
+					$(panels).append("<div class='secMenu' onclick='toggleTab(this)' name='"+n.url+"'><img src='/xiaobao/style/image/ICON/xitongshezhi/xitongshezhi.png' style='width:16px;margin-right:5px;'/> <a>"+n.name+"</a></div>");
 				}
 			});
 		 	 
@@ -65,5 +66,5 @@ $(document).ready(function(){
  
 </script>  
 
-	<div id="menu_left" class="easyui-accordion" data-options="fit:true">
-	</div> 
+<div id="menu_left" class="easyui-accordion" data-options="fit:true">
+</div> 

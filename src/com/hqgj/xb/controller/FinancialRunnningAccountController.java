@@ -102,4 +102,18 @@ public class FinancialRunnningAccountController {
 		}
 		return json;
 	}
+	
+	@RequestMapping(value = "/qiantai/zhuanBan", method = RequestMethod.POST)
+	public @ResponseBody Json zhuanBan(String id,
+			String type) {
+
+		Json json = new Json();
+//		if (0 != 1) {
+//			json.setSuccess(true);
+//		} else {
+//			json.setSuccess(false);
+//			json.setMsg("删除失败");
+//		}
+		return json;
+	}
 }

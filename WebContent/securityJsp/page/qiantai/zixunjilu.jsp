@@ -221,7 +221,7 @@ input[type='text'] {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<input value="+" type="reset" style="width:24px; margin-right:4px;" onclick="addFun(\'{0}\')" /><input type="button" value="查看" style="color:black; font-weight:bold; width:60px;" onclick="showFun(\'{1}\')" />',
+															'<input value="+" type="reset" style="width:24px; margin-right:4px;" onclick="addFun(\'{0}\')" /><input type="button" value="查看" style="color:black; font-weight:bold; width:40px;" onclick="showFun(\'{1}\')" />',
 															row.id, row.id);
 										}
 									},
@@ -262,7 +262,7 @@ input[type='text'] {
 									{
 										title : '编辑',
 										field : 'edit',
-										width : "6%",
+										width : "5%",
 										align : 'center',
 										formatter : function(value, row) {
 											return cxw
@@ -286,11 +286,7 @@ input[type='text'] {
 							onBeforeLoad : function(param) {
 								var varify = cxw.checkStartTimeBeforeEndTime(
 										'#startTime', '#endTime');
-								if (varify) {
-									parent.$.messager.progress({
-										text : '数据加载中....'
-									});
-								} else {
+								if (!varify)  {
 									$.messager.alert('警告', '结束时间要大于开始时间',
 											'warning');
 								}
@@ -298,7 +294,6 @@ input[type='text'] {
 							onSortColumn : function(sort, order) {
 							},
 							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
 							}
 						});
 

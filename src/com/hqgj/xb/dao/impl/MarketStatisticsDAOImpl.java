@@ -592,6 +592,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 			listCourseSql+=",(case when Course.nameM='"+courseList.get(i).getNameM()+"' then 1 else 0 end) '"+i+"' ";
 		}
 		logger.info(listCourseSql);
+		
 		String sql="select  DSeller.nameM SellerName"+listCourseSql+",count(*) countNum "
 				+ " from StudentClass left join DSeller on StudentClass.sellerCode=DSeller.id "
 				+ " left join Class on StudentClass.classCode=Class.classCode "
@@ -610,7 +611,9 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 		ChartsList chartsList = new ChartsList();
 		//设置DiagramSeries
 		final List<Charts> results=new ArrayList<Charts>();
-		
+		logger.info("1");
+				
+				
 		//查询数据库
 		this.npJdbcTemplate.query(sql, paramMap,
 				new RowCallbackHandler() {
@@ -647,7 +650,7 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 					}
 				});
 		
-		
+		logger.info("2");
 		chartsList.setCharts(results);
 		return chartsList;
 	}
