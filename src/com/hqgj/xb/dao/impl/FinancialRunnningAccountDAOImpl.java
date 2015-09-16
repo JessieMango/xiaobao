@@ -388,18 +388,34 @@ public class FinancialRunnningAccountDAOImpl implements
 		SqlParameterSource studentClassParameterSource = new BeanPropertySqlParameterSource(
 				studentClass);
 		String sqlZhuanChu = "update StudentClass set studentType=2,remark=:remark where id=:id "; // 修改学生状态为转出
-		studentClass.setStudentCode(financialRunnningAccount.getConsultId());
+		studentClass.setStudentCode(financialRunnningAccount.getConsultId()); // 学生ID
+		studentClass.setStudentType("2");// 学生类型为老生
+		if (StringUtils.equals(studentClass.getDiscountType(), "4")) { // 如果插班生
+			studentClass.setIsMiddle("1");
+		} else {
+			studentClass.setIsMiddle("0");
+		}
 		if (StringUtils.equals("bu", studentClass.getBuOrTui())) { // 补款
 			studentClass.setRealTuition(studentClass.getMoneyOfLack());
+			studentClass.setTuitionRemark("补交了" + studentClass.getRealTuition()
+					+ "元");
 		} else { // 退款
 			studentClass.setRealTuition("-" + studentClass.getMoneyOfReturn());
+			studentClass.setTuitionRemark("退款了"
+					+ studentClass.getMoneyOfReturn() + "元");
 		}
+		studentClassParameterSource = new BeanPropertySqlParameterSource(
+				studentClass);
 		String sqlZhuanRu = "insert into StudentClass (id,classCode,studentCode,tuitionRemark,enrollDate,payTypeCode,realTuition,"
 				+ "discountType,preferentialPrice,reduceMoney,discount,sellerCode,handleSchoolCode,sellSourceCode,studentType,isMiddle,handlerCode) values (:id,:classCode,"
 				+ ":studentCode,:tuitionRemark,:enrollDate,:payTypeCode,:realTuition,:discountType,:preferentialPrice,:reduceMoney,"
 				+ ":discount,:sellerCode,:handleSchoolCode,:sellSourceCode,:studentType,:isMiddle,:handlerCode)";
-		return this.nJdbcTemplate.update(sqlZhuanChu,
-				studentClassParameterSource);
+		int n1 = 0;
+		int n2 = 0;
+		n1 = this.nJdbcTemplate
+				.update(sqlZhuanChu, studentClassParameterSource);
+		n2 = this.nJdbcTemplate.update(sqlZhuanRu, studentClassParameterSource);
+		return n1 + n2;
 	}
 
 }
