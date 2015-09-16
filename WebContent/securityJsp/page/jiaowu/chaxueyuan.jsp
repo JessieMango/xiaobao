@@ -283,17 +283,8 @@ input[type='text'] {
 										title : '日期',
 										width : "6%",
 										align : 'center'
-									} ] ],toolbar : '#toolbar',
-							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
-							}
+									} ] ],
+							toolbar : '#toolbar'
 						});
 		$("#startTime").datebox("setValue", firstOfMouthDate());
 	}

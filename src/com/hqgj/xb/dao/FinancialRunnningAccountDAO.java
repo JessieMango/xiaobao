@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.FinancialRunnningAccount;
+import com.hqgj.xb.bean.StudentClass;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 
@@ -106,5 +107,17 @@ public interface FinancialRunnningAccountDAO {
 	 * @return
 	 */
 	public List<FinancialRunnningAccount> getRunningwaterDaily(String startTime);
+
+	/**
+	 * 转班
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月15日 下午4:39:17
+	 * @param studentClass
+	 * @param financialRunnningAccount
+	 * @return
+	 */
+	public int zhuanBan(StudentClass studentClass,
+			FinancialRunnningAccount financialRunnningAccount);
 
 }

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.FinancialRunnningAccount;
+import com.hqgj.xb.bean.StudentClass;
 import com.hqgj.xb.bean.StudentClass_TextbookFee;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
@@ -378,6 +379,43 @@ public class FinancialRunnningAccountDAOImpl implements
 				});
 
 		return result;
+	}
+
+	@Override
+	public int zhuanBan(StudentClass studentClass,
+			FinancialRunnningAccount financialRunnningAccount) {
+		studentClass.setId(financialRunnningAccount.getStudentClass_id());
+		SqlParameterSource studentClassParameterSource = new BeanPropertySqlParameterSource(
+				studentClass);
+		String sqlZhuanChu = "update StudentClass set studentType=2,remark=:remark where id=:id "; // 修改学生状态为转出
+		studentClass.setStudentCode(financialRunnningAccount.getConsultId()); // 学生ID
+		studentClass.setStudentType("2");// 学生类型为老生
+		if (StringUtils.equals(studentClass.getDiscountType(), "4")) { // 如果插班生
+			studentClass.setIsMiddle("1");
+		} else {
+			studentClass.setIsMiddle("0");
+		}
+		if (StringUtils.equals("bu", studentClass.getBuOrTui())) { // 补款
+			studentClass.setRealTuition(studentClass.getMoneyOfLack());
+			studentClass.setTuitionRemark("补交了" + studentClass.getRealTuition()
+					+ "元");
+		} else { // 退款
+			studentClass.setRealTuition("-" + studentClass.getMoneyOfReturn());
+			studentClass.setTuitionRemark("退款了"
+					+ studentClass.getMoneyOfReturn() + "元");
+		}
+		studentClassParameterSource = new BeanPropertySqlParameterSource(
+				studentClass);
+		String sqlZhuanRu = "insert into StudentClass (id,classCode,studentCode,tuitionRemark,enrollDate,payTypeCode,realTuition,"
+				+ "discountType,preferentialPrice,reduceMoney,discount,sellerCode,handleSchoolCode,sellSourceCode,studentType,isMiddle,handlerCode) values (:id,:classCode,"
+				+ ":studentCode,:tuitionRemark,:enrollDate,:payTypeCode,:realTuition,:discountType,:preferentialPrice,:reduceMoney,"
+				+ ":discount,:sellerCode,:handleSchoolCode,:sellSourceCode,:studentType,:isMiddle,:handlerCode)";
+		int n1 = 0;
+		int n2 = 0;
+		n1 = this.nJdbcTemplate
+				.update(sqlZhuanChu, studentClassParameterSource);
+		n2 = this.nJdbcTemplate.update(sqlZhuanRu, studentClassParameterSource);
+		return n1 + n2;
 	}
 
 }

@@ -46,17 +46,8 @@
 				width : "24%",
 				align : 'center'
 
-			} ] ],toolbar:'#toolbar',
-			onBeforeLoad : function(param) {
-				parent.$.messager.progress({
-					text : '数据加载中....'
-				});
-			},
-			onSortColumn : function(sort, order) {
-			},
-			onLoadSuccess : function(data) {
-				parent.$.messager.progress('close');
-			}
+			} ] ],
+			toolbar:'#toolbar'
 		});
 	}
 

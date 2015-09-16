@@ -56,10 +56,14 @@
 			$.messager.alert('提示', '已用课次不能超过总课次', 'info');
 			$("#realClassTimes").val(0);
 		}else{
-			var price = parseFloat($("#price").val());
-			var realTuition = parseFloat('<%=realTuition%>');
-			var bmoney = realTuition - times * price;
-			$("#balanceSpan").html(bmoney.toFixed(2));
+			if(times==<%=classTimes%>){ //当课上完时
+				$("#balanceSpan").html(0);
+			}else{
+				var price = parseFloat($("#price").val());
+				var realTuition = parseFloat('<%=realTuition%>');
+				var bmoney = realTuition - times * price;
+				$("#balanceSpan").html(bmoney.toFixed(2));
+			}
 		}
 		CalMoney();
 	}
@@ -73,7 +77,8 @@
 			if(!$("#bu").hasClass("none")){
 				$("#bu").addClass("none");
 			}
-			$("#moneyOfReturn").val(val);
+			$("#moneyOfReturn").val(val.toFixed(2));
+			$("#buOrTui").val("tui");
 		}else{
 			if($("#bu").hasClass("none")){
 				$("#bu").removeClass("none");
@@ -81,24 +86,29 @@
 			if(!$("#tui").hasClass("none")){
 				$("#tui").addClass("none");
 			}
-			$("#moneyOfLack").val(-val);
+			$("#moneyOfLack").val(-val.toFixed(2));
+			$("#buOrTui").val("bu");
 		}
 	}
 	var submitForm = function() {
-		if ($('form').form('validate')) {
-			var url = "zhuanBan";
-			parent.$.messager.progress({
-				text : '数据加载中....'
-			});
-			$.post(url, cxw.serializeObject($('form')), function(result) {
-				if (result.success) {
-					parent.$.messager.progress('close');
-					$.messager.alert('提示', '操作成功!', 'info');
-				} else {
-					parent.$.messager.progress('close');
-					$.messager.alert('提示', '操作失败!', 'info');
-				}
-			}, 'json');
+		if($("#otherSpan1").hasClass("none")){
+			$.messager.alert('提示', '没有可转的班级', 'info');
+		}else{
+			if ($('form').form('validate')) {
+				var url = "zhuanBan";
+				parent.$.messager.progress({
+					text : '数据加载中....'
+				});
+				$.post(url, cxw.serializeObject($('form')), function(result) {
+					if (result.success) {
+						parent.$.messager.progress('close');
+						$.messager.alert('提示', '操作成功!', 'info');
+					} else {
+						parent.$.messager.progress('close');
+						$.messager.alert('提示', '操作失败!', 'info');
+					}
+				}, 'json');
+			}
 		}
 	}
 	/* 收费模式改变时 */
@@ -109,6 +119,7 @@
 		if (order == 2) { //插班
 			$("#tuition1").html($("#tu1").val() - $(target).val());
 		}
+		CalMoney();
 	}
 	/* 初始化 */
 	var init = function() {
@@ -143,6 +154,7 @@
 						}
 						$("#tu1").val(data.tuition);
 						$("#tuition1").html(data.tuition);
+						CalMoney();
 					} else {
 						if (!$("#otherSpan1").hasClass("none")) {
 							$("#otherSpan1").addClass("none")
@@ -182,9 +194,7 @@
 			<div>
 				<span>办理停课</span> <input type="hidden" name="studentClass_id"
 					value="<%=studentClass_id%>">
-				<!-- 停课转余额;预存余额 -->
-				<input type="hidden" name="operateCode" value="7"> <input
-					type="hidden" name="consultId" value="<%=consultId%>">
+				 <input type="hidden" name="consultId" value="<%=consultId%>">
 			</div>
 			<div>
 				<span>当前班级:</span><span><%=className%></span>|<span><%=courseName%></span>|<span>学费已收￥</span><span><%=realTuition%></span><strong>-</strong><span>已用</span><input
@@ -198,9 +208,9 @@
 			</div>
 			<div style="margin-top: 20px;">
 				<span>转到班级:</span><input type="text" id="classCode1"
-					name="classCode1" style="width: 400px;" class="easyui-combobox" />
+					name="classCode" style="width: 400px;" class="easyui-combobox" />
 				<span id="otherSpan1" class="none"><select
-					onchange="changeDiscountType(1,this);" name="discountType1"
+					onchange="changeDiscountType(1,this);CalMoney();" name="discountType"
 					id="discountType1">
 						<option value="1">原价</option>
 						<option value="2">优惠</option>
@@ -208,15 +218,15 @@
 						<option value="4">插班</option>
 				</select><span id="span12" class="none"><input id="preferntial1"
 						onkeyup="changeType(1,this);"
-						onblur="CheckNonNegativeNumber(this);" name="preferntial1"
+						onblur="CheckNonNegativeNumber(this);" name="preferntial"
 						style="width: 70px" value="0" />元</span><span id="span13" class="none"><input
 						class="easyui-numberbox" style="width: 70px;" value="0"
-						id="discount1" name="discount1"
+						id="discount1" name="discount"
 						data-options="min:0,precision:1,max:9.9" />折</span><span id="span14"
-					class="none">减免<input id="reduceMoney1" name="reduceMoney1"
+					class="none">减免<input id="reduceMoney1" name="reduceMoney"
 						onkeyup="changeType(2,this);"
 						onblur="CheckNonNegativeNumber(this);" style="width: 70px"
-						value="0" />元<input type="hidden" id="tu1" />
+						value="0" />元<input type="hidden" id="tu1" /><input type="hidden" name="buOrTui" value="bu">
 				</span><span>=应收</span><span id="tuition1"><span> </span> </span></span>
 			</div>
 			<div id="otherDiv1" class="none" style="margin-top: 20px; text-align: center;">
@@ -228,13 +238,11 @@
 						<option value="3">转账支付</option>
 						<option value="4">支票支付</option>
 						<option value="5">网络支付</option>
-				</select><span>(使用余额<input type="text" style="width: 50px;"
-						readonly="readonly" name="balance" id="balance">元)
-				</span>
+				</select>
 				</span>
 				<span id="tui" class="none">
 					转班应退<input type="text" name="moneyOfReturn" id="moneyOfReturn" style="width: 100px;">
-					<span>(<input type="checkbox">不退款，转为余额)
+					<span>(<input type="checkbox" name="isBanlance">不退款，转为余额)
 				</span>
 				</span>
 			</div>
@@ -249,8 +257,8 @@
 						data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools',panelHeight:'auto',editable:false" />
 				</div>
 				<div style="display: inline;">
-					<label for="operateDate">日期</label><input type="text"
-						name="operateDate" class="easyui-datebox"
+					<label for="enrollDate">日期</label><input type="text"
+						name="enrollDate" class="easyui-datebox"
 						data-options="required:true,value:'getCurrentDate();'" />
 				</div>
 			</div>
