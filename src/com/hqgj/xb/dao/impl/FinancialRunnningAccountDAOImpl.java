@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.FinancialRunnningAccount;
+import com.hqgj.xb.bean.StudentClass;
 import com.hqgj.xb.bean.StudentClass_TextbookFee;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
@@ -378,6 +379,27 @@ public class FinancialRunnningAccountDAOImpl implements
 				});
 
 		return result;
+	}
+
+	@Override
+	public int zhuanBan(StudentClass studentClass,
+			FinancialRunnningAccount financialRunnningAccount) {
+		studentClass.setId(financialRunnningAccount.getStudentClass_id());
+		SqlParameterSource studentClassParameterSource = new BeanPropertySqlParameterSource(
+				studentClass);
+		String sqlZhuanChu = "update StudentClass set studentType=2,remark=:remark where id=:id "; // 修改学生状态为转出
+		studentClass.setStudentCode(financialRunnningAccount.getConsultId());
+		if (StringUtils.equals("bu", studentClass.getBuOrTui())) { // 补款
+			studentClass.setRealTuition(studentClass.getMoneyOfLack());
+		} else { // 退款
+			studentClass.setRealTuition("-" + studentClass.getMoneyOfReturn());
+		}
+		String sqlZhuanRu = "insert into StudentClass (id,classCode,studentCode,tuitionRemark,enrollDate,payTypeCode,realTuition,"
+				+ "discountType,preferentialPrice,reduceMoney,discount,sellerCode,handleSchoolCode,sellSourceCode,studentType,isMiddle,handlerCode) values (:id,:classCode,"
+				+ ":studentCode,:tuitionRemark,:enrollDate,:payTypeCode,:realTuition,:discountType,:preferentialPrice,:reduceMoney,"
+				+ ":discount,:sellerCode,:handleSchoolCode,:sellSourceCode,:studentType,:isMiddle,:handlerCode)";
+		return this.nJdbcTemplate.update(sqlZhuanChu,
+				studentClassParameterSource);
 	}
 
 }

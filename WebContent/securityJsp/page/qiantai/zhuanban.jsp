@@ -24,7 +24,7 @@ input[type='text'] {
 		+ "&className=" + className + "&courseName=" + courseName
 		+ "&classTimes=" + classTimes + "&realShouldTuition="
 		+ realShouldTuition + "&realTuition=" + realTuition
-		+ "&studentClass_id=" + id;
+		+ "&studentClass_id=" + id ;
 	}
 	var init = function() {
 		grid = $('#grid')

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.FinancialRunnningAccount;
+import com.hqgj.xb.bean.StudentClass;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.FinancialRunnningAccountDAO;
@@ -66,6 +67,13 @@ public class FinancialRunnningAccountServiceImpl implements
 	@Override
 	public List<FinancialRunnningAccount> getRunningwaterDaily(String startTime) {
 		return financialRunnningAccountDAO.getRunningwaterDaily(startTime);
+	}
+
+	@Override
+	public int zhuanBan(StudentClass studentClass,
+			FinancialRunnningAccount financialRunnningAccount) {
+		
+		return financialRunnningAccountDAO.zhuanBan(studentClass, financialRunnningAccount);
 	}
 
 }

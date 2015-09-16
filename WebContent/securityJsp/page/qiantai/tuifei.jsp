@@ -250,17 +250,8 @@ input[type='text'] {
 															row.consultId,
 															-row.lackMoney);
 										}
-									} ] ],toolbar : '#toolbar',
-							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
-							}
+									} ] ],
+							toolbar : '#toolbar'
 						});
 	}
 
@@ -272,19 +263,19 @@ input[type='text'] {
 <body>
 
 	<div id="toolbar" style="display: none;">
-			<div style="margin-top:5px;margin-bottom:5px">
-		<form>
-			<div style="text-align: center;">
-				<b><label for="nameM">学员完整姓名</label></b>&nbsp;<input type="text"
-					name="nameM" class="easyui-validatebox" />&nbsp; <b><label
-					for="telTail">学员电话尾号</label></b>&nbsp;<input type="text" name="telTail"
-					class="easyui-validatebox" />&nbsp; <a href="javascript:void(0);"
-					class="easyui-linkbutton"
-					data-options="iconCls:'ext-icon-zoom',plain:true"
-					onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
-			</div>
-		</form>
-	</div>
+		<div style="margin-top: 5px; margin-bottom: 5px">
+			<form>
+				<div style="text-align: center;">
+					<b><label for="nameM">学员完整姓名</label></b>&nbsp;<input type="text"
+						name="nameM" class="easyui-validatebox" />&nbsp; <b><label
+						for="telTail">学员电话尾号</label></b>&nbsp;<input type="text"
+						name="telTail" class="easyui-validatebox" />&nbsp; <a
+						href="javascript:void(0);" class="easyui-linkbutton"
+						data-options="iconCls:'ext-icon-zoom',plain:true"
+						onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
+				</div>
+			</form>
+		</div>
 	</div>
 	<table id="grid" data-options="border:true"></table>
 </body>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.FinancialRunnningAccount;
+import com.hqgj.xb.bean.StudentClass;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
@@ -82,7 +83,8 @@ public class FinancialRunnningAccountController {
 						parameter);
 	}
 
-	@RequestMapping(value = {"/caiwu/getRunningwaterDaily","/qiantai/getRunningwaterDaily"}, method = RequestMethod.POST)
+	@RequestMapping(value = { "/caiwu/getRunningwaterDaily",
+			"/qiantai/getRunningwaterDaily" }, method = RequestMethod.POST)
 	public @ResponseBody List<FinancialRunnningAccount> getRunningwaterDaily(
 			String startTime) {
 		return financialRunnningAccountService.getRunningwaterDaily(startTime);
@@ -102,18 +104,35 @@ public class FinancialRunnningAccountController {
 		}
 		return json;
 	}
-	
-	@RequestMapping(value = "/qiantai/zhuanBan", method = RequestMethod.POST)
-	public @ResponseBody Json zhuanBan(String id,
-			String type) {
 
+	/**
+	 * 转班 （包括转入和转出，流水账的记录）
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月15日 下午1:41:28
+	 * @param studentClass
+	 * @param financialRunnningAccount
+	 * @return
+	 */
+	@RequestMapping(value = "/qiantai/zhuanBan", method = RequestMethod.POST)
+	public @ResponseBody Json zhuanBan(StudentClass studentClass,
+			FinancialRunnningAccount financialRunnningAccount,
+			HttpServletRequest request) {
+		/**
+		 * 加入经办人
+		 */
+		SessionInfo sessionInfo = (SessionInfo) request.getSession()
+				.getAttribute("sessionInfo");
+		financialRunnningAccount.setHandlerCode(sessionInfo.getUser()
+				.getUserId());
+		studentClass.setHandlerCode(sessionInfo.getUser().getUserId());
 		Json json = new Json();
-//		if (0 != 1) {
-//			json.setSuccess(true);
-//		} else {
-//			json.setSuccess(false);
-//			json.setMsg("删除失败");
-//		}
+		if (0 != financialRunnningAccountService.zhuanBan(studentClass, financialRunnningAccount)) {
+			json.setSuccess(true);
+		} else {
+			json.setSuccess(false);
+			json.setMsg("删除失败");
+		}
 		return json;
 	}
 }

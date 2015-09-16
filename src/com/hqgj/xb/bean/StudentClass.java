@@ -22,6 +22,7 @@ public class StudentClass {
 	private String reduceMoney; // 插班时减免的学费
 	private String isMiddle; // 是否为插班生 0不是，1是
 	private String handlerCode;// 经办人编码
+	private String remark; // 备注（转班备注）
 	/**
 	 * 用于接收前台参数
 	 */
@@ -60,6 +61,46 @@ public class StudentClass {
 
 	private String money; // 报名交的总钱数
 	private String points; // 积分
+
+	/**
+	 * 转班时的补费，退费
+	 */
+	private String moneyOfLack; // 转班应补
+	private String moneyOfReturn; // 转班应退
+	private String buOrTui; //补款或者退款
+
+	
+	public String getBuOrTui() {
+		return buOrTui;
+	}
+
+	public void setBuOrTui(String buOrTui) {
+		this.buOrTui = buOrTui;
+	}
+
+	public String getMoneyOfLack() {
+		return moneyOfLack;
+	}
+
+	public void setMoneyOfLack(String moneyOfLack) {
+		this.moneyOfLack = moneyOfLack;
+	}
+
+	public String getMoneyOfReturn() {
+		return moneyOfReturn;
+	}
+
+	public void setMoneyOfReturn(String moneyOfReturn) {
+		this.moneyOfReturn = moneyOfReturn;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 	public String getHandlerCode() {
 		return handlerCode;
