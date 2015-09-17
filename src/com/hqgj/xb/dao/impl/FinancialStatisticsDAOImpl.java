@@ -709,6 +709,7 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 				+ "from StudentClass where DATE_FORMAT(enrollDate,'%Y')=:statisticalYear "
 				+ "group by enrollDateMonth";
 		logger.info(statisticalYear);
+		logger.info(sql);
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("statisticalYear",  statisticalYear );
 
@@ -738,7 +739,10 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 						return data;
 					}
 				});
+		logger.info(results);
+		//将数字装换为日期 如08转换为八月。
 		List<Data> temp=new ArrayList<Data>();
+		logger.info(results.size());
 		if(results.size()>0)
 		{
 			int j;
@@ -749,10 +753,15 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 				data.setY(0);
 				temp.add(data);
 			}
-			Data data1=results.get(0);
-			data1.setName(convertNumToMonth(Integer.parseInt(data1.getName())));
-			temp.add(data1);
+			
+			///显示的时候有问题！！！！！！！！！
+			Data mydata=new Data();
+			mydata.setName(convertNumToMonth(Integer.parseInt(results.get(0).getName())));
+			mydata.setY(results.get(0).getY());
+			temp.add(mydata);
 			j++;
+			
+			
 			int resultssize=1;
 			for(int i=0;i<results.size()-1;i++)
 			{
@@ -765,9 +774,12 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 					data.setY(0);
 					temp.add(data);
 				}
-				data1=results.get(resultssize++);
-				data1.setName(convertNumToMonth(Integer.parseInt(data1.getName())));
-				temp.add(data1);
+				
+				mydata=new Data();
+				mydata.setName(convertNumToMonth(Integer.parseInt(results.get(resultssize).getName())));
+				mydata.setY(results.get(resultssize).getY());
+				temp.add(mydata);
+				resultssize++;
 				j++;
 			}
 			for(;j<13;j++)
@@ -831,9 +843,6 @@ public class FinancialStatisticsDAOImpl implements FinancialStatisticsDAO {
 			break;
 		case 12:	
 			result="十二月";
-			break;
-		default:
-			result="一月";
 			break;
 		}
 		return result;

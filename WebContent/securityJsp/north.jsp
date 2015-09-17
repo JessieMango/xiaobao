@@ -27,7 +27,7 @@
 		 <div style="float:right;width:80%;text-align:right">
 		 <div style="margin-top:10px"> 
 		  <div style="display:inline;margin-right:10px;color:white"> 
-		  	<img src="<%=contextPath %>/style/images/04.png" />
+		  	<img src="<%=contextPath %>/style/image/ICON/kaishi/zhuomian.png" />
 		  	<a href="#" style="text-decoration:none;color:white">通讯录</a> 
 		  </div>
 		  <div style="display:inline;margin-right:10px;color:white"> 
