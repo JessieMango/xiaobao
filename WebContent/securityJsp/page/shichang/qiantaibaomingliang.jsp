@@ -10,23 +10,26 @@
 var submitForm = function() {
 	if ($('form').form('validate')) {
 		$.post("getQianTaiBaoMingLiang", cxw.serializeObject($('form')), function(
-				jsonData) {	
-			for(var i=0;i<jsonData.length;i++)
-			{
-				$("#container").highcharts({
-					   title : {
-		                   text : jsonData[i].title.text
-		               },
-		               series:[{
-		            	   type:'pie',
-		            	   name:jsonData[i].series.name,
-		            	   data:jsonData[i].series.data,
-		                   dataLabels: {
-		                       enabled: false
-		                   }
-		               }]
+				jsonData) {			
+				$("#container").highcharts({	
+					   title:{
+							      text: '前台报名量'   
+							  },
+		               xAxis:{
+		            	  	 categories:jsonData.xAxis.categories
+		            	   },
+		           	   labels:{
+		            			      items: [{
+		            			         html: '销售员业绩',
+		            			            style: {
+		            			               left: '1px',
+		            			               top: '1px',
+		            			               color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+		            			            }
+		            			      }]
+		            			   },
+		           		series:jsonData.series.series
 		               });
-			}
 	})}};
 	
 	function init() {
@@ -63,7 +66,7 @@ var submitForm = function() {
 						data-options="iconCls:'ext-icon-zoom',plain:true">查询</a>
 </div>
 
-		<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+		<div id="container" style="width: 650px; height: 650px; margin: 0 auto"></div>
 		
 </form>
 </body>
