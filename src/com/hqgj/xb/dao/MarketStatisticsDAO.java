@@ -1,8 +1,8 @@
 package com.hqgj.xb.dao;
 
 import com.hqgj.xb.bean.highcharts.Charts;
-import com.hqgj.xb.bean.highcharts.ChartsList;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
+import com.hqgj.xb.bean.highcharts.mixedcharts.MixedCharts;
 
 /**
  * @author 鲁宗豪
@@ -19,6 +19,6 @@ public interface MarketStatisticsDAO {
 	public Charts getXueShengNianLing(String starttime,String endtime);
 	public DiagramCharts getMeiYueXinSheng(String statisticalYear);
 	public DiagramCharts getZiXunLaiYuanQuShi(String statisticalYear);
-	public ChartsList getQianTaiBaoMingLiang(String starttime,String endtime,String studentType); 
+	public MixedCharts getQianTaiBaoMingLiang(String starttime,String endtime,String studentType); 
 	public DiagramCharts getBaoMingLaiYuanQuShi(String statisticalYear);
 }

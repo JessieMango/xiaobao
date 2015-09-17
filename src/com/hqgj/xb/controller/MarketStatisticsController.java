@@ -5,9 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.hqgj.xb.bean.highcharts.Charts;
-import com.hqgj.xb.bean.highcharts.ChartsList;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
+import com.hqgj.xb.bean.highcharts.mixedcharts.MixedCharts;
 import com.hqgj.xb.service.MarketStatisticsService;
 
 /**
@@ -73,7 +74,7 @@ public class MarketStatisticsController {
 		return marketStatisticsService.getZiXunLaiYuanQuShi(statisticalYear);
 	}
 	@RequestMapping(value = "/shichang/getQianTaiBaoMingLiang", method = RequestMethod.POST)
-	public @ResponseBody ChartsList getQianTaiBaoMingLiang(String starttime,String endtime,String studentType) {
+	public @ResponseBody MixedCharts getQianTaiBaoMingLiang(String starttime,String endtime,String studentType) {
 		return marketStatisticsService.getQianTaiBaoMingLiang(starttime,endtime,studentType);
 	}
 	@RequestMapping(value = "/shichang/getBaoMingLaiYuanQuShi", method = RequestMethod.POST)

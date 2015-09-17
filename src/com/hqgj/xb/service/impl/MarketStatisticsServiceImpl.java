@@ -2,10 +2,9 @@ package com.hqgj.xb.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.hqgj.xb.bean.highcharts.Charts;
-import com.hqgj.xb.bean.highcharts.ChartsList;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
+import com.hqgj.xb.bean.highcharts.mixedcharts.MixedCharts;
 import com.hqgj.xb.dao.MarketStatisticsDAO;
 import com.hqgj.xb.service.MarketStatisticsService;
 
@@ -51,7 +50,7 @@ public class MarketStatisticsServiceImpl implements MarketStatisticsService {
 	}
 	
 	@Override
-	public ChartsList getQianTaiBaoMingLiang(String starttime,
+	public MixedCharts getQianTaiBaoMingLiang(String starttime,
 			String endtime, String studentType) {
 		return marketStatisticsDAO.getQianTaiBaoMingLiang(starttime, endtime, studentType);
 	}
