@@ -51,6 +51,28 @@ public class FinancialRunnningAccount {
 	private String textBookFeeCode; // 教材杂费ID
 	private String stopClassReason; // 停课原因
 
+	/**
+	 * 转班页面
+	 */
+	private String banlanceOfZhuanban; // 转班时剩下的余额
+	private String isBanlance; // 转班后是否有学费剩余
+
+	public String getIsBanlance() {
+		return isBanlance;
+	}
+
+	public void setIsBanlance(String isBanlance) {
+		this.isBanlance = isBanlance;
+	}
+
+	public String getBanlanceOfZhuanban() {
+		return banlanceOfZhuanban;
+	}
+
+	public void setBanlanceOfZhuanban(String banlanceOfZhuanban) {
+		this.banlanceOfZhuanban = banlanceOfZhuanban;
+	}
+
 	public String getStopClassReason() {
 		return stopClassReason;
 	}

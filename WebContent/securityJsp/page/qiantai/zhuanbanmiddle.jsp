@@ -39,7 +39,8 @@ var submitForm = function() {
 		var courseTypeCode1 = $('#courseTypeCode1').combobox('getValue');
 		window.location.href = "zhuanbanDetail.jsp?courseCode1="
 					+ courseCode1 + "&courseTypeCode1="+ courseTypeCode1 
-					+ "&studentClass_id=<%=studentClass_id%>&className=<%=className%>&courseName=<%=courseName%>&classTimes=<%=classTimes%>&realShouldTuition=<%=realShouldTuition%>&realTuition=<%=realTuition%>";
+					+ "&studentClass_id=<%=studentClass_id%>&className=<%=className%>&courseName=<%=courseName%>&consultId=<%=consultId%>"
+					+"&classTimes=<%=classTimes%>&realShouldTuition=<%=realShouldTuition%>&realTuition=<%=realTuition%>";
 		}
 	};
 	var init = function() {

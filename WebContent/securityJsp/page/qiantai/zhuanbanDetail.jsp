@@ -64,6 +64,7 @@
 				var bmoney = realTuition - times * price;
 				$("#balanceSpan").html(bmoney.toFixed(2));
 			}
+			$("#banlanceOfZhuanban").val(bmoney.toFixed(2));
 		}
 		CalMoney();
 	}
@@ -89,6 +90,7 @@
 			$("#moneyOfLack").val(-val.toFixed(2));
 			$("#buOrTui").val("bu");
 		}
+		$("#realTuition").val($("#tuition1").html());
 	}
 	var submitForm = function() {
 		if($("#otherSpan1").hasClass("none")){
@@ -192,9 +194,11 @@
 	<form>
 		<div>
 			<div>
-				<span>办理停课</span> <input type="hidden" name="studentClass_id"
+				<span>办理转班</span> <input type="hidden" name="studentClass_id"
 					value="<%=studentClass_id%>">
 				 <input type="hidden" name="consultId" value="<%=consultId%>">
+				 <input type="hidden" name="banlanceOfZhuanban" id="banlanceOfZhuanban" value="0">
+				 <input type="hidden" name="realTuition" id="realTuition" value="0">
 			</div>
 			<div>
 				<span>当前班级:</span><span><%=className%></span>|<span><%=courseName%></span>|<span>学费已收￥</span><span><%=realTuition%></span><strong>-</strong><span>已用</span><input
@@ -226,7 +230,7 @@
 					class="none">减免<input id="reduceMoney1" name="reduceMoney"
 						onkeyup="changeType(2,this);"
 						onblur="CheckNonNegativeNumber(this);" style="width: 70px"
-						value="0" />元<input type="hidden" id="tu1" /><input type="hidden" name="buOrTui" value="bu">
+						value="0" />元<input type="hidden" id="tu1" /><input type="hidden" id="buOrTui" name="buOrTui" value="">
 				</span><span>=应收</span><span id="tuition1"><span> </span> </span></span>
 			</div>
 			<div id="otherDiv1" class="none" style="margin-top: 20px; text-align: center;">

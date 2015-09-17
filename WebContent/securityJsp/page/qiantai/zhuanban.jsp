@@ -249,16 +249,18 @@ input[type='text'] {
 										width : "5%",
 										align : 'center',
 										formatter : function(value, row) {
-											return cxw
-													.formatString(
-															'<input type="button" value="转班" style="color:black; font-weight:bold; width:60px;" onclick="changeClassFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',\'{6}\')" />',
-															row.consultId,
-															row.className,
-															row.courseName,
-															row.classTimes,
-															row.realShouldTuition,
-															row.realTuition,
-															row.id);
+											if(row.studentState == "正常"){
+												return cxw
+														.formatString(
+																'<input type="button" value="转班" style="color:black; font-weight:bold; width:60px;" onclick="changeClassFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',\'{6}\')" />',
+																row.consultId,
+																row.className,
+																row.courseName,
+																row.classTimes,
+																row.realShouldTuition,
+																row.realTuition,
+																row.id);
+											}
 										}
 									} ] ],
 							toolbar : '#toolbar'

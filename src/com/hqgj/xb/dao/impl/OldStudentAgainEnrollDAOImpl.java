@@ -55,7 +55,7 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 				+ "left outer join DSellSource dss on dss.id=sc.sellSourceCode left outer join DSeller ds on ds.id=sc.sellerCode  "
 				+ "left outer join DCouncilSchool dcs on dcs.id=c.councilSchoolCode left outer join DHandler dh on dh.id=sc.handlerCode  "
 				+ "left outer join School s on s.schoolCode=sc.handleSchoolCode left outer join DStudentClassStatus dscs on dscs.id=sc.studentState where c.state=1";
-		if(StringUtils.equals("qianfei", parameter.getPageCode())){
+		if (StringUtils.equals("qianfei", parameter.getPageCode())) {
 			select += " and c.banlance < 0";
 		}
 		if (StringUtils.isBlank(oldStudentAgainEnroll.getTelTail())
@@ -151,9 +151,13 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 						 */
 						if (StringUtils.equals("1", // 原价
 								rs.getString("discountType"))) {
-							money = Float.parseFloat(rs
-									.getString("realTuition"))
-									- Float.parseFloat(rs.getString("tuition"));
+							if (rs.getString("realTuition") != null) {
+								money = Float.parseFloat(rs
+										.getString("realTuition"))
+										- Float.parseFloat(rs.getString("tuition"));
+							} else{
+								money = 0;
+							}
 							oldStudentAgainEnroll.setRealShouldTuition(rs
 									.getString("tuition")); // 实际应交学费
 							if (money < 0) {

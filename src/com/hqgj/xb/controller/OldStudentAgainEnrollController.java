@@ -22,7 +22,8 @@ public class OldStudentAgainEnrollController {
 	private OldStudentAgainEnrollService oldStudentAgainEnrollService;
 
 	@RequestMapping(value = { "/qiantai/getOldStudentAgainEnrolls",
-			"/jiaowu/getOldStudentAgainEnrolls" }, method = RequestMethod.POST)
+			"/jiaowu/getOldStudentAgainEnrolls",
+			"/caiwu/getOldStudentAgainEnrolls" }, method = RequestMethod.POST)
 	public @ResponseBody Grid getOldStudentAgainEnrolls(
 			OldStudentAgainEnroll oldStudentAgainEnroll, Parameter parameter) {
 		return oldStudentAgainEnrollService.getOldStudentAgainEnrolls(

@@ -102,11 +102,14 @@ public interface FinancialRunnningAccountDAO {
 	 * 查询流水日报
 	 * 
 	 * @author 崔兴伟
-	 * @datetime 2015年9月6日 上午9:28:46
+	 * @datetime 2015年9月16日 下午4:16:18
 	 * @param startTime
+	 * @param pageCode  me表示我的今日 school 表示校区总计
+	 * @param userId
 	 * @return
 	 */
-	public List<FinancialRunnningAccount> getRunningwaterDaily(String startTime);
+	public List<FinancialRunnningAccount> getRunningwaterDaily(
+			String startTime, String pageCode, String userId);
 
 	/**
 	 * 转班

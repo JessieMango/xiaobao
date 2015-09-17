@@ -65,8 +65,8 @@ public class FinancialRunnningAccountServiceImpl implements
 	}
 
 	@Override
-	public List<FinancialRunnningAccount> getRunningwaterDaily(String startTime) {
-		return financialRunnningAccountDAO.getRunningwaterDaily(startTime);
+	public List<FinancialRunnningAccount> getRunningwaterDaily(String startTime,String pageCode,String userId) {
+		return financialRunnningAccountDAO.getRunningwaterDaily(startTime,pageCode,userId);
 	}
 
 	@Override

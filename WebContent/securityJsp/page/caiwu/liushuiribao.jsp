@@ -15,7 +15,7 @@
 		});
 
 		grid = $('#grid').datagrid({
-			url : 'getRunningwaterDaily',
+			url : 'getRunningwaterDaily?pageCode=school',
 			striped : true,
 			singleSelect : true,
 			pagination : true,
@@ -28,35 +28,57 @@
 				field : 'typeCode',
 				title : '',
 				width : "24%",
-				align : 'center'
+				align : 'center',
+				formatter : function(value, row, index) {
+					switch (value) {
+					case '1':
+						return "学费";
+					case '2':
+						return "教材杂费";
+					case '3':
+						return "合计";
+					}
+				}
 			}, {
 				field : 'feeState',
 				title : '现金',
 				width : "25%",
 				align : 'center',
+				formatter : function(value, row, index) {
+					if (value == null) {
+						return 0;
+					} else {
+						return value;
+					}
+				}
 			}, {
 				field : 'realMoney',
 				title : '刷卡/支票/转账/网络',
 				width : "25%",
-				align : 'center'
+				align : 'center',
+				formatter : function(value, row, index) {
+					if (value == null) {
+						return 0;
+					} else {
+						return value;
+					}
+				}
 
 			}, {
 				field : 'remark',
 				title : '总计',
 				width : "24%",
-				align : 'center'
+				align : 'center',
+				formatter : function(value, row, index) {
+					if (value == null) {
+						return 0;
+					} else {
+						return value;
+					}
+				}
 
-			} ] ],toolbar:'#toolbar',
-			onBeforeLoad : function(param) {
-				parent.$.messager.progress({
-					text : '数据加载中....'
-				});
-			},
-			onSortColumn : function(sort, order) {
-			},
-			onLoadSuccess : function(data) {
-				parent.$.messager.progress('close');
-			}
+			} ] ],
+			toolbar:'#toolbar'
 		});
 	}
 
@@ -76,6 +98,6 @@
 				onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
 		</div>
 	</form>
-	<table id="grid" data-options="border:false"></table>
+	<table id="grid" data-options="border:false,fit:true"></table>
 </body>
 </html>

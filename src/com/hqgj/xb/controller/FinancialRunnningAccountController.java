@@ -83,11 +83,26 @@ public class FinancialRunnningAccountController {
 						parameter);
 	}
 
+	/**
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年9月16日 下午4:14:08
+	 * @param startTime
+	 * @param pageCode
+	 *            me表示我的今日 school 表示校区总计
+	 * @return
+	 */
 	@RequestMapping(value = { "/caiwu/getRunningwaterDaily",
 			"/qiantai/getRunningwaterDaily" }, method = RequestMethod.POST)
 	public @ResponseBody List<FinancialRunnningAccount> getRunningwaterDaily(
-			String startTime) {
-		return financialRunnningAccountService.getRunningwaterDaily(startTime);
+			String startTime, String pageCode,HttpServletRequest request) {
+		/**
+		 * 加入经办人
+		 */
+		SessionInfo sessionInfo = (SessionInfo) request.getSession()
+				.getAttribute("sessionInfo");
+		return financialRunnningAccountService.getRunningwaterDaily(startTime,
+				pageCode,sessionInfo.getUser().getUserId());
 	}
 
 	@RequestMapping(value = "/caiwu/deleteFinancialRunnningAccount", method = RequestMethod.POST)
@@ -127,7 +142,8 @@ public class FinancialRunnningAccountController {
 				.getUserId());
 		studentClass.setHandlerCode(sessionInfo.getUser().getUserId());
 		Json json = new Json();
-		if (0 != financialRunnningAccountService.zhuanBan(studentClass, financialRunnningAccount)) {
+		if (0 != financialRunnningAccountService.zhuanBan(studentClass,
+				financialRunnningAccount)) {
 			json.setSuccess(true);
 		} else {
 			json.setSuccess(false);
