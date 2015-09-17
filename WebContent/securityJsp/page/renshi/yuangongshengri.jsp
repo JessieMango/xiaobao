@@ -59,7 +59,7 @@
 									{
 										field : 'username',
 										title : '姓名',
-										width : "5%",
+										width : "15%",
 										align : 'center'
 
 									},
@@ -79,7 +79,7 @@
 									{
 										field : 'birthday',
 										title : '生日',
-										width : "5%",
+										width : "8%",
 										align : 'center'
 
 									},
@@ -138,13 +138,13 @@
 									{
 										field : 'contractEndtDate',
 										title : '剩余',
-										width : "5%",
+										width : "8%",
 										align : 'center'
 									},
 									{
 										field : 'confirmationdate',
 										title : '转正日期',
-										width : "5%",
+										width : "8%",
 										align : 'center'
 									} ] ],toolbar:'#toolbar',
 							onBeforeLoad : function(param) {

@@ -96,7 +96,7 @@
 									{
 										field : 'username',
 										title : '姓名',
-										width : "5%",
+										width : "20%",
 										align : 'center'
 
 									},
@@ -168,19 +168,19 @@
 									{
 										field : 'contractEndtDate',
 										title : '剩余',
-										width : "5%",
+										width : "8%",
 										align : 'center'
 									},
 									{
 										field : 'confirmationdate',
 										title : '转正日期',
-										width : "5%",
+										width : "8%",
 										align : 'center'
 									},
 									{
 										title : '编辑',
 										field : 'edit',
-										width : "6%",
+										width : "8%",
 										align : 'center',
 										formatter : function(value, row) {
 											return cxw
@@ -192,7 +192,7 @@
 									{
 										title : '删除',
 										field : 'delete',
-										width : "4%",
+										width : "8%",
 										align : 'center',
 										formatter : function(value, row) {
 											return cxw

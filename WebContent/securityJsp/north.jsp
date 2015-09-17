@@ -15,31 +15,31 @@
 </style>
 </head>
 <body>
-	<div class="menu">
+	<div class="menu" style="background:#605ca8">
 	<!-- 
 		<div class="main_Menu">
 			<ul id="mainMenu"></ul>
 		</div>
 		 -->
 		 <div style="float:left;width:20%;">
-		  <img src="<%=contextPath %>/style/images/logo.gif" style="width:120px;margin-top:20px;margin-left:10px"/>
+		  <img src="<%=contextPath %>/style/images/logo.png" style="width:120px;margin-top:20px;margin-left:10px"/>
 		 </div>
 		 <div style="float:right;width:80%;text-align:right">
 		 <div style="margin-top:10px"> 
-		  <div style="display:inline;margin-right:10px;color:white"> 
-		  	<img src="<%=contextPath %>/style/image/ICON/kaishi/zhuomian.png" />
-		  	<a href="#" style="text-decoration:none;color:white">通讯录</a> 
+		  <div style="display:inline;margin-right:10px;color:white;font-size:14px"> 
+		  	<img src="<%=contextPath %>/style/image/iconlight/tongxunlu.png"  style="vertical-align:top"/>
+		  	<a href="#" style="text-decoration:none;color:white" >通讯录</a> 
 		  </div>
-		  <div style="display:inline;margin-right:10px;color:white"> 
-		  	<img src="<%=contextPath %>/style/images/04.png" class="dvimg"/>
+		  <div style="display:inline;margin-right:10px;color:white;font-size:14px"> 
+		  	<img src="<%=contextPath %>/style/image/iconlight/xitongrizhi.png" style="vertical-align:top"/>
 		  	<a href="#" style="text-decoration:none;color:white">系统日志</a> 
 		  </div>
-		   <div style="display:inline;margin-right:10px;color:white"> 
-		  	<img src="<%=contextPath %>/style/images/04.png" class="dvimg"/>
+		   <div style="display:inline;margin-right:10px;color:white;font-size:14px"> 
+		  	<img src="<%=contextPath %>/style/image/iconlight/pwd.png" style="vertical-align:top"/>
 		  	<a href="#" style="text-decoration:none;color:white">修改密码</a> 
 		  </div>
-		  <div style="display:inline;margin-right:10px;color:white"> 
-		  	<img src="<%=contextPath %>/style/images/04.png" class="dvimg"/>
+		  <div style="display:inline;margin-right:10px;color:white;font-size:14px"> 
+		  	<img src="<%=contextPath %>/style/image/iconlight/tuichu.png" style="vertical-align:top"/>
 		  	<a href="#" style="text-decoration:none;color:white">退出系统</a> 
 		  	</div>
 		 </div>

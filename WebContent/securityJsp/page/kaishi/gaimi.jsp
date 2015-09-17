@@ -16,6 +16,9 @@
 label {
 	margin-right: 20px;
 }
+input{
+ border: 1px solid #95b8e7; margin: 0;padding: 0 2px;vertical-align: middle;border-radius: 5px;height:20px;
+ }
 </style>
 <script type="text/javascript">
 	var submitForm = function() {

@@ -75,15 +75,15 @@ var submitForm = function() {
 	});
 </script>
 <style type="text/css">
+*{
+	font-size:12px
+}
 	input{
  border: 1px solid #95b8e7; margin: 0;padding: 0 2px;vertical-align: middle;border-radius: 5px;height:20px;
  }
 textarea{
  border: 1px solid #95b8e7; margin: 0;padding: 0 2px;vertical-align: middle;border-radius: 5px
-}
-lable{
-	font-size:14px;
-}
+} 
 .dvRowSpan{
 	margin-top:10px;
 }

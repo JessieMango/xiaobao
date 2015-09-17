@@ -122,6 +122,16 @@
 
 	});
 </script>
+<style type="text/css">
+.accordion .accordion-header-selected{
+	background:#605ca8; 
+}
+.tabs-title{
+ color:#605ca8;
+}
+
+
+</style>
 </head>
 <body id="mainLayout" class="easyui-layout">
 	<div
