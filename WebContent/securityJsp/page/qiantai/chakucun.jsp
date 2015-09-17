@@ -96,7 +96,8 @@
 				title : '总计',
 				width : "24%",
 				align : 'center'
-			} ] ],toolbar:'#toolbar'
+			} ] ],
+			toolbar:'#toolbar'
 		});
 
 	}
@@ -125,8 +126,6 @@
 		</div>
 	</form>
 	</div>
-	<div style="margin: 0 auto;">
-		<table id="grid" data-options="border:false"></table>
-	</div>
+	<table id="grid" data-options="border:false,fit:true"></table>
 </body>
 </html>

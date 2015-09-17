@@ -117,18 +117,7 @@
 																			'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 																			row.schoolCode);
 														}
-													} ] ],
-											onBeforeLoad : function(param) {
-												parent.$.messager.progress({
-													text : '数据加载中....'
-												});
-											},
-											onSortColumn : function(sort, order) {
-											},
-											onLoadSuccess : function(data) {
-												parent.$.messager
-														.progress('close');
-											}
+													} ] ]
 										});
 
 					});
@@ -137,10 +126,8 @@
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
 
-		<div style=" text-align: center;">
-			<table id="grid" style="margin-top: 10px;"
-				data-options="border:false"></table>
-		</div>
+		<table id="grid" style="margin-top: 10px;"
+			data-options="border:false,fit:true"></table>
 	</div>
 </body>
 </html>

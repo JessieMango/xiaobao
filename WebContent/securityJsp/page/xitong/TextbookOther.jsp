@@ -110,7 +110,7 @@
 														align : 'center',
 														formatter : function(
 																value, row) {
-															return '￥'+value;
+															return '￥' + value;
 														}
 													},
 
@@ -119,11 +119,13 @@
 														field : 'isEnableExchange',
 														width : "10%",
 														align : 'center',
-														formatter : function(value, row) {
+														formatter : function(
+																value, row) {
 															if (value == 0) {
 																return '<img  alt="未签"  style="vertical-align: middle;" src="../../../style/image/NoExchange.png" />';
 															} else {
-																return cxw.formatString(row.points);
+																return cxw
+																		.formatString(row.points);
 															}
 														}
 													},
@@ -153,7 +155,8 @@
 																			'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 																			row.id);
 														}
-													} ] ],toolbar : '#toolbar',
+													} ] ],
+											toolbar : '#toolbar',
 											onBeforeLoad : function(param) {
 												parent.$.messager.progress({
 													text : '数据加载中....'
@@ -199,7 +202,7 @@
 														align : 'center',
 														formatter : function(
 																value, row) {
-															return '￥'+value;
+															return '￥' + value;
 														}
 													},
 													{
@@ -207,12 +210,14 @@
 														field : 'isEnableExchange',
 														width : "10%",
 														align : 'center',
-														formatter : function(value, row) {
+														formatter : function(
+																value, row) {
 															if (value == 0) {
 																return '<img  alt="未签"  style="vertical-align: middle;" src="../../../style/image/NoExchange.png" />';
-																
+
 															} else {
-																return cxw.formatString(row.points);
+																return cxw
+																		.formatString(row.points);
 															}
 														}
 													},
@@ -242,16 +247,8 @@
 																			'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 																			row.id);
 														}
-													} ] ],toolbar : '#toolbar1',
-											onBeforeLoad : function(param) {
-												parent.$.messager.progress({
-													text : '数据加载中....'
-												});
-											},
-											onLoadSuccess : function(data) {
-												parent.$.messager
-														.progress('close');
-											}
+													} ] ],
+											toolbar : '#toolbar1'
 										});
 
 					});
@@ -260,33 +257,27 @@
 <body class="easyui-layout" data-options="fit:true,border:false">
 
 	<div data-options="region:'center',fit:true,border:false">
-	
-		<div
-			style="width: 45%; float: left; ">
+
+		<div style="width: 45%; float: left;">
 			<div id="toolbar">
-			<div id="addTextBook" onclick="addFun(this);" class="add">
-				<img alt="添加教材项" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">添加教材项</span>
+				<div id="addTextBook" onclick="addFun(this);" class="add">
+					<img alt="添加教材项" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">添加教材项</span>
+				</div>
 			</div>
-			</div>
-			<div >
-				<table id="gridBook" data-options="border:false"></table>
-			</div>
+			<table id="gridBook" data-options="border:false"></table>
 
 		</div>
-		<div
-			style="width: 45%; float: right;">
+		<div style="width: 45%; float: right;">
 			<div id="toolbar1">
-			<div id="addFee" onclick="addFun(this);" class="add">
-				<img alt="添加杂费项" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">添加杂费项</span>
+				<div id="addFee" onclick="addFun(this);" class="add">
+					<img alt="添加杂费项" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">添加杂费项</span>
+				</div>
 			</div>
-			</div>
-			<div>
-				<table id="gridFee" data-options="border:false"></table>
-			</div>
+			<table id="gridFee" data-options="border:false"></table>
 		</div>
 	</div>
 </body>

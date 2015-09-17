@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>积分兑换</title>
+<title>停课</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <style type="text/css">
 a {
@@ -24,7 +24,7 @@ input[type='text'] {
 				+ "&className=" + className + "&courseName=" + courseName
 				+ "&classTimes=" + classTimes + "&realShouldTuition="
 				+ realShouldTuition + "&realTuition=" + realTuition
-				+ "&studentClass_id=" + id;
+				+ "&studentClass_id=" + id; 
 	}
 	var init = function() {
 		grid = $('#grid')
@@ -249,28 +249,27 @@ input[type='text'] {
 										width : "6%",
 										align : 'center',
 										formatter : function(value, row) {
-											return cxw
-													.formatString(
-															'<input type="button" value="停课" style="color:black; font-weight:bold; width:50px;" onclick="stopClassFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',\'{6}\')" />',
-															row.consultId,
-															row.className,
-															row.courseName,
-															row.classTimes,
-															row.realShouldTuition,
-															row.realTuition,
-															row.id);
+											var classtime;
+											if(row.classTimes == null){
+												var classtime = 1;
+											}else{
+												classtime = row.classTimes;
+											}
+											if (row.studentState == "正常") {
+												return cxw
+														.formatString(
+																'<input type="button" value="停课" style="color:black; font-weight:bold; width:50px;" onclick="stopClassFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',\'{6}\')" />',
+																row.consultId,
+																row.className,
+																row.courseName,
+																classtime,
+																row.realShouldTuition,
+																row.realTuition,
+																row.id);
+											}
 										}
-									} ] ],toolbar : '#toolbar',
-							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
-							}
+									} ] ],
+							toolbar : '#toolbar'
 						});
 	}
 
@@ -281,20 +280,20 @@ input[type='text'] {
 </head>
 <body>
 	<div id="toolbar" style="display: none;">
-			<div style="margin-top:5px;margin-bottom:5px;">
-		<form>
-			<div style="text-align: center;">
-				<b><label for="nameM">学员完整姓名</label></b>&nbsp;<input type="text"
-					name="nameM" class="easyui-validatebox" />&nbsp; <b><label
-					for="telTail">学员电话尾号</label></b>&nbsp;<input type="text" name="telTail"
-					class="easyui-validatebox" />&nbsp; <a href="javascript:void(0);"
-					class="easyui-linkbutton"
-					data-options="iconCls:'ext-icon-zoom',plain:true"
-					onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
-			</div>
-		</form>
+		<div style="margin-top: 5px; margin-bottom: 5px;">
+			<form>
+				<div style="text-align: center;">
+					<b><label for="nameM">学员完整姓名</label></b>&nbsp;<input type="text"
+						name="nameM" class="easyui-validatebox" />&nbsp; <b><label
+						for="telTail">学员电话尾号</label></b>&nbsp;<input type="text"
+						name="telTail" class="easyui-validatebox" />&nbsp; <a
+						href="javascript:void(0);" class="easyui-linkbutton"
+						data-options="iconCls:'ext-icon-zoom',plain:true"
+						onclick="grid.datagrid('load',cxw.serializeObject($('form')));">查询</a>
+				</div>
+			</form>
+		</div>
 	</div>
-	</div>
-	<table id="grid" data-options="border:true"></table>
+	<table id="grid" data-options="border:true,fit:true"></table>
 </body>
 </html>

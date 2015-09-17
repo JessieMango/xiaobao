@@ -127,6 +127,30 @@ public class FinancialRunnningAccountDAOImpl implements
 						.update("update Consult set banlance=banlance+:realMoney,availabelPoints=availabelPoints+:realMoney where id=:consultId",
 								map);
 			}
+		} else if (StringUtils.equals("9",
+				financialRunnningAccount.getOperateCode())) { // 退费
+			map.put("balance", financialRunnningAccount.getBalance());
+			map.put("returnTuitionReason",
+					financialRunnningAccount.getReturnTuitionReason());
+			n2 = this.nJdbcTemplate
+					.update("update StudentClass set studentState=4,returnTuitionReason=:returnTuitionReason where id=:studentClass_id",
+							map);
+			if (StringUtils.equals("on",
+					financialRunnningAccount.getIsBanlance())) { // 如果剩余学费转为余额
+				map.put("realMoney", financialRunnningAccount.getBalance());
+				financialRunnningAccount.setRemark("退费"
+						+ financialRunnningAccount.getBalance() + "元转为余额");
+				n3 = this.nJdbcTemplate
+						.update("update Consult set banlance=banlance+:realMoney,availabelPoints=availabelPoints+:realMoney where id=:consultId",
+								map);
+			} else { // 余额不变
+				financialRunnningAccount.setRemark("退费"
+						+ financialRunnningAccount.getBalance() + "元");
+				financialRunnningAccount.setBalance("");
+			}
+			financialRunnningAccount.setRealMoney("-"
+					+ financialRunnningAccount.getBalance());
+			financialRunnningAccount.setTypeCode("1");
 		}
 		SqlParameterSource nParameterSource = new BeanPropertySqlParameterSource(
 				financialRunnningAccount);

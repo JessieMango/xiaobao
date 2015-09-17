@@ -25,13 +25,9 @@
 			? "0"
 			: request.getParameter("realTuition"); //实交学费
 	String money = "";
-	if (classTimes == null || classTimes == "") {
-		money = "0";
-	} else {
-		java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
-		money = df.format((Float.parseFloat(realShouldTuition) / Float
+	java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
+	money = df.format((Float.parseFloat(realShouldTuition) / Float
 				.parseFloat(classTimes))) + "";
-	}
 	if (Float.parseFloat(realTuition) >= Float
 			.parseFloat(realShouldTuition)) {
 		realTuition = realShouldTuition;

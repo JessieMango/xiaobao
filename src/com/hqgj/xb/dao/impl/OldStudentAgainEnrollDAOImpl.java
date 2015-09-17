@@ -42,7 +42,6 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 	@Override
 	public Grid getOldStudentAgainEnrolls(
 			OldStudentAgainEnroll oldStudentAgainEnroll, Parameter parameter) {
-		logger.info(parameter.getPageCode());
 		Map<String, String> map = new HashMap<String, String>();
 		SqlParameterSource nParameterSource = new BeanPropertySqlParameterSource(
 				oldStudentAgainEnroll);
@@ -55,6 +54,11 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 				+ "left outer join DSellSource dss on dss.id=sc.sellSourceCode left outer join DSeller ds on ds.id=sc.sellerCode  "
 				+ "left outer join DCouncilSchool dcs on dcs.id=c.councilSchoolCode left outer join DHandler dh on dh.id=sc.handlerCode  "
 				+ "left outer join School s on s.schoolCode=sc.handleSchoolCode left outer join DStudentClassStatus dscs on dscs.id=sc.studentState where c.state=1";
+		if (StringUtils.equals("dangan", parameter.getPageCode())) { // 如果是档案回收站
+			select += " and c.isDelete=0 ";
+		} else {
+			select += " and c.isDelete=1 ";
+		}
 		if (StringUtils.equals("qianfei", parameter.getPageCode())) {
 			select += " and c.banlance < 0";
 		}
@@ -138,7 +142,6 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 				}
 			}
 		}
-		logger.info(select);
 		List<OldStudentAgainEnroll> results = this.nJdbcTemplate.query(select,
 				nParameterSource, new RowMapper<OldStudentAgainEnroll>() {
 					@Override
@@ -154,8 +157,9 @@ public class OldStudentAgainEnrollDAOImpl implements OldStudentAgainEnrollDAO {
 							if (rs.getString("realTuition") != null) {
 								money = Float.parseFloat(rs
 										.getString("realTuition"))
-										- Float.parseFloat(rs.getString("tuition"));
-							} else{
+										- Float.parseFloat(rs
+												.getString("tuition"));
+							} else {
 								money = 0;
 							}
 							oldStudentAgainEnroll.setRealShouldTuition(rs

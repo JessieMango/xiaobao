@@ -249,6 +249,12 @@ input[type='text'] {
 										width : "5%",
 										align : 'center',
 										formatter : function(value, row) {
+											var classtime;
+											if(row.classTimes == null){
+												var classtime = 1;
+											}else{
+												classtime = row.classTimes;
+											}
 											if(row.studentState == "正常"){
 												return cxw
 														.formatString(
@@ -256,7 +262,7 @@ input[type='text'] {
 																row.consultId,
 																row.className,
 																row.courseName,
-																row.classTimes,
+																classtime,
 																row.realShouldTuition,
 																row.realTuition,
 																row.id);

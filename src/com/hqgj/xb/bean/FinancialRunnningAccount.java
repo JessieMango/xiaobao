@@ -50,12 +50,22 @@ public class FinancialRunnningAccount {
 	private String typeTF; // 教材杂费类型1教材2杂费
 	private String textBookFeeCode; // 教材杂费ID
 	private String stopClassReason; // 停课原因
+	private String returnTuitionReason; // 退费原因
 
 	/**
 	 * 转班页面
 	 */
 	private String banlanceOfZhuanban; // 转班时剩下的余额
-	private String isBanlance; // 转班后是否有学费剩余
+	private String isBanlance; // 转班后是否有学费剩余;退费页面
+
+	
+	public String getReturnTuitionReason() {
+		return returnTuitionReason;
+	}
+
+	public void setReturnTuitionReason(String returnTuitionReason) {
+		this.returnTuitionReason = returnTuitionReason;
+	}
 
 	public String getIsBanlance() {
 		return isBanlance;

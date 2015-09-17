@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>积分兑换</title>
+<title>退费</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <style type="text/css">
 a {
@@ -18,8 +18,13 @@ input[type='text'] {
 </style>
 <script type="text/javascript">
 	var grid;
-	var returnFeeFun = function(consultId, lackMoney) {
-		window.location.href = "";
+	var returnFeeFun = function(consultId, className, courseName, classTimes,
+			realShouldTuition, realTuition, id) {
+		window.location.href = "tuifeiDetail.jsp?consultId=" + consultId
+				+ "&className=" + className + "&courseName=" + courseName
+				+ "&classTimes=" + classTimes + "&realShouldTuition="
+				+ realShouldTuition + "&realTuition=" + realTuition
+				+ "&studentClass_id=" + id;
 	}
 	var init = function() {
 		grid = $('#grid')
@@ -244,11 +249,24 @@ input[type='text'] {
 										width : "6%",
 										align : 'center',
 										formatter : function(value, row) {
-											return cxw
-													.formatString(
-															'<input type="button" value="退费" style="color:black; font-weight:bold; width:50px;" onclick="returnFeeFun(\'{0}\',\'{1}\')" />',
-															row.consultId,
-															-row.lackMoney);
+											var classtime;
+											if(row.classTimes == null){
+												var classtime = 1;
+											}else{
+												classtime = row.classTimes;
+											}
+											if (row.studentState == "正常") {
+												return cxw
+														.formatString(
+																'<input type="button" value="退费" style="color:black; font-weight:bold; width:50px;" onclick="returnFeeFun(\'{0}\',\'{1}\',\'{2}\',\'{3}\',\'{4}\',\'{5}\',\'{6}\')" />',
+																row.consultId,
+																row.className,
+																row.courseName,
+																classtime,
+																row.realShouldTuition,
+																row.realTuition,
+																row.id);
+											}
 										}
 									} ] ],
 							toolbar : '#toolbar'
@@ -277,6 +295,6 @@ input[type='text'] {
 			</form>
 		</div>
 	</div>
-	<table id="grid" data-options="border:true"></table>
+	<table id="grid" data-options="border:true,fit:true"></table>
 </body>
 </html>

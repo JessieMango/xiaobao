@@ -77,7 +77,7 @@ input[type='text'] {
 		grid = $('#grid')
 				.datagrid(
 						{
-							url : 'getOldStudentAgainEnrolls',
+							url : 'getOldStudentAgainEnrolls?pageCode=dangan',
 							striped : true,
 							pagination : true,
 							rownumbers : true,

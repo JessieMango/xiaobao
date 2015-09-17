@@ -48,38 +48,27 @@
 			{
 				field : 'operateTime',
 				title : '时间',
-				width : "20%",
+				width : "24%",
 				align : 'center'
 			}, {
 				field : 'username',
 				title : '用户',
-				width : "20%",
+				width : "24%",
 				align : 'center',
 			}, {
 				field : 'operateName',
 				title : '操作名称',
-				width : "20%",
+				width : "24%",
 				align : 'center'
 
 			}, {
 				field : 'message',
 				title : 'IP',
-				width : "20%",
+				width : "24%",
 				align : 'center'
 
 			} ] ],
-			toolbar : '#toolbar',
-			onBeforeLoad : function(param) {
-				parent.$.messager.progress({
-					text : '数据加载中....'
-				});
-			},
-			onSortColumn : function(sort, order) {
-			},
-			onLoadSuccess : function(data) {
-				$('.iconImg').attr('src', cxw.pixel_0);
-				parent.$.messager.progress('close');
-			}
+			toolbar : '#toolbar'
 		});
 	}
 
@@ -92,11 +81,11 @@
 
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div id="toolbar" style="display: none;">
-		<table style="width:100%">
+		<table style="width: 100%">
 			<tr>
 				<td>
 					<form id="searchForm">
-						<table style="text-align:center;margin:auto">
+						<table style="text-align: center; margin: auto">
 							<tr>
 								<td>登录时间：</td>
 								<td><input id="cc" type="text" name="cc"
@@ -117,9 +106,7 @@
 		</table>
 	</div>
 
-	<div data-options="region:'center',fit:true,border:false">
-		<table id="grid" data-options="border:false"></table>
-	</div>
+	<table id="grid" data-options="border:false,fit:true"></table>
 
 
 </body>

@@ -236,17 +236,8 @@ input[type='text'] {
 															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 															row.id);
 										}
-									} ] ],toolbar:'#toolbar',
-							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
-							}
+									} ] ],
+							toolbar:'#toolbar'
 						});
 		$("#startTime").datebox("setValue", firstOfMouthDate());
 	}
@@ -358,9 +349,7 @@ input[type='text'] {
 			</form>
 		</div>
 		</div>
-		<div>
-			<table id="grid" data-options="border:true"></table>
-		</div>
+		<table id="grid" data-options="border:true,fit:true"></table>
 	</div>
 </body>
 </html>

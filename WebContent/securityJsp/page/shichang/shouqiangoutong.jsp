@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +14,8 @@ a {
 </style>
 <script type="text/javascript">
 	var grid;
-	
-	var deleteFun = function(id){
+
+	var deleteFun = function(id) {
 		parent.$.messager.progress({
 			text : '删除中....'
 		});
@@ -153,9 +153,11 @@ a {
 										align : 'center',
 										formatter : function(value, row) {
 											return cxw
-											.formatString(
-													'<a href="../qiantai/addCommunication.jsp?commuId={0}&id={1}&type={2}">编辑</a>',
-													row.id,row.consultId,"editg");
+													.formatString(
+															'<a href="../qiantai/addCommunication.jsp?commuId={0}&id={1}&type={2}">编辑</a>',
+															row.id,
+															row.consultId,
+															"editg");
 										}
 									},
 									{
@@ -169,23 +171,15 @@ a {
 															'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 															row.id);
 										}
-									} ] ],toolbar:'#toolbar',
+									} ] ],
+							toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								var varify = cxw.checkStartTimeBeforeEndTime(
 										'#startTime', '#endTime');
-								if (varify) {
-									parent.$.messager.progress({
-										text : '数据加载中....'
-									});
-								} else {
+								if (!varify) {
 									$.messager.alert('警告', '结束时间要大于开始时间',
 											'warning');
 								}
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
 							}
 						});
 
@@ -198,58 +192,56 @@ a {
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-	<div id="toolbar">
-		<div>
-			<form id="form1">
-				<div style="text-align: center;margin-top:10px">
-					<b><label for="nameM">学员完整姓名</label></b><input type="text"
-						name="nameM" class="easyui-validatebox" />&nbsp; <b><label
-						for="telTail">学员电话尾号</label></b><input type="text" name="telTail"
-						class="easyui-validatebox" />&nbsp; <a href="javascript:void(0);"
-						class="easyui-linkbutton"
-						data-options="iconCls:'ext-icon-zoom',plain:true"
-						onclick="grid.datagrid('load',cxw.serializeObject($('#form1')));">查询</a>
-				</div>
-			</form>
-		</div>
-		<div>
-			<form id="form2">
-				<div style="margin-top: 10px;">
-					<div style="margin-left: 15%;">
-						<label>沟通日期</label> &nbsp;&nbsp;&nbsp;<input type="text"
-							id="startTime" name="startTime" style="width: 100px;"
-							class="easyui-datebox"
-							data-options="required:true,value:'getPreOneMonths();'" />到<input
-							style="width: 100px;" type="text" id="endTime" name="endTime"
-							class="easyui-datebox"
-							data-options="required:true,value:'getCurrentDate();'" />&nbsp;&nbsp;
-						<input id="communicationType" class="easyui-combobox"
-							style="width: 100px;" name="communicationType"
-							data-options="valueField:'communicationType',textField:'communicationTypeName',url:'getCommunicationType?type=1&flag=select',panelHeight:'auto',editable:false" />
-						<input id="handleSchoolCode" class="easyui-combobox"
-							style="width: 100px;" name="handleSchoolCode"
-							data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools?type=1',panelHeight:'auto',editable:false" />
-						&nbsp; <input class="easyui-combobox" name="handlerCode"
-							id="handlerCode" style="width: 100px;"
-							data-options="valueField:'handlerCode',textField:'handler',url:'getHandler?type=1',panelHeight:'auto',editable:false" />
-						&nbsp;<select name="order" class="easyui-combobox"
-							data-options="required:true,editable:false,panelHeight:'auto'"
-							style="width: 100px;">
-							<option value="1">日期排序</option>
-							<option value="2">方式排序</option>
-							<option value="3">经办排序</option>
-						</select> &nbsp; <a href="javascript:void(0);" class="easyui-linkbutton"
+		<div id="toolbar">
+			<div>
+				<form id="form1">
+					<div style="text-align: center; margin-top: 10px">
+						<b><label for="nameM">学员完整姓名</label></b><input type="text"
+							name="nameM" class="easyui-validatebox" />&nbsp; <b><label
+							for="telTail">学员电话尾号</label></b><input type="text" name="telTail"
+							class="easyui-validatebox" />&nbsp; <a
+							href="javascript:void(0);" class="easyui-linkbutton"
 							data-options="iconCls:'ext-icon-zoom',plain:true"
-							onclick="grid.datagrid('load',cxw.serializeObject($('#form2')));">查询</a>
-
+							onclick="grid.datagrid('load',cxw.serializeObject($('#form1')));">查询</a>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
+			<div>
+				<form id="form2">
+					<div style="margin-top: 10px;">
+						<div style="margin-left: 15%;">
+							<label>沟通日期</label> &nbsp;&nbsp;&nbsp;<input type="text"
+								id="startTime" name="startTime" style="width: 100px;"
+								class="easyui-datebox"
+								data-options="required:true,value:'getPreOneMonths();'" />到<input
+								style="width: 100px;" type="text" id="endTime" name="endTime"
+								class="easyui-datebox"
+								data-options="required:true,value:'getCurrentDate();'" />&nbsp;&nbsp;
+							<input id="communicationType" class="easyui-combobox"
+								style="width: 100px;" name="communicationType"
+								data-options="valueField:'communicationType',textField:'communicationTypeName',url:'getCommunicationType?type=1&flag=select',panelHeight:'auto',editable:false" />
+							<input id="handleSchoolCode" class="easyui-combobox"
+								style="width: 100px;" name="handleSchoolCode"
+								data-options="valueField:'schoolCode',textField:'schoolName',url:'getAllSchools?type=1',panelHeight:'auto',editable:false" />
+							&nbsp; <input class="easyui-combobox" name="handlerCode"
+								id="handlerCode" style="width: 100px;"
+								data-options="valueField:'handlerCode',textField:'handler',url:'getHandler?type=1',panelHeight:'auto',editable:false" />
+							&nbsp;<select name="order" class="easyui-combobox"
+								data-options="required:true,editable:false,panelHeight:'auto'"
+								style="width: 100px;">
+								<option value="1">日期排序</option>
+								<option value="2">方式排序</option>
+								<option value="3">经办排序</option>
+							</select> &nbsp; <a href="javascript:void(0);" class="easyui-linkbutton"
+								data-options="iconCls:'ext-icon-zoom',plain:true"
+								onclick="grid.datagrid('load',cxw.serializeObject($('#form2')));">查询</a>
+
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
-		</div>
-		<div>
-			<table id="grid" data-options="border:false"></table>
-		</div>
+		<table id="grid" data-options="border:false,fit:true"></table>
 	</div>
 
 </body>

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-        <%
+	pageEncoding="UTF-8"%>
+<%
 	String contextPath = request.getContextPath();
-	%>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,29 +10,24 @@
 <title>员工生日</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
-
 	var grid;
 	/* 初始化页面 */
 	function init() {
-		
-		$('#staffTag').combobox(
-				{
-					onLoadSuccess : function(data) {
-						if (data) {
-							$('#staffTag').combobox('setValue',
-									data[0].id);
-						}
-					}
-				});
-		$('#laborRelations').combobox(
-				{
-					onLoadSuccess : function(data) {
-						if (data) {
-							$('#laborRelations').combobox('setValue',
-									data[0].id);
-						}
-					}
-				});
+
+		$('#staffTag').combobox({
+			onLoadSuccess : function(data) {
+				if (data) {
+					$('#staffTag').combobox('setValue', data[0].id);
+				}
+			}
+		});
+		$('#laborRelations').combobox({
+			onLoadSuccess : function(data) {
+				if (data) {
+					$('#laborRelations').combobox('setValue', data[0].id);
+				}
+			}
+		});
 		$('#socialsecurityStatus').combobox(
 				{
 					onLoadSuccess : function(data) {
@@ -41,7 +36,7 @@
 									data[0].id);
 						}
 					}
-				});	
+				});
 
 		grid = $('#grid')
 				.datagrid(
@@ -59,14 +54,14 @@
 									{
 										field : 'username',
 										title : '姓名',
-										width : "5%",
+										width : "9%",
 										align : 'center'
 
 									},
 									{
 										field : 'gender',
 										title : '性别',
-										width : "3%",
+										width : "6%",
 										formatter : function(value, row, index) {
 											switch (value) {
 											case '0':
@@ -79,28 +74,28 @@
 									{
 										field : 'birthday',
 										title : '生日',
-										width : "5%",
+										width : "9%",
 										align : 'center'
 
 									},
-									
+
 									{
 										field : 'dpersonnelStatusnameM',
 										title : '状态',
-										width : "5%",
+										width : "9%",
 										align : 'center',
-										
+
 									},
 									{
 										field : 'education',
 										title : '学历',
-										width : "7%",
+										width : "9%",
 										align : 'center'
 									},
 									{
 										field : 'dlaborRelationsnameM',
 										title : '关系',
-										width : "4%",
+										width : "8%",
 										align : 'center'
 									},
 									{
@@ -119,7 +114,7 @@
 									{
 										field : 'socialsecurityStatus',
 										title : '社保',
-										width : "6%",
+										width : "9%",
 										align : 'center',
 										formatter : function(value, row) {
 											if (value == 0) {
@@ -128,35 +123,23 @@
 												return '<img  alt="已签"  style="vertical-align: middle;" src="../../../style/image/signin.gif" />';
 											}
 										}
-									},
-									{
+									}, {
 										field : 'contractStartDate',
 										title : '转正已过',
-										width : "8%",
+										width : "9%",
 										align : 'center'
-									},
-									{
+									}, {
 										field : 'contractEndtDate',
 										title : '剩余',
-										width : "5%",
+										width : "9%",
 										align : 'center'
-									},
-									{
+									}, {
 										field : 'confirmationdate',
 										title : '转正日期',
-										width : "5%",
+										width : "8%",
 										align : 'center'
-									} ] ],toolbar:'#toolbar',
-							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
-							}
+									} ] ],
+							toolbar : '#toolbar'
 						});
 	}
 
@@ -169,28 +152,26 @@
 	<div data-options="region:'center',fit:true,border:false">
 		<div id="toolbar">
 			<form id="form1">
-				<div style="margin-top: 10px;margin-bottom:10px">
+				<div style="margin-top: 10px; margin-bottom: 10px">
 					<div style="margin-left: 15%;">
-					&nbsp;&nbsp;<select name="contractState" class="easyui-combobox" data-options="required:true,editable:false,panelHeight:'auto'" style="width: 155px;">
-									<option value="qb">全部合同状态</option>
-									<option value="0">未签</option>
-									<option value="1">已签</option>	
-							</select>&nbsp;
-						<input class="easyui-combobox" name="socialsecurityStatus"
+						&nbsp;&nbsp;<select name="contractState" class="easyui-combobox"
+							data-options="required:true,editable:false,panelHeight:'auto'"
+							style="width: 155px;">
+							<option value="qb">全部合同状态</option>
+							<option value="0">未签</option>
+							<option value="1">已签</option>
+						</select>&nbsp; <input class="easyui-combobox" name="socialsecurityStatus"
 							id="socialsecurityStatus" style="width: 155px;"
 							data-options="valueField:'id',textField:'nameM',url:'getsocialsecurityStatus?type=1',required:true,panelHeight:'auto',editable:false" />
-					&nbsp;
-					
-					&nbsp;
-					<input class="easyui-combobox" name="laborRelations"
+						&nbsp; &nbsp; <input class="easyui-combobox" name="laborRelations"
 							id="laborRelations" style="width: 155px;"
 							data-options="valueField:'id',textField:'nameM',url:'getlaborRelations?type=1',required:true,panelHeight:'auto',editable:false" />&nbsp;&nbsp;
-							
-					&nbsp;<input class="easyui-combobox" name="staffTag"
-							id="staffTag" style="width: 100px;"
+
+						&nbsp;<input class="easyui-combobox" name="staffTag" id="staffTag"
+							style="width: 100px;"
 							data-options="valueField:'id',textField:'cardCode',url:'getStaffTag?type=1',panelHeight:'auto',editable:false" />&nbsp;&nbsp;
-				
-					&nbsp;<select name="remark" class="easyui-combobox"
+
+						&nbsp;<select name="remark" class="easyui-combobox"
 							data-options="required:true,editable:false,panelHeight:'auto'"
 							style="width: 100px;">
 							<option value="1">员工姓名排序</option>
@@ -199,9 +180,7 @@
 							<option value="4">合同起日排序</option>
 							<option value="5">合同止日排序</option>
 							<option value="6">转正日期排序</option>
-						</select> &nbsp; 
-						
-						<a href="javascript:void(0);" class="easyui-linkbutton"
+						</select> &nbsp; <a href="javascript:void(0);" class="easyui-linkbutton"
 							data-options="iconCls:'ext-icon-zoom',plain:true"
 							onclick="grid.datagrid('load',cxw.serializeObject($('#form1')));">查询</a>
 
@@ -209,9 +188,7 @@
 				</div>
 			</form>
 		</div>
-		<div>
-			<table id="grid" data-options="border:false"></table>
-		</div>
+		<table id="grid" data-options="border:false,fit:true"></table>
 	</div>
 
 </body>

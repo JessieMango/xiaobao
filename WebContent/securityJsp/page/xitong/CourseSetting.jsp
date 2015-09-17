@@ -144,7 +144,8 @@
 																			row.courseTypeCode,
 																			'1');
 														}
-													},{
+													},
+													{
 														title : '课程',
 														field : 'courseName',
 														width : "30%",
@@ -178,15 +179,9 @@
 																			row.courseCode,
 																			'2');
 														}
-													} ] ],toolbar:'#toolbar',
-											onBeforeLoad : function(param) {
-												parent.$.messager.progress({
-													text : '数据加载中....'
-												});
-											},
+													} ] ],
+											toolbar : '#toolbar',
 											onLoadSuccess : function(data) {
-												parent.$.messager
-														.progress('close');
 												$(this).datagrid(
 														"autoMergeCells",
 														[ 'courseTypeName',
@@ -201,24 +196,25 @@
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
 		<div id="toolbar">
-		<div style="text-align: center;margin-top:10px;margin-bottom:10px">
-			<div id="addCourseType" onclick="addFun(this);" class="add">
-				<img alt="添加课程大类" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">添加课程大类</span>
+			<div
+				style="text-align: center; margin-top: 10px; margin-bottom: 10px">
+				<div id="addCourseType" onclick="addFun(this);" class="add">
+					<img alt="添加课程大类" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">添加课程大类</span>
+				</div>
+				<div id="addCourse" onclick="addFun(this);" class="add">
+					<img alt="添加课程" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">添加课程</span>
+				</div>
 			</div>
-			<div id="addCourse" onclick="addFun(this);" class="add">
-				<img alt="添加课程" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">添加课程</span>
-			</div>
-		</div>
 		</div>
 		<div style="text-align: center;">
 			<table id="grid" style="margin-top: 10px;"
 				data-options="border:false"></table>
 		</div>
 	</div>
-	<table id="grid" data-options="border:false"></table>
+	<table id="grid" data-options="border:false,fit:true"></table>
 </body>
 </html>

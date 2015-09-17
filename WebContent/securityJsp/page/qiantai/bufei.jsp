@@ -83,13 +83,13 @@ input[type='text'] {
 									{
 										field : 'liveArea',
 										title : '居住区域',
-										width : "4%",
+										width : "5%",
 										align : 'center'
 									},
 									{
 										field : 'className',
 										title : '班级',
-										width : "7%",
+										width : "6%",
 										align : 'center'
 									},
 									{
@@ -262,17 +262,8 @@ input[type='text'] {
 												return '';
 											}
 										}
-									} ] ],toolbar : '#toolbar',
-							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
-							}
+									} ] ],
+							toolbar : '#toolbar'
 						});
 	}
 
