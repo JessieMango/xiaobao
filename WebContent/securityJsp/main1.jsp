@@ -134,28 +134,20 @@
 </style>
 </head>
 <body id="mainLayout" class="easyui-layout">
-<div
-		data-options="region:'north',href:'<%=contextPath%>/securityJsp/north.jsp'"
-		style="height:80px; overflow: hidden; border: 0;">
-		 
-		</div>
-	
-		
 	<div
-		data-options="region:'west',title:'导航',split:true,href:'<%=contextPath%>/securityJsp/menu.jsp'"
-		style="width: 180px;"></div>
-	<div data-options="region:'center'"
-		style="overflow: hidden; border: 0;">
-		<div id="mainTabs">
-			<div title="桌面" data-options="iconCls:'ext-icon-world',closable:true">
-				<iframe src="<%=contextPath%>/securityJsp/page/welcome.jsp"
+		data-options="region:'north'"
+		style="height:140px; overflow: hidden; border: 0;">
+		<iframe src="<%=contextPath%>/securityJsp/top.jsp"
 					style="border: 0; width: 100%; height: 99%;"></iframe>
-			</div>
-		</div>
+		</div> 
+	<div data-options="region:'center'"
+		style="overflow: hidden; border: 0; background: #ddd;">
+	 <iframe id="centerFrame" src="<%=contextPath%>/securityJsp/page/welcome.jsp"
+					style="border: 0; width: 100%; height: 99%;padding-top:10px"></iframe>
 	</div>
 
 	<div
-		data-options="region:'south',href:'<%=contextPath%>/securityJsp/south.jsp',border:false"
+		data-options="region:'south',href:'<%=contextPath%>/securityJsp/south1.jsp',border:false"
 		style="height: 27px; overflow: auto; border: 0;"></div>
 
 </body>
