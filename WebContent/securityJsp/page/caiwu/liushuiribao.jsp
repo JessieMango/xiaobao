@@ -9,6 +9,7 @@
 <script type="text/javascript">
 	var grid;
 	function init() {
+		/* 财务中的controller都在controller下的FinancialStatisticsController来进行后台逻辑的处理 */
 		$('#startTime').datebox({
 			required : true,
 			value : getCurrentDate()

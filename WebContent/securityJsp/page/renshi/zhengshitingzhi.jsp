@@ -10,6 +10,7 @@
 	var editFun = function(userId) {
 		var dialog = parent.cxw
 				.modalDialog({
+					/* 人事中的controller都在controller下的StaffController来进行后台逻辑的处理 */
 					modal : true,
 					title : '编辑',
 					width : 660,

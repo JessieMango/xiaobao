@@ -9,6 +9,7 @@
 <script type="text/javascript">
 var submitForm = function() {
 	if ($('form').form('validate')) {
+		/* 人事中的controller都在controller下的StaffController来进行后台逻辑的处理 */
 		$.post("createStaff", cxw.serializeObject($('form')), function(
 				result) {
 			if (result.success) {

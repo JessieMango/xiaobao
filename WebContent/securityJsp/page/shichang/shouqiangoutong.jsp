@@ -14,7 +14,7 @@ a {
 </style>
 <script type="text/javascript">
 	var grid;
-
+	/* 市场中的controller都在controller下的MarketStatisticsController来进行后台逻辑的处理 */
 	var deleteFun = function(id) {
 		parent.$.messager.progress({
 			text : '删除中....'

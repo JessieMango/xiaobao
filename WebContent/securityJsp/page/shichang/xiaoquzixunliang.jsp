@@ -9,6 +9,7 @@
 <script type="text/javascript">
 	var submitForm = function() {
 		if ($('form').form('validate')) {
+			/* 市场中的controller都在controller下的MarketStatisticsController来进行后台逻辑的处理 */
 			$.post("getXiaoQuZiXunLiang", cxw.serializeObject($('form')),
 					function(jsonData) {
 						var ColumnResult = "[";

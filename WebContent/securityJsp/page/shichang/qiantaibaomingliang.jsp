@@ -11,6 +11,7 @@ var submitForm = function() {
 	if ($('form').form('validate')) {
 		$.post("getQianTaiBaoMingLiang", cxw.serializeObject($('form')), function(
 				jsonData) {			
+			/* 市场中的controller都在controller下的MarketStatisticsController来进行后台逻辑的处理 */
 				$("#container").highcharts({	
 					   title:{
 							      text: '前台报名量'   

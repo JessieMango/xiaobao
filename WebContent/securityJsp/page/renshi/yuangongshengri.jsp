@@ -12,6 +12,7 @@
 	function init() {
 
 		$('#staffTag').combobox({
+			/* 人事中的controller都在controller下的StaffController来进行后台逻辑的处理 */
 			onLoadSuccess : function(data) {
 				if (data) {
 					$('#staffTag').combobox('setValue', data[0].id);

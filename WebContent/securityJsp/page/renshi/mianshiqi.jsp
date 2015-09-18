@@ -8,6 +8,7 @@
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
 	var editFun = function(userId) {
+		/* 人事中的controller都在controller下的StaffController来进行后台逻辑的处理 */
 		var dialog = parent.cxw
 				.modalDialog({
 					modal : true,

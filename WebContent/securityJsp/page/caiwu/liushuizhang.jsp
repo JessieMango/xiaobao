@@ -17,6 +17,7 @@ input[type='text'] {
 }
 </style>
 <script type="text/javascript">
+/* 财务中的controller都在controller下的FinancialStatisticsController来进行后台逻辑的处理 */
 	var grid;
 	var query2 = function() {
 		if ($('#form2').form('validate')) {
