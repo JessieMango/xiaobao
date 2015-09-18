@@ -24,7 +24,7 @@ public class SystemLogController {
 	@Autowired
 	private SystemLogService systemLogService;
 
-	
+	//读取用户的登录日志列表
 	@RequestMapping(value = {"/xitong/readLog","/kaishi/readLog"}, method = RequestMethod.POST)
 	public @ResponseBody Grid readLog(Parameter parameter,String cc,String cb) {
 		SystemLog systemLog=new SystemLog();
@@ -32,7 +32,7 @@ public class SystemLogController {
 		systemLog.setOperateType(cb);		
 		return systemLogService.readLog(systemLog,parameter);
 	}
-	
+	//读取操作类型字典表中的数据，为用户分类查询使用
 	@RequestMapping(value = {"/xitong/readOperateType","/kaishi/readOperateType"}, method = RequestMethod.POST)
 	public @ResponseBody List<SystemLog> readOperateType() {
 		return systemLogService.readOperateType();
