@@ -15,7 +15,6 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.hqgj.xb.bean.highcharts.Chart;
 import com.hqgj.xb.bean.highcharts.Data;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;

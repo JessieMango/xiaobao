@@ -306,7 +306,7 @@ public class StaffDAOImpl implements StaffDAO {
 	@Override
 	public Grid Getyuangongshengri(Staff staff, Parameter parameter) {
 		
-		String sql=" where (personnelstatus!='6' and personnelstatus!='7' or personnelstatus is null) ";
+		String sql=" where personnelstatus='3' ";
 		return queryStaffByStatus(staff, parameter, sql);
 	}
 
