@@ -49,7 +49,7 @@ public class TextBookFeeController {
 	 * @param courseTypeCode
 	 * @return
 	 */
-	@RequestMapping(value = { "/qiantai/getKuCun", "/form/getKuCun" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/qiantai/getKuCun", "/form/getKuCun", "/caiwu/getKuCun" }, method = RequestMethod.POST)
 	public @ResponseBody List<TextBookFee> getKuCun(String courseTypeCode,
 			String type) {
 		return textBookFeeService.getKuCun(courseTypeCode, type);

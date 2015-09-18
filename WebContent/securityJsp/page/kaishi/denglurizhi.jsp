@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>  
+	pageEncoding="UTF-8"%>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -9,29 +9,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录日志</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
+/* 系统登录日志中的controller都在controller下的SystemLogController来进行后台逻辑的处理 */
 <script type="text/javascript">
-
 	function init() {
 		$('#cc').datebox({
 			required : true,
 			value : getCurrentDate()
 		});
-		$('#cb').combobox(
-				{
-					url : 'readOperateType',
-					valueField : 'operateType',
-					textField : 'operateName',
-					editable : false,
-					panelHeight : "auto",
-					required : true,
-					onLoadSuccess : function(data) {
-						if (data) {
-							$('#cb').combobox('setValue', data[0].operateType);
-							grid.datagrid('load', cxw
-									.serializeObject($('#searchForm')));
-						}
-					}
-				});
+		$('#cb').combobox({
+			url : 'readOperateType',
+			valueField : 'operateType',
+			textField : 'operateName',
+			editable : false,
+			panelHeight : "auto",
+			required : true,
+			onLoadSuccess : function(data) {
+				if (data) {
+					$('#cb').combobox('setValue', data[0].operateType);
+				}
+			}
+		});
 
 		grid = $('#grid').datagrid({
 			url : 'readLog',
@@ -68,24 +65,12 @@
 				align : 'center'
 
 			} ] ],
-			toolbar : '#toolbar',
-			onBeforeLoad : function(param) {
-				parent.$.messager.progress({
-					text : '数据加载中....'
-				});
-			},
-			onSortColumn : function(sort, order) {
-			},
-			onLoadSuccess : function(data) {
-				$('.iconImg').attr('src', cxw.pixel_0);
-				parent.$.messager.progress('close');
-			}
+			toolbar : '#toolbar'
 		});
 	}
-
-	$(function() {
+	$(document).ready(function() {
 		init();
-
+		grid.datagrid('load', cxw.serializeObject($('#searchForm')));
 	});
 </script>
 </head>

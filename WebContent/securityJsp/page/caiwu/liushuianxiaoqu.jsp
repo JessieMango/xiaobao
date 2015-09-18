@@ -9,6 +9,7 @@
 <script type="text/javascript">
 var submitForm = function() {
 	if ($('form').form('validate')) {
+		/* 财务中的controller都在controller下的FinancialStatisticsController来进行后台逻辑的处理 */
 		$.post("getLiuShuiAnXiaoQu", cxw.serializeObject($('form')), function(
 				jsonData) {	
 			var ColumnResult="[";

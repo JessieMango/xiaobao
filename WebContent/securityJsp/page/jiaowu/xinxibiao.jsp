@@ -151,17 +151,8 @@ a {
 															'<button onclick=""><img src="../../../style/image/plus_1.png" alt="信息表" width="16" height="16" border="0" align="absbottom" /><span class="F_Red"><b>信息表</b></span></button>',
 															row.classCode);
 										}
-									} ] ],toolbar : '#toolbar',
-							onBeforeLoad : function(param) {
-								parent.$.messager.progress({
-									text : '数据加载中....'
-								});
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-								parent.$.messager.progress('close');
-							}
+									} ] ],
+							toolbar : '#toolbar'
 						});
 
 	}
@@ -176,7 +167,7 @@ a {
 		<div id="toolbar">
 			<div>
 				<form id="form1">
-					<div style="margin-top:5px;margin-left:21%">
+					<div style="margin-top: 5px; margin-left: 21%">
 						<b><label for="nameM">班级名称&nbsp;</label></b><input type="text"
 							name="nameM" class="easyui-validatebox" />&nbsp; <a
 							href="javascript:void(0);" class="easyui-linkbutton"

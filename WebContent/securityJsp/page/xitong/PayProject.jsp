@@ -181,7 +181,8 @@
 																			row.id,
 																			'2');
 														}
-													} ] ],toolbar : '#toolbar',
+													} ] ],
+											toolbar : '#toolbar',
 											onBeforeLoad : function(param) {
 												parent.$.messager.progress({
 													text : '数据加载中....'
@@ -204,24 +205,21 @@
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
 		<div id="toolbar">
-		<div style="text-align: center;margin-top:10px;margin-bottom:10px">
-			<div id="addEP" onclick="addFun(this);" class="add">
-				<img alt="添加大类" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">添加大类</span>
+			<div
+				style="text-align: center; margin-top: 10px; margin-bottom: 10px">
+				<div id="addEP" onclick="addFun(this);" class="add">
+					<img alt="添加大类" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">添加大类</span>
+				</div>
+				<div id="addE" onclick="addFun(this);" class="add">
+					<img alt="添加项目" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">添加项目</span>
+				</div>
 			</div>
-			<div id="addE" onclick="addFun(this);" class="add">
-				<img alt="添加项目" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">添加项目</span>
-			</div>
-		</div>
-		</div>
-		<div style="text-align: center;">
-			<table id="grid" style="margin-top: 10px;"
-				data-options="border:false"></table>
 		</div>
 	</div>
-	<table id="grid" data-options="border:false"></table>
+	<table id="grid" data-options="border:false,fit:true"></table>
 </body>
 </html>

@@ -298,82 +298,71 @@
 																					'<img  alt="删除" onclick="deleteFun(\'{0}\')" style="vertical-align: middle;" src="../../../style/image/delete.png" />',
 																					row.userId);
 																}
-															} ] ],toolbar : '#toolbar',
-											onBeforeLoad : function(param) {
-												parent.$.messager.progress({
-													text : '数据加载中....'
-												});
-											},
-											onSortColumn : function(sort, order) {
-											},
-											onLoadSuccess : function(data) {
-												$('.iconImg').attr('src',cxw.pixel_0);
-												parent.$.messager
-														.progress('close');
-											}
+															} ] ],
+											toolbar : '#toolbar'
 										});
 					});
 </script>
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-		
+
 		<div id="chart"></div>
 		<div id="toolbar">
-		<div style="padding: 20px; padding: 10px; text-align: center;">
-			<div id="permission1" onclick="addFun(this);" class="add">
-				<img alt="最高权限" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">最高权限</span>
-			</div>
-			<div id="permission2" onclick="addFun(this);" class="add">
-				<img alt="财务权限" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">财务权限</span>
-			</div>
-			<div id="permission3" onclick="addFun(this);" class="add">
-				<img alt="人事权限" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">人事权限</span>
-			</div>
-			<div id="permission4" onclick="addFun(this);" class="add">
-				<img alt="教务权限" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">教务权限</span>
-			</div>
-			<div id="permission5" onclick="addFun(this);" class="add">
-				<img alt="教师权限" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">教师权限</span>
-			</div>
-			<div id="permission6" onclick="addFun(this);" class="add">
-				<img alt="多校主管" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">多校主管</span>
-			</div>
-			<div id="permission7" onclick="addFun(this);" class="add">
-				<img alt="单校主管" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">单校主管</span>
-			</div>
-			<div id="permission8" onclick="addFun(this);" class="add">
-				<img alt="校区前台" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">校区前台</span>
-			</div>
-			<div id="permission9" onclick="addFun(this);" class="add">
-				<img alt="市场主管" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">市场主管</span>
-			</div>
-			<div id="permission10" onclick="addFun(this);" class="add">
-				<img alt="销售员" src="../../../style/image/plus.png"
-					style="vertical-align: middle;"> <span
-					style="vertical-align: middle;">销售员</span>
+			<div style="padding: 20px; padding: 10px; text-align: center;">
+				<div id="permission1" onclick="addFun(this);" class="add">
+					<img alt="最高权限" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">最高权限</span>
+				</div>
+				<div id="permission2" onclick="addFun(this);" class="add">
+					<img alt="财务权限" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">财务权限</span>
+				</div>
+				<div id="permission3" onclick="addFun(this);" class="add">
+					<img alt="人事权限" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">人事权限</span>
+				</div>
+				<div id="permission4" onclick="addFun(this);" class="add">
+					<img alt="教务权限" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">教务权限</span>
+				</div>
+				<div id="permission5" onclick="addFun(this);" class="add">
+					<img alt="教师权限" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">教师权限</span>
+				</div>
+				<div id="permission6" onclick="addFun(this);" class="add">
+					<img alt="多校主管" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">多校主管</span>
+				</div>
+				<div id="permission7" onclick="addFun(this);" class="add">
+					<img alt="单校主管" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">单校主管</span>
+				</div>
+				<div id="permission8" onclick="addFun(this);" class="add">
+					<img alt="校区前台" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">校区前台</span>
+				</div>
+				<div id="permission9" onclick="addFun(this);" class="add">
+					<img alt="市场主管" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">市场主管</span>
+				</div>
+				<div id="permission10" onclick="addFun(this);" class="add">
+					<img alt="销售员" src="../../../style/image/plus.png"
+						style="vertical-align: middle;"> <span
+						style="vertical-align: middle;">销售员</span>
+				</div>
 			</div>
 		</div>
-		</div>
-		<table id="grid" data-options="border:false"></table>
+		<table id="grid" data-options="border:false,fit:true"></table>
 
 	</div>
 </body>

@@ -13,6 +13,7 @@
 var submitForm = function($dialog,$grid,$pjq) {
 	if ($('form').form('validate')) {		
 		$.post("editStaff", cxw.serializeObject($('form')), function(result) {
+			/* 人事中的controller都在controller下的StaffController来进行后台逻辑的处理 */
 			if (result.success) {
 				$grid.datagrid('load');
 				$dialog.dialog('destroy');

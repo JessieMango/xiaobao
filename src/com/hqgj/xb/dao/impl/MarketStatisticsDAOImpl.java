@@ -1,5 +1,4 @@
 package com.hqgj.xb.dao.impl;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,10 +15,7 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import com.hqgj.xb.bean.Dictionary;
 import com.hqgj.xb.bean.highcharts.Chart;
-import com.hqgj.xb.bean.highcharts.ChartsList;
 import com.hqgj.xb.bean.highcharts.Data;
 import com.hqgj.xb.bean.highcharts.DiagramCharts;
 import com.hqgj.xb.bean.highcharts.DiagramSeries;
@@ -27,6 +23,10 @@ import com.hqgj.xb.bean.highcharts.Options3d;
 import com.hqgj.xb.bean.highcharts.Series;
 import com.hqgj.xb.bean.highcharts.Title;
 import com.hqgj.xb.bean.highcharts.Charts;
+import com.hqgj.xb.bean.highcharts.mixedcharts.MixedCharts;
+import com.hqgj.xb.bean.highcharts.mixedcharts.MixedSei;
+import com.hqgj.xb.bean.highcharts.mixedcharts.MixedSeries;
+import com.hqgj.xb.bean.highcharts.mixedcharts.MixedxAxis;
 import com.hqgj.xb.dao.MarketStatisticsDAO;
 
 /**
@@ -569,90 +569,144 @@ public class MarketStatisticsDAOImpl implements MarketStatisticsDAO {
 
 
 	@Override
-	public ChartsList getQianTaiBaoMingLiang(String starttime,String endtime, String studentType) {
-		
-		//获得课程的名称列表。
-		String courseql="select nameM from Course ";
-		final List<Dictionary> courseList = this.npJdbcTemplate.query(courseql,
-				new RowMapper<Dictionary>() {
-					@Override
-					public Dictionary mapRow(ResultSet rs, int index)
-							throws SQLException {
-						Dictionary dictionary = new Dictionary();
-						dictionary.setNameM(rs.getString("nameM"));
-						return dictionary;
-					}
-				});
-		//获得查询的sql语句
-		String listCourseSql="";
-		final int listCoursenum=courseList.size();
-		logger.info(listCoursenum);
-		for(int i=0;i<courseList.size();i++)
-		{
-			listCourseSql+=",(case when Course.nameM='"+courseList.get(i).getNameM()+"' then 1 else 0 end) '"+i+"' ";
-		}
-		logger.info(listCourseSql);
-		
-		String sql="select  DSeller.nameM SellerName"+listCourseSql+",count(*) countNum "
-				+ " from StudentClass left join DSeller on StudentClass.sellerCode=DSeller.id "
-				+ " left join Class on StudentClass.classCode=Class.classCode "
-				+ " left join Course on Class.courseCode=Course.courseCode "
-				+ " where StudentClass.studentType=:studentType "
-				+ " and StudentClass.enrollDate between :starttime and :endtime "
-				+ " group by SellerName ";
-		logger.info(sql);
-		
+	public MixedCharts getQianTaiBaoMingLiang(String starttime,String endtime, String studentType) {
 		//传递参数解析
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("starttime",  starttime );
 		paramMap.put("endtime", endtime );
 		paramMap.put("studentType", studentType );
+				
 		
-		ChartsList chartsList = new ChartsList();
-		//设置DiagramSeries
-		final List<Charts> results=new ArrayList<Charts>();
-		logger.info("1");
-				
-				
-		//查询数据库
-		this.npJdbcTemplate.query(sql, paramMap,
-				new RowCallbackHandler() {
+		MixedCharts mixedCharts=new MixedCharts();
+		MixedxAxis xAxis=new MixedxAxis();
+		//获得课程的名称列表。
+		String coursesql="select nameM from Course ";
+		final List<String> courseList = this.npJdbcTemplate.query(coursesql,
+				new RowMapper<String>() {
 					@Override
-					public void processRow(ResultSet rs) throws SQLException {
-						Charts charts=new Charts();
-						//设置标题
-						Title title=new Title();
-						title.setText(rs.getString("countNum"));
-						charts.setTitle(title);
-						//设置系列
-						Series series=new Series();
-						List<Data> lDatas=new ArrayList<Data>();
-						Data data =new Data();
-						for(int i=0;i<listCoursenum;i++)
-						{
-							data.setName(rs.getString(i));
-							if(StringUtils.isNotBlank(rs.getString(i))){
-								data.setY(Float.parseFloat(rs.getString(i)));
-							}else{
-								data.setY(0);
-							}
-							lDatas.add(data);
-						}
-						series.setData(lDatas);
-						
-						for(int i=0;i<listCoursenum;i++)
-						{
-							series.getData().get(i).setName(courseList.get(i).getNameM());
-						}
-						series.setName(rs.getString("SellerName"));
-						charts.setSeries(series);
-						results.add(charts);
+					public String mapRow(ResultSet rs, int index)
+							throws SQLException {
+						return rs.getString("nameM");
 					}
 				});
+		xAxis.setCategories(courseList);
+		mixedCharts.setxAxis(xAxis);
+		int courseLength=courseList.size();
 		
-		logger.info("2");
-		chartsList.setCharts(results);
-		return chartsList;
+		
+		
+		//获得销售员列表			
+		String sellersql="select nameM from DSeller ";
+		final List<String> sellerList = this.npJdbcTemplate.query(sellersql,
+				new RowMapper<String>() {
+					@Override
+					public String mapRow(ResultSet rs, int index)
+							throws SQLException {
+						return rs.getString("nameM");
+					}
+				});
+		int sellerLength=sellerList.size();
+		
+		//开始查询，并封装数据
+		MixedSeries series=new MixedSeries();	
+		List<MixedSei> mixedSeiList=new ArrayList<MixedSei>();
+		
+		//获得柱状图的数据
+		for (int row=0;row<sellerLength;row++)
+		{
+			
+			MixedSei mixedSei=new MixedSei();
+			mixedSei.setName(sellerList.get(row));
+			mixedSei.setType("column");
+			final List<Float> data=new ArrayList<Float>();
+			for(int col=0;col<courseLength;col++)
+			{
+				String sql="select DSeller.nameM SellerName,Course.nameM CoursenameM,count(*) countNum "
+						+ "from StudentClass left join DSeller on StudentClass.sellerCode=DSeller.id "
+						+ "left join Class on StudentClass.classCode=Class.classCode "
+						+ " left join Course on Class.courseCode=Course.courseCode "
+						+ "where DSeller.nameM='"+sellerList.get(row)+"' and StudentClass.studentType=:studentType and StudentClass.enrollDate between :starttime and :endtime "
+						+"and Course.nameM='"+courseList.get(col)+ "' group by SellerName ";
+				//查询数据库
+				this.npJdbcTemplate.query(sql, paramMap,
+						new RowCallbackHandler() {
+							@Override
+							public void processRow(ResultSet rs) throws SQLException {
+								if(rs.getRow()==1)
+								{
+									data.add(Float.parseFloat(rs.getString("countNum")));
+								}
+							}
+						});
+				//处理数据集为空的情况
+				if(data.size()<col)
+				{
+					data.add((float) 0);
+				}
+			}
+			mixedSei.setData(data);
+			mixedSeiList.add(mixedSei);
+		}
+		
+		//获得线状图的数据
+		MixedSei splineSeries=new MixedSei();
+		splineSeries.setName("平均值");
+		splineSeries.setType("spline");
+		courseLength = mixedSeiList.get(0).getData().size();
+		List<Float> mixedsplinedata=new ArrayList<Float>();
+		for (int i=0;i<courseLength;i++)
+		{
+			mixedsplinedata.add((float) 0);		
+		}
+		
+		for(MixedSei mixedSei1 : mixedSeiList)
+		{
+			for(int col=0;col<courseLength;col++)
+			{
+				mixedsplinedata.set(col, (mixedsplinedata.get(col) + mixedSei1.getData().get(col))) ;
+			}			
+		}
+		for (int col=0;col<courseLength;col++)
+		{
+			mixedsplinedata.set(col, (mixedsplinedata.get(col)/sellerLength)) ;
+		}
+		splineSeries.setData(mixedsplinedata);
+		
+		
+		
+		
+		//获得饼状图的数据
+		MixedSei pieSeries=new MixedSei();
+		pieSeries.setName("总报名量");
+		pieSeries.setType("pie");
+		List<Integer> center=new ArrayList<Integer>();
+		center.add(150);
+		center.add(80);
+		pieSeries.setCenter(center);
+		
+		
+		List<Float> mixedpiedata=new ArrayList<Float>();
+		for (MixedSei mixedSei1 : mixedSeiList) {
+			float mysum=0;
+			for (float data1 : mixedSei1.getData()) {
+				mysum+=data1;
+			}
+			mixedpiedata.add(mysum);
+		}
+		pieSeries.setData(mixedpiedata);
+		
+	
+		
+		
+		
+		
+		mixedSeiList.add(splineSeries);
+		mixedSeiList.add(pieSeries);
+		
+		//附加数据系列
+		series.setSeries(mixedSeiList);
+		mixedCharts.setSeries(series);
+		return mixedCharts;
 	}
 
 

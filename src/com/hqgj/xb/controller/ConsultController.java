@@ -30,7 +30,7 @@ public class ConsultController {
 	private ConsultService consultService;
 
 	@RequestMapping(value = { "/qiantai/getCouncilSchools",
-			"/jiaowu/getCouncilSchools" }, method = RequestMethod.POST)
+			"/jiaowu/getCouncilSchools","/caiwu/getCouncilSchools" }, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getCouncilSchools(String type) {
 		return consultService.getCouncilSchools(type);
 	}
@@ -45,12 +45,12 @@ public class ConsultController {
 		return consultService.getMark(type);
 	}
 
-	@RequestMapping(value = { "/qiantai/getSellSource", "/jiaowu/getSellSource" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/qiantai/getSellSource", "/jiaowu/getSellSource" , "/caiwu/getSellSource"}, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getSellSource(String type) {
 		return consultService.getSellSource(type);
 	}
 
-	@RequestMapping(value = { "/qiantai/getSeller", "/jiaowu/getSeller" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/qiantai/getSeller", "/jiaowu/getSeller", "/caiwu/getSeller" }, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getSeller(String type) {
 		return consultService.getSeller(type);
 	}

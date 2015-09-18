@@ -11,6 +11,7 @@ var submitForm = function() {
 	if ($('form').form('validate')) {
 		$.post("getJuZhuQuYu", cxw.serializeObject($('form')), function(
 				jsonData) {	
+			/* 市场中的controller都在controller下的MarketStatisticsController来进行后台逻辑的处理 */
 			var ColumnResult="[";
 			for(var i=0;i<jsonData.series.data.length;i++)
 				{

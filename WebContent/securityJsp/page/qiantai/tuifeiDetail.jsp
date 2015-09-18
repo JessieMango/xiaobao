@@ -1,7 +1,10 @@
-<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@	page import="com.hqgj.xb.bean.easyui.SessionInfo"%>
 <%
+	String contextPath = request.getContextPath();
+	SessionInfo sessionInfo = (SessionInfo) session
+			.getAttribute("sessionInfo");
 	String consultId = request.getParameter("consultId") == null
 			? ""
 			: request.getParameter("consultId"); //咨询表ID
@@ -36,7 +39,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>停课详情</title>
+<title>退费详情</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
 	var CalBanlance = function(target) {
@@ -99,11 +102,9 @@
 			<div>
 				<span>办理停课</span> <input type="hidden" name="studentClass_id"
 					value="<%=studentClass_id%>">
-				<!-- 停课转余额;预存余额 -->
-				<input type="hidden" name="operateCode" value="7"> <input
+				<!-- 退费 -->
+				<input type="hidden" name="operateCode" value="9"> <input
 					type="hidden" name="consultId" value="<%=consultId%>">
-				<!-- 学费转余额 -->
-				<input type="hidden" name="payWayCode" value="6">
 			</div>
 			<div>
 				<span>当前班级:</span><span><%=className%></span>|<span><%=courseName%></span><span>学费已收￥</span><span><%=realTuition%></span><strong>-</strong><span>已用</span><input
@@ -116,12 +117,20 @@
 					id="balanceSpan"></span>
 			</div>
 			<div style="text-align: center;">
-				<span>学费剩余</span><input type="text" readonly="readonly" id="balance"
-					name="balance"><span>元(转为余额)</span>
+				<span>应退</span><input type="text" id="balance" name="balance"><span>元</span><select
+					name="payWayCode" id="payWayCode">
+					<option value="1">现金退款</option>
+					<option value="2">刷卡退款</option>
+					<option value="3">转账退款</option>
+					<option value="4">支票退款</option>
+					<option value="5">网络支付</option>
+				</select><strong>|</strong><span>(<input type="checkbox"
+					name="isBanlance">不退款，转为余额)
+				</span>
 			</div>
 			<div style="text-align: center;">
-				<label for="stopClassReason">退费原因</label><input type="text"
-					name="stopClassReason" style="width: 400px;">
+				<label for="returnTuitionReason">退费原因</label><input type="text"
+					name="returnTuitionReason" style="width: 400px;">
 			</div>
 			<div style="text-align: center; margin-top: 20px;">
 				<div style="display: inline;">
@@ -135,12 +144,15 @@
 						name="operateDate" class="easyui-datebox"
 						data-options="required:true,value:'getCurrentDate();'" />
 				</div>
+				<div style="display: inline;">
+					<label>经办:</label><span><%=sessionInfo.getUser().getUsername() %></span>
+				</div>
 			</div>
 			<div style="text-align: center; margin-top: 20px;">
 				<button type="button" id="btn_save">
-					<img alt="办理停课" style="vertical-align: middle;"
+					<img alt="办理退费" style="vertical-align: middle;"
 						src="../../../style/image/save.gif"><span
-						style="vertical-align: middle;">办理停课</span>
+						style="vertical-align: middle;">办理退费</span>
 				</button>
 			</div>
 		</div>

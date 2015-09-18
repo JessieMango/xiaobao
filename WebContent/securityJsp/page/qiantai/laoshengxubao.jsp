@@ -79,13 +79,13 @@ input[type='text'] {
 									{
 										field : 'liveArea',
 										title : '居住区域',
-										width : "4%",
+										width : "5%",
 										align : 'center'
 									},
 									{
 										field : 'className',
 										title : '班级',
-										width : "7%",
+										width : "6%",
 										align : 'center'
 									},
 									{
@@ -249,13 +249,8 @@ input[type='text'] {
 															'<input type="button" value="续报" style="color:black; font-weight:bold; width:60px;" onclick="enrollFun(\'{0}\')" />',
 															row.consultId);
 										}
-									} ] ],toolbar : '#toolbar',
-							onBeforeLoad : function(param) {
-							},
-							onSortColumn : function(sort, order) {
-							},
-							onLoadSuccess : function(data) {
-							}
+									} ] ],
+							toolbar : '#toolbar'
 						});
 	}
 
