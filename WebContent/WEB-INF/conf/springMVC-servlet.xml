@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/util
@@ -10,16 +10,21 @@
     http://www.springframework.org/schema/context 
     http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/mvc
-    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+    http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.1.xsd">
 
 	<!-- 访问项目时，首先走默认的 web.xml 配置的servlet，没有的话才找对应controller -->
 	<mvc:default-servlet-handler />
+	
+	<task:annotation-driven/>
 
 	<context:annotation-config />
 	<!-- 激活@Controller模式 -->
 	<mvc:annotation-driven />
 	<!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 需要更改 -->
 	<context:component-scan base-package="com.hqgj.xb.*"></context:component-scan>
+	<!-- 任务调度 -->
 
 	<!-- 这样配置的目地是了支持json数据的转换 -->
 	<bean

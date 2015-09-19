@@ -1,6 +1,8 @@
 package com.hqgj.xb.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -43,6 +45,15 @@ public class StudentClassDAOImpl implements StudentClassDAO {
 				.createBatch(studentClasses.toArray());
 		SqlParameterSource[] parameterSources2 = SqlParameterSourceUtils
 				.createBatch(studentClass_TextbookFees.toArray());
+		int length = studentClasses.size();
+		Map<String, String> map = new HashMap<String, String>();
+		for (int i = 0; i < length; i++) {
+			map.clear();
+			map.put("classCode", studentClasses.get(i).getClassCode());
+			this.nJdbcTemplate
+					.update("update Class set actualNumber=actualNumber+1 where classCode=:classCode ",
+							map);
+		}
 		int[] n1 = this.nJdbcTemplate.batchUpdate(sqlSC, parameterSources1);
 		int[] n2 = this.nJdbcTemplate.batchUpdate(sqlSCTF, parameterSources2);
 		logger.info(n1.length);
