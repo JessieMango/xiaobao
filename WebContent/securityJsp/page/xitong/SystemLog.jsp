@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	String contextPath = request.getContextPath();
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录日志</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
-
+/* 系统登录日志中的controller都在controller下的SystemLogController来进行后台逻辑的处理 */
 <script type="text/javascript">
 	function init() {
 		$('#cc').datebox({

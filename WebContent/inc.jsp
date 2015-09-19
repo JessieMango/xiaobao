@@ -66,7 +66,7 @@ cxw.pixel_0 = '<%=contextPath%>/style/images/pixel_0.gif';//0像素的背景，�
 
 
 <%-- 引入EasyUI --%>
-<link id="easyuiTheme" rel="stylesheet" href="<%=contextPath%>/jslib/easyui/themes/default/easyui.css" type="text/css">
+<link id="easyuiTheme" rel="stylesheet" href="<%=contextPath%>/jslib/easyui/themes/bootstrap/easyui.css" type="text/css">
 <script type="text/javascript" 	src="<%=contextPath%>/jslib/easyui/jquery.easyui.min.js" charset="utf-8"></script>
 <script type="text/javascript" 	src="<%=contextPath%>/jslib/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 	

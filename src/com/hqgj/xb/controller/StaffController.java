@@ -33,25 +33,27 @@ public class StaffController {
 	private StaffService staffService;
 	
 	private Logger logger = Logger.getLogger(UserDaoImpl.class);
-	
+	//获取员工的政治属性列表
 	@RequestMapping(value = "/renshi/getpoliticalStatus", method = RequestMethod.POST)
 	public @ResponseBody List<Dictionary> getpoliticalStatus(String type) {
 		return staffService.getpoliticalStatus(type);
 	}
-	
+	//获取劳动关系字典表中的数据
 	@RequestMapping(value = "/renshi/getlaborRelations", method = RequestMethod.POST)
 	public @ResponseBody List<Dictionary> getlaborRelations(String type) {
 		return staffService.getlaborRelations(type);
 	}
-	
+	//获得员工状态的字典表中的数据
 	@RequestMapping(value = "/renshi/getpersonnelstatus", method = RequestMethod.POST)
 	public @ResponseBody List<Dictionary> getpersonnelstatus(String type){
 		return staffService.getpersonnelstatus(type);
 	}
+	//获得员工的社保状态的字典表中的数据
 	@RequestMapping(value = "/renshi/getsocialsecurityStatus", method = RequestMethod.POST)
 	public @ResponseBody List<Dictionary> getsocialsecurityStatus(String type) {
 		return staffService.getsocialsecurityStatus(type);
 	}
+	//创建新员工
 	@RequestMapping(value = "/renshi/createStaff", method = RequestMethod.POST)
 	public @ResponseBody Json createStaff(User user,Staff staff) {
 		Json json = new Json();
@@ -64,18 +66,18 @@ public class StaffController {
 		}
 		return json;
 	}
-	
+	//获得员工的标志
 	@RequestMapping(value = "/renshi/getStaffTag", method = RequestMethod.POST)
 	public @ResponseBody List<Staff> getStaffTag(String type) {
 		return staffService.getStaffTag(type);
 	}
-	
+	//获得面试期员工列表
 	@RequestMapping(value = "/renshi/Getmianshiqi", method = RequestMethod.POST)
 	public @ResponseBody Grid Getmianshiqi(Staff staff, Parameter parameter) {
 		return staffService.Getmianshiqi(staff, parameter);
 	}
 	
-	
+	//删除面试期员工，根据员工的ＩＤ
 	@RequestMapping(value = "/renshi/deletemianshiqi", method = RequestMethod.POST)
 	public @ResponseBody Json deletemianshiqi(HttpServletRequest request) {
 		logger.info("132");
@@ -113,13 +115,13 @@ public class StaffController {
 		return staffService.getstaffByuserId(userId);
 	}
 	
-	
+	//获得所有处于培训期员工的信息
 	@RequestMapping(value = "/renshi/Getpeixunshiyong", method = RequestMethod.POST)
 	public @ResponseBody Grid Getpeixunshiyong(Staff staff, Parameter parameter) {
 		return staffService.Getpeixunshiyong(staff, parameter);
 	}
 	
-	
+	//删除培训其员工的信息，根据的是员工的iD
 	@RequestMapping(value = "/renshi/deletepeixunshiyong", method = RequestMethod.POST)
 	public @ResponseBody Json deletepeixunshiyong(HttpServletRequest request) {
 		String userId = request.getParameter("userId");
@@ -135,13 +137,13 @@ public class StaffController {
 	}
 
 	
-	
+	//获取转正失败的员工的信息
 	@RequestMapping(value = "/renshi/Getzhuanzhengshibai", method = RequestMethod.POST)
 	public @ResponseBody Grid Getzhuanzhengshibai(Staff staff, Parameter parameter) {
 		return staffService.Getzhuanzhengshibai(staff, parameter);
 	}
 	
-	
+	//删除转正失败的员工信息
 	@RequestMapping(value = "/renshi/deletezhuanzhengshibai", method = RequestMethod.POST)
 	public @ResponseBody Json deletezhuanzhengshibai(HttpServletRequest request) {
 		String userId = request.getParameter("userId");
@@ -155,12 +157,13 @@ public class StaffController {
 		}
 		return json;
 	}
+	//获取正式员工或者是停职员工的信息列表
 	@RequestMapping(value = "/renshi/Getzhengshitingzhi", method = RequestMethod.POST)
 	public @ResponseBody Grid Getzhengshitingzhi(Staff staff, Parameter parameter) {
 		return staffService.Getzhengshitingzhi(staff, parameter);
 	}
 	
-	
+	//删除正式员工，或者停职员工的信息
 	@RequestMapping(value = "/renshi/deletezhengshitingzhi", method = RequestMethod.POST)
 	public @ResponseBody Json deletezhengshitingzhi(HttpServletRequest request) {
 		String userId = request.getParameter("userId");
@@ -174,12 +177,13 @@ public class StaffController {
 		}
 		return json;
 	}
+	//获取已经离职或者解聘的员工的信息列表
 	@RequestMapping(value = "/renshi/Getlizhijiepin", method = RequestMethod.POST)
 	public @ResponseBody Grid Getlizhijiepin(Staff staff, Parameter parameter) {
 		return staffService.Getlizhijiepin(staff, parameter);
 	}
 	
-	
+	//删除已经离职或者解聘的员工的信息
 	@RequestMapping(value = "/renshi/deletelizhijiepin", method = RequestMethod.POST)
 	public @ResponseBody Json deletelizhijiepin(HttpServletRequest request) {
 		String userId = request.getParameter("userId");
@@ -193,7 +197,7 @@ public class StaffController {
 		}
 		return json;
 	}
-	
+	//查询正式员工的生日信息
 	@RequestMapping(value = "/renshi/Getyuangongshengri", method = RequestMethod.POST)
 	public @ResponseBody Grid Getyuangongshengri(Staff staff, Parameter parameter) {
 		return staffService.Getyuangongshengri(staff, parameter);

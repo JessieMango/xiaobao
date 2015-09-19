@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	String contextPath = request.getContextPath();
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +12,7 @@
 	function init() {
 
 		$('#staffTag').combobox({
+			/* 人事中的controller都在controller下的StaffController来进行后台逻辑的处理 */
 			onLoadSuccess : function(data) {
 				if (data) {
 					$('#staffTag').combobox('setValue', data[0].id);
@@ -54,7 +52,7 @@
 									{
 										field : 'username',
 										title : '姓名',
-										width : "9%",
+										width : "15%", 
 										align : 'center'
 
 									},
@@ -73,7 +71,7 @@
 									},
 									{
 										field : 'birthday',
-										title : '生日',
+										title : '生日', 
 										width : "9%",
 										align : 'center'
 

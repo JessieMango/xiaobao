@@ -10,6 +10,7 @@
 	var submitForm = function() {
 		if ($('form').form('validate')) {
 			$.post("getMeiYueXinSheng", cxw.serializeObject($('form')),
+					/* 市场中的controller都在controller下的MarketStatisticsController来进行后台逻辑的处理 */
 					function(jsonData) {
 						$("#container").highcharts({
 							title : {

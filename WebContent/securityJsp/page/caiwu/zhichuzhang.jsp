@@ -7,6 +7,7 @@
 <title>支出帐</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
 <script type="text/javascript">
+/* 财务中的controller都在controller下的FinancialStatisticsController来进行后台逻辑的处理 */
 	var grid;
 	var addFun = function(id) {
 		var title = "增加支出记录";

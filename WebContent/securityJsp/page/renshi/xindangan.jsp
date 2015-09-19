@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-	String contextPath = request.getContextPath();
-	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +9,7 @@
 <script type="text/javascript">
 var submitForm = function() {
 	if ($('form').form('validate')) {
+		/* 人事中的controller都在controller下的StaffController来进行后台逻辑的处理 */
 		$.post("createStaff", cxw.serializeObject($('form')), function(
 				result) {
 			if (result.success) {
@@ -75,15 +73,15 @@ var submitForm = function() {
 	});
 </script>
 <style type="text/css">
+*{
+	font-size:12px
+}
 	input{
  border: 1px solid #95b8e7; margin: 0;padding: 0 2px;vertical-align: middle;border-radius: 5px;height:20px;
  }
 textarea{
  border: 1px solid #95b8e7; margin: 0;padding: 0 2px;vertical-align: middle;border-radius: 5px
-}
-lable{
-	font-size:14px;
-}
+} 
 .dvRowSpan{
 	margin-top:10px;
 }
