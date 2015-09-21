@@ -30,6 +30,7 @@ input[type='text'] {
 						}
 					}
 				});
+		
 		$('#courseTypeCode1').combobox(
 				{
 					onLoadSuccess : function(data) {
@@ -59,7 +60,7 @@ input[type='text'] {
 		grid = $('#grid')
 				.datagrid(
 						{
-							url : 'getJiaoShiKeShi',
+							url : '',
 							striped : true,
 							pagination : true,
 							rownumbers : true,
@@ -84,7 +85,8 @@ input[type='text'] {
 										width : "5%",
 										align : 'center'
 
-									} ] ],toolbar : '#toolbar',
+									} ] ],
+							toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								var varify = cxw.checkStartTimeBeforeEndTime(
 										'#startTime', '#endTime');
@@ -100,7 +102,9 @@ input[type='text'] {
 						});
 
 		var perDate = firstOfMouthDate();
+		
 		$("#startTime").datebox("setValue", perDate);
+		
 	}
 
 	$(document).ready(function() {

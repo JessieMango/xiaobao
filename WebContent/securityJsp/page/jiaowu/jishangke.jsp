@@ -15,6 +15,12 @@ a {
 <script type="text/javascript">
 	var grid;
 
+	/* 记上课 */
+	var recordLessson = function(classCode, nameM) {
+		window.location.href = "jishangkeDetail.jsp?classCode=" + classCode
+				+ "&nameM=" + nameM;
+	}
+
 	var deleteFun = function(classCode) {
 		$.post("deleteClass", {
 			classCode : classCode
@@ -148,10 +154,12 @@ a {
 										formatter : function(value, row) {
 											return cxw
 													.formatString(
-															'<button onclick=""><img src="../../../style/image/plus_1.png" alt="记上课" width="16" height="16" border="0" align="absbottom" /><span class="F_Red"><b>记上课</b></span></button>',
-															row.classCode);
+															'<button onclick="recordLessson(\'{0}\',\'{1}\')"><img src="../../../style/image/plus_1.png" alt="记上课" width="16" height="16" border="0" align="absbottom" /><span class="F_Red"><b>记上课</b></span></button>',
+															row.classCode,
+															row.nameM);
 										}
-									} ] ],toolbar : '#toolbar',
+									} ] ],
+							toolbar : '#toolbar',
 							onBeforeLoad : function(param) {
 								parent.$.messager.progress({
 									text : '数据加载中....'
@@ -176,7 +184,7 @@ a {
 		<div id="toolbar">
 			<div>
 				<form id="form1">
-					<div style="margin-top:5px;margin-left:21%">
+					<div style="margin-top: 5px; margin-left: 21%">
 						<b><label for="nameM">班级名称&nbsp;</label></b><input type="text"
 							name="nameM" class="easyui-validatebox" />&nbsp; <a
 							href="javascript:void(0);" class="easyui-linkbutton"

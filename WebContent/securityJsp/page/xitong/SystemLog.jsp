@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录日志</title>
 <jsp:include page="../../../inc.jsp"></jsp:include>
-/* 系统登录日志中的controller都在controller下的SystemLogController来进行后台逻辑的处理 */
 <script type="text/javascript">
+	/* 系统登录日志中的controller都在controller下的SystemLogController来进行后台逻辑的处理 */
 	function init() {
 		$('#cc').datebox({
 			required : true,

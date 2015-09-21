@@ -35,7 +35,7 @@ public class ConsultController {
 		return consultService.getCouncilSchools(type);
 	}
 
-	@RequestMapping(value = "/qiantai/getWillDegree", method = RequestMethod.POST)
+	@RequestMapping(value = {"/qiantai/getWillDegree","/jiaowu/getWillDegree"}, method = RequestMethod.POST)
 	public @ResponseBody List<Consult> getWillDegree(String type) {
 		return consultService.getWillDegree(type);
 	}
