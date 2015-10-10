@@ -20,7 +20,7 @@
 											pagination : true,
 											rownumbers : true,
 											fitColumns : true,
-											fit:true,
+											fit : true,
 											nowrap : false,
 											idField : 'userId',
 											pageSize : 20,
@@ -94,9 +94,9 @@
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-	 
+		<div style="width: 80%; margin: 0 auto;">
 			<table id="grid" data-options="border:false"></table>
-		 
+		</div>
 	</div>
 </body>
 </html>

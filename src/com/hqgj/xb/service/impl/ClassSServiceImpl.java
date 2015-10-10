@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hqgj.xb.bean.ClassS;
 import com.hqgj.xb.bean.ClassTimePlan;
+import com.hqgj.xb.bean.RecordLesson;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 import com.hqgj.xb.dao.ClassSDAO;
@@ -49,6 +50,11 @@ public class ClassSServiceImpl implements ClassSService {
 	@Override
 	public List<ClassS> getClassSByCourseCode(String courseCode) {
 		return classSDAO.getClassSByCourseCode(courseCode);
+	}
+
+	@Override
+	public List<RecordLesson> getStudentByClassCode(String classCode) {
+		return classSDAO.getStudentByClassCode(classCode);
 	}
 
 }

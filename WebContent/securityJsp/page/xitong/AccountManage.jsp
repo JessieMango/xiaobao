@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	var grid;
 	var resetPassword = function(userId, username) {
-		$.messager.alert('重置密码', '新密码:123456', 'info', function(r) {
+		$.messager.alert('重置密码', '新密码:123', 'info', function(r) {
 			$.post("resetPwd", {
 				id : userId
 			}, function(data) {
@@ -348,7 +348,7 @@
 				<div id="permission8" onclick="addFun(this);" class="add">
 					<img alt="校区前台" src="../../../style/image/plus.png"
 						style="vertical-align: middle;"> <span
-						style="vertical-align: middle;">校区前台</span>
+						style="vertical-align: middle;">前台咨询</span>
 				</div>
 				<div id="permission9" onclick="addFun(this);" class="add">
 					<img alt="市场主管" src="../../../style/image/plus.png"

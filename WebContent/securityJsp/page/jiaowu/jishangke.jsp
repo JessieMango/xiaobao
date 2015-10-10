@@ -17,8 +17,8 @@ a {
 
 	/* 记上课 */
 	var recordLessson = function(classCode, nameM) {
-		window.location.href = "jishangkeDetail.jsp?classCode=" + classCode
-				+ "&nameM=" + nameM;
+		window.open("jishangkeDetail.jsp?classCode=" + classCode + "&nameM="
+				+ nameM);
 	}
 
 	var deleteFun = function(classCode) {

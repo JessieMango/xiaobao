@@ -23,6 +23,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hqgj.xb.bean.ClassS;
 import com.hqgj.xb.bean.ClassTimePlan;
+import com.hqgj.xb.bean.RecordLesson;
 import com.hqgj.xb.bean.User;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
@@ -814,6 +815,30 @@ public class ClassSDAOImpl implements ClassSDAO {
 		tc.setClassCode("qb");
 		tc.setNameM("请选择班级");
 		results.add(0, tc);
+		return results;
+	}
+
+	@Override
+	public List<RecordLesson> getStudentByClassCode(String classCode) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("classCode", classCode);
+		String sql = "SELECT co.nameM studentName,c.actualNumber,u.username assistant,uu.username teacher FROM StudentClass sc LEFT OUTER JOIN Class c on c.classCode=sc.classCode "
+				+ "	LEFT OUTER JOIN Consult co on co.id=sc.studentCode LEFT OUTER JOIN `User` u on u.userId=c.assistantCode "
+				+ " LEFT OUTER JOIN `User` uu on uu.userId=c.teacherCode where sc.classCode=:classCode";
+		List<RecordLesson> results = this.nJdbcTemplate.query(sql, map,
+				new RowMapper<RecordLesson>() {
+					@Override
+					public RecordLesson mapRow(ResultSet rs, int index)
+							throws SQLException {
+						RecordLesson recordLesson = new RecordLesson();
+						recordLesson.setStudentName(rs.getString("studentName"));
+						recordLesson.setTeacher(rs.getString("teacher"));
+						recordLesson.setAssistant(rs.getString("assistant"));
+						recordLesson.setActualNumber(rs
+								.getString("actualNumber"));
+						return recordLesson;
+					}
+				});
 		return results;
 	}
 }

@@ -69,7 +69,7 @@
 				<tr>
 					<th>密码:</th>
 					<td><input class="easyui-validatebox" name="pwd"
-						value="123456" data-options="required:true"></td>
+						value="123" data-options="required:true"></td>
 				</tr>
 				<tr>
 					<th>登录日期:</th>

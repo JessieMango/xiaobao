@@ -5,6 +5,7 @@
 
 </style>
 <script type="text/javascript"> 
+
 function toggleTab(target) {
 	if ($(target).attr("name") == "exit") {
 		$.get("loginOut", function(result) {

@@ -25,27 +25,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 </head>
-<body>
-	<div class="footer">
+<body> 
+	<div class="footer" style="background:#333">
 		<div class="td">
 			<a href="#" target="_blank" style="display: inline;"><img
 				class="img" alt="版本" src="../style/image/v_pro.gif" /> </a>
 		</div>
 		<div class="td">
 			<img alt="用户" src="../style/image/User.gif" class="img" /><span
-				class="BlueFont"><%=username%></span>
+				class="BlueFont" style="color:#fff"><%=username%></span>
 		</div>
 		<div class="td">
 			<img alt="权限范围" src="../style/image/School.gif" class="img" /><span
-				class="BlueFont"><%=scope%></span>
+				class="BlueFont" style="color:#fff"><%=scope%></span>
 		</div>
 		<div class="td">
 			<img alt="权限类型" src="../style/image/key.gif" class="img" /><span
-				class="BlueFont"><%=power%></span>
+				class="BlueFont" style="color:#fff"><%=power%></span>
 		</div>
 		<div class="td">
 			<img alt="登陆时限" src="../style/image/time.gif" class="img" /><span
-				class="BlueFont"><%=time%></span>
+				class="BlueFont" style="color:#fff"><%=time%></span>
 		</div>
 	</div>
 </body>

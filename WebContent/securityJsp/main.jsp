@@ -16,7 +16,12 @@
 <title>教育+ 校务管理系统 Educator</title>
 <jsp:include page="../inc.jsp"></jsp:include>
 <script type="text/javascript">
+	var mainMenu;
 	var mainTabs;
+	/* 切换子菜单 */
+	var clickIndex = function(target){
+		$('#menu_left').accordion("select",$(target).html());
+	}
 	$(function() {
 		$('#mainLayout').layout('panel', 'center').panel(
 				{
@@ -105,24 +110,40 @@
 									} ]
 						});
 
+		$.get("getResource", function(data) {
+			$(data).each(
+					function(index, menu) {
+						$('#mainMenu').append(
+								"<li><span class='menuSpan' name='" + menu.id
+										+ "' onclick='clickIndex(this);' >"
+										+ menu.name + "</span></li>");
+					});
+		});
+
 	});
 </script>
+<style type="text/css">
+.accordion .accordion-header-selected{
+	background:#605ca8; 
+}
+.tabs-title{
+ color:#605ca8;
+}
+
+
+</style>
 </head>
 <body id="mainLayout" class="easyui-layout">
 	<div
-		data-options="region:'north',href:'<%=contextPath%>/securityJsp/north.jsp'"
-		style="height: 80px; overflow: hidden; border: 0;"></div>
-	<div
-		data-options="region:'west',title:'导航',split:true,href:'<%=contextPath%>/securityJsp/menu.jsp'"
-		style="width: 180px;"></div>
-	<div data-options="region:'center'"
-		style="overflow: hidden; border: 0;">
-		<div id="mainTabs">
-			<div title="桌面" data-options="iconCls:'ext-icon-world',closable:true">
-				<iframe src="<%=contextPath%>/securityJsp/page/welcome.jsp"
+		data-options="region:'north'"
+		style="height:140px; overflow: hidden; border: 0;">
+		<iframe src="<%=contextPath%>/securityJsp/top.jsp"
 					style="border: 0; width: 100%; height: 99%;"></iframe>
-			</div>
-		</div>
+		</div> 
+	<div data-options="region:'center'"
+		style="overflow: hidden; border: 0; background: #ddd;">
+	 <iframe id="centerFrame" src="<%=contextPath%>/securityJsp/page/welcome.jsp"
+					style="border: 0; width: 100%; height: 99%;padding-top:10px"></iframe>
 	</div>
 
 	<div

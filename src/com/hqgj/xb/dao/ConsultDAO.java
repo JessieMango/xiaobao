@@ -124,7 +124,16 @@ public interface ConsultDAO {
 	 * @return
 	 */
 	public int deleteConsult(String id);
-	
+
+	/**
+	 * 查询生日学员
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年10月9日 下午5:12:19
+	 * @param StudentMonth
+	 * @param parameter
+	 * @return
+	 */
 	public Grid GetShengRiXueYuan(String StudentMonth, Parameter parameter);
 
 }

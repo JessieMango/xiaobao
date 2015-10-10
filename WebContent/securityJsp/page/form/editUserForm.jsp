@@ -41,27 +41,29 @@
 			$.post("getUserByUserId", {userId :"<%=userId%>"}, function(result) {
 				permission = result.permission;
 				var loginDate = result.loginDate;
-				if(loginDate.indexOf("1") != -1){
-					$("#check1").attr("checked","checked");
-				} 
-				if(loginDate.indexOf("2") != -1){
-					$("#check2").attr("checked","checked");
-				} 
-				if(loginDate.indexOf("3") != -1){
-					$("#check3").attr("checked","checked");
-				} 
-				if(loginDate.indexOf("4") != -1){
-					$("#check4").attr("checked","checked");
-				} 
-				if(loginDate.indexOf("5") != -1){
-					$("#check5").attr("checked","checked");
-				} 
-				if(loginDate.indexOf("6") != -1){
-					$("#check6").attr("checked","checked");
-				} 
-				if(loginDate.indexOf("7") != -1){
-					$("#check7").attr("checked","checked");
-				}			
+				if(loginDate != null){
+					if(loginDate.indexOf("1") != -1){
+						$("#check1").attr("checked","checked");
+					} 
+					if(loginDate.indexOf("2") != -1){
+						$("#check2").attr("checked","checked");
+					} 
+					if(loginDate.indexOf("3") != -1){
+						$("#check3").attr("checked","checked");
+					} 
+					if(loginDate.indexOf("4") != -1){
+						$("#check4").attr("checked","checked");
+					} 
+					if(loginDate.indexOf("5") != -1){
+						$("#check5").attr("checked","checked");
+					} 
+					if(loginDate.indexOf("6") != -1){
+						$("#check6").attr("checked","checked");
+					} 
+					if(loginDate.indexOf("7") != -1){
+						$("#check7").attr("checked","checked");
+					}			
+				}
 				
 				$('form').form('load', {
 					'power' : result.power,

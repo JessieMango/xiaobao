@@ -176,7 +176,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int resetPwd(String userId) {
 		String sql = "UPDATE `User` SET `password`=:pwd WHERE userId=:userId";
-		String pwd = MD5Util.md5("123456");
+		String pwd = MD5Util.md5("123");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("pwd", pwd);
 		map.put("userId", userId);
@@ -260,23 +260,24 @@ public class UserDaoImpl implements UserDao {
 		String sqlBatch = "insert into User_Permission (user_id,permission_id) values (:userId,:permission_id)";
 		SqlParameterSource userParameterSource = new BeanPropertySqlParameterSource(
 				user);
-		String[] permission_id = user.getPermission().split(",");
-		List<UserPermission> list = new ArrayList<UserPermission>();
-		for (int i = 0; i < permission_id.length; i++) {
-			UserPermission userPermission = new UserPermission();
-			userPermission.setUserId(user.getUserId());
-			userPermission.setPermission_id(permission_id[i]);
-			list.add(userPermission);
-		}
-		SqlParameterSource[] parameterSources = SqlParameterSourceUtils
-				.createBatch(list.toArray());
 		int n1 = this.npJdbcTemplate.update(sqlUser, userParameterSource);
 		int n2 = this.npJdbcTemplate.update(sqlDeletePermissionByUserId,
 				userParameterSource);
-		int[] insertCounts = this.npJdbcTemplate.batchUpdate(sqlBatch,
-				parameterSources);
-		logger.info("insertCounts:" + insertCounts.length);
-		return n1 + n2 + insertCounts.length;
+		if(StringUtils.isNotBlank(user.getPermission())){
+			String[] permission_id = user.getPermission().split(",");
+			List<UserPermission> list = new ArrayList<UserPermission>();
+			for (int i = 0; i < permission_id.length; i++) {
+				UserPermission userPermission = new UserPermission();
+				userPermission.setUserId(user.getUserId());
+				userPermission.setPermission_id(permission_id[i]);
+				list.add(userPermission);
+			}
+			SqlParameterSource[] parameterSources = SqlParameterSourceUtils
+					.createBatch(list.toArray());
+			this.npJdbcTemplate.batchUpdate(sqlBatch,
+					parameterSources);
+		}
+		return n1 + n2;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hqgj.xb.bean.ClassS;
 import com.hqgj.xb.bean.ClassTimePlan;
+import com.hqgj.xb.bean.RecordLesson;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;
 
@@ -70,5 +71,15 @@ public interface ClassSDAO {
 	 * @return
 	 */
 	public int updateClass(ClassS cla, ClassTimePlan classTimePlan);
+
+	/**
+	 * 获取指定班级的学生
+	 * 
+	 * @author 崔兴伟
+	 * @datetime 2015年10月9日 下午5:14:00
+	 * @param classCode
+	 * @return
+	 */
+	public List<RecordLesson> getStudentByClassCode(String classCode);
 
 }

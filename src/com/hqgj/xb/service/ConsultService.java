@@ -2,8 +2,6 @@ package com.hqgj.xb.service;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.hqgj.xb.bean.Consult;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Parameter;

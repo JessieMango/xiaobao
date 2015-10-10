@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hqgj.xb.bean.ClassS;
 import com.hqgj.xb.bean.ClassTimePlan;
+import com.hqgj.xb.bean.RecordLesson;
 import com.hqgj.xb.bean.easyui.Grid;
 import com.hqgj.xb.bean.easyui.Json;
 import com.hqgj.xb.bean.easyui.Parameter;
@@ -95,6 +96,12 @@ public class ClassSController {
 			json.setMsg("删除失败");
 		}
 		return json;
+	}
+
+	@RequestMapping(value = "/jiaowu/getStudentByClassCode", method = RequestMethod.POST)
+	public @ResponseBody List<RecordLesson> getStudentByClassCode(
+			String classCode) {
+		return classSService.getStudentByClassCode(classCode);
 	}
 
 }

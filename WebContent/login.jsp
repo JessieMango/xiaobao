@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>登录</title>
+<title>教育+ 教务管理系统 Educator</title>
 <link href="<%=contextPath%>/style/login.css" style="text/css"
 	rel="stylesheet" />
 <script type="text/javascript"
@@ -51,14 +51,14 @@
 			effect : "left",
 			autoPlay : true
 		});
-		$.each($(".morePlatform img"),function(i,m){
-			$(this).mouseover(function(){
-				$(this).css("width","150px");
-				$(this).css("height","150px");
+		$.each($(".morePlatform img"), function(i, m) {
+			$(this).mouseover(function() {
+				$(this).css("width", "150px");
+				$(this).css("height", "150px");
 			});
-			$(this).mouseout(function(){
-				$(this).css("width","80px");
-				$(this).css("height","80px");
+			$(this).mouseout(function() {
+				$(this).css("width", "80px");
+				$(this).css("height", "80px");
 			});
 		});
 	});
@@ -137,7 +137,10 @@
 			</div>
 			<div class="navBar">
 				<div class="menu">
-					<a href="" target="_blank" class="st-btn">学生团体入口</a>
+					<a href="" target="_blank" class="st-btn">学生入口</a>
+				</div>
+				<div class="menu">
+					<a href="" target="_blank" class="st-btn">家长入口</a>
 				</div>
 				<div class="menu">
 					<a href="" title="注册">注册</a>
@@ -170,7 +173,7 @@
 						</dl>
 						<dl>
 							<dd>
-								<span id="msg"></span>
+								<span style="color: red;" id="msg"></span>
 							</dd>
 						</dl>
 						<dl>
@@ -202,16 +205,9 @@
 					<div class="login-word">
 						<div class="login-word-left">其他账号登录:</div>
 						<div class="login-word-right">
-							<a title="移动" class="login-item yidong"
-								href="https://open.mmarket.com:443/omee-aus/services/oauth/authorize?responseType=code&scope=getUserInfo&clientId=300007884008&redirectUri=http%3A%2F%2Fwww.renren.com%2Fbind%2Fcnmobile%2FloginCallBack&clientState=9"
-								id="login_cnmobile"> 移动</a> <a title="天翼"
-								class="login-item tianyi" id="login_tianyi"
-								href="https://oauth.api.189.cn/emp/oauth2/authorize?app_id=296961050000000294&response_type=code&redirect_uri=http://www.renren.com/bind/ty/tyLoginCallBack">天翼</a>
-							<a title="360" class="login-item lo360" id="login_360"
-								href="https://openapi.360.cn/oauth2/authorize?client_id=5ddda4458747126a583c5d58716bab4c&response_type=code&redirect_uri=http://www.renren.com/bind/tsz/tszLoginCallBack&scope=basic&display=default">360</a>
-							<a title="百度" class="login-item baidu"
-								href="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=foRRWjPq8In3SIhmKQw1Pep3&redirect_uri=http%3A%2F%2Fwww.renren.com%2Fbind%2Fbaidu%2FbaiduLoginCallBack"
-								id="login_baidu">百度</a>
+							<a title="QQ" class="login-item yidong" href=""
+								id="login_cnmobile">QQ</a> <a title="微博"
+								class="login-item tianyi" id="login_tianyi" href="">微博</a>
 						</div>
 					</div>
 				</div>
@@ -221,11 +217,13 @@
 					<div id="slideBox" class="slideBox">
 						<div class="bd">
 							<ul>
-								<li><img alt="图片" src="<%=contextPath%>/style/image/AD01.jpg"></li>
-								<li><img alt="图片" src="<%=contextPath%>/style/image/AD02.jpg"></li>
-								<li><img alt="图片" src="<%=contextPath%>/style/image/AD03.jpg">
-								</li>
-								
+								<li><img alt="图片"
+									src="<%=contextPath%>/style/image/AD01.jpg"></li>
+								<li><img alt="图片"
+									src="<%=contextPath%>/style/image/AD02.jpg"></li>
+								<li><img alt="图片"
+									src="<%=contextPath%>/style/image/AD03.jpg"></li>
+
 							</ul>
 						</div>
 						<!-- 下面是前/后按钮代码，如果不需要删除即可 -->
@@ -248,7 +246,7 @@
 		<!-- 网站版权等等 -->
 		<div class="ft-wrapper" style="width: 980px;">
 			<p>
-				<strong>玩转人人</strong> <a target="_blank"
+				<strong>教育家系统</strong> <a target="_blank"
 					href="http://page.renren.com/register/regGuide/">公共主页</a> <a
 					target="_blank" href="http://public.renren.com/">公众平台</a> <a
 					target="_blank" href="http://support.renren.com/helpcenter">客服帮助</a>
@@ -264,28 +262,25 @@
 			<p>
 				<strong>公司信息</strong> <a target="_blank"
 					href="http://www.renren-inc.com/zh/product/renren.html">关于我们</a> <a
-					target="_blank" href="http://page.renren.com/gongyi">人人公益</a> <a
+					target="_blank" href="http://page.renren.com/gongyi">公益</a> <a
 					target="_blank" href="http://www.renren-inc.com/zh/hr/">招聘</a>
 			</p>
 			<p>
 				<strong>友情链接</strong> <a target="_blank"
-					href="http://www.jingwei.com/">经纬网</a> <a target="_blank"
-					href="http://wan.renren.com/">人人游戏</a> <a target="_blank"
-					href="http://fenqi.renren.com/">人人分期</a> <a target="_blank"
-					href="http://quxue.renren.com/">人人趣学</a>
+					href="http://www.hmxtf.com/">环美新托福</a> <a target="_blank"
+					href="www.kaoyandiy.com">考研之家</a>
 			</p>
 			<p>
-				<strong>人人移动客户端下载</strong> <a target="_blank"
+				<strong>移动客户端下载</strong> <a target="_blank"
 					href="http://mobile.renren.com/showClient?v=platform_rr&psf=42064">iPhone/Android</a>
 				<a target="_blank"
 					href="http://mobile.renren.com/showClient?v=platform_hd&psf=42067">iPad客户端</a>
-				<a target="_blank" href="http://mobile.renren.com">其他人人产品</a>
+				<a target="_blank" href="http://mobile.renren.com">其他产品</a>
 			</p>
 			<p style="margi-left: -20px" class="copyright-info">
-				<span>公司全称：环美畅行教育科技有限公司</span> <span>公司电话：010-84481818</span> <span><a
-					href="mailto:admin@renren.com">公司邮箱：admin@renren.com</a></span> <span>公司地址：北京市朝阳区酒仙桥中路18号<br>国投创意信息产业园北楼1层
-				</span> <span><a target="_blank" href="http://www.miibeian.gov.cn/">京ICP证090254号</a></span>
-				<span>人人网&copy;2015</span> <span><a id="lawInfo" href="#nogo">法律声明</a></span>
+				<span>公司全称：环美畅行教育科技有限公司</span> <span><a
+					href="global_english@163.com">公司邮箱：global_english@163.com</a></span> <span><a
+					target="_blank" href="http://www.miibeian.gov.cn/">豫ICP证090254号</a></span>
 			</p>
 		</div>
 
