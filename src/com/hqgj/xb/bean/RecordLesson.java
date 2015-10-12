@@ -26,6 +26,19 @@ public class RecordLesson {
 	private String assistant; // 助教名字
 	private String actualNumber; // 班级总人数
 
+	/**
+	 * 用于接受前台参数on表示选择，off代表未选中
+	 */
+	private String stucheckbox;
+
+	public String getStucheckbox() {
+		return stucheckbox;
+	}
+
+	public void setStucheckbox(String stucheckbox) {
+		this.stucheckbox = stucheckbox;
+	}
+
 	public String getActualNumber() {
 		return actualNumber;
 	}

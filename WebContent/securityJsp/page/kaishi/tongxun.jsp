@@ -83,8 +83,6 @@
 											onSortColumn : function(sort, order) {
 											},
 											onLoadSuccess : function(data) {
-												$('.iconImg').attr('src',
-														cxw.pixel_0);
 												parent.$.messager
 														.progress('close');
 											}
@@ -94,9 +92,7 @@
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
-		<div style="width: 80%; margin: 0 auto;">
-			<table id="grid" data-options="border:false"></table>
-		</div>
+		<table id="grid" data-options="border:false"></table>
 	</div>
 </body>
 </html>
