@@ -310,7 +310,7 @@ public class UserDaoImpl implements UserDao {
 			u.setUserId("qb");
 			if (StringUtils.equals(roleId, "4")) {
 				u.setUsername("全部教师");
-			} else if (StringUtils.equals(roleId, "1")) {
+			} else if (StringUtils.equals(roleId, "11")) {
 				u.setUsername("全部助教");
 			}
 			results.add(0, u);

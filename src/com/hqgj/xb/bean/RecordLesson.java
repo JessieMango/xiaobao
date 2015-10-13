@@ -27,9 +27,18 @@ public class RecordLesson {
 	private String actualNumber; // 班级总人数
 
 	/**
-	 * 用于接受前台参数on表示选择，off代表未选中
+	 * 用于接受前台参数
 	 */
-	private String stucheckbox;
+	private String stucheckbox; // on表示选择，off代表未选中
+	private String dateName; // 1代表上课日期 2代表新建日期
+
+	public String getDateName() {
+		return dateName;
+	}
+
+	public void setDateName(String dateName) {
+		this.dateName = dateName;
+	}
 
 	public String getStucheckbox() {
 		return stucheckbox;

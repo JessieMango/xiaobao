@@ -70,9 +70,9 @@ public class RecordLessonDAOImpl implements RecordLessonDAO {
 		SqlParameterSource[] parameterSources = SqlParameterSourceUtils
 				.createBatch(recordLessons.toArray());
 		String sqlAdd = "INSERT INTO RecordLesson(id,studentCode,classCode,disciplinePoints,activePoints,comment,"
-				+ "lessonNumbers,lessonContent,afterTask,remark,operateDate,handlerCode,teacher,assistant) values "
+				+ "lessonNumbers,lessonContent,afterTask,remark,lessonDate,handlerCode,teacher,assistant) values "
 				+ "(:id,:studentCode,:classCode,:disciplinePoints,:activePoints,:comment,:lessonNumbers,:lessonContent,"
-				+ ":afterTask,:remark,:operateDate,:handlerCode,:teacher,:assistant)";
+				+ ":afterTask,:remark,:lessonDate,:handlerCode,:teacher,:assistant)";
 		int[] n = this.nJdbcTemplate.batchUpdate(sqlAdd, parameterSources);
 		return n.length;
 	}

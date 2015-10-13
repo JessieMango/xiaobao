@@ -683,7 +683,7 @@
 									<div
 										onclick="jumpUrl('<%=contextPath%>/securityJsp/page/caiwu/kucunguanli.jsp')"
 										class="nav">
-										<img src="<%=contextPath%>/style/linke/cucunguanli.png"
+										<img src="<%=contextPath%>/style/linke/kucunguanli.png"
 											alt="Date and time" width="16" height="16" />库存管理
 									</div>
 									<div

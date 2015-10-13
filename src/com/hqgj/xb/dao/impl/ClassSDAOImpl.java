@@ -824,7 +824,7 @@ public class ClassSDAOImpl implements ClassSDAO {
 		map.put("classCode", classCode);
 		String sql = "SELECT co.nameM studentName,c.actualNumber,u.username assistant,uu.username teacher,co.id studentCode,c.classCode FROM StudentClass sc LEFT OUTER JOIN Class c on c.classCode=sc.classCode "
 				+ "	LEFT OUTER JOIN Consult co on co.id=sc.studentCode LEFT OUTER JOIN `User` u on u.userId=c.assistantCode "
-				+ " LEFT OUTER JOIN `User` uu on uu.userId=c.teacherCode where sc.classCode=:classCode";
+				+ " LEFT OUTER JOIN `User` uu on uu.userId=c.teacherCode where sc.studentState=1 and sc.classCode=:classCode";
 		List<RecordLesson> results = this.nJdbcTemplate.query(sql, map,
 				new RowMapper<RecordLesson>() {
 					@Override
