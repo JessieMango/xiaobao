@@ -90,7 +90,7 @@
 									{
 										field : 'username',
 										title : '姓名',
-										width : "20%",
+										width : "10%",
 										align : 'center'
 
 									},
@@ -130,7 +130,7 @@
 									{
 										field : 'contractState',
 										title : '合同',
-										width : "8%",
+										width : "6%",
 										align : 'center',
 										formatter : function(value, row) {
 											if (value == 0) {

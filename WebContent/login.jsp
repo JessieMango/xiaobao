@@ -218,9 +218,9 @@
 						<div class="bd">
 							<ul>
 								<li><img alt="图片"
-									src="<%=contextPath%>/style/image/AD01.jpg"></li>
+									src="<%=contextPath%>/style/image/AD01.png"></li>
 								<li><img alt="图片"
-									src="<%=contextPath%>/style/image/AD02.jpg"></li>
+									src="<%=contextPath%>/style/image/AD02.png"></li>
 								<li><img alt="图片"
 									src="<%=contextPath%>/style/image/AD03.jpg"></li>
 

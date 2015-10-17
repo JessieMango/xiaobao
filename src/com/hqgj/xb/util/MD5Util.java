@@ -3,10 +3,6 @@ package com.hqgj.xb.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.hqgj.xb.bean.User;
-
 /**
  * MD5加密工具类
  * 
@@ -16,7 +12,7 @@ import com.hqgj.xb.bean.User;
 public class MD5Util {
 
 	public static void main(String[] args) {
-		System.out.println(md5("123456"));
+		System.out.println(md5("123"));
 	}
 
 	/**

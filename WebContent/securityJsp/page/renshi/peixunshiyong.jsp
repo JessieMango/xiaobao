@@ -74,7 +74,7 @@
 
 										field : 'username',
 										title : '姓名',
-										width : "20%",
+										width : "9%",
 										align : 'center'
 
 									},
@@ -102,13 +102,13 @@
 									{
 										field : 'education',
 										title : '学历',
-										width : "8%",
+										width : "10%",
 										align : 'center'
 									},
 									{
 										field : 'dlaborRelationsnameM',
 										title : '关系',
-										width : "8%",
+										width : "10%",
 										align : 'center'
 									},
 									{

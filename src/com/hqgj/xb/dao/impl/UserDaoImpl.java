@@ -88,6 +88,10 @@ public class UserDaoImpl implements UserDao {
 				+ "u.loginEndTime,u.carCode,u.permission,u.userId,ur.role_id	FROM `User` u LEFT OUTER JOIN User_Role ur on ur.user_id=u.userId	LEFT OUTER JOIN Role r on r.id=ur.role_id	 ";
 		String sqlUserPermissions = "select up.user_id,p.name  from User_Permission up left outer join Permission p on p.id=up.permission_id order by up.user_id";
 
+		logger.info("islogin:" + parameter.getIslogin());
+		if (StringUtils.equals("1", parameter.getIslogin())) {
+			sql += " where u.islogin=1 ";
+		}
 		final List<UserPermission> userPermissions = new ArrayList<UserPermission>();
 		final List<UserPermission> userPermissionsAfters = new ArrayList<UserPermission>(); // 整理后的user_id->permission
 		this.npJdbcTemplate.query(sqlUserPermissions, new RowCallbackHandler() {
@@ -120,7 +124,6 @@ public class UserDaoImpl implements UserDao {
 			last = userPermission.getUserId();
 		}
 		userPermissionsAfters.add(temp);
-		logger.info(userPermissionsAfters.size());
 
 		final List<User> results = new ArrayList<User>();
 		this.npJdbcTemplate.query(sql, new RowCallbackHandler() {
@@ -144,10 +147,6 @@ public class UserDaoImpl implements UserDao {
 				results.add(user);
 			}
 		});
-		for (UserPermission tt : userPermissionsAfters) {
-			logger.info("userId:" + tt.getUserId() + ";permission:"
-					+ tt.getPermission_id());
-		}
 		for (User result : results) {
 			for (UserPermission tt : userPermissionsAfters) {
 				if (StringUtils.equals(result.getUserId(), tt.getUserId())) {
@@ -185,8 +184,8 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int addUserByRole(User user) {
-		String sqlUser = "insert into User (userId,password,age,username,tel,school,loginStartTime,loginEndTime,gender,carCode,isEnabled,loginDate,photo,createTime,updateTime,permission) "
-				+ "values (:userId,:password,:age,:username,:tel,:school,:loginStartTime,:loginEndTime,:gender,:carCode,:isEnabled,:loginDate,:photo,:createTime,:updateTime,:permission)";
+		String sqlUser = "insert into User (userId,password,age,username,tel,school,loginStartTime,loginEndTime,gender,carCode,isEnabled,loginDate,photo,createTime,updateTime,permission,islogin) "
+				+ "values (:userId,:password,:age,:username,:tel,:school,:loginStartTime,:loginEndTime,:gender,:carCode,:isEnabled,:loginDate,:photo,:createTime,:updateTime,:permission,1)";
 		String sqlUser_Role = "insert into User_Role (user_id,role_id,scope) values (:userId,:power,:scope)";
 		String sqlBatch = "insert into User_Permission (user_id,permission_id) values (:userId,:permission_id)";
 		SqlParameterSource userParameterSource = new BeanPropertySqlParameterSource(
@@ -263,7 +262,7 @@ public class UserDaoImpl implements UserDao {
 		int n1 = this.npJdbcTemplate.update(sqlUser, userParameterSource);
 		int n2 = this.npJdbcTemplate.update(sqlDeletePermissionByUserId,
 				userParameterSource);
-		if(StringUtils.isNotBlank(user.getPermission())){
+		if (StringUtils.isNotBlank(user.getPermission())) {
 			String[] permission_id = user.getPermission().split(",");
 			List<UserPermission> list = new ArrayList<UserPermission>();
 			for (int i = 0; i < permission_id.length; i++) {
@@ -274,8 +273,7 @@ public class UserDaoImpl implements UserDao {
 			}
 			SqlParameterSource[] parameterSources = SqlParameterSourceUtils
 					.createBatch(list.toArray());
-			this.npJdbcTemplate.batchUpdate(sqlBatch,
-					parameterSources);
+			this.npJdbcTemplate.batchUpdate(sqlBatch, parameterSources);
 		}
 		return n1 + n2;
 	}

@@ -49,10 +49,11 @@
 </head>
 <body>
 	<div style="text-align: center;">
-		<select><option value="1">上课日期</option>
+		<select style="width: 120px;"><option value="1">上课日期</option>
 			<option value="2">新建日期</option>
 		</select><input type="text" name="startTime" id="startTime"
-			class="easyui-datebox" data-options="required:true" /> 到 <input
+			style="width: 120px;" class="easyui-datebox"
+			data-options="required:true" /> 到 <input style="width: 120px;"
 			type="text" name="endTime" id="endTime" class="easyui-datebox"
 			data-options="required:true" /><input id="handleSchoolCode"
 			class="easyui-combobox" style="width: 120px;" name="handleSchoolCode"

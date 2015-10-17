@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>校宝</title>
+<title>教育+ 教务管理系统 Educator</title>
 <jsp:include page="inc.jsp"></jsp:include>
 <%
 	SessionInfo sessionInfo = (SessionInfo) session

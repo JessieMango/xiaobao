@@ -90,14 +90,14 @@
 									{
 										field : 'username',
 										title : '姓名',
-										width : "20%",
+										width : "6%",
 										align : 'center'
 
 									},
 									{
 										field : 'gender',
 										title : '性别',
-										width : "3%",
+										width : "4%",
 										formatter : function(value, row, index) {
 											switch (value) {
 											case '0':
@@ -118,19 +118,19 @@
 									{
 										field : 'education',
 										title : '学历',
-										width : "11%",
+										width : "10%",
 										align : 'center'
 									},
 									{
 										field : 'dlaborRelationsnameM',
 										title : '关系',
-										width : "8%",
+										width : "10%",
 										align : 'center'
 									},
 									{
 										field : 'contractState',
 										title : '合同',
-										width : "9%",
+										width : "8%",
 										align : 'center',
 										formatter : function(value, row) {
 											if (value == 0) {

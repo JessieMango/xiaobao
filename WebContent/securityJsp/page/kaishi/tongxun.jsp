@@ -14,7 +14,7 @@
 						grid = $('#grid')
 								.datagrid(
 										{
-											url : 'getAllUsers',
+											url : 'getAllUsers?islogin=0',
 											striped : true,
 											singleSelect : true,
 											pagination : true,

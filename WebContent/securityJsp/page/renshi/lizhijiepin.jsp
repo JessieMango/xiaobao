@@ -90,14 +90,14 @@
 									{
 										field : 'username',
 										title : '姓名',
-										width : "20%",
+										width : "10%",
 										align : 'center'
 
 									},
 									{
 										field : 'gender',
 										title : '性别',
-										width : "6%",
+										width : "4%",
 										formatter : function(value, row, index) {
 											switch (value) {
 											case '0':
@@ -130,7 +130,7 @@
 									{
 										field : 'contractState',
 										title : '合同',
-										width : "9%",
+										width : "7%",
 										align : 'center',
 										formatter : function(value, row) {
 											if (value == 0) {
@@ -143,7 +143,7 @@
 									{
 										field : 'socialsecurityStatus',
 										title : '社保',
-										width : "9%",
+										width : "7%",
 										align : 'center',
 										formatter : function(value, row) {
 											if (value == 0) {
